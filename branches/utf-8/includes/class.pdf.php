@@ -10,6 +10,9 @@
 	extended for Chinese/Japanese/Korean support by Phil Daintree
 	
 	Chinese GB&BIG5 support by Edward Yang <edward.yangcn@gmail.com>
+
+	Moving from FPDF to TCPDF to support UTF-8 by:
+		Javier de Lorenzo-Cáceres <info@civicom.eu> 
 	
 */
 
@@ -17,7 +20,7 @@
 // define('FPDF_FONTPATH','./fonts/');
 // include ('includes/fpdf.php');
 
-// Javier: With TCPDF ...
+// Javier: ... with TCPDF ...
 // require_once('includes/tcpdf/config/lang/eng.php');
 // require_once('includes/tcpdf/tcpdf.php');
 
@@ -83,8 +86,8 @@ class Cpdf extends PDF_Language {
 */
 	}
 
-// Javier: We will use just two fonts and still have not seen styles but for sure that
-//         style is not in the font's name	
+// Javier: We now use just two fonts (Helvetica will added) and still have not seen styles
+//         styles are not in the font's name except Helvetica. Needs checking.	
 	function selectFont($FontName) {
 /*		
 		$type = '';
@@ -107,9 +110,9 @@ class Cpdf extends PDF_Language {
 		}
 */
 		if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-			$this->SetFont('stsongstdlight-javier', '', 11);
+			$this->SetFont('javiergb', '', 11);
 		} else {
-			$this->SetFont('javierjp3', '', 11); // $this->SetFont('kozminproregular', '', 11); //$this->SetFont($FontName, $type);
+			$this->SetFont('javierjp', '', 11); //$this->SetFont($FontName, $type);
 		}
 	}
 
@@ -241,7 +244,7 @@ class Cpdf extends PDF_Language {
 		$this->_out($tmp);
 	}
 
-// Javier: maybe we should give a file's name	
+// Javier: We should give a file's name if we don't want file extension to be php.
 	function Stream() {
 	$this->Output('','I');
 	}
