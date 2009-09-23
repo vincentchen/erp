@@ -37,9 +37,9 @@ function PDF() {
 
 // Javier	$this->SetFont($Prefs['coynamefont']);
 	if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-		$this->SetFont('stsongstdlight-javier');
+		$this->SetFont('javiergb');
 	} else {
-		$this->SetFont('javierjp3');
+		$this->SetFont('javierjp');
 	}
 
 	$this->SetDrawColor(128,0,0);
@@ -69,9 +69,9 @@ function Header() {
 // Javier: Look at the font style, B removed
 //			$this->SetFont($Prefs['coynamefont'],'B',$Prefs['coynamefontsize']);
 		if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-			$this->SetFont('stsongstdlight-javier', '', $Prefs['coynamefontsize']);
+			$this->SetFont('javiergb', '', $Prefs['coynamefontsize']);
 		} else {
-			$this->SetFont('javierjp3', '', $Prefs['coynamefontsize']);
+			$this->SetFont('javierjp', '', $Prefs['coynamefontsize']);
 		}
 		$Colors = explode(':',$Prefs['coynamefontcolor']);
 		$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
@@ -82,9 +82,9 @@ function Header() {
 
 // Javier		$this->SetFont($Prefs['title1font'],'',$Prefs['title1fontsize']);
 		if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-			$this->SetFont('stsongstdlight-javier', '', $Prefs['title1fontsize']);
+			$this->SetFont('javiergb', '', $Prefs['title1fontsize']);
 		} else {
-			$this->SetFont('javierjp3','',$Prefs['title1fontsize']);
+			$this->SetFont('javierjp','',$Prefs['title1fontsize']);
 		}
 		$Colors = explode(':',$Prefs['title1fontcolor']);
 		$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
@@ -94,9 +94,9 @@ function Header() {
 	if ($Prefs['title2show']) { // Set Title 2 heading
 // Javier		$this->SetFont($Prefs['title2font'],'',$Prefs['title2fontsize']);
 		if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-			$this->SetFont('stsongstdlight-javier', '', $Prefs['title2fontsize']);
+			$this->SetFont('javiergb', '', $Prefs['title2fontsize']);
 		} else {
-			$this->SetFont('javierjp3','',$Prefs['title2fontsize']);
+			$this->SetFont('javierjp','',$Prefs['title2fontsize']);
 		}
 		$Colors = explode(':',$Prefs['title2fontcolor']);
 		$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
@@ -107,9 +107,9 @@ function Header() {
 
 // Javier	$this->SetFont($Prefs['filterfont'],'',$Prefs['filterfontsize']);
 	if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-		$this->SetFont('stsongstdlight-javier', '', $Prefs['filterfontsize']);
+		$this->SetFont('javiergb', '', $Prefs['filterfontsize']);
 	} else {
-		$this->SetFont('javierjp3','',$Prefs['filterfontsize']);
+		$this->SetFont('javierjp','',$Prefs['filterfontsize']);
 	}
 
 	$Colors = explode(':',$Prefs['filterfontcolor']);
@@ -121,9 +121,9 @@ function Header() {
 
 // Javier	$this->SetFont($Prefs['datafont'],'',$Prefs['datafontsize']);
 	if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-		$this->SetFont('stsongstdlight-javier', '', $Prefs['datafontsize']);
+		$this->SetFont('javiergb', '', $Prefs['datafontsize']);
 	} else {
-		$this->SetFont('javierjp3','',$Prefs['datafontsize']);
+		$this->SetFont('javierjp','',$Prefs['datafontsize']);
 	}
 
 	$Colors = explode(':',$Prefs['datafontcolor']);
@@ -178,9 +178,9 @@ function Footer() {
 
 // Javier	$this->SetFont('Helvetica','',8);
 	if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-		$this->SetFont('stsongstdlight-javier', '', 8);
+		$this->SetFont('javiergb', '', 8);
 	} else {
-		$this->SetFont('javierjp3','',8);
+		$this->SetFont('javierjp','',8);
 	}
 	
 	$this->SetTextColor(0);
@@ -195,9 +195,9 @@ function ReportTable($Data) {
 
 // Javier	$this->SetFont($Prefs['datafont'],'',$Prefs['datafontsize']);
 	if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-		$this->SetFont('stsongstdlight-javier', '', $Prefs['datafontsize']);
+		$this->SetFont('javiergb', '', $Prefs['datafontsize']);
 	} else {
-		$this->SetFont('javierjp3','',$Prefs['datafontsize']);
+		$this->SetFont('javierjp','',$Prefs['datafontsize']);
 	}
 
 	$this->SetFillColor($FillColor[0],$FillColor[1],$FillColor[2]);

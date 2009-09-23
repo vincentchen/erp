@@ -38,9 +38,9 @@ class PDF extends PDF_Language {
 
 // Javier		$this->SetFont('Helvetica');
 		if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-			$this->SetFont('stsongstdlight-javier');
+			$this->SetFont('javiergb');
 		} else {
-			$this->SetFont('javierjp3');
+			$this->SetFont('javierjp');
 		}
 
 		$this->SetDrawColor(128,0,0);
@@ -110,9 +110,9 @@ class PDF extends PDF_Language {
 
 // Javier			$this->SetFont('Helvetica','','10');
 			if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-				$this->SetFont('stsongstdlight-javier', '', 10);
+				$this->SetFont('javiergb', '', 10);
 			} else {
-				$this->SetFont('javierjp3', '', 10);
+				$this->SetFont('javierjp', '', 10);
 			}
 
 			$this->SetTextColor(255,0,0);
@@ -176,9 +176,9 @@ class PDF extends PDF_Language {
 // Javier: we don't have the choice to select font
 //			$this->SetFont($Params['Font'],'',$Params['FontSize']);
 		if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-			$this->SetFont('stsongstdlight-javier', '', $Params['FontSize']);
+			$this->SetFont('javiergb', '', $Params['FontSize']);
 		} else {
-			$this->SetFont('javierjp3', '', $Params['FontSize']);
+			$this->SetFont('javierjp', '', $Params['FontSize']);
 		}
 
 		if ($Params['Color']=='2') $RGB=$Params['FontRed'].':'.$Params['FontGreen'].':'.$Params['FontBlue'];
@@ -261,9 +261,9 @@ class PDF extends PDF_Language {
 // Javier: we don't have the choice to select a font
 //					$this->SetFont($Params['Seq'][$Col]['Font'],'',$Params['Seq'][$Col]['FontSize']);
 				if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
-					$this->SetFont('stsongstdlight-javier', '', $Params['Seq'][$Col]['FontSize']);
+					$this->SetFont('javiergb', '', $Params['Seq'][$Col]['FontSize']);
 				} else {
-					$this->SetFont('javierjp3', '', $Params['Seq'][$Col]['FontSize']);
+					$this->SetFont('javierjp', '', $Params['Seq'][$Col]['FontSize']);
 				}
 
 				$TC = explode(':',$Params['Seq'][$Col]['FontColor']);
