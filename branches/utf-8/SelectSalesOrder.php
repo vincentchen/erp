@@ -1,6 +1,6 @@
 <?php
 
-/* $Revision: 1.19 $ */
+/* $Revision: 1.21 $ */
 
 $PageSecurity = 2;
 
@@ -13,13 +13,13 @@ echo '<p class="page_title_text"><img src="'.$rootpath.'/css/'.$theme.'/images/s
 echo '<form action=' . $_SERVER['PHP_SELF'] .'?' .SID . ' method=post>';
 
 
-If (isset($_POST['ResetPart'])){
+if (isset($_POST['ResetPart'])){
      unset($_REQUEST['SelectedStockItem']);
 }
 
 echo '<p><div class="centre">';
 
-If (isset($_REQUEST['OrderNumber']) AND $_REQUEST['OrderNumber']!='') {
+if (isset($_REQUEST['OrderNumber']) AND $_REQUEST['OrderNumber']!='') {
 	$_REQUEST['OrderNumber'] = trim($_REQUEST['OrderNumber']);
 	if (!is_numeric($_REQUEST['OrderNumber'])){
 		  echo '<br><b>' . _('The Order Number entered MUST be numeric') . '</b><br>';
@@ -30,21 +30,21 @@ If (isset($_REQUEST['OrderNumber']) AND $_REQUEST['OrderNumber']!='') {
 		echo _('Order Number') . ' - ' . $_REQUEST['OrderNumber'];
 	}
 } else {
-	If (isset($_REQUEST['SelectedCustomer'])) {
+	if (isset($_REQUEST['SelectedCustomer'])) {
 		echo _('For customer') . ': ' . $_REQUEST['SelectedCustomer'] . ' ' . _('and') . ' ';
 		echo "<input type=hidden name='SelectedCustomer' value=" . $_REQUEST['SelectedCustomer'] . '>';
 	}
-	If (isset($_REQUEST['SelectedStockItem'])) {
+	if (isset($_REQUEST['SelectedStockItem'])) {
 		 echo _('for the part') . ': ' . $_REQUEST['SelectedStockItem'] . ' ' . _('and') . " <input type=hidden name='SelectedStockItem' value='" . $_REQUEST['SelectedStockItem'] . "'>";
 	}
 }
 
 if (isset($_POST['SearchParts'])){
 
-	If ($_POST['Keywords'] AND $_POST['StockCode']) {
+	if ($_POST['Keywords'] AND $_POST['StockCode']) {
 		echo _('Stock description keywords have been used in preference to the Stock code extract entered');
 	}
-	If ($_POST['Keywords']) {
+	if ($_POST['Keywords']) {
 		//insert wildcard characters in spaces
 		$i=0;
 		$SearchString = '%';
@@ -183,13 +183,13 @@ if (!isset($StockID)) {
       		<td><input type='Text' name='Keywords' size=20 maxlength=25></td>
 	</tr>
       	<tr><td></td>
-      		<td><font SIZE 3><b>" . _('OR') . ' </b></font><font size=1>' . _('Enter extract of the Stock Code') . "</b>:</font></td>
+      		<td><font size 3><b>" . _('OR') . ' </b></font><font size=1>' . _('Enter extract of the Stock Code') . "</b>:</font></td>
       		<td><input type='Text' name='StockCode' size=15 maxlength=18></td>
       	</tr>
       </table>
       <hr>";
 
-If (isset($StockItemsResult)) {
+if (isset($StockItemsResult)) {
 
 	echo '<table cellpadding=2 colspan=7 BORDER=2>';
 	$TableHeader = "<tr>
@@ -215,7 +215,7 @@ If (isset($StockItemsResult)) {
 
 		printf("<td><input type=submit name='SelectedStockItem' VALUE='%s'</td>
 			<td>%s</td>
-			<td align=right>%s</td>
+			<td class=number>%s</td>
 			<td>%s</td>
 			</tr>",
 			$myrow['stockid'],
@@ -224,7 +224,7 @@ If (isset($StockItemsResult)) {
 			$myrow['units']);
 
 		$j++;
-		If ($j == 12){
+		if ($j == 12){
 			$j=1;
 			echo $TableHeader;
 		}
@@ -417,7 +417,8 @@ If (isset($StockItemsResult)) {
 		$tableheader = "<tr>
 				<th>" . _('Modify') . "</th>
 				<th>" . _('Invoice') . "</th>
-				<th>" . _('Disp. Note') . "</th>
+				<th>" . _('Dispatch Note') . "</th>
+				<th>" . _('Sales Order') . "</th>
 				<th>" . _('Customer') . "</th>
 				<th>" . _('Branch') . "</th>
 				<th>" . _('Cust Order') . " #</th>
@@ -461,6 +462,7 @@ If (isset($StockItemsResult)) {
 		} else { /*pre-printed stationery default */
 			$PrintDispatchNote = $rootpath . '/PrintCustOrder.php?' . SID . '&TransNo=' . $myrow['orderno'];
 		}
+		$PrintSalesOrder = $rootpath . '/PrintSalesOrder_generic.php?' . SID . '&TransNo=' . $myrow['orderno'];
 		$PrintQuotation = $rootpath . '/PDFQuotation.php?' . SID . '&QuotationNo=' . $myrow['orderno'];
 		$FormatedDelDate = ConvertSQLDate($myrow['deliverydate']);
 		$FormatedOrderDate = ConvertSQLDate($myrow['orddate']);
@@ -475,19 +477,21 @@ If (isset($StockItemsResult)) {
 		if ($_POST['Quotations']=='Orders_Only'){
 			printf("<td><a href='%s'>%s</a></td>
 				<td><a href='%s'>" . _('Invoice') . "</a></td>
-				<td><a target='_blank' href='%s'>" . $PrintText . "</a></td>
+				<td><a target='_blank' href='%s'>" . $PrintText . " <IMG SRC='" .$rootpath."/css/".$theme."/images/pdf.png' title='" . _('Click for PDF') . "'></a></td>
+				<td><a target='_blank' href='%s'>" . $PrintText . " <IMG SRC='" .$rootpath."/css/".$theme."/images/pdf.png' title='" . _('Click for PDF') . "'></a></td>
 				<td>%s</td>
 				<td>%s</td>
 				<td>%s</td>
 				<td>%s</td>
 				<td>%s</td>
 				<td>%s</td>
-				<td align=right>%s</td>
+				<td class=number>%s</td>
 				</tr>",
 				$ModifyPage,
 				$myrow['orderno'],
 				$Confirm_Invoice,
 				$PrintDispatchNote,
+				$PrintSalesOrder,
 				$myrow['name'],
 				$myrow['brname'],
 				$myrow['customerref'],
@@ -504,7 +508,7 @@ If (isset($StockItemsResult)) {
 				<td>%s</td>
 				<td>%s</td>
 				<td>%s</td>
-				<td align=right>%s</td>
+				<td class=number>%s</td>
 				</tr>",
 				$ModifyPage,
 				$myrow['orderno'],
@@ -519,7 +523,7 @@ If (isset($StockItemsResult)) {
 		}
 		
 		$j++;
-		If ($j == 12){
+		if ($j == 12){
 			$j=1;
 			echo $tableheader;
 		}
