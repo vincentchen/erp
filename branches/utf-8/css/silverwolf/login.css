@@ -28,6 +28,11 @@ body {
 	background: #fff url(../webERP.gif) repeat-x left bottom;
 }
 
+select{
+	width: 200px;
+	margin:0 0 10px 50px;
+}
+
 input{
 	width: 200px;
 	border: solid #e3e3e3 1px;
