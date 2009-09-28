@@ -1,3 +1,4 @@
+﻿@charset "utf-8";
 body {
 	padding: 0px;
 	margin: 0px;
@@ -30,29 +31,29 @@ body {
 
 select{
 	width: 200px;
-	margin:0 0 10px 50px;
+	margin: 0 0 10px 50px;
 }
 
 input{
 	width: 200px;
 	border: solid #e3e3e3 1px;
-	height:25px;
+	height: 25px;
 	background:url(images/input_bg.png) repeat-x left top;
-	padding:4px 0;
-	vertical-align:middle;
-	margin-left:50px;
-	margin-bottom:10px;
+	padding: 4px 0;
+	vertical-align: middle;
+	margin-left: 50px;
+	margin-bottom: 10px;
 }
 
 input:hover {
 	border: solid #aad4e3 1px;
-	background-position:left bottom;
+	background-position: left bottom;
 }
 
 input.button {
 	font-weight: bold;
 	color: #fff;
-	background:url(images/menu_bg.png) 0px -8px repeat-x;
+	background: url(images/menu_bg.png) 0px -8px repeat-x;
 	border: solid #e3e3e3 1px;
 	padding: 0px;
 	margin-top: 10px;
@@ -60,16 +61,16 @@ input.button {
 }
 
 input.button:hover {
-	background:url(images/menu_bg_dblue.png) 0px -8px repeat-x;
+	background: url(images/menu_bg_dblue.png) 0px -8px repeat-x;
 }
 
 label{
-	width:200px;
-	padding-top:7px;
-	padding-left:50px;
+	width: 200px;
+	padding-top: 7px;
+	padding-left: 50px;
 }
 
 #demo_text{
-	margin-left:50px;
-	width:200px;
+	margin-left: 50px;
+	width: 200px;
 }
