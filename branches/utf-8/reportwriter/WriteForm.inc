@@ -37,7 +37,9 @@ class PDF extends PDF_Language {
 		$this->SetAutoPageBreak(0, $Prefs['marginbottom']);
 
 // Javier		$this->SetFont('Helvetica');
-		if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
+		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+			$this->SetFont('helvetica');
+		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
 			$this->SetFont('javiergb');
 		} else {
 			$this->SetFont('javierjp');
@@ -108,8 +110,10 @@ class PDF extends PDF_Language {
 			}
 			$this->SetXY($Params['LineXStrt'],$Params['LineYStrt']);
 
-// Javier			$this->SetFont('Helvetica','','10');
-			if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
+// Javier			$this->SetFont('Helvetica', '', '10');
+			if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+				$this->SetFont('helvetica', '', '10');
+			} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
 				$this->SetFont('javiergb', '', 10);
 			} else {
 				$this->SetFont('javierjp', '', 10);
@@ -173,9 +177,11 @@ class PDF extends PDF_Language {
 		if (!isset($Params['LineXStrt'])) return;	// don't do anything if data array has not been set
 		$this->SetXY($Params['LineXStrt'],$Params['LineYStrt']);
 
-// Javier: we don't have the choice to select font
+// Javier: CJK don't have the choice to select a font
 //			$this->SetFont($Params['Font'],'',$Params['FontSize']);
-		if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
+		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+			$this->SetFont($Params['Font'], '',$Params['FontSize']);
+		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
 			$this->SetFont('javiergb', '', $Params['FontSize']);
 		} else {
 			$this->SetFont('javierjp', '', $Params['FontSize']);
@@ -258,9 +264,11 @@ class PDF extends PDF_Language {
 				$this->SetLeftMargin($NextXPos);
 				$this->SetXY($NextXPos, $this->y0);
 
-// Javier: we don't have the choice to select a font
-//					$this->SetFont($Params['Seq'][$Col]['Font'],'',$Params['Seq'][$Col]['FontSize']);
-				if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
+// Javier: CJK don't have the choice to select a font
+//					$this->SetFont($Params['Seq'][$Col]['Font'], '', $Params['Seq'][$Col]['FontSize']);
+				if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+					$this->SetFont($Params['Seq'][$Col]['Font'], '', $Params['Seq'][$Col]['FontSize']);
+				} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
 					$this->SetFont('javiergb', '', $Params['Seq'][$Col]['FontSize']);
 				} else {
 					$this->SetFont('javierjp', '', $Params['Seq'][$Col]['FontSize']);
