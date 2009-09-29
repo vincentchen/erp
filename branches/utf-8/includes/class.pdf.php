@@ -57,7 +57,7 @@ class PDF_Language extends TCPDF {
 
 class Cpdf extends PDF_Language {
 
-// Javier: Maybe this should be set in a per report basis or set them as variables.	
+// Javier: Maybe this should be set in a per-report basis or set them as variables.	
 	function Cpdf($pageSize=array(0,0,612,792)) {
 	
 		$this->PDF_Language( 'P', 'pt',array($pageSize[2]-$pageSize[0],$pageSize[3]-$pageSize[1]));
@@ -86,7 +86,7 @@ class Cpdf extends PDF_Language {
 */
 	}
 
-// Javier: We now use just two fonts (Helvetica will added) and still have not seen styles
+// Javier: We now use just three fonts and still have not seen styles for CJK,
 //         styles are not in the font's name except Helvetica. Needs checking.	
 	function selectFont($FontName) {
 /*		
@@ -109,11 +109,15 @@ class Cpdf extends PDF_Language {
 			$FontName ='helvetica';
 		}
 */
-		if ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8'){
+// Javier		$this->SetFont($FontName, $type);
+		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+			$this->SetFont('helvetica', '', 11);
+		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
 			$this->SetFont('javiergb', '', 11);
 		} else {
-			$this->SetFont('javierjp', '', 11); //$this->SetFont($FontName, $type);
+			$this->SetFont('javierjp', '', 11);
 		}
+
 	}
 
 	function newPage() {
@@ -148,7 +152,8 @@ class Cpdf extends PDF_Language {
 */			$this->SetCreator(PDF_CREATOR);
 		}
 		if($label=='Author') {
-			$this->SetAuthor($value);
+// Javier		$this->SetAuthor($value);
+			$this->SetAuthor('Nicola Asuni');
 		}
 	}
 	
@@ -244,7 +249,7 @@ class Cpdf extends PDF_Language {
 		$this->_out($tmp);
 	}
 
-// Javier: We should give a file's name if we don't want file extension to be php.
+// Javier: We should give a file's name if we don't want file extension to be .php
 	function Stream() {
 	$this->Output('','I');
 	}
