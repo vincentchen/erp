@@ -1,4 +1,4 @@
-CREATE DATABASE weberpdemo;
+CREATE DATABASE IF NOT EXISTS weberpdemo DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 USE weberpdemo;
 SET FOREIGN_KEY_CHECKS = 0;
 -- MySQL dump 10.11
@@ -2480,7 +2480,7 @@ CREATE TABLE `www_users` (
   `blocked` tinyint(4) NOT NULL default '0',
   `displayrecordsmax` int(11) NOT NULL default '0',
   `theme` varchar(30) NOT NULL default 'fresh',
-  `language` varchar(5) NOT NULL default 'en_GB',
+  `language` varchar(10) NOT NULL default 'en_GB.utf8',
   PRIMARY KEY  (`userid`),
   KEY `CustomerID` (`customerid`),
   KEY `DefaultLocation` (`defaultlocation`),
@@ -7778,7 +7778,7 @@ INSERT INTO `workorders` VALUES (9,'MEL','2009-02-04','2009-02-04',0,0);
 -- Dumping data for table `www_users`
 --
 
-INSERT INTO `www_users` VALUES ('admin','weberp','Demonstration user','','','','','MEL',8,'2005-04-29 21:34:05','','A4','1,1,1,1,1,1,1,1,1,',0,50,'jelly','en_GB');
+INSERT INTO `www_users` VALUES ('admin','weberp','Demonstration user','','','','','MEL',8,'2005-04-29 21:34:05','','A4','1,1,1,1,1,1,1,1,1,',0,50,'jelly','en_GB.utf8');
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

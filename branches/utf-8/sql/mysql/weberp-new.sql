@@ -2478,7 +2478,7 @@ CREATE TABLE `www_users` (
   `blocked` tinyint(4) NOT NULL default '0',
   `displayrecordsmax` int(11) NOT NULL default '0',
   `theme` varchar(30) NOT NULL default 'fresh',
-  `language` varchar(5) NOT NULL default 'en_GB',
+  `language` varchar(10) NOT NULL default 'en_GB.utf8',
   PRIMARY KEY  (`userid`),
   KEY `CustomerID` (`customerid`),
   KEY `DefaultLocation` (`defaultlocation`),
@@ -2825,7 +2825,7 @@ INSERT INTO `taxprovinces` VALUES (1,'Default Tax province');
 -- Dumping data for table `www_users`
 --
 
-INSERT INTO `www_users` VALUES ('admin','weberp','Demonstration user','','','','','MEL',8,'2005-04-29 21:34:05','','A4','1,1,1,1,1,1,1,1,1,',0,50,'jelly','en_GB');
+INSERT INTO `www_users` VALUES ('admin','weberp','Demonstration user','','','','','MEL',8,'2005-04-29 21:34:05','','A4','1,1,1,1,1,1,1,1,1,',0,50,'jelly','en_GB.utf8');
 
 --
 -- Dumping data for table `edi_orders_segs`
