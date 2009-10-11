@@ -223,7 +223,6 @@ CREATE TABLE `chartmaster` (
   `accountname` char(50) NOT NULL DEFAULT '',
   `group_` char(30) NOT NULL DEFAULT '',
   PRIMARY KEY (`accountcode`),
-  KEY `AccountCode` (`accountcode`),
   KEY `AccountName` (`accountname`),
   KEY `Group_` (`group_`),
   CONSTRAINT `chartmaster_ibfk_1` FOREIGN KEY (`group_`) REFERENCES `accountgroups` (`groupname`)

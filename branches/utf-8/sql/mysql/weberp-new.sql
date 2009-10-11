@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS YourCompanyName DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-USE YourCompanyName;
+CREATE DATABASE IF NOT EXISTS MyCompanyName DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+USE MyCompanyName;
 
 SET FOREIGN_KEY_CHECKS = 0;
 -- MySQL dump 10.13  Distrib 5.1.35, for pc-linux-gnu (i686)
@@ -223,7 +223,6 @@ CREATE TABLE `chartmaster` (
   `accountname` char(50) NOT NULL DEFAULT '',
   `group_` char(30) NOT NULL DEFAULT '',
   PRIMARY KEY (`accountcode`),
-  KEY `AccountCode` (`accountcode`),
   KEY `AccountName` (`accountname`),
   KEY `Group_` (`group_`),
   CONSTRAINT `chartmaster_ibfk_1` FOREIGN KEY (`group_`) REFERENCES `accountgroups` (`groupname`)
