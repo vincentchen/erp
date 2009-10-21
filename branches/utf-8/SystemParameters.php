@@ -355,7 +355,7 @@ echo '<tr><td>' . _('Show Settled Last Month') . ':</td>
 
 //RomalpaClause
 echo '<tr><td>' . _('Romalpa Clause') . ':</td>
-	<td><textarea Name="X_RomalpaClause" rows=3 cols=40>' . htmlentities($_SESSION['RomalpaClause']) . '</textarea></td>
+	<td><textarea Name="X_RomalpaClause" rows=3 cols=40>' . $_SESSION['RomalpaClause'] . '</textarea></td>
 	<td>' . _('This text appears on invoices and credit notes in small print. Normally a reservation of title clause that gives the company rights to collect goods which have not been paid for - to give some protection for bad debts.') . '</td></tr>';
 
 // QuickEntries
