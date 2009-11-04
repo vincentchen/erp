@@ -63,13 +63,13 @@ if (isset($_POST['StockID2']) && $_GET['Edit']=='') {
 	$_POST['cuft'] = $myrow[6];
 } // end if (isset($_POST['StockID2']) && $_GET['Edit']=='')
 
-if (isset($_POST['UpdateLines'])) {
+if (isset($_POST['UpdateLines']) OR isset($_POST['Commit'])) {
 	foreach ($_SESSION['PO'.$identifier]->LineItems as $POLine) {
 		if ($POLine->Deleted==False) {
-			$POLine->Quantity=$_POST['Qty'.$POLine->LineNo];
-			$POLine->Price=$_POST['Price'.$POLine->LineNo];
-			$POLine->nw=$_POST['nw'.$POLine->LineNo];
-			$POLine->ReqDelDate=$_POST['ReqDelDate'.$POLine->LineNo];
+			$_SESSION['PO'.$identifier]->LineItems[$POLine->LineNo]->Quantity=$_POST['Qty'.$POLine->LineNo];
+			$_SESSION['PO'.$identifier]->LineItems[$POLine->LineNo]->Price=$_POST['Price'.$POLine->LineNo];
+			$_SESSION['PO'.$identifier]->LineItems[$POLine->LineNo]->nw=$_POST['nw'.$POLine->LineNo];
+			$_SESSION['PO'.$identifier]->LineItems[$POLine->LineNo]->ReqDelDate=$_POST['ReqDelDate'.$POLine->LineNo];
 		}
 	}
 }
@@ -104,8 +104,13 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 			$date = date($_SESSION['DefaultDateFormat']);
 			$StatusComment=$date.' - Order Created by <a href="mailto:'.$emailrow['email'].'">'.$_SESSION['PO'.$identifier]->Initiator.
 				'</a> - '.$_SESSION['PO'.$identifier]->StatusMessage.'<br>';
-			/*Insert to purchase order header record */
+			
+			/*Get the order number */
+             $_SESSION['PO'.$identifier]->OrderNo =  GetNextTransNo(18, $db);
+             
+ 			/*Insert to purchase order header record */
 			$sql = "INSERT INTO purchorders (
+					orderno,
 					supplierno,
 					comments,
 					orddate,
@@ -126,10 +131,10 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 					status,
 					stat_comment,
 					deliverydate)
-				VALUES(
+				VALUES(" . $_SESSION['PO'.$identifier]->OrderNo . ",
 					'" . $_SESSION['PO'.$identifier]->SupplierID . "',
 					'" . $_SESSION['PO'.$identifier]->Comments . "',
-					'" . Date("Y-m-d") . "',
+					'" . Date('Y-m-d') . "',
 					'" . $_SESSION['PO'.$identifier]->ExRate . "',
 					'" . $_SESSION['PO'.$identifier]->Initiator . "',
 					'" . $_SESSION['PO'.$identifier]->RequisitionNo . "',
@@ -152,9 +157,6 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 			$ErrMsg =  _('The purchase order header record could not be inserted into the database because');
 			$DbgMsg = _('The SQL statement used to insert the purchase order header record and failed was');
 			$result = DB_query($sql,$db,$ErrMsg,$DbgMsg,true);
-
-			/*Get the auto increment value of the order number created from the SQL above */
-			$_SESSION['PO'.$identifier]->OrderNo =  GetNextTransNo(18, $db);
 
 		     /*Insert the purchase order detail records */
 			foreach ($_SESSION['PO'.$identifier]->LineItems as $POLine) {
@@ -179,8 +181,7 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 							gw,
 							cuft,
 							total_quantity,
-							total_amount
-							)
+							total_amount)
 					VALUES (
 							" . $_SESSION['PO'.$identifier]->OrderNo . ",
 							'" . $POLine->StockID . "',
