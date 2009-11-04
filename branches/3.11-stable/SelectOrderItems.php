@@ -171,6 +171,19 @@ if (isset($_GET['ModifyOrderNumber'])
 		$_SESSION['Items'.$identifier]->DefaultPOLine = $myrow['customerpoline'];
 		$_SESSION['Items'.$identifier]->DeliveryDays = $myrow['estdeliverydays'];
 
+	//Get The exchange rate used for GPPercent calculations on adding or amending items
+		if ($_SESSION['Items'.$identifier]->DefaultCurrency != $_SESSION['CompanyRecord']['currencydefault']) {
+			$ExRateResult = DB_query("SELECT rate FROM currencies WHERE currabrev='" . $_SESSION['Items'.$identifier]->DefaultCurrency . "'",$db);
+			if (DB_num_rows($ExRateResult)>0){
+				$ExRateRow = DB_fetch_row($ExRateResult);
+				$ExRate = $ExRateRow[0];
+			} else {
+				$ExRate =1;
+			}
+		} else {
+			$ExRate = 1;
+		}
+
 /*need to look up customer name from debtors master then populate the line items array with the sales order details records */
 
 			$LineItemsSQL = "SELECT salesorderdetails.orderlineno,
@@ -235,8 +248,8 @@ if (isset($_GET['ModifyOrderNumber'])
 														$myrow['poline'],
 														$myrow['standardcost'],
 														$myrow['eoq'],
-														$myrow['nextserialno']
-																				);
+														$myrow['nextserialno'],
+														$ExRate );
 								
 				/*Just populating with existing order - no DBUpdates */
 					}
@@ -872,17 +885,33 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 #Always do the stuff below if not looking for a customerid
 
 	echo '<form action="' . $_SERVER['PHP_SELF'] . '?' . SID .'identifier='.$identifier . '"& name="SelectParts" method=post>';
-
+	
+ //Get The exchange rate used for GPPercent calculations on adding or amending items
+	if ($_SESSION['Items'.$identifier]->DefaultCurrency != $_SESSION['CompanyRecord']['currencydefault']){
+		$ExRateResult = DB_query("SELECT rate FROM currencies WHERE currabrev='" . $_SESSION['Items'.$identifier]->DefaultCurrency . "'",$db);
+		if (DB_num_rows($ExRateResult)>0){
+				$ExRateRow = DB_fetch_row($ExRateResult);
+				$ExRate = $ExRateRow[0];
+		} else {
+				$ExRate =1;
+		}
+	} else {
+		$ExRate = 1;
+	}
+ 
 	/*Process Quick Entry */
 
-	 if (isset($_POST['order_items']) or isset($_POST['QuickEntry']) or isset($_POST['Recalculate'])){ // if enter is pressed on the quick entry screen, the default button may be Recalculate
-	     /* get the item details from the database and hold them in the cart object */
+      /* If enter is pressed on the quick entry screen, the default button may be Recalculate */
+	if (isset($_POST['order_items'])
+		OR isset($_POST['QuickEntry'])
+		OR isset($_POST['Recalculate'])){
+		/* get the item details from the database and hold them in the cart object */
+	
+		/*Discount can only be set later on  -- after quick entry -- so default discount to 0 in the first place */
+	    $Discount = 0;
 
-	     /*Discount can only be set later on  -- after quick entry -- so default discount to 0 in the first place */
-	     $Discount = 0;
-
-	     $i=1;
-	      while ($i<=$_SESSION['QuickEntries'] and isset($_POST['part_' . $i]) and $_POST['part_' . $i]!='') {
+	    $i=1;
+	     while ($i<=$_SESSION['QuickEntries'] and isset($_POST['part_' . $i]) and $_POST['part_' . $i]!='') {
 			$QuickEntryCode = 'part_' . $i;
 			$QuickEntryQty = 'qty_' . $i;
 			$QuickEntryPOLine = 'poline_' . $i;
@@ -982,25 +1011,12 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 
 				$Quantity = $_POST['Quantity_' . $OrderLine->LineNumber];
 				
-				if ($OrderLine->Price == $_POST['Price_' . $OrderLine->LineNumber]
-							AND ABS($OrderLine->DiscountPercent - ($_POST['Discount_' . $OrderLine->LineNumber]/100)) < 0.001
-							AND is_numeric($_POST['GPPercent_' . $OrderLine->LineNumber])
-							AND $_POST['GPPercent_' . $OrderLine->LineNumber]<100
-							AND $_POST['GPPercent_' . $OrderLine->LineNumber]>0) {
-
-					if ($_SESSION['Items'.$identifier]->DefaultCurrency != $_SESSION['CompanyRecord']['currencydefault']){
-							$ExRateResult = DB_query("SELECT rate FROM currencies WHERE currabrev='" . $_SESSION['Items'.$identifier]->DefaultCurrency . "'",$db);
-							if (DB_num_rows($ExRateResult)>0){
-								$ExRateRow = DB_fetch_row($ExRateResult);
-								$ExRate = $ExRateRow[0];
-							} else {
-								$ExRate =1;
-							}
-					} else {
-						$ExRate = 1;
-					}
-					$Price = round(($OrderLine->StandardCost*$ExRate)/(1 -(($_POST['GPPercent_' . $OrderLine->LineNumber]+$_POST['Discount_' . $OrderLine->LineNumber])/100)),3);
-
+				if (ABS($OrderLine->Price - $_POST['Price_' . $OrderLine->LineNumber])>0.01){
+					$Price = $_POST['Price_' . $OrderLine->LineNumber];
+					$_POST['GPPercent_' . $OrderLine->LineNumber] = (($Price*(1-($_POST['Discount_' . $OrderLine->LineNumber]/100))) - $OrderLine->StandardCost*$ExRate)/($Price *(1-$_POST['Discount_' . $OrderLine->LineNumber])/100);
+				} elseif (ABS($OrderLine->GPPercent - $_POST['GPPercent_' . $OrderLine->LineNumber])>=0.001) {
+					//then do a recalculation of the price at this new GP Percentage
+					$Price = ($OrderLine->StandardCost*$ExRate)/(1 -(($_POST['GPPercent_' . $OrderLine->LineNumber] + $_POST['Discount_' . $OrderLine->LineNumber])/100));
 				} else {
 					$Price = $_POST['Price_' . $OrderLine->LineNumber];
 				}
@@ -1010,40 +1026,42 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 				} else {
 					$Narrative = '';
 				}
-				$ItemDue = $_POST['ItemDue_' . $OrderLine->LineNumber];
-				$POLine = $_POST['POLine_' . $OrderLine->LineNumber];
 
 				if (!isset($OrderLine->DiscountPercent)) {
 					$OrderLine->DiscountPercent = 0;
 				}
 
-				if(!Is_Date($ItemDue)) {
+				if(!Is_Date($_POST['ItemDue_' . $OrderLine->LineNumber])) {
 					prnMsg(_('An invalid date entry was made for ') . ' ' . $NewItem . ' ' . _('The date entry') . ' ' . $ItemDue . ' ' . _('must be in the format') . ' ' . $_SESSION['DefaultDateFormat'],'warn');
 					//Attempt to default the due date to something sensible?
-					$ItemDue = DateAdd (Date($_SESSION['DefaultDateFormat']),'d', $_SESSION['Items'.$identifier]->DeliveryDays);
+					$_POST['ItemDue_' . $OrderLine->LineNumber] = DateAdd (Date($_SESSION['DefaultDateFormat']),'d', $_SESSION['Items'.$identifier]->DeliveryDays);
 				}
 				if ($Quantity<0 OR $Price <0 OR $DiscountPercentage >100 OR $DiscountPercentage <0){
 					prnMsg(_('The item could not be updated because you are attempting to set the quantity ordered to less than 0 or the price less than 0 or the discount more than 100% or less than 0%'),'warn');
-
 				} elseif($_SESSION['Items'.$identifier]->Some_Already_Delivered($OrderLine->LineNumber)!=0 AND $_SESSION['Items'.$identifier]->LineItems[$OrderLine->LineNumber]->Price != $Price) {
-
 					prnMsg(_('The item you attempting to modify the price for has already had some quantity invoiced at the old price the items unit price cannot be modified retrospectively'),'warn');
-
 				} elseif($_SESSION['Items'.$identifier]->Some_Already_Delivered($OrderLine->LineNumber)!=0 AND $_SESSION['Items'.$identifier]->LineItems[$OrderLine->LineNumber]->DiscountPercent != ($DiscountPercentage/100)) {
-
+					
 					prnMsg(_('The item you attempting to modify has had some quantity invoiced at the old discount percent the items discount cannot be modified retrospectively'),'warn');
-
+					
 				} elseif ($_SESSION['Items'.$identifier]->LineItems[$OrderLine->LineNumber]->QtyInv > $Quantity){
 					prnMsg( _('You are attempting to make the quantity ordered a quantity less than has already been invoiced') . '. ' . _('The quantity delivered and invoiced cannot be modified retrospectively'),'warn');
-				} elseif ($OrderLine->Quantity !=$Quantity OR $OrderLine->Price != $Price OR ABS($OrderLine->DiscountPercent -$DiscountPercentage/100) >0.001 OR $OrderLine->Narrative != $Narrative OR $OrderLine->ItemDue != $ItemDue OR $OrderLine->POLine != $POLine) {
+				} elseif ($OrderLine->Quantity !=$Quantity
+ 	  	                                                         OR $OrderLine->Price != $Price
+ 	  	                                                         OR ABS($OrderLine->DiscountPercent -$DiscountPercentage/100) >0.001
+ 	  	                                                         OR $OrderLine->Narrative != $Narrative
+ 	  	                                                         OR $OrderLine->ItemDue != $_POST['ItemDue_' . $OrderLine->LineNumber]
+ 	  	                                                         OR $OrderLine->POLine != $_POST['POLine_' . $OrderLine->LineNumber]) {
+	
 					$_SESSION['Items'.$identifier]->update_cart_item($OrderLine->LineNumber,
 										$Quantity,
 										$Price,
 										($DiscountPercentage/100),
 										$Narrative,
 										'Yes', /*Update DB */
-										$ItemDue, /*added line 8/23/2007 by Morris Kelly to get line item due date*/
-										$POLine);
+                                        $_POST['ItemDue_' . $OrderLine->LineNumber],
+	                                    $_POST['POLine_' . $OrderLine->LineNumber],
+	                                    $_POST['GPPercent_' . $OrderLine->LineNumber]);
 				}
 			} //page not called from itself - POST variables not set
 		}
@@ -1140,10 +1158,9 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 							}
 
 						} else { /*Its not a kit set item*/
-						$NewItemDue = date($_SESSION['DefaultDateFormat']);
-						$NewPOLine = 0;
-							
-						include('includes/SelectOrderItems_IntoCart.inc');
+							$NewItemDue = date($_SESSION['DefaultDateFormat']);
+							$NewPOLine = 0;
+							include('includes/SelectOrderItems_IntoCart.inc');
 						}
 
 					} /* end of if its a new item */
@@ -1204,22 +1221,10 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 			<th>' . _('QOH') . '</th>
 			<th>' . _('Unit') . '</th>
 			<th>' . _('Price') . '</th>';
+			
 		if (in_array(2,$_SESSION['AllowedPageSecurityTokens'])){	
 			echo '<th>' . _('Discount') . '</th>
 				  <th>' . _('GP %') . '</th>';
-			if (!isset($ExRate)){
-				if ($_SESSION['Items'.$identifier]->DefaultCurrency != $_SESSION['CompanyRecord']['currencydefault']){
-					$ExRateResult = DB_query("SELECT rate FROM currencies WHERE currabrev='" . $_SESSION['Items'.$identifier]->DefaultCurrency . "'",$db);
-					if (DB_num_rows($ExRateResult)>0){
-						$ExRateRow = DB_fetch_row($ExRateResult);
-						$ExRate = $ExRateRow[0];
-					} else {
-						$ExRate =1;
-					}
-				} else {
-					$ExRate = 1;
-				}
-			}
 		}
 		echo '<th>' . _('Total') . '</th>
 			  <th>' . _('Due Date') . '</th></tr>';
@@ -1229,12 +1234,8 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 		$_SESSION['Items'.$identifier]->totalWeight = 0;
 		$k =0;  //row colour counter
 		foreach ($_SESSION['Items'.$identifier]->LineItems as $OrderLine) {
-			if ($OrderLine->Price !=0){
-				$GPPercent = (($OrderLine->Price * (1 - $OrderLine->DiscountPercent)) - ($OrderLine->StandardCost * $ExRate))*100/$OrderLine->Price;
-			} else {
-				$GPPercent = 0;
-			}
 			$LineTotal = $OrderLine->Quantity * $OrderLine->Price * (1 - $OrderLine->DiscountPercent);
+			
 			$DisplayLineTotal = number_format($LineTotal,2);
 			$DisplayDiscount = number_format(($OrderLine->DiscountPercent * 100),2);
 			$QtyOrdered = $OrderLine->Quantity;
@@ -1273,8 +1274,8 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 				/*OK to display with discount if it is an internal user with appropriate permissions */
 
 				echo '<td><input class="number" onKeyPress="return restrictToNumbers(this, event)"  type=text name="Price_' . $OrderLine->LineNumber . '" size=16 maxlength=16 value=' . $OrderLine->Price . '></td>
-					<td><input class="number" onKeyPress="return restrictToNumbers(this, event)"  type=text name="Discount_' . $OrderLine->LineNumber . '" size=5 maxlength=4 value=' . ($OrderLine->DiscountPercent * 100) . '>%</td>
-					<td><input class="number" onKeyPress="return restrictToNumbers(this, event)"  type=text name="GPPercent_' . $OrderLine->LineNumber . '" size=5 maxlength=16 value=' . $GPPercent . '>%</td>';	
+					<td><input class="number" onKeyPress="return restrictToNumbers(this, event)"  type=text name="Discount_' . $OrderLine->LineNumber . '" size=5 maxlength=4 value=' . ($OrderLine->DiscountPercent * 100) . '></td>
+					<td><input class="number" onKeyPress="return restrictToNumbers(this, event)"  type=text name="GPPercent_' . $OrderLine->LineNumber . '" size=3 maxlength=40 value=' . $OrderLine->GPPercent . '></td>';	
 
 			} else {
 				echo '<td align=right>' . $OrderLine->Price . '</td><td></td>';
