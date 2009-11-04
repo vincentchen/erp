@@ -1,6 +1,6 @@
 <?php
 
-/* $Revision: 1.86 $ */
+/* $Revision: 1.89 $ */
 
 
 $PageSecurity = 1;
@@ -149,7 +149,7 @@ if (count($_SESSION['AllowedPageSecurityTokens'])==1){
 							</tr>
 							<tr>
 							<td class="menu_group_item">
-								<?php echo "<a href='" . $rootpath . '/PDFOrderStatus.php?' . SID . "'><LI>" . _('Order Status Reports (Print)') . '</LI></a>'; ?>
+								<?php echo "<a href='" . $rootpath . '/PDFOrderStatus.php?' . SID . "'><LI>" . _('Order Status Report') . '</LI></a>'; ?>
 							</td>
 							</tr>
 							<tr>
@@ -433,7 +433,7 @@ if (count($_SESSION['AllowedPageSecurityTokens'])==1){
 							</tr>
 							<tr>
 							<td class="menu_group_item">
-								<?php echo "<a href='" . $rootpath . '/PO_Header.php?&NewOrder=Yes' . SID . "'><LI>" . _('Add A Purchase Order') . '</LI></a>'; ?>
+								<?php echo "<a href='" . $rootpath . '/PO_Header.php?&NewOrder=Yes' . SID . "'><LI>" . _('Add Purchase Order') . '</LI></a>'; ?>
 							</td>
 							</tr>
 							<tr>
@@ -565,20 +565,20 @@ if (count($_SESSION['AllowedPageSecurityTokens'])==1){
 							</td>
 							</tr>
 							<tr>
-                                                        <td class="menu_group_item">
-                                                                <?php echo "<a href='" . $rootpath . '/InventoryQuantities.php?' . SID . "'><LI>" . _('Inventory Quantities') . '</LI></a>'; ?>
-                                                        </td>
-                                                        </tr>
+							<td class="menu_group_item">
+								<?php echo "<a href='" . $rootpath . '/InventoryQuantities.php?' . SID . "'><LI>" . _('Inventory Quantities') . '</LI></a>'; ?>
+							</td>
+							</tr>
 							<tr>
-                                                        <td class="menu_group_item">
-                                                                <?php echo "<a href='" . $rootpath . '/ReorderLevel.php?' . SID . "'><LI>" . _('Reorder Level') . '</LI></a>'; ?>
-                                                        </td>
-                                                        </tr>
+							<td class="menu_group_item">
+								<?php echo "<a href='" . $rootpath . '/ReorderLevel.php?' . SID . "'><LI>" . _('Reorder Level') . '</LI></a>'; ?>
+							</td>
+							</tr>
 							<tr>
-                                                        <td class="menu_group_item">
-                                                                <?php echo "<a href='" . $rootpath . '/StockDispatch.php?' . SID . "'><LI>" . _('Stock Dispatch') . '</LI></a>'; ?>
-                                                        </td>
-                                                        </tr>
+							<td class="menu_group_item">
+								<?php echo "<a href='" . $rootpath . '/StockDispatch.php?' . SID . "'><LI>" . _('Stock Dispatch') . '</LI></a>'; ?>
+							</td>
+							</tr>
 							<tr>
 							<td class="menu_group_item">
 								<?php echo "<a href='" . $rootpath . '/InventoryValuation.php?' . SID . "'><LI>" . _('Inventory Valuation Report') . '</LI></a>'; ?>
@@ -656,6 +656,11 @@ if (count($_SESSION['AllowedPageSecurityTokens'])==1){
 							<tr>
 							<td class="menu_group_item">
 								<?php echo "<a href='" . $rootpath . '/PricesBasedOnMarkUp.php?' . SID . "'><LI>" . _('Add or Update Prices Based On Costs') . '</LI></a>'; ?>
+							</td>
+							</tr>
+							<tr>
+							<td class="menu_group_item">
+								<?php echo "<a href='" . $rootpath . '/ReorderLevelLocation.php?' . SID . "'><LI>" . _('Reorder Level By Category/Location') . '</LI></a>'; ?>
 							</td>
 							</tr>
 						</table>
