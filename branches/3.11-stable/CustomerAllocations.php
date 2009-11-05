@@ -113,7 +113,7 @@ if (isset($_POST['UpdateDatabase'])) {
 							amt,
 							transid_allocfrom,
 							transid_allocto
-							) VALUES ('" . FormatDateForSQL(date('d/m/Y')) . "',
+							) VALUES ('" . date('Y-m-d')) . "',
 							" . $AllocnItem->AllocAmt . ',
 							' . $_SESSION['Alloc']->AllocTrans . ',
 							' . $AllocnItem->ID . ')';
