@@ -18,8 +18,6 @@ $_POST['ToCust'] = $ToCust;
 $_POST['PrintPDF'] = $PrintPDF;
 }  
 
-if (!isset($_GET['PrintPDF'])) {
-}
 
 
 if (isset($_GET['FromCust'])) {
@@ -128,13 +126,14 @@ If (isset($_POST['PrintPDF']) && isset($_POST['FromCust']) && $_POST['FromCust']
 					ON (debtortrans.id=custallocns.transid_allocfrom
 						OR debtortrans.id=custallocns.transid_allocto)
 				WHERE custallocns.datealloc >='" .
-					FormatDateForSQL(Mktime(0,0,0,Date('m')-1,Date('d'),Date('y'))) . "'
+					Date('Y-m-d',Mktime(0,0,0,Date('m')-1,Date('d'),Date('y'))) . "'
 				AND debtortrans.debtorno='" . $StmtHeader['debtorno'] . "' 
 				AND debtortrans.settled=1
 				ORDER BY debtortrans.id";
 
 			$SetldTrans=DB_query($sql,$db, $ErrMsg);
 			$NumberOfRecordsReturned += DB_num_rows($SetldTrans);
+			
 	   	}
 
 	  	if ( $NumberOfRecordsReturned >=1){
