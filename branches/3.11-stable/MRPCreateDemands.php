@@ -90,7 +90,7 @@ if (strpos($FormatedDistdate,"/")) {
     list($yyyy,$mm,$dd) = explode("/",$FormatedDistdate);
 } else if (strpos($FormatedDistdate,"-")) {
     list($yyyy,$mm,$dd) = explode("-",$FormatedDistdate);
-} else else if (strpos($FormatedDistdate,".")) {
+} else if (strpos($FormatedDistdate,".")) {
     list($yyyy,$mm,$dd) = explode(".",$FormatedDistdate);
 }
 $datearray[0] = $FormatedDistdate;
