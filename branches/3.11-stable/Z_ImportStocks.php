@@ -35,7 +35,7 @@ $headers = array(
 if ($_FILES['userfile']['name']) { //start file processing
 
 	//initialize
-	$allowType='application/csv';
+	$allowType='text/csv';
 	$fieldTarget = 18;
 	$InputError = 0;
 
