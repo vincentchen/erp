@@ -13,7 +13,7 @@ if ($allow_demo_mode == True AND !isset($demo_text)) {
 <html>
 <head>
     <title>webERP Login screen</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo _('UTF-8'); ?>" />
+    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo _('ISO-8859-1'); ?>" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/<?php echo $theme;?>/login.css" type="text/css" />
 </head>
@@ -38,17 +38,17 @@ if (get_magic_quotes_gpc()){
 			echo '<select name="CompanyNameField">';
 			$DirHandle = dir('companies/');
 			while (false != ($CompanyEntry = $DirHandle->read())){
-				if (is_dir('companies/' . $CompanyEntry) AND $CompanyEntry != '..' AND $CompanyEntry != 'CVS' AND $CompanyEntry!='.'){
+				if (is_dir('companies/' . $CompanyEntry) AND $CompanyEntry != '..' AND $CompanyEntry != 'CVS' AND $CompanyEntry!='.svn' AND $CompanyEntry!='.'){
 					if ($CompanyEntry==$DefaultCompany) {
-						echo "<option selected  value='$CompanyEntry'>$CompanyEntry";
+						echo "<option selected value='$CompanyEntry'>$CompanyEntry</option>";
 					} else {
-						echo "<option  value='$CompanyEntry'>$CompanyEntry";
+						echo "<option  value='$CompanyEntry'>$CompanyEntry</option>";
 					}
 				}
 			}
 			echo '</select>';
 		} else {
-			echo '<input type="text" name="CompanyNameField"  value="' . $DefaultCompany . '">';
+			echo '<input type="text" name="CompanyNameField"  value="' . $DefaultCompany . '" />';
 		}
 	?>
 	<br />
