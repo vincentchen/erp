@@ -539,7 +539,7 @@ if (isset($_POST['Select'])) {
 	} else {
 		prnMsg( _('You do not have the authority to raise Purchase Orders for ').
 			'<br>'.$SupplierName.'. '._('Please Consult your system administrator for more information').'. '
-			._('You can setup authorisations ').'<a href=PO_AuthorisationLevels.php>here: </a>', 'warn');
+			._('You can setup authorisations ').'<a href=PO_AuthorisationLevels.php>'._('here:'). '</a>', 'warn');
 		include('includes/footer.inc');
 		exit;
 	}
