@@ -1,4 +1,6 @@
 <?php
+
+/* $Id$ */
 /*
 	This class is an extension to the fpdf class using a syntax that the original reports were written in
 	(the R &OS pdf.php class) - due to limitation of this class for foreign character support this wrapper class
@@ -10,27 +12,12 @@
 	extended for Chinese/Japanese/Korean support by Phil Daintree
 	
 	Chinese GB&BIG5 support by Edward Yang <edward.yangcn@gmail.com>
-
-	Moving from FPDF to TCPDF to support UTF-8 by:
-		Javier de Lorenzo-Cáceres <info@civicom.eu> 
 	
 */
 
-// Javier: I replace FPDF ...
-// define('FPDF_FONTPATH','./fonts/');
-// include ('includes/fpdf.php');
+define('FPDF_FONTPATH','./fonts/');
+include ('includes/fpdf.php');
 
-// Javier: ... with TCPDF ...
-// require_once('includes/tcpdf/config/lang/eng.php');
-// require_once('includes/tcpdf/tcpdf.php');
-
-// Javier: But I think the path is this
-require_once('tcpdf/config/lang/eng.php');
-require_once('tcpdf/tcpdf.php');
-
-
-// Javier: I remove CJK that now is supported by TCPDF
-/*
 if ($_SESSION['Language']=='zh_CN' OR $_SESSION['Language']=='zh_HK' OR $_SESSION['Language']=='zh_TW'){
 	include('FPDF_Chinese.php');
 } elseif ($_SESSION['Language']=='ja_JP'){
@@ -44,20 +31,9 @@ if ($_SESSION['Language']=='zh_CN' OR $_SESSION['Language']=='zh_HK' OR $_SESSIO
 		}
 	}
 }
-*/
-
-// Javier: But I respect Phil's class to isolate possible issues. 
-//	   We should merge them in a near future (in the short term).
-class PDF_Language extends TCPDF {
-		function PDF_Language($orientation='P',$unit='mm',$format='A4') {
-			$this->TCPDF($orientation,$unit,$format); //TCPDF constructor changed
-		}
-	}
-
 
 class Cpdf extends PDF_Language {
-
-// Javier: Maybe this should be set in a per-report basis or set them as variables.	
+	
 	function Cpdf($pageSize=array(0,0,612,792)) {
 	
 		$this->PDF_Language( 'P', 'pt',array($pageSize[2]-$pageSize[0],$pageSize[3]-$pageSize[1]));
@@ -65,10 +41,7 @@ class Cpdf extends PDF_Language {
 		$this->AddPage();
 		$this->SetLineWidth(1);
 		$this->cMargin = 0;
-
-
-// Javier: With TCPDF we don't embed fonts
-/*		
+		
 		// Next three lines should be here for any fonts genarted with 'makefont' utility
 		if ($_SESSION['Language']=='zh_TW' or $_SESSION['Language']=='zh_HK'){
 			$this->AddBig5Font();
@@ -83,13 +56,10 @@ class Cpdf extends PDF_Language {
 		//	$this->AddFont('helvetica','I');
 		//	$this->AddFont('helvetica','B');
 		}
-*/
 	}
-
-// Javier: We now use just three fonts and still have not seen styles for CJK,
-//         styles are not in the font's name except Helvetica. Needs checking.	
+	
 	function selectFont($FontName) {
-/*		
+		
 		$type = '';
 		if(strpos($FontName, 'Oblique')) {
 			$type = 'I';
@@ -108,31 +78,20 @@ class Cpdf extends PDF_Language {
 		} else {
 			$FontName ='helvetica';
 		}
-*/
-// Javier		$this->SetFont($FontName, $type);
-		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-			$this->SetFont('helvetica', '', 11);
-		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-			$this->SetFont('javiergb', '', 11);
-		} else {
-			$this->SetFont('javierjp', '', 11);
-		}
-
+		$this->SetFont($FontName, $type);
 	}
-
+	
 	function newPage() {
 		$this->AddPage();
 	}
 	
 	function line($x1,$y1,$x2,$y2) {
-// Javier	FPDF::line($x1, $this->h-$y1, $x2, $this->h-$y2);
-// Javier: width, color and style might be edited
-		TCPDF::Line ($x1,$this->h-$y1,$x2,$this->h-$y2);
+		FPDF::line($x1, $this->h-$y1, $x2, $this->h-$y2);
 	}
 	
 	function addText($xb,$yb,$size,$text)//,$angle=0,$wordSpaceAdjust=0) 
 															{
-		$text = html_entity_decode($text);
+		/* $text = html_entity_decode($text); */
 		$this->SetFontSize($size);
 		$this->Text($xb, $this->h-$yb, $text);
 	}
@@ -146,14 +105,12 @@ class Cpdf extends PDF_Language {
 		}
 		if($label=='Creator') {
 			// The Creator info in source is not exactly it should be ;) 
-/* Javier		$value = str_replace( "ros.co.nz", "fpdf.org", $value );
+			$value = str_replace( "ros.co.nz", "fpdf.org", $value );
 			$value = str_replace( "R&OS", "", $value );
 			$this->SetCreator( $value );
-*/			$this->SetCreator(PDF_CREATOR);
 		}
 		if($label=='Author') {
-// Javier		$this->SetAuthor($value);
-			$this->SetAuthor('Nicola Asuni');
+			$this->SetAuthor($value);
 		}
 	}
 	
@@ -248,14 +205,13 @@ class Cpdf extends PDF_Language {
 		}
 		$this->_out($tmp);
 	}
-
-// Javier: We should give a file's name if we don't want file extension to be .php
+	
 	function Stream() {
 	$this->Output('','I');
 	}
 	
 	function addTextWrap($xb, $yb, $w, $h, $txt, $align='J', $border=0, $fill=0) {
-		$txt = html_entity_decode($txt);
+		/* $txt = html_entity_decode($txt); */
 		$this->x = $xb;
 		$this->y = $this->h - $yb - $h;
 		
