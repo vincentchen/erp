@@ -1,5 +1,7 @@
 <?php
-/* $Revision: 1.17 $ */
+
+/* $Id$ */
+/* $Revision: 1.19 $ */
 /* R&OS PHP-pdf class code to head up a new page */
 
 if (!$FirstPage){ /* only initiate a new page if its not the first */
@@ -126,7 +128,7 @@ if (!function_exists('htmlspecialchars_decode')) {
                 return $str;
         }
 }
-	$pdf->addText($XPos, $YPos, $FontSize, htmlspecialchars_decode($myrow['deliverto']));
+	$pdf->addText($XPos, $YPos, $FontSize, $myrow['deliverto']);
 	$pdf->addText($XPos, $YPos-14, $FontSize, $myrow['deladd1']);
 	$pdf->addText($XPos, $YPos-28, $FontSize, $myrow['deladd2']);
 	$pdf->addText($XPos, $YPos-42, $FontSize, $myrow['deladd3'] . ' ' . $myrow['deladd4'] . ' ' . $myrow['deladd5']);
