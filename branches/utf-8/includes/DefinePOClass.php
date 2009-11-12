@@ -1,5 +1,5 @@
 <?php
-/* $Id$ */
+/* $Id: DefinePOClass.php 2982 2009-11-12 12:30:20Z tim_schofield $ */
 /* $Revision: 1.15 $ */
 /* Definition of the PurchOrder class to hold all the information for a purchase order and delivery
 */
