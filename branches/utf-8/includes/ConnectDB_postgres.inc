@@ -122,7 +122,7 @@ function DB_Last_Insert_ID(&$Conn, $table, $fieldname) {
 }
 
 function DB_escape_string($String){
-	Return pg_escape_string($String);
+	Return pg_escape_string(htmlspecialchars($String, ENT_COMPAT, 'UTF-8'));
 }
 
 function INTERVAL( $val, $Inter ) {

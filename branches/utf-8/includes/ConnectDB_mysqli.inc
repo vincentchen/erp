@@ -160,7 +160,7 @@ function DB_Last_Insert_ID(&$Conn,$table, $fieldname){
 
 function DB_escape_string($String){
 	global $db;
-	return mysqli_real_escape_string($db, $String);
+	return mysqli_real_escape_string($db, htmlspecialchars($String, ENT_COMPAT, 'UTF-8'));
 }
 
 function DB_show_tables(&$Conn){
