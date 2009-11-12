@@ -108,5 +108,5 @@ $pdf->addInfo('Creator','webERP http://www.weberp.org');
 	for Japanese - SJIS
 	for Korean - UHC
 */
-$pdf->selectFont('helvetica');
+$pdf->selectFont();
 ?>
