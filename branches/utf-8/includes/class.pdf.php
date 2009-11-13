@@ -50,23 +50,26 @@ if ($_SESSION['Language']=='zh_CN' OR $_SESSION['Language']=='zh_HK' OR $_SESSIO
 
 // Javier: But I respect Phil's class to isolate possible issues. 
 //	   We should merge them in a near future (in the short term).
+
+/* Javier: the short term has come, now removed.
+
 class PDF_Language extends TCPDF {
 		function PDF_Language($orientation='P',$unit='mm',$format='A4') {
-			$this->TCPDF($orientation,$unit,$format); //TCPDF constructor changed
+			$this->TCPDF($orientation, $unit, $format); //TCPDF constructor changed from PhP5 to PhP4 format.
 		}
 	}
+*/
 
-
-class Cpdf extends PDF_Language {
+//class Cpdf extends PDF_Language {
+class Cpdf extends TCPDF {
 
 // Javier: Maybe this should be set in a per-report basis or set them as variables.	
 	function Cpdf($pageSize=array(0,0,612,792)) {
 	
-		$this->PDF_Language( 'P', 'pt',array($pageSize[2]-$pageSize[0],$pageSize[3]-$pageSize[1]));
-		$this->setAutoPageBreak(0);
-		$this->AddPage();
-		$this->SetLineWidth(1);
-		$this->cMargin = 0;
+//		$this->PDF_Language( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) );
+//		$this->TCPDF( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) ); //if TCPDF constructor is changed to PhP4 format.
+		parent::__construct( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) );
+
 
 
 // Javier: With TCPDF we don't embed fonts
@@ -88,9 +91,12 @@ class Cpdf extends PDF_Language {
 */
 	}
 
+
+
+
 // Javier: We now use just three fonts and still have not seen styles for CJK,
 //         styles are not in the font's name except Helvetica. Needs checking.	
-	function selectFont($FontName) {
+	function selectFont($FontName = 'helvetica') {
 /*		
 		$type = '';
 		if(strpos($FontName, 'Oblique')) {
@@ -112,6 +118,7 @@ class Cpdf extends PDF_Language {
 		}
 */
 // Javier 		$this->SetFont($FontName, $type);
+		if (($FontName == "") or ($FontName == null)) {$DFontName = 'helvetica';}
 		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
  			$this->SetFont('helvetica', '', 11);
 		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
@@ -256,20 +263,30 @@ class Cpdf extends PDF_Language {
 	}
 
 // Javier: 2 new functions to manage the output: OutputI and OutputD.
-// The recursive scripts needs D but you may change I to D if you want to force all pdf to be downloaded or open in a desktop app instead the browser.
+// The recursive scripts needs D. For the rest you may change I to D if you want to force all pdf to be downloaded or open in a desktop app instead the browser.
 	function OutputI($DocumentFilename = 'Document.pdf') {
-		if (($DocumentFilename == "") or ($DocumentFilename == null)) {$DocumentFilename = 'Document.pdf';}
+		if (($DocumentFilename == null) or ($DocumentFilename == '')) { 
+			$DocumentFilename = _('Document.pdf');
+		}
 		$this->Output($DocumentFilename,'I');
 	}
 
 	function OutputD($DocumentFilename = 'Document.pdf') {
-		if (($DocumentFilename == "") or ($DocumentFilename == null)) {$DocumentFilename = 'Document.pdf';}
+		if (($DocumentFilename == null) or ($DocumentFilename == '')) {
+			$DocumentFilename = _('Document.pdf');
+		}
 		$this->Output($DocumentFilename,'D');
 	}
 
-	
+/* Another new function to access TCPDF protected properties since I don't want to change them to public.
+
+	function EnableDocumentHeader($HeaderWanted = true) {
+		$this->setPrintHeader($HeaderWanted);
+	}
+*/
+
 	function addTextWrap($xb, $yb, $w, $h, $txt, $align='J', $border=0, $fill=0) {
-		$txt = html_entity_decode($txt);
+//		$txt = html_entity_decode($txt);
 		$this->x = $xb;
 		$this->y = $this->h - $yb - $h;
 		

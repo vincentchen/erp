@@ -98,9 +98,17 @@ switch ($PaperSize) {
 
 $PageSize = array(0,0,$Page_Width,$Page_Height);
 $pdf = new Cpdf($PageSize);
-
 $pdf->addInfo('Author','webERP ' . $Version);
 $pdf->addInfo('Creator','webERP http://www.weberp.org');
+
+/* Brought from class.pdf.php constructor */
+		$pdf->setAutoPageBreak(0);
+		$pdf->setPrintHeader(false); /* must be called before Add Page */
+		$pdf->AddPage();
+	//	$this->SetLineWidth(1); Javier: Too gross default is 0'57 = 0'2 mm
+		$pdf->cMargin = 0;
+/* Brought from class.pdf.php constructor */
+
 
 /*depending on the language this font is modified see includes/class.pdf.php
 	selectFont method interprets the text helvetica to be:
