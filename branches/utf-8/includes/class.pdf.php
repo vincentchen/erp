@@ -252,8 +252,21 @@ class Cpdf extends PDF_Language {
 
 // Javier: We should give a file's name if we don't want file extension to be .php
 	function Stream() {
-	$this->Output('','I');
+		$this->Output('ThisScriptNeedsReview.pdf','I');
 	}
+
+// Javier: 2 new functions to manage the output: OutputI and OutputD.
+// The recursive scripts needs D but you may change I to D.
+	function OutputI($DocumentFilename) {
+		if $DocumentFilename == '' {$DocumentFilename = 'Document.pdf';}
+		$this->Output($DocumentFilename,'I');
+	}
+
+	function OutputD($DocumentFilename) {
+		if $DocumentFilename == '' {$DocumentFilename = 'Document.pdf';}
+		$this->Output($DocumentFilename,'D');
+	}
+
 	
 	function addTextWrap($xb, $yb, $w, $h, $txt, $align='J', $border=0, $fill=0) {
 		$txt = html_entity_decode($txt);
