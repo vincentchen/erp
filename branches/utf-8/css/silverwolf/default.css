@@ -96,25 +96,25 @@ td.number {
 }
 
 div.error {
-	background-color:#fddbdb;
+	background-color: #fddbdb;
 	color: red;
 	border: 1px solid red;
 }
 
 div.warn {
-	background-color:#f5dbfd;
+	background-color: #f5dbfd;
 	color: maroon;
 	border: 1px solid maroon;
 }
 
 div.success {
-	background-color:#b9ecb4;
-	color: darkgreen;
-	border: 1px solid darkgreen;
+	background-color: #b9ecb4;
+	color: #006400;			/* darkgreen is not a w3c css valid color */
+	border: 1px solid #006400;	/* darkgreen is not a w3c css valid color */
 }
 
 div.info {
-	background-color:#c7ccf6;
+	background-color: #c7ccf6;
 	color: navy;
 	border: 1px solid navy;
 }
@@ -157,7 +157,7 @@ select {
 }
 
 #trim {
-	background: "white";
+	background: white;
 }
 
 #page {
@@ -252,7 +252,7 @@ select {
 .quick_menu_tabs {
 	background:none;
 	border-collapse:collapse;
-     /*	height:28pt; does nothing since dependends on next class */
+     /*	height:28pt; does nothing since depends on next class */
 	white-space: nowrap;
 	border: 0px;
 	padding: 0px;
@@ -498,7 +498,7 @@ select.selecterror {
 }
 
 .notavailable {
-	font-weight:light;
+	font-weight: lighter;	/* light is not a w3c css valid font weight */
 	font-style:italic;
 	color:#555;
 }
@@ -535,7 +535,7 @@ div.page_help_text {
         visibility: visible;
         margin: 0 auto;
         position: static;
-        background-color: lightgray;
+        background-color: #ccc;		/* lightgray is not a w3c css valid color #ccc */
         font-family: Verdana, Arial, Helvetica;
         padding-top: 1px;
         padding-bottom: 1px;
