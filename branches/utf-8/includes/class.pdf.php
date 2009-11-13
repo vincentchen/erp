@@ -256,14 +256,14 @@ class Cpdf extends PDF_Language {
 	}
 
 // Javier: 2 new functions to manage the output: OutputI and OutputD.
-// The recursive scripts needs D but you may change I to D.
-	function OutputI($DocumentFilename) {
-		if $DocumentFilename == '' {$DocumentFilename = 'Document.pdf';}
+// The recursive scripts needs D but you may change I to D if you want to force all pdf to be downloaded or open in a desktop app instead the browser.
+	function OutputI($DocumentFilename = 'Document.pdf') {
+		if (($DocumentFilename == "") or ($DocumentFilename == null)) {$DocumentFilename = 'Document.pdf';}
 		$this->Output($DocumentFilename,'I');
 	}
 
-	function OutputD($DocumentFilename) {
-		if $DocumentFilename == '' {$DocumentFilename = 'Document.pdf';}
+	function OutputD($DocumentFilename = 'Document.pdf') {
+		if (($DocumentFilename == "") or ($DocumentFilename == null)) {$DocumentFilename = 'Document.pdf';}
 		$this->Output($DocumentFilename,'D');
 	}
 
