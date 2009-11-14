@@ -2,20 +2,19 @@
 
 /* $Id$ */
 /*
-	This class is an extension to the fpdf class using a syntax that the original reports were written in
+	This class was an extension to the fpdf class using a syntax that the original reports were written in
 	(the R &OS pdf.php class) - due to limitation of this class for foreign character support this wrapper class
 	was written to allow the same code base to use the more functional fpdf.class by Olivier Plathey
 	
 *	Wrapper for use R&OSpdf API with fpdf.org class
-*	Janusz Dobrowolski <janusz@iron.from.pl>
-*	David Luo <davidluo188@yahoo.com.cn>
-	extended for Chinese/Japanese/Korean support by Phil Daintree
-	
-	Chinese GB&BIG5 support by Edward Yang <edward.yangcn@gmail.com>
+		Janusz Dobrowolski <janusz@iron.from.pl>
+		David Luo <davidluo188@yahoo.com.cn>
 
-	Moving from FPDF to TCPDF to support UTF-8 by:
-		Javier de Lorenzo-Cáceres <info@civicom.eu> 
+*	Extended for Chinese/Japanese/Korean support by Phil Daintree
 	
+*	Chinese GB&BIG5 support by Edward Yang <edward.yangcn@gmail.com>
+
+*	Moving from FPDF to TCPDF to support UTF-8 by Javier de Lorenzo-Cáceres <info@civicom.eu> 
 */
 
 // Javier: I replace FPDF ...
@@ -23,10 +22,6 @@
 // include ('includes/fpdf.php');
 
 // Javier: ... with TCPDF ...
-// require_once('includes/tcpdf/config/lang/eng.php');
-// require_once('includes/tcpdf/tcpdf.php');
-
-// Javier: But I think the path is this
 require_once('tcpdf/config/lang/eng.php');
 require_once('tcpdf/tcpdf.php');
 
@@ -48,29 +43,27 @@ if ($_SESSION['Language']=='zh_CN' OR $_SESSION['Language']=='zh_HK' OR $_SESSIO
 }
 */
 
-// Javier: But I respect Phil's class to isolate possible issues. 
-//	   We should merge them in a near future (in the short term).
-
-/* Javier: the short term has come, now removed.
-
+// Javier: I remove PDF_Language class
+/* 
 class PDF_Language extends TCPDF {
 		function PDF_Language($orientation='P',$unit='mm',$format='A4') {
-			$this->TCPDF($orientation, $unit, $format); //TCPDF constructor changed from PhP5 to PhP4 format.
+			$this->TCPDF($orientation, $unit, $format); // TCPDF constructor PhP4 format.
 		}
 	}
 */
 
-//class Cpdf extends PDF_Language {
+//class Cpdf now extends TCPDF instead PDF_Language {
 class Cpdf extends TCPDF {
+// Original
+//	function Cpdf($pageSize=array(0,0,612,792)) {
+// Javier: have to look if would be good to change pt units into mm, see PDFStarter.php and every report
+	public function __construct($DocOrientation='P', $DocUnits='mm', $DocPaper='A4') {
 
-// Javier: Maybe this should be set in a per-report basis or set them as variables.	
-	function Cpdf($pageSize=array(0,0,612,792)) {
 	
-//		$this->PDF_Language( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) );
-//		$this->TCPDF( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) ); //if TCPDF constructor is changed to PhP4 format.
-		parent::__construct( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) );
-
-
+// Original	$this->PDF_Language( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) );
+// Javier v1	$this->TCPDF( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) ); // TCPDF constructor PhP4 format.
+// Javier v2	parent::__construct( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) );
+/* Javier v3 */ parent::__construct($DocOrientation, $DocUnits, $DocPaper, true, 'UTF-8', false);
 
 // Javier: With TCPDF we don't embed fonts
 /*		
@@ -90,8 +83,6 @@ class Cpdf extends TCPDF {
 		}
 */
 	}
-
-
 
 
 // Javier: We now use just three fonts and still have not seen styles for CJK,
@@ -118,7 +109,7 @@ class Cpdf extends TCPDF {
 		}
 */
 // Javier 		$this->SetFont($FontName, $type);
-		if (($FontName == "") or ($FontName == null)) {$DFontName = 'helvetica';}
+		if (($FontName == null) or ($FontName == '')) {$DFontName = 'helvetica';}
 		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
  			$this->SetFont('helvetica', '', 11);
 		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
@@ -129,6 +120,7 @@ class Cpdf extends TCPDF {
 	}
 
 	function newPage() {
+		/* $this->setPrintHeader(false);  must be called before Add Page */
 		$this->AddPage();
 	}
 	
@@ -145,23 +137,26 @@ class Cpdf extends TCPDF {
 		$this->Text($xb, $this->h-$yb, $text);
 	}
 	
-	function addInfo($label,$value){
-		if($label=='Title') {
-			$this->SetTitle($value);
-		} 
-		if ($label=='Subject') {
-			$this->SetSubject($value);
-		}
-		if($label=='Creator') {
+	function addInfo($label, $value) {
+		if ($label == 'Creator') {
 			// The Creator info in source is not exactly it should be ;) 
 /* Javier		$value = str_replace( "ros.co.nz", "fpdf.org", $value );
 			$value = str_replace( "R&OS", "", $value );
-			$this->SetCreator( $value );
-*/			$this->SetCreator(PDF_CREATOR);
+*/			$this->SetCreator( $value );
+// Javier		$this->SetCreator(PDF_CREATOR); // PDF_CREATOR is defined as 'TCPDF' in config/tcpdfconfig.php
 		}
-		if($label=='Author') {
-// Javier		$this->SetAuthor($value);
-			$this->SetAuthor('Nicola Asuni');
+		if ($label == 'Author') {
+			$this->SetAuthor( $value );
+// Javier		$this->SetAuthor('Nicola Asuni');
+		}
+		if ($label == 'Title') {
+			$this->SetTitle( $value );
+		} 
+		if ($label == 'Subject') {
+			$this->SetSubject( $value );
+		}
+		if ($label == 'Keywords') {
+			$this->SetKeywords( $value );
 		}
 	}
 	
@@ -278,12 +273,6 @@ class Cpdf extends TCPDF {
 		$this->Output($DocumentFilename,'D');
 	}
 
-/* Another new function to access TCPDF protected properties since I don't want to change them to public.
-
-	function EnableDocumentHeader($HeaderWanted = true) {
-		$this->setPrintHeader($HeaderWanted);
-	}
-*/
 
 	function addTextWrap($xb, $yb, $w, $h, $txt, $align='J', $border=0, $fill=0) {
 //		$txt = html_entity_decode($txt);
