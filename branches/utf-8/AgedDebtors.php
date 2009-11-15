@@ -1,8 +1,11 @@
 <?php
 
+/* $Id$ */
+
+/* $Revision: 1.19 to 1.20 $ */
+
 $PageSecurity = 2;
 include('includes/session.inc');
-/* $Revision: 1.19 $ */
 
 
 If (isset($_POST['PrintPDF'])
@@ -11,13 +14,11 @@ If (isset($_POST['PrintPDF'])
 	AND isset($_POST['ToCriteria'])
 	AND strlen($_POST['ToCriteria'])>=1){
 
-
+// Javier
 	include('includes/PDFStarter.php');
-
+	$pdf->addInfo('Title',_('Aged Customer Balance Listing'));
+	$pdf->addInfo('Subject',_('Aged Customer Balances'));
 	$FontSize=12;
-	$pdf->addinfo('Title',_('Aged Customer Balance Listing'));
-	$pdf->addinfo('Subject',_('Aged Customer Balances'));
-
 	$PageNumber=0;
 	$line_height=12;
 
@@ -261,6 +262,7 @@ If (isset($_POST['PrintPDF'])
 		) <>0";
 	}
 	$CustomerResult = DB_query($SQL,$db,'','',False,False); /*dont trap errors handled below*/
+	$ListCount = count ($CustomerResult); // Javier
 
 	if (DB_error_no($db) !=0) {
 		$title = _('Aged Customer Account Analysis') . ' - ' . _('Problem Report') . '.... ';
@@ -282,7 +284,7 @@ If (isset($_POST['PrintPDF'])
 	$TotOD1=0;
 	$TotOD2=0;
 
-	While ($AgedAnalysis = DB_fetch_array($CustomerResult,$db)){
+	while ($AgedAnalysis = DB_fetch_array($CustomerResult,$db)){
 
 		$DisplayDue = number_format($AgedAnalysis['due']-$AgedAnalysis['overdue1'],2);
 		$DisplayCurrent = number_format($AgedAnalysis['balance']-$AgedAnalysis['due'],2);
@@ -423,10 +425,13 @@ If (isset($_POST['PrintPDF'])
 	$LeftOvers = $pdf->addTextWrap(400,$YPos,60,$FontSize,$DisplayTotOverdue1,'right');
 	$LeftOvers = $pdf->addTextWrap(460,$YPos,60,$FontSize,$DisplayTotOverdue2,'right');
 
+/* Javier: this doesn't work for TCPDF 
 	$buf = $pdf->output();
-	$len = strlen($buf);
+	$len = strlen($buf); 
+*/
 
-	if ($len < 1000) {
+//	if ($len < 1000) {
+	if ($ListCount == 0) {
 		$title = _('Aged Customer Account Analysis') . ' - ' . _('Problem Report') . '....';
 		include('includes/header.inc');
 		prnMsg(_('There are no customers meeting the criteria specified to list'),'info');
@@ -438,14 +443,18 @@ If (isset($_POST['PrintPDF'])
 		exit;
 	}
 
+/* Javier: TCPDF sends its own http header, it's an error to send it twice.
 	header('Content-type: application/pdf');
 	header("Content-Length: $len");
 	header('Content-Disposition: inline; filename=AgedDebtors.pdf');
 	header('Expires: 0');
 	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 	header('Pragma: public');
-
-	$pdf->stream();
+	$pdf->stream(); */
+		else {
+	$pdf->OutputD('AgedDebtors.pdf');
+	$pdf-> __destruct();
+	}
 
 } else { /*The option to print PDF was not hit */
 
