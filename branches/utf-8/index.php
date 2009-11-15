@@ -2,7 +2,7 @@
 
 /* $Id$ */
 
-/* $Revision: 1.90 $ */
+/* $Revision: 1.91 $ */
 
 
 $PageSecurity = 1;
@@ -157,6 +157,11 @@ if (count($_SESSION['AllowedPageSecurityTokens'])==1){
 							<tr>
 							<td class="menu_group_item">
 								<?php echo '<a href="' . $rootpath . '/PDFOrdersInvoiced.php?' . SID . '">&bull; ' . _('Orders Invoiced Reports') . '</a>'; ?>
+							</td>
+							</tr>
+							<tr>
+							<td class="menu_group_item">
+								<?php echo '<a href="' . $rootpath . '/DailySalesInquiry.php?' . SID . '">&bull; ' . _('Daily Sales Inquiry') . '</a>'; ?>
 							</td>
 							</tr>
 							<tr>
