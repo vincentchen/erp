@@ -2,25 +2,23 @@
 
 /* $Id$ */
 
-/* $Revision: 1.19 to 1.20 $ */
+/* $Revision: 1.20 $ */
 
 $PageSecurity = 2;
 include('includes/session.inc');
 
+if (isset($_POST['PrintPDF'])
+	and isset($_POST['FromCriteria'])
+	and strlen($_POST['FromCriteria'])>=1
+	and isset($_POST['ToCriteria'])
+	and strlen($_POST['ToCriteria'])>=1) {
 
-If (isset($_POST['PrintPDF'])
-	AND isset($_POST['FromCriteria'])
-	AND strlen($_POST['FromCriteria'])>=1
-	AND isset($_POST['ToCriteria'])
-	AND strlen($_POST['ToCriteria'])>=1){
-
-// Javier
 	include('includes/PDFStarter.php');
 	$pdf->addInfo('Title',_('Aged Customer Balance Listing'));
 	$pdf->addInfo('Subject',_('Aged Customer Balances'));
-	$FontSize=12;
-	$PageNumber=0;
-	$line_height=12;
+	$FontSize = 12;
+	$PageNumber = 0;
+	$line_height = 12;
 
       /*Now figure out the aged analysis for the customer range under review */
 	if (trim($_POST['Salesman'])!=''){
@@ -425,7 +423,7 @@ If (isset($_POST['PrintPDF'])
 	$LeftOvers = $pdf->addTextWrap(400,$YPos,60,$FontSize,$DisplayTotOverdue1,'right');
 	$LeftOvers = $pdf->addTextWrap(460,$YPos,60,$FontSize,$DisplayTotOverdue2,'right');
 
-/* Javier: this doesn't work for TCPDF 
+/* Javier: This actually would produce the output
 	$buf = $pdf->output();
 	$len = strlen($buf); 
 */
@@ -443,7 +441,7 @@ If (isset($_POST['PrintPDF'])
 		exit;
 	}
 
-/* Javier: TCPDF sends its own http header, it's an error to send it twice.
+/* Javier: TCPDF sends its own http header, would be an error to send it twice.
 	header('Content-type: application/pdf');
 	header("Content-Length: $len");
 	header('Content-Disposition: inline; filename=AgedDebtors.pdf');
@@ -451,6 +449,8 @@ If (isset($_POST['PrintPDF'])
 	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 	header('Pragma: public');
 	$pdf->stream(); */
+
+// This else was missed
 		else {
 	$pdf->OutputD('AgedDebtors.pdf');
 	$pdf-> __destruct();

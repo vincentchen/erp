@@ -1,5 +1,9 @@
 <?php
-/* $Revision: 1.7 $ */
+
+/* $Id$ */
+
+/* $Revision: 1.8 $ */
+
 $PageSecurity = 1;
 $AllowAnyone = true;
 
@@ -27,24 +31,27 @@ $Bottom_Margin=30;
 $Left_Margin=40;
 $Right_Margin=30;
 
-$PageSize = array(0,0,$Page_Width,$Page_Height);
-$pdf = & new Cpdf($PageSize);
+// Javier: now I use the native constructor
+// Javier: better to not use references
+// $PageSize = array(0,0,$Page_Width,$Page_Height);
+// $pdf = & new Cpdf($PageSize);
+$pdf = new Cpdf('P', 'pt', 'A4');
 
-$PageNumber = 0;
-
-$pdf->selectFont('./fonts/Helvetica.afm');
+// $PageNumber = 0;
 
 /* Standard PDF file creation header stuff */
 
-$pdf->addinfo('Author',"webERP " . $Version);
-$pdf->addinfo('Creator',"webERP http://www.weberp.org - R&OS PHP-PDF http://www.ros.co.nz");
+$pdf->addInfo('Creator',"WebERP http://www.weberp.org");
+$pdf->addInfo('Author',"WebERP " . $Version);
 
-$FontSize=10;
-$pdf->addinfo('Title',_('Inventory Valuation Report'));
-$pdf->addinfo('Subject',_('Inventory Valuation'));
 
-$PageNumber=1;
-$line_height=12;
+// $FontSize=10;
+$pdf->addInfo('Title', _('Inventory Valuation Report'));
+$pdf->addInfo('Subject', _('Inventory Valuation'));
+
+$pdf->selectFont('./fonts/Helvetica.afm'); //this will not go to that directory any more
+$PageNumber = 1;
+$line_height = 12;
 
 /*Now figure out the inventory data to report for the category range under review */
 if ($Location=='All'){
@@ -95,6 +102,7 @@ if ($Location=='All'){
 
 }
 $InventoryResult = DB_query($SQL,$db,'','',false,true);
+/* Javier */	$ListCount = count ($InventoryResult);
 
 if (DB_error_no($db) !=0) {
 	$title = _('Inventory Valuation') . ' - ' . _('Problem Report');
@@ -184,7 +192,7 @@ If ($_POST["DetailedReport"]=="Yes"){
 $YPos -= (2*$line_height);
 
 /*Print out the grand totals */
-$LeftOvers = $pdf->addTextWrap(80,$YPos,260-$Left_Margin,$FontSize,_('Grand Total Value'), 'right');
+$LeftOvers = $pdf->addTextWrap(80, $YPos,260-$Left_Margin,$FontSize, _('Grand Total Value'), 'right');
 $DisplayTotalVal = number_format($Tot_Val,2);
 $LeftOvers = $pdf->addTextWrap(500,$YPos,60,$FontSize,$DisplayTotalVal, 'right');
 If ($_POST['DetailedReport']=='Yes'){
@@ -192,22 +200,26 @@ If ($_POST['DetailedReport']=='Yes'){
 	$YPos -=(2*$line_height);
 }
 
-$pdfcode = $pdf->output();
-$len = strlen($pdfcode);
-
-if ($len<=20){
+// Javier: This actually would produce the output
+//	$pdfcode = $pdf->output();
+//	$len = strlen($pdfcode);
+//	if ($len<=20){
+	if ($ListCount == 0) {
 	$title = _('Print Inventory Valuation Error');
 	include("includes/header.inc");
 	echo '<p>' . _('There were no items with any value to print out for the location specified');
 	echo "<br><a href='$rootpath/index.php?" . SID . "'>" . _('Back to the menu') . '</a>';
 	include("includes/footer.inc");
-	exit;
+	exit; // Javier: needs check
 } else {
 	include('includes/htmlMimeMail.php');
 
-	$fp = fopen( $_SESSION['reports_dir'] . "/InventoryReport.pdf","wb");
+/* Javier
+	$fp = fopen( $_SESSION['reports_dir'] . "/InventoryReport.pdf", "wb");
 	fwrite ($fp, $pdfcode);
 	fclose ($fp);
+*/	$pdf->Output($_SESSION['reports_dir'] . '/InventoryReport.pdf', 'F');
+	$pdf-> __destruct();
 
 	$mail = new htmlMimeMail();
 	$attachment = $mail->getFile( $_SESSION['reports_dir'] . '/InventoryReport.pdf');

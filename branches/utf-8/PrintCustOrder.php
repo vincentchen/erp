@@ -1,6 +1,8 @@
 <?php
 
-/* $Revision: 1.15 $ */
+/* $Id$ */
+
+/* $Revision: 1.16 $ */
 
 $PageSecurity = 2;
 
@@ -60,6 +62,9 @@ $result=DB_query($sql,$db, $ErrMsg);
 
 //If there are no rows, there's a problem.
 if (DB_num_rows($result)==0){
+
+/* Javier */	$ListCount = 0;
+
 	$title = _('Print Packing Slip Error');
         include('includes/header.inc');
         echo '<div class=centre><br><br><br>';
@@ -71,6 +76,8 @@ if (DB_num_rows($result)==0){
         include('includes/footer.inc');
         exit();
 } elseif (DB_num_rows($result)==1){ /*There is only one order header returned - thats good! */
+
+/* Javier */	$ListCount = 1;
 
 	$myrow = DB_fetch_array($result);
 	if ($myrow['printedpackingslip']==1 AND ($_GET['Reprint']!='OK' OR !isset($_GET['Reprint']))){
@@ -120,23 +127,28 @@ if (DB_num_rows($result)>0){
 	packing slip 2 part stationery is recommended so storeman can note differences on and
 	a copy retained */
 
-	$Page_Width=807;
+//Javier
+//	$Page_Width=807;
+	$Page_Width=792;
 	$Page_Height=612;
 	$Top_Margin=34;
 	$Bottom_Margin=20;
 	$Left_Margin=15;
 	$Right_Margin=10;
 
+// Javier: now I use the native constructor
+// Javier: better to not use references
+//	$PageSize = array(0,0,$Page_Width,$Page_Height);
+//	$pdf = & new Cpdf($PageSize);
+	$pdf = new Cpdf('L', 'pt', 'LETTER');
 
-	$PageSize = array(0,0,$Page_Width,$Page_Height);
-	$pdf = & new Cpdf($PageSize);
+	$pdf->addInfo('Creator', 'webERP http://www.weberp.org');
+	$pdf->addInfo('Author', 'webERP ' . $Version);
+	$pdf->addInfo('Title', _('Customer Packing Slip') );
+	$pdf->addInfo('Subject', _('Packing slip for order') . ' ' . $_GET['TransNo']);
+
 	$FontSize=12;
 	$pdf->selectFont('./fonts/Helvetica.afm');
-	$pdf->addinfo('Author','webERP ' . $Version);
-	$pdf->addinfo('Creator','webERP http://www.weberp.org - R&OS PHP-PDF http://www.ros.co.nz');
-	$pdf->addinfo('Title', _('Customer Packing Slip') );
-	$pdf->addinfo('Subject', _('Packing slip for order') . ' ' . $_GET['TransNo']);
-
 	$line_height=16;
 
 	include('includes/PDFOrderPageHeader.inc');
@@ -168,10 +180,12 @@ if (DB_num_rows($result)>0){
 
 } /*end if there are order details to show on the order*/
 
-$pdfcode = $pdf->output();
-$len = strlen($pdfcode);
 
-if ($len<=20){
+// Javier: This actually would produce the output
+//	$pdfcode = $pdf->output();
+//	$len = strlen($pdfcode);
+//	if ($len<=20){
+if ($ListCount == 0) {
 	$title = _('Print Packing Slip Error');
 	include('includes/header.inc');
 	echo '<p>'. _('There were no outstanding items on the order to deliver. A dispatch note cannot be printed').
@@ -180,14 +194,16 @@ if ($len<=20){
 	include('includes/footer.inc');
 	exit;
 } else {
-	header('Content-type: application/pdf');
+// Javier: TCPDF sends its own http header, would be an error to send it twice.
+/*	header('Content-type: application/pdf');
 	header('Content-Length: ' . $len);
 	header('Content-Disposition: inline; filename=PackingSlip.pdf');
 	header('Expires: 0');
 	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 	header('Pragma: public');
-
-	$pdf->Output('PrintCustOrder.pdf', 'I');
+*/
+	$pdf->OutputI('PrintCustOrder.pdf');
+	$pdf-> __destruct();
 
 	$sql = "UPDATE salesorders SET printedpackingslip=1, datepackingslipprinted='" . Date('Y-m-d') . "' WHERE salesorders.orderno=" .$_GET['TransNo'];
 	$result = DB_query($sql,$db);

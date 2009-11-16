@@ -1,4 +1,7 @@
 <?php
+
+/* $Id$ */
+
 function standard_deviation($Data){
 	$Total = 0;
 	$Counter = 0;
@@ -30,7 +33,7 @@ function NewPageHeader () {
 	
 	/*PDF page header for inventory planning report */
 
-	if ($PageNumber>1){
+	if ($PageNumber > 1){
 		$pdf->newPage();
 	}
 
@@ -115,25 +118,26 @@ if (isset($_POST['PrintPDF'])){
 	$Left_Margin=25;
 	$Right_Margin=22;
 
-	$PageSize = array(0,0,$Page_Width,$Page_Height);
-	$pdf = & new Cpdf($PageSize);
-
-	$PageNumber = 0;
-
-	$pdf->selectFont('./fonts/Helvetica.afm');
+// Javier: now I use the native constructor
+//	$PageSize = array(0,0,$Page_Width,$Page_Height);
 
 /* Standard PDF file creation header stuff */
 
-	$pdf->addinfo('Author','webERP ' . $Version);
-	$pdf->addinfo('Creator','webERP http://www.weberp.org');
-	$pdf->addinfo('Title',_('Inventory Planning Based On Lead Time Of Preferred Supplier') . ' ' . Date($_SESSION['DefaultDateFormat']));
+// Javier: better to not use references
+//	$pdf = & new Cpdf($PageSize);
+	$pdf = new Cpdf('L', 'pt', 'A4');
 
-	$line_height=12;
+	$pdf->addInfo('Author','webERP ' . $Version);
+	$pdf->addInfo('Creator','webERP http://www.weberp.org');
+	$pdf->addInfo('Title',_('Inventory Planning Based On Lead Time Of Preferred Supplier') . ' ' . Date($_SESSION['DefaultDateFormat']));
+//	$PageNumber = 0;
+	$pdf->addInfo('Subject',_('Inventory Planning Based On Lead Time Of Preferred Supplier'));
 
-	$pdf->addinfo('Subject',_('Inventory Planning Based On Lead Time Of Preferred Supplier'));
+	$pdf->selectFont('./fonts/Helvetica.afm'); //this will not go to that directory any more, see class.pdf.php
+//	$line_height=12;
 
-	$PageNumber=1;
-	$line_height=12;
+	$PageNumber= 1;
+	$line_height= 12;
 
       /*Now figure out the inventory data to report for the category range under review
       need QOH, QOO, QDem, Sales Mth -1, Sales Mth -2, Sales Mth -3, Sales Mth -4*/
@@ -189,7 +193,7 @@ if (isset($_POST['PrintPDF'])){
 		
 
 	}
-	$InventoryResult = DB_query($SQL,$db,'','',false,false);
+	$InventoryResult = DB_query($SQL, $db, '', '', false, false);
 
 	if (DB_error_no($db) !=0) {
 	  $title = _('Inventory Planning') . ' - ' . _('Problem Report') . '....';
@@ -289,7 +293,8 @@ if (isset($_POST['PrintPDF'])){
 				AND salesorderdetails.completed = 0";
 		}
 
-		$DemandResult = DB_query($SQL,$db,'','',FALSE,FALSE);
+		$DemandResult = DB_query($SQL, $db, '', '', false, false);
+/* Javier */	$ListCount = count ($DemandResult);
 
 		if (DB_error_no($db) !=0) {
 	 		 $title = _('Inventory Planning') . ' - ' . _('Problem Report') . '....';
@@ -303,7 +308,7 @@ if (isset($_POST['PrintPDF'])){
 	   		exit;
 		}
 
-//Also need to add in the demand as a component of an assembly items if this items has any assembly parents.
+// Also need to add in the demand as a component of an assembly items if this items has any assembly parents.
 
 		if ($_POST['Location']=='All'){
 			$SQL = "SELECT SUM((salesorderdetails.quantity-salesorderdetails.qtyinvoiced)*bom.quantity) AS dem
@@ -367,7 +372,7 @@ if (isset($_POST['PrintPDF'])){
 		$BOMDemandRow = DB_fetch_array($BOMDemandResult);
 		$TotalDemand = $DemandRow['qtydemand'] + $BOMDemandRow['dem'];
 
-		$OnOrdResult = DB_query($SQL,$db,'','',false,false);
+		$OnOrdResult = DB_query($SQL, $db, '', '', false, false);
 		if (DB_error_no($db) !=0) {
 	 		 $title = _('Inventory Planning') . ' - ' . _('Problem Report') . '....';
 	  		include('includes/header.inc');
@@ -424,10 +429,11 @@ if (isset($_POST['PrintPDF'])){
 
 	$pdf->line($Left_Margin, $YPos+$line_height,$Page_Width-$Right_Margin, $YPos+$line_height);
 
-	$pdfcode = $pdf->output();
-	$len = strlen($pdfcode);
-
-	if ($len<=20){
+// Javier: This actually would produce the output
+//	$pdfcode = $pdf->output();
+//	$len = strlen($pdfcode);
+//	if ($len<=20){
+	if ($ListCount == 0) {
 		$title = _('Print Inventory Planning Report Empty');
 		include('includes/header.inc');
 		prnMsg( _('There were no items in the range and location specified'),'error');
@@ -435,17 +441,18 @@ if (isset($_POST['PrintPDF'])){
 		include('includes/footer.inc');
 		exit;
 	} else {
-		header('Content-type: application/pdf');
+// Javier: TCPDF sends its own http header, would be an error to send it twice.
+	/*	header('Content-type: application/pdf');
 		header('Content-Length: ' . $len);
 		header('Content-Disposition: inline; filename=InventoryPlanning.pdf');
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 		header('Pragma: public');
-
-		$pdf->Output('InventoryPlanningPrefSupplier.pdf', 'I');
-
+	*/
+		$pdf->OutputD('InventoryPlanningPrefSupplier.pdf');
+		$pdf-> __destruct();
 	}
-	exit;
+	exit; // Javier: needs check
 
 } else { /*The option to print PDF was not hit */
 

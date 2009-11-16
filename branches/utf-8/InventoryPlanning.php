@@ -1,16 +1,18 @@
 <?php
 
-/* $Revision: 1.19 $ */
+/* $Id */
+
+/* $Revision: 1.21 $ */
 
 $PageSecurity = 2;
 include('includes/session.inc');
 
 
-If (isset($_POST['PrintPDF'])
-	AND isset($_POST['FromCriteria'])
-	AND strlen($_POST['FromCriteria'])>=1
-	AND isset($_POST['ToCriteria'])
-	AND strlen($_POST['ToCriteria'])>=1){
+if (isset($_POST['PrintPDF'])
+	and isset($_POST['FromCriteria'])
+	and strlen($_POST['FromCriteria'])>=1
+	and isset($_POST['ToCriteria'])
+	and strlen($_POST['ToCriteria'])>=1) {
 
         include ('includes/class.pdf.php');
 
@@ -23,25 +25,26 @@ If (isset($_POST['PrintPDF'])
 	$Left_Margin=25;
 	$Right_Margin=22;
 
-	$PageSize = array(0,0,$Page_Width,$Page_Height);
-	$pdf = & new Cpdf($PageSize);
-
-	$PageNumber = 0;
-
-	$pdf->selectFont('./fonts/Helvetica.afm');
+// Javier: now I use the native constructor
+//	$PageSize = array(0,0,$Page_Width,$Page_Height);
 
 /* Standard PDF file creation header stuff */
 
-	$pdf->addinfo('Author','webERP ' . $Version);
-	$pdf->addinfo('Creator','webERP http://www.weberp.org');
-	$pdf->addinfo('Title',_('Inventory Planning Report') . ' ' . Date($_SESSION['DefaultDateFormat']));
+// Javier: better to not use references
+//	$pdf = & new Cpdf($PageSize);
+	$pdf = new Cpdf('L', 'pt', 'A4');
+	$pdf->addInfo('Creator','webERP http://www.weberp.org');
+	$pdf->addInfo('Author','webERP ' . $Version);
+	$pdf->addInfo('Title',_('Inventory Planning Report') . ' ' . Date($_SESSION['DefaultDateFormat']));
+	$pdf->addInfo('Subject',_('Inventory Planning'));
 
-	$line_height=12;
+// Javier:
+//	$PageNumber = 0;
+//	$line_height=12;
 
-	$pdf->addinfo('Subject',_('Inventory Planning'));
-
-	$PageNumber=1;
-	$line_height=12;
+	$pdf->selectFont('./fonts/Helvetica.afm'); //this will not go to that directory any more, see class.pdf.php
+	$PageNumber = 1;
+	$line_height = 12;
 
       /*Now figure out the inventory data to report for the category range under review
       need QOH, QOO, QDem, Sales Mth -1, Sales Mth -2, Sales Mth -3, Sales Mth -4*/
@@ -85,7 +88,7 @@ If (isset($_POST['PrintPDF'])
 					stockmaster.stockid";
 
 	}
-	$InventoryResult = DB_query($SQL,$db,'','',false,false);
+	$InventoryResult = DB_query($SQL, $db, '', '', false, false);
 
 	if (DB_error_no($db) !=0) {
 	  $title = _('Inventory Planning') . ' - ' . _('Problem Report') . '....';
@@ -116,7 +119,7 @@ If (isset($_POST['PrintPDF'])
 	$Period_4 = $CurrentPeriod -4;
 	$Period_5 = $CurrentPeriod -5;
 
-	While ($InventoryPlan = DB_fetch_array($InventoryResult,$db)){
+	while ($InventoryPlan = DB_fetch_array($InventoryResult,$db)){
 
 		if ($Category!=$InventoryPlan['categoryid']){
 			$FontSize=10;
@@ -160,7 +163,7 @@ If (isset($_POST['PrintPDF'])
 			AND stockmoves.hidemovt=0";
 		}
 
-		$SalesResult=DB_query($SQL,$db,'','',FALSE,FALSE);
+		$SalesResult = DB_query($SQL,$db,'','', false, false);
 
 		if (DB_error_no($db) !=0) {
 	 		 $title = _('Inventory Planning') . ' - ' . _('Problem Report') . '....';
@@ -194,7 +197,8 @@ If (isset($_POST['PrintPDF'])
 				AND salesorderdetails.completed = 0";
 		}
 
-		$DemandResult = DB_query($SQL,$db,'','',FALSE,FALSE);
+		$DemandResult = DB_query($SQL, $db, '', '', false , false);
+/* Javier */	$ListCount = count ($DemandResult);
 
 		if (DB_error_no($db) !=0) {
 	 		$title = _('Inventory Planning') . ' - ' . _('Problem Report') . '....';
@@ -208,7 +212,7 @@ If (isset($_POST['PrintPDF'])
 	   		exit;
 		}
 
-//Also need to add in the demand as a component of an assembly items if this items has any assembly parents.
+// Also need to add in the demand as a component of an assembly items if this items has any assembly parents.
 
 		if ($_POST['Location']=='All'){
 			$SQL = "SELECT SUM((salesorderdetails.quantity-salesorderdetails.qtyinvoiced)*bom.quantity) AS dem
@@ -336,26 +340,28 @@ If (isset($_POST['PrintPDF'])
 
 	$pdf->line($Left_Margin, $YPos+$line_height,$Page_Width-$Right_Margin, $YPos+$line_height);
 
-	$pdfcode = $pdf->output();
-	$len = strlen($pdfcode);
-
-	if ($len<=20){
+// Javier: This actually would produce the output
+//	$pdfcode = $pdf->output();
+//	$len = strlen($pdfcode);
+//	if ($len<=20){
+	if ($ListCount == 0){
 		$title = _('Print Inventory Planning Report Empty');
 		include('includes/header.inc');
-		prnMsg( _('There were no items in the range and location specified'),'error');
+		prnMsg( _('There were no items in the range and location specified'), 'error');
 		echo "<br><a href='$rootpath/index.php?" . SID . "'>" . _('Back to the menu') . '</a>';
 		include('includes/footer.inc');
 		exit;
 	} else {
-		header('Content-type: application/pdf');
+// Javier: TCPDF sends its own http header, it's an error to send it twice.
+	/*	header('Content-type: application/pdf');
 		header('Content-Length: ' . $len);
 		header('Content-Disposition: inline; filename=InventoryPlanning.pdf');
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-		header('Pragma: public');
+		header('Pragma: public'); */
 
-		$pdf->Output('InventoryPlanning', 'I');
-
+		$pdf->OutputD('InventoryPlanning');
+		$pdf-> __destruct();
 	}
 
 } else { /*The option to print PDF was not hit */
