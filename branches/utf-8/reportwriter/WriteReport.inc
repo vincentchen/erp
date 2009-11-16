@@ -1,4 +1,7 @@
 <?php
+
+/* $Id$ */
+
 // Javier: I remove CJK that now is supported by TCPDF
 /*
 // for compatability with extended char sets
@@ -15,343 +18,344 @@ if ($_SESSION['Language']=='zh_CN'){
 
 // Javier: But I respect Phil's class to isolate possible issues. 
 //	   We should merge them in a near future (in the short term).
-class PDF_Language extends TCPDF { }
+//class PDF_Language extends TCPDF { }
 
-class PDF extends PDF_Language {
+//class PDF extends PDF_Language {
+class PDF extends TCPDF {
 
-var $y0;	// current y position
-var $x0;	// current x position
-var $pageY;	// y value of bottom of page less bottom margin
+	var $y0;	// current y position
+	var $x0;	// current x position
+	var $pageY;	// y value of bottom of page less bottom margin
 
-function PDF() {
-	global $Prefs;
-	$PaperSize = explode(':',$Prefs['papersize']);
-	$this->PDF_Language($Prefs['paperorientation'], 'mm', $PaperSize[0]);
-	if ($Prefs['paperorientation']=='P') { // Portrait - calculate max page height
-		$this->pageY = $PaperSize[2]-$Prefs['marginbottom'];
-	} else { // Landscape
-		$this->pageY = $PaperSize[1]-$Prefs['marginbottom'];
+	function PDF() {
+		global $Prefs;
+		$PaperSize = explode(':',$Prefs['papersize']);
+		$this->PDF_Language($Prefs['paperorientation'], 'mm', $PaperSize[0]);
+		if ($Prefs['paperorientation']=='P') { // Portrait - calculate max page height
+			$this->pageY = $PaperSize[2]-$Prefs['marginbottom'];
+		} else { // Landscape
+			$this->pageY = $PaperSize[1]-$Prefs['marginbottom'];
+		}
+		$this->SetMargins($Prefs['marginleft'], $Prefs['margintop'], $Prefs['marginright']);
+		$this->SetAutoPageBreak(0, $Prefs['marginbottom']);
+
+	// Javier	$this->SetFont($Prefs['coynamefont']);
+		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+			$this->SetFont($Prefs['coynamefont']);
+		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
+			$this->SetFont('javiergb');
+		} else {
+			$this->SetFont('javierjp');
+		}
+
+		$this->SetDrawColor(128,0,0);
+		$this->SetLineWidth(.35); // 1 point
+		$this->AliasNbPages();
+		$this->AddPage();
+
+	// Javier: We don't embed fonts	
+	/*	if ($_SESSION['Language']=='zh_CN'){
+			$this->AddBig5Font();
+		} elseif ($_SESSION['Language']=='zh_HK'){
+			$this->AddCIDFont();
+		} elseif ($_SESSION['Language']=='ja_JP'){
+			$this->AddSJISFont();
+		} elseif ($_SESSION['Language']=='ko_KR'){
+			$this->AddUHCFont();
+		}
+	*/
 	}
-	$this->SetMargins($Prefs['marginleft'], $Prefs['margintop'], $Prefs['marginright']);
-	$this->SetAutoPageBreak(0, $Prefs['marginbottom']);
 
-// Javier	$this->SetFont($Prefs['coynamefont']);
-	if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-		$this->SetFont($Prefs['coynamefont']);
-	} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-		$this->SetFont('javiergb');
-	} else {
-		$this->SetFont('javierjp');
-	}
+	function Header() {
+		global $Prefs, $Heading, $Seq;
+		define(RowSpace,2); // define separation between the heading rows
 
-	$this->SetDrawColor(128,0,0);
-	$this->SetLineWidth(.35); // 1 point
-	$this->AliasNbPages();
-	$this->AddPage();
-
-// Javier: We don't embed fonts	
-/*	if ($_SESSION['Language']=='zh_CN'){
-		$this->AddBig5Font();
-	} elseif ($_SESSION['Language']=='zh_HK'){
-		$this->AddCIDFont();
-	} elseif ($_SESSION['Language']=='ja_JP'){
-		$this->AddSJISFont();
-	} elseif ($_SESSION['Language']=='ko_KR'){
-		$this->AddUHCFont();
-	}
-*/
-}
-
-function Header() {
-	global $Prefs, $Heading, $Seq;
-	define(RowSpace,2); // define separation between the heading rows
-
-	if ($Prefs['coynameshow']) { // Show the company name
+		if ($Prefs['coynameshow']) { // Show the company name
 
 // Javier: Look at the font bold style, B removed for CJK
-//			$this->SetFont($Prefs['coynamefont'], 'B', $Prefs['coynamefontsize']);
-		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-			$this->SetFont($Prefs['coynamefont'], 'B', $Prefs['coynamefontsize']);
-		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-			$this->SetFont('javiergb', '', $Prefs['coynamefontsize']);
-		} else {
-			$this->SetFont('javierjp', '', $Prefs['coynamefontsize']);
+//				$this->SetFont($Prefs['coynamefont'], 'B', $Prefs['coynamefontsize']);
+			if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+				$this->SetFont($Prefs['coynamefont'], 'B', $Prefs['coynamefontsize']);
+			} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
+				$this->SetFont('javiergb', '', $Prefs['coynamefontsize']);
+			} else {
+				$this->SetFont('javierjp', '', $Prefs['coynamefontsize']);
+			}
+			$Colors = explode(':',$Prefs['coynamefontcolor']);
+			$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
+			$CellHeight = ($Prefs['coynamefontsize']+RowSpace)*0.35;
+			$this->Cell(0,$CellHeight,$_SESSION['CompanyRecord']['coyname'],0,1,$Prefs['coynamealign']);
 		}
-		$Colors = explode(':',$Prefs['coynamefontcolor']);
-		$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
-		$CellHeight = ($Prefs['coynamefontsize']+RowSpace)*0.35;
-		$this->Cell(0,$CellHeight,$_SESSION['CompanyRecord']['coyname'],0,1,$Prefs['coynamealign']);
-	}
-	if ($Prefs['title1show']) { // Set title 1 heading
+		if ($Prefs['title1show']) { // Set title 1 heading
 
-// Javier		$this->SetFont($Prefs['title1font'], '', $Prefs['title1fontsize']);
-		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-			$this->SetFont($Prefs['title1font'],'',$Prefs['title1fontsize']);
-		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-			$this->SetFont('javiergb', '', $Prefs['title1fontsize']);
-		} else {
-			$this->SetFont('javierjp', '', $Prefs['title1fontsize']);
+// Javier			$this->SetFont($Prefs['title1font'], '', $Prefs['title1fontsize']);
+			if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+				$this->SetFont($Prefs['title1font'],'',$Prefs['title1fontsize']);
+			} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
+				$this->SetFont('javiergb', '', $Prefs['title1fontsize']);
+			} else {
+				$this->SetFont('javierjp', '', $Prefs['title1fontsize']);
+			}
+			$Colors = explode(':',$Prefs['title1fontcolor']);
+			$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
+			$CellHeight = ($Prefs['title1fontsize']+RowSpace)*0.35;
+			$this->Cell(0,$CellHeight,$this->SubTitle($Prefs['title1desc']),0,1,$Prefs['title1fontalign']);
 		}
-		$Colors = explode(':',$Prefs['title1fontcolor']);
-		$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
-		$CellHeight = ($Prefs['title1fontsize']+RowSpace)*0.35;
-		$this->Cell(0,$CellHeight,$this->SubTitle($Prefs['title1desc']),0,1,$Prefs['title1fontalign']);
-	}
 
-	if ($Prefs['title2show']) {	// Set Title 2 heading
-// Javier		$this->SetFont($Prefs['title2font'], '', $Prefs['title2fontsize']);
-		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-			$this->SetFont($Prefs['title2font'], '', $Prefs['title2fontsize']);
-		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-			$this->SetFont('javiergb', '', $Prefs['title2fontsize']);
-		} else {
-			$this->SetFont('javierjp', '', $Prefs['title2fontsize']);
+		if ($Prefs['title2show']) {	// Set Title 2 heading
+// Javier			$this->SetFont($Prefs['title2font'], '', $Prefs['title2fontsize']);
+			if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+				$this->SetFont($Prefs['title2font'], '', $Prefs['title2fontsize']);
+			} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
+				$this->SetFont('javiergb', '', $Prefs['title2fontsize']);
+			} else {
+				$this->SetFont('javierjp', '', $Prefs['title2fontsize']);
+			}
+			$Colors = explode(':',$Prefs['title2fontcolor']);
+			$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
+			$CellHeight = ($Prefs['title2fontsize']+RowSpace)*0.35;
+			$this->Cell(0,$CellHeight,$this->SubTitle($Prefs['title2desc']),0,1,$Prefs['title2fontalign']);
 		}
-		$Colors = explode(':',$Prefs['title2fontcolor']);
+		// Set the filter heading
+
+// Javier		$this->SetFont($Prefs['filterfont'], '', $Prefs['filterfontsize']);
+		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+			$this->SetFont($Prefs['filterfont'], '', $Prefs['filterfontsize']);
+		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
+			$this->SetFont('javiergb', '', $Prefs['filterfontsize']);
+		} else {
+			$this->SetFont('javierjp', '', $Prefs['filterfontsize']);
+		}
+
+		$Colors = explode(':',$Prefs['filterfontcolor']);
 		$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
-		$CellHeight = ($Prefs['title2fontsize']+RowSpace)*0.35;
-		$this->Cell(0,$CellHeight,$this->SubTitle($Prefs['title2desc']),0,1,$Prefs['title2fontalign']);
+		$CellHeight = ($Prefs['filterfontsize']+RowSpace)*0.35; // convert points to mm
+		$this->MultiCell(0,$CellHeight,$Prefs['filterdesc'],'B',1,$Prefs['filterfontalign']);
+		$this->y0=$this->GetY(); // set y position after report headings before column titles
+		// Set the table header
+
+// Javier		$this->SetFont($Prefs['datafont'],'',$Prefs['datafontsize']);
+		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+			$this->SetFont($Prefs['datafont'], '', $Prefs['datafontsize']);
+		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
+			$this->SetFont('javiergb', '', $Prefs['datafontsize']);
+		} else {
+			$this->SetFont('javierjp', '', $Prefs['datafontsize']);
+		}
+
+		$Colors = explode(':',$Prefs['datafontcolor']);
+		$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
+		$this->SetDrawColor(128,0,0);
+		$this->SetLineWidth(.35); // 1 point
+		$CellHeight = ($Prefs['datafontsize']+RowSpace)*0.35;
+		// fetch the column widths and put into array to match the columns of data
+		$CellXPos[0] = $Prefs['marginleft'];
+		for ($x=1; $x<=8; $x++) $CellXPos[$x] = $CellXPos[$x-1] + $Prefs['col'.$x.'width'];
+		// Fetch the column break array
+		foreach ($Seq as $Temp) if ($Temp['break']) $ColBreak[] = true; else $ColBreak[] = false;
+		// See if we need to truncate the data
+		if ($Prefs['TruncListings']['params']=='1') $trunc=true; else $trunc=false;
+		// Ready to draw the column titles in the header
+		$maxY = $this->y0; // set to track the tallest column
+		$col = 1;
+		$LastY = $this->y0;
+		foreach ($Heading as $key=>$value) {
+			$this->SetLeftMargin($CellXPos[$col-1]);
+			$this->SetX($CellXPos[$col-1]);
+			$this->SetY($LastY);
+			// truncate data if selected
+			if ($trunc) $value=$this->TruncData($value, $Prefs['col'.$col.'width']);
+			$this->MultiCell($CellXPos[$col]-$CellXPos[$col-1],$CellHeight,$value);
+			if ($ColBreak[$key]) { 
+				$col++;
+				$LastY = $this->y0;
+			} else $LastY = $this->GetY();
+			if ($this->GetY()>$maxY) $maxY = $this->GetY(); // check for new col max height
+		}
+		// Draw a bottom line for the end of the heading
+		$this->SetLeftMargin($CellXPos[0]);
+		$this->SetX($CellXPos[0]);
+		$this->SetY($this->y0);
+		$this->Cell(0,$maxY-$this->y0,' ','B');
+		$this->y0=$maxY+0.35;
 	}
-	// Set the filter heading
 
-// Javier	$this->SetFont($Prefs['filterfont'], '', $Prefs['filterfontsize']);
-	if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-		$this->SetFont($Prefs['filterfont'], '', $Prefs['filterfontsize']);
-	} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-		$this->SetFont('javiergb', '', $Prefs['filterfontsize']);
-	} else {
-		$this->SetFont('javierjp', '', $Prefs['filterfontsize']);
+	function SubTitle($Title) {
+		global $Prefs;
+		// substitutes a command string with current information
+		$Title=preg_replace('/%date%/', date('Y-m-d',time()), $Title);
+		$Title=preg_replace('/%reportname%/', $Prefs['reportname'], $Title);
+		return $Title;
 	}
 
-	$Colors = explode(':',$Prefs['filterfontcolor']);
-	$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
-	$CellHeight = ($Prefs['filterfontsize']+RowSpace)*0.35; // convert points to mm
-	$this->MultiCell(0,$CellHeight,$Prefs['filterdesc'],'B',1,$Prefs['filterfontalign']);
-	$this->y0=$this->GetY(); // set y position after report headings before column titles
-	// Set the table header
-
-// Javier	$this->SetFont($Prefs['datafont'],'',$Prefs['datafontsize']);
-	if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-		$this->SetFont($Prefs['datafont'], '', $Prefs['datafontsize']);
-	} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-		$this->SetFont('javiergb', '', $Prefs['datafontsize']);
-	} else {
-		$this->SetFont('javierjp', '', $Prefs['datafontsize']);
-	}
-
-	$Colors = explode(':',$Prefs['datafontcolor']);
-	$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
-	$this->SetDrawColor(128,0,0);
-	$this->SetLineWidth(.35); // 1 point
-	$CellHeight = ($Prefs['datafontsize']+RowSpace)*0.35;
-	// fetch the column widths and put into array to match the columns of data
-	$CellXPos[0] = $Prefs['marginleft'];
-	for ($x=1; $x<=8; $x++) $CellXPos[$x] = $CellXPos[$x-1] + $Prefs['col'.$x.'width'];
-	// Fetch the column break array
-	foreach ($Seq as $Temp) if ($Temp['break']) $ColBreak[] = true; else $ColBreak[] = false;
-	// See if we need to truncate the data
-	if ($Prefs['TruncListings']['params']=='1') $trunc=true; else $trunc=false;
-	// Ready to draw the column titles in the header
-	$maxY = $this->y0; // set to track the tallest column
-	$col = 1;
-	$LastY = $this->y0;
-	foreach ($Heading as $key=>$value) {
-		$this->SetLeftMargin($CellXPos[$col-1]);
-		$this->SetX($CellXPos[$col-1]);
-		$this->SetY($LastY);
-		// truncate data if selected
-		if ($trunc) $value=$this->TruncData($value, $Prefs['col'.$col.'width']);
-		$this->MultiCell($CellXPos[$col]-$CellXPos[$col-1],$CellHeight,$value);
-		if ($ColBreak[$key]) { 
-			$col++;
-			$LastY = $this->y0;
-		} else $LastY = $this->GetY();
-		if ($this->GetY()>$maxY) $maxY = $this->GetY(); // check for new col max height
-	}
-	// Draw a bottom line for the end of the heading
-	$this->SetLeftMargin($CellXPos[0]);
-	$this->SetX($CellXPos[0]);
-	$this->SetY($this->y0);
-	$this->Cell(0,$maxY-$this->y0,' ','B');
-	$this->y0=$maxY+0.35;
-}
-
-function SubTitle($Title) {
-	global $Prefs;
-	// substitutes a command string with current information
-	$Title=preg_replace('/%date%/', date('Y-m-d',time()), $Title);
-	$Title=preg_replace('/%reportname%/', $Prefs['reportname'], $Title);
-	return $Title;
-}
-
-function Footer() {
-	//Position at 1.5 cm from bottom
-	$this->SetY(-15);
-	//Arial italic 8
+	function Footer() {
+		//Position at 1.5 cm from bottom
+		$this->SetY(-15);
+		//Arial italic 8
 
 // Javier	$this->SetFont('Helvetica', '', 8);
-	if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-		$this->SetFont('helvetica', '', 8);
-	} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-		$this->SetFont('javiergb', '', 8);
-	} else {
-		$this->SetFont('javierjp', '', 8);
-	}
-	
-	$this->SetTextColor(0);
-	//Page number
-	$this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
-}
-
-function ReportTable($Data) {
-	global $Prefs, $Seq;
-
-	$FillColor = array(224, 235, 255);
-
-// Javier	$this->SetFont($Prefs['datafont'], '', $Prefs['datafontsize']);
-	if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-		$this->SetFont($Prefs['datafont'], '', $Prefs['datafontsize']);
-	} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-		$this->SetFont('javiergb', '', $Prefs['datafontsize']);
-	} else {
-		$this->SetFont('javierjp', '', $Prefs['datafontsize']);
-	}
-
-	$this->SetFillColor($FillColor[0],$FillColor[1],$FillColor[2]);
-	$Colors = explode(':',$Prefs['datafontcolor']);
-	$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
-	$CellHeight = ($Prefs['datafontsize']+RowSpace)*0.35;
-	// Fetch the column widths and put into array to match the columns of data
-	$CellXPos[0] = $Prefs['marginleft'];
-	for ($x=1; $x<=8; $x++) $CellXPos[$x] = $CellXPos[$x-1] + $Prefs['col'.$x.'width'];
-	// Fetch the column break array
-	foreach ($Seq as $Temp) {
-		if ($Temp['break']){
-			 $ColBreak[] = true;
+		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+			$this->SetFont('helvetica', '', 8);
+		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
+			$this->SetFont('javiergb', '', 8);
 		} else {
-			$ColBreak[] = false;
+			$this->SetFont('javierjp', '', 8);
 		}
+	
+		$this->SetTextColor(0);
+		//Page number
+		$this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
 	}
-	// See if we need to truncate the data
-	if ($Prefs['TruncListings']['params']=='1') {
-		$trunc=true; 
-	} else {
-		$trunc=false;
-	}
-	// Ready to draw the column data
-       $fill=false;
-	$NeedTop='No';
-	$MaxRowHt = 0; //track the tallest row to estimate page breaks
-    foreach($Data as $myrow) {
-		$Action = array_shift($myrow);
-		$todo = explode(':',$Action); // contains a letter of the date type and title/groupname
-		switch ($todo[0]) {
-			case "r": // Report Total
-			case "g": // Group Total
-				// Draw a fill box
-				if ($this->y0+(2*$MaxRowHt)>$this->pageY) {
-					// Fill the end of the report with white space
+
+	function ReportTable($Data) {
+		global $Prefs, $Seq;
+
+		$FillColor = array(224, 235, 255);
+
+// Javier		$this->SetFont($Prefs['datafont'], '', $Prefs['datafontsize']);
+		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
+			$this->SetFont($Prefs['datafont'], '', $Prefs['datafontsize']);
+		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
+			$this->SetFont('javiergb', '', $Prefs['datafontsize']);
+		} else {
+			$this->SetFont('javierjp', '', $Prefs['datafontsize']);
+		}
+
+		$this->SetFillColor($FillColor[0],$FillColor[1],$FillColor[2]);
+		$Colors = explode(':',$Prefs['datafontcolor']);
+		$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
+		$CellHeight = ($Prefs['datafontsize']+RowSpace)*0.35;
+		// Fetch the column widths and put into array to match the columns of data
+		$CellXPos[0] = $Prefs['marginleft'];
+		for ($x=1; $x<=8; $x++) $CellXPos[$x] = $CellXPos[$x-1] + $Prefs['col'.$x.'width'];
+		// Fetch the column break array
+		foreach ($Seq as $Temp) {
+			if ($Temp['break']){
+				 $ColBreak[] = true;
+			} else {
+				$ColBreak[] = false;
+			}
+		}
+		// See if we need to truncate the data
+		if ($Prefs['TruncListings']['params']=='1') {
+			$trunc=true; 
+		} else {
+			$trunc=false;
+		}
+		// Ready to draw the column data
+		$fill=false;
+		$NeedTop='No';
+		$MaxRowHt = 0; //track the tallest row to estimate page breaks
+		foreach($Data as $myrow) {
+			$Action = array_shift($myrow);
+			$todo = explode(':',$Action); // contains a letter of the date type and title/groupname
+			switch ($todo[0]) {
+				case "r": // Report Total
+				case "g": // Group Total
+					// Draw a fill box
+					if ($this->y0+(2*$MaxRowHt)>$this->pageY) {
+						// Fill the end of the report with white space
+						$this->SetLeftMargin($CellXPos[0]);
+						$this->SetX($CellXPos[0]);
+						$this->SetY($this->y0);
+						$this->SetFillColor(255);
+						$this->Cell(0,$this->pageY-$this->y0,'','',0,'L',1);
+						$this->AddPage();
+						$MaxRowHt=0;
+					}
 					$this->SetLeftMargin($CellXPos[0]);
 					$this->SetX($CellXPos[0]);
 					$this->SetY($this->y0);
-					$this->SetFillColor(255);
-					$this->Cell(0,$this->pageY-$this->y0,'','',0,'L',1);
-					$this->AddPage();
-					$MaxRowHt=0;
-				}
-				$this->SetLeftMargin($CellXPos[0]);
-				$this->SetX($CellXPos[0]);
-				$this->SetY($this->y0);
-				$this->SetFillColor(240);
-				$this->Cell(0,$this->pageY-$this->y0,'',$brdr,0,'L',1);
-				// Add total heading
-				$this->SetLeftMargin($CellXPos[0]);
-				$this->SetX($CellXPos[0]);
-				$this->SetY($this->y0);
-				if ($todo[0]=='g') $Desc = 'Group'; else $Desc = 'Report';
-				$this->Cell(0,$CellHeight,$Desc.' Total For: '.$todo[1],1,1,'C');
-				$this->y0=$this->GetY()+0.35;
-				$NeedTop = 'Next';
-				$fill=false; // set so totals data will not be filled
-				// now fall into the 'd' case to show the data
-			case "d": // data element
-			default:
-				// figure out if a border needs to be drawn for total separation 
-				// and fill color (draws an empty box over the row just written with the fill color)
-				$brdr = 0;
-				if ($NeedTop=='Yes') {
-					$brdr='T'; 
-					$fill=false; // set so first data after total will not be filled
-					$NeedTop='No';
-				} elseif ($NeedTop=='Next') {
-					$brdr='LR'; 
-					$NeedTop='Yes';
-				}
-				// Draw a fill box
-				if (($this->y0+$MaxRowHt)>$this->pageY) {
-					// Fill the end of the report with white space
+					$this->SetFillColor(240);
+					$this->Cell(0,$this->pageY-$this->y0,'',$brdr,0,'L',1);
+					// Add total heading
 					$this->SetLeftMargin($CellXPos[0]);
 					$this->SetX($CellXPos[0]);
 					$this->SetY($this->y0);
-					$this->SetFillColor(255);
-					$this->Cell(0,$this->pageY-$this->y0,'','',0,'L',1);
-					$this->AddPage();
-					$MaxRowHt=0;
-				}
-				$this->SetLeftMargin($CellXPos[0]);
-				$this->SetX($CellXPos[0]);
-				$this->SetY($this->y0);
-				if ($fill) $this->SetFillColor($FillColor[0],$FillColor[1],$FillColor[2]); else $this->SetFillColor(255);
-				$this->Cell(0,$this->pageY-$this->y0,'',$brdr,0,'L',1);
-				// fill in the data
-				$maxY = $this->y0; // set to current top of row
-				$col = 1;
-				$LastY = $this->y0;
-				foreach ($myrow as $key=>$value) {
-					$this->SetLeftMargin($CellXPos[$col-1]);
-					$this->SetX($CellXPos[$col-1]);
-					$this->SetY($LastY);
-					// truncate data if necessary
-					if ($trunc) $value=$this->TruncData($value, $Prefs['col'.$col.'width']);
-					$this->MultiCell($CellXPos[$col]-$CellXPos[$col-1],$CellHeight,$value,0);
-					if ($ColBreak[$key]) { 
-						$col++;
-						$LastY = $this->y0;
-					} else $LastY = $this->GetY();
-					if ($this->GetY()>$maxY) $maxY = $this->GetY();
-				}
-				$this->SetLeftMargin($CellXPos[0]); // restore left margin
-				break;
+					if ($todo[0]=='g') $Desc = 'Group'; else $Desc = 'Report';
+					$this->Cell(0,$CellHeight,$Desc.' Total For: '.$todo[1],1,1,'C');
+					$this->y0=$this->GetY()+0.35;
+					$NeedTop = 'Next';
+					$fill=false; // set so totals data will not be filled
+					// now fall into the 'd' case to show the data
+				case "d": // data element
+				default:
+					// figure out if a border needs to be drawn for total separation 
+					// and fill color (draws an empty box over the row just written with the fill color)
+					$brdr = 0;
+					if ($NeedTop=='Yes') {
+						$brdr='T'; 
+						$fill=false; // set so first data after total will not be filled
+						$NeedTop='No';
+					} elseif ($NeedTop=='Next') {
+						$brdr='LR'; 
+						$NeedTop='Yes';
+					}
+					// Draw a fill box
+					if (($this->y0+$MaxRowHt)>$this->pageY) {
+						// Fill the end of the report with white space
+						$this->SetLeftMargin($CellXPos[0]);
+						$this->SetX($CellXPos[0]);
+						$this->SetY($this->y0);
+						$this->SetFillColor(255);
+						$this->Cell(0,$this->pageY-$this->y0,'','',0,'L',1);
+						$this->AddPage();
+						$MaxRowHt=0;
+					}
+					$this->SetLeftMargin($CellXPos[0]);
+					$this->SetX($CellXPos[0]);
+					$this->SetY($this->y0);
+					if ($fill) $this->SetFillColor($FillColor[0],$FillColor[1],$FillColor[2]); else $this->SetFillColor(255);
+					$this->Cell(0,$this->pageY-$this->y0,'',$brdr,0,'L',1);
+					// fill in the data
+					$maxY = $this->y0; // set to current top of row
+					$col = 1;
+					$LastY = $this->y0;
+					foreach ($myrow as $key=>$value) {
+						$this->SetLeftMargin($CellXPos[$col-1]);
+						$this->SetX($CellXPos[$col-1]);
+						$this->SetY($LastY);
+						// truncate data if necessary
+						if ($trunc) $value=$this->TruncData($value, $Prefs['col'.$col.'width']);
+						$this->MultiCell($CellXPos[$col]-$CellXPos[$col-1],$CellHeight,$value,0);
+						if ($ColBreak[$key]) { 
+							$col++;
+							$LastY = $this->y0;
+						} else $LastY = $this->GetY();
+						if ($this->GetY()>$maxY) $maxY = $this->GetY();
+					}
+					$this->SetLeftMargin($CellXPos[0]); // restore left margin
+					break;
+			}
+			$ThisRowHt=$maxY-$this->y0; // seee how tall this row was
+			if ($ThisRowHt>$MaxRowHt) $MaxRowHt = $ThisRowHt; // keep that largest row so far to track pagination
+			$this->y0=$maxY; // set y position to largest value for next row
+		$fill=!$fill;
 		}
-		$ThisRowHt=$maxY-$this->y0; // seee how tall this row was
-		if ($ThisRowHt>$MaxRowHt) $MaxRowHt = $ThisRowHt; // keep that largest row so far to track pagination
-		$this->y0=$maxY; // set y position to largest value for next row
-        $fill=!$fill;
-    }
-	// Fill the end of the report with white space
-	$this->SetLeftMargin($CellXPos[0]);
-	$this->SetX($CellXPos[0]);
-	$this->SetY($this->y0);
-	$this->SetFillColor(255);
-	$this->Cell(0,$this->pageY-$this->y0,'','T',0,'L',1);
-}
-
-function TruncData($strData, $ColWidth) {
-	$percent=0.90; //percent to truncate from max to account for proportional spacing
-	$CurWidth = $this->GetStringWidth($strData);
-	if ($CurWidth>($ColWidth*.90)) { // then it needs to be truncated
-		// for now we'll do an approximation based on averages and scale to 90% of the width to allow for variance
-		// A better aproach would be an recursive call to this function until the string just fits.
-		$NumChars = strlen($strData);
-		// Reduce the string by 1-$percent and retest
-		$strData = $this->TruncData(substr($strData, 0, ($ColWidth/$CurWidth)*$NumChars*$percent), $ColWidth);
+		// Fill the end of the report with white space
+		$this->SetLeftMargin($CellXPos[0]);
+		$this->SetX($CellXPos[0]);
+		$this->SetY($this->y0);
+		$this->SetFillColor(255);
+		$this->Cell(0,$this->pageY-$this->y0,'','T',0,'L',1);
 	}
-	return $strData;
-}
 
-function Stream($FileName) {
-  $this->Output($FileName,'D');
-}
+	function TruncData($strData, $ColWidth) {
+		$percent=0.90; //percent to truncate from max to account for proportional spacing
+		$CurWidth = $this->GetStringWidth($strData);
+		if ($CurWidth>($ColWidth*.90)) { // then it needs to be truncated
+			// for now we'll do an approximation based on averages and scale to 90% of the width to allow for variance
+			// A better aproach would be an recursive call to this function until the string just fits.
+			$NumChars = strlen($strData);
+			// Reduce the string by 1-$percent and retest
+			$strData = $this->TruncData(substr($strData, 0, ($ColWidth/$CurWidth)*$NumChars*$percent), $ColWidth);
+		}
+		return $strData;
+	}
+
+	function Stream($FileName) {
+		$this->Output($FileName,'D');
+	}
 
 } // end class
 
@@ -674,17 +678,19 @@ function GenerateCSVFile($Data, $Prefs) {
 function GeneratePDFFile($Data, $Prefs) {
 	$pdf=new PDF();
 	$pdf->ReportTable($Data);
-	$pdfcode = $pdf->output();
+// Javier: TCPDF flush buffers so this actually would produce the pdf creation
+/*	$pdfcode = $pdf->output();
 	$len = strlen($pdfcode);
-	$ReportName = ReplaceNonAllowedCharacters($Prefs['reportname']) .'.pdf';
+*/	$ReportName = ReplaceNonAllowedCharacters($Prefs['reportname']) .'.pdf';
 	
-	header('Content-type: application/pdf');
+// Javier: TCPDF sends its own http header
+/*	header('Content-type: application/pdf');
 	header('Content-Length: ' . $len);
 	header('Content-Disposition: inline; filename="' . $ReportName . '"');
 	header('Expires: 0');
 	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 	header('Pragma: public');
-	
+*/
 	$pdf->Stream($ReportName);
 	exit(); // needs to be here to properly render the pdf file.
 }
@@ -693,7 +699,7 @@ function GeneratePDFFile($Data, $Prefs) {
 function ReplaceNonAllowedCharacters ($String) {
 	$DodgyCharactersArray = array('"',' ', '&',"'");
 	$ContainsDodgyCharacters = true;
-	while ($ContainsDodgyCharacters == true){
+	while ($ContainsDodgyCharacters == true) {
 		
 		$ContainsDodgyCharacters = false; //assume all dodgy characters are replaced on the last pass
 		

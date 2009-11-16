@@ -1,4 +1,7 @@
 <?php
+
+/* $Id$ */
+
 // Javier: I remove CJK that now is supported by TCPDF
 /*
 // for compatability with extended char sets
@@ -15,9 +18,10 @@ if ($_SESSION['Language']=='zh_CN'){
 
 // Javier: But I respect Phil's class to isolate possible issues. 
 //	   We should merge them in a near future (in the short term).
-class PDF_Language extends TCPDF { }
+// class PDF_Language extends TCPDF { }
 
-class PDF extends PDF_Language {
+// class PDF extends PDF_Language {
+class PDF extends TCPPDF {
 	var $y0; // current y position
 	var $x0; // current x position
 	var $pageY; // y value of bottom of page less bottom margin
@@ -645,9 +649,11 @@ function BuildPDF($ReportID, $Prefs) {
 		}
 	}
 	// Add additional headers needed for MSIE and send page
-	header('Pragma: cache');
+
+// Javier: TCPDF sends its own http header
+/*	header('Pragma: cache');
 	header('Cache-Control: public, must-revalidate, max-age=0');
-	$pdf->Output($Prefs['reportname'].'.pdf','D');
+*/	$pdf->Output($Prefs['reportname'].'.pdf','D');
 	exit(); // needs to be here to properly render the pdf file.
 }
 

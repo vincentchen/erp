@@ -1,5 +1,9 @@
 <?php
+
+/* $Id$ */
+
 /* $Revision: 1.7 $ */
+
 $DirectoryLevelsDeep =1;
 $PathPrefix = '../';
 $PageSecurity = 1; // set security level for webERP

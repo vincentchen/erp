@@ -1,4 +1,7 @@
 <?php
+
+/* $Id$ */
+
 /* $Revision: 1.3 $ */
 
 $DirectoryLevelsDeep = 1;
