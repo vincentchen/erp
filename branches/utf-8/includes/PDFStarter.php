@@ -2,20 +2,14 @@
 
 /* $Id */
 
-/* $Revision: 1.5 $ */
-
-/*	------------------------------------------------------------------------------------
+/*	-------------------------------------------------------------------------------------
+	November 2009. Moving from FPDF to TCPDF.
  	This file is included by most of the scripts (47 from 54 at now) that creates a pdf.
 	This file creates a new instance of the PDF object defined in class.pdf.php
-	Since the moving from FPDF to TCPDF (November 2009)
+	The changes applied to the PDF class affected this file that needed some changes too.
+	Javier de Lorenzo-Cáceres <info@civicom.eu>
+	------------------------------------------------------------------------------------- */
 
-
-
-
-
-this class was an extension to the fpdf class using a syntax that the original reports were written in
-(the R &OS pdf.php class) - due to limitation of this class for foreign character support this wrapper class
-was written to allow the same code base to use the more functional fpdf.class by Olivier Plathey */
 
 include ('class.pdf.php');
 
