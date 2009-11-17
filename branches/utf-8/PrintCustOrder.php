@@ -147,6 +147,16 @@ if (DB_num_rows($result)>0){
 	$pdf->addInfo('Title', _('Customer Packing Slip') );
 	$pdf->addInfo('Subject', _('Packing slip for order') . ' ' . $_GET['TransNo']);
 
+/* Javier: I have brought this piece from the pdf class constructor to get it closer to the admin/user,
+	I corrected it to match TCPDF, but it still needs check, after which,
+	I think it should be moved to each report to provide flexible Document Header and Margins in a per-report basis. */
+	$pdf->setAutoPageBreak(0);	// Javier: needs check.
+	$pdf->setPrintHeader(false);	// Javier: I added this must be called before Add Page
+	$pdf->AddPage();
+//	$this->SetLineWidth(1); 	   Javier: It was ok for FPDF but now is too gross with TCPDF. TCPDF defaults to 0'57 pt (0'2 mm) which is ok.
+	$pdf->cMargin = 0;		// Javier: needs check.
+/* END Brought from class.pdf.php constructor */
+
 	$FontSize=12;
 	$pdf->selectFont('./fonts/Helvetica.afm');
 	$line_height=16;

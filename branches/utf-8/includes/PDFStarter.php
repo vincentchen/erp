@@ -1,7 +1,19 @@
 <?php
+
+/* $Id */
+
 /* $Revision: 1.5 $ */
 
-/*this class was an extension to the fpdf class using a syntax that the original reports were written in
+/*	------------------------------------------------------------------------------------
+ 	This file is included by most of the scripts (47 from 54 at now) that creates a pdf.
+	This file creates a new instance of the PDF object defined in class.pdf.php
+	Since the moving from FPDF to TCPDF (November 2009)
+
+
+
+
+
+this class was an extension to the fpdf class using a syntax that the original reports were written in
 (the R &OS pdf.php class) - due to limitation of this class for foreign character support this wrapper class
 was written to allow the same code base to use the more functional fpdf.class by Olivier Plathey */
 
@@ -22,9 +34,13 @@ switch ($PaperSize) {
 
   case 'A4':
 
+// Javier: Now I use the native TCPDF constructor to which I send these values in each case,
+//	this should have been done whith FPDF which use the same values in its constructor.
+
 	$DocumentPaper = 'A4'; $DocumentOrientation ='P';
 
-      $Page_Width=595; // DIN-A4 is 210 mm width, i.e., 595,2756 points (inches * 72 ppp)
+// Javier: DIN-A4 is 210 mm width, i.e., 595'2756 points (inches * 72 ppi)
+      $Page_Width=595;
       $Page_Height=842;
       $Top_Margin=30;
       $Bottom_Margin=30;
@@ -117,30 +133,31 @@ switch ($PaperSize) {
       break;
 }
 
-// Javier: $PageSize = array(0,0,$Page_Width,$Page_Height);
-// Javier: $pdf = new Cpdf($PageSize);
+// Javier: I correct the call to the constructor to match TCPDF (and FPDF ;-)
+//	$PageSize = array(0,0,$Page_Width,$Page_Height);
+//	$pdf = new Cpdf($PageSize);
 $pdf = new Cpdf($DocumentOrientation, 'pt', $DocumentPaper);
 
 $pdf->addInfo('Creator', 'WebERP http://www.weberp.org');
 $pdf->addInfo('Author', 'WebERP ' . $Version);
 
 
-/* Javier: Brought from class.pdf.php constructor
-	Next step is to move it to each report to get the advantage of Document Header */
-$pdf->setAutoPageBreak(0);
-$pdf->setPrintHeader(false); // must be called before Add Page
-$pdf->AddPage();
-//	$this->SetLineWidth(1); Javier: It was ok but now is too gross for TCPDF. TCPDF default is 0'57 pt (0'2 mm) which is ok.
-$pdf->cMargin = 0;
+/* Javier: I have brought this piece from the pdf class constructor to get it closer to the admin/user,
+	I corrected it to match TCPDF, but it still needs check, after which,
+	I think it should be moved to each report to provide flexible Document Header and Margins in a per-report basis. */
+	$pdf->setAutoPageBreak(0);	// Javier: needs check.
+	$pdf->setPrintHeader(false);	// Javier: I added this must be called before Add Page
+	$pdf->AddPage();
+//	$this->SetLineWidth(1); 	   Javier: It was ok for FPDF but now is too gross with TCPDF. TCPDF defaults to 0'57 pt (0'2 mm) which is ok.
+	$pdf->cMargin = 0;		// Javier: needs check.
 /* END Brought from class.pdf.php constructor */
 
-// Javier: TCPDF now supports CJK
+// Javier: This was used by PDF_Language class which inherited from FPDF, now CJK is supported by TCPDF CID fonts
 /*depending on the language this font is modified see includes/class.pdf.php
 	selectFont method interprets the text helvetica to be:
 	for Chinese - BIg5
 	for Japanese - SJIS
 	for Korean - UHC
-
-$pdf->selectFont('helvetica'); */
-$pdf->selectFont();
+*/
+$pdf->selectFont('helvetica');
 ?>

@@ -49,6 +49,16 @@ $pdf->addInfo('Author',"WebERP " . $Version);
 $pdf->addInfo('Title', _('Inventory Valuation Report'));
 $pdf->addInfo('Subject', _('Inventory Valuation'));
 
+/* Javier: I have brought this piece from the pdf class constructor to get it closer to the admin/user,
+	I corrected it to match TCPDF, but it still needs check, after which,
+	I think it should be moved to each report to provide flexible Document Header and Margins in a per-report basis. */
+	$pdf->setAutoPageBreak(0);	// Javier: needs check.
+	$pdf->setPrintHeader(false);	// Javier: I added this must be called before Add Page
+	$pdf->AddPage();
+//	$this->SetLineWidth(1); 	   Javier: It was ok for FPDF but now is too gross with TCPDF. TCPDF defaults to 0'57 pt (0'2 mm) which is ok.
+	$pdf->cMargin = 0;		// Javier: needs check.
+/* END Brought from class.pdf.php constructor */
+
 $pdf->selectFont('./fonts/Helvetica.afm'); //this will not go to that directory any more
 $PageNumber = 1;
 $line_height = 12;

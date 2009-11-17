@@ -55,7 +55,7 @@ if ($_SESSION['Language']=='zh_CN' OR $_SESSION['Language']=='zh_HK' OR $_SESSIO
 
 // Javier: I remove PDF_Language class
 /* 
-class PDF_Language extends TCPDF {
+class PDF_Language extends FPDF {
 		function PDF_Language($orientation='P', $unit='mm', $format='A4') {
 			$this->TCPDF($orientation, $unit, $format); // TCPDF constructor PhP4 format.
 		}
@@ -121,7 +121,8 @@ class Cpdf extends TCPDF {
 */
 
 /* Javier: 	I had to work in TCPDF CID fonts, which are font definitions or descriptions, meta-data.
-		This selection should rely on user's choice regardless user's language */
+		This selection should rely on user's choice regardless user's language. 
+		This is an early implementation cause it's the key to multilanguage support. */
 //			$this->SetFont($FontName, $type);
 		if (($FontName == null) or ($FontName == '')) {$DFontName = 'helvetica';}
 		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
