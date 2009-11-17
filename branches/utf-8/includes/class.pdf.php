@@ -1,21 +1,31 @@
 <?php
 
 /* $Id$ */
-/*
-	This class was an extension to the fpdf class using a syntax that the original reports were written in
-	(the R &OS pdf.php class) - due to limitation of this class for foreign character support this wrapper class
-	was written to allow the same code base to use the more functional fpdf.class by Olivier Plathey
+
+     /* -----------------------------------------------------------------------------------------------
+	This class was an extension to the FPDF class to use the syntax of the R&OS pdf.php class, 
+	the syntax that WebERP original reports were written in.
+	Due to limitation of R&OS class for foreign character support, this wrapper class was
+	written to allow the same code base to use the more functional fpdf.class by Olivier Plathey.
 	
-*	Wrapper for use R&OSpdf API with fpdf.org class
+	Wrapper for use R&OSpdf API with fpdf.org class by:
 		Janusz Dobrowolski <janusz@iron.from.pl>
 		David Luo <davidluo188@yahoo.com.cn>
 
-*	Extended for Chinese/Japanese/Korean support by Phil Daintree
+	Extended for Chinese/Japanese/Korean support by: 
+		Phil Daintree
 	
-*	Chinese GB&BIG5 support by Edward Yang <edward.yangcn@gmail.com>
+	Chinese GB&BIG5 support by: 
+		Edward Yang <edward.yangcn@gmail.com>
 
-*	Moving from FPDF to TCPDF to support UTF-8 by Javier de Lorenzo-Cáceres <info@civicom.eu> 
-*/
+
+	Due to limitation of FPDF class for UTF-8 support, now this class inherits from the TCPDF class
+	by Nicola Asuni.
+
+	Work to move from FPDF to TCPDF by:
+		Javier de Lorenzo-Cáceres <info@civicom.eu>
+	----------------------------------------------------------------------------------------------- */
+
 
 // Javier: I replace FPDF ...
 // define('FPDF_FONTPATH','./fonts/');
@@ -28,16 +38,16 @@ require_once('tcpdf/tcpdf.php');
 
 // Javier: I remove CJK that now is supported by TCPDF
 /*
-if ($_SESSION['Language']=='zh_CN' OR $_SESSION['Language']=='zh_HK' OR $_SESSION['Language']=='zh_TW'){
+if ($_SESSION['Language']=='zh_CN' OR $_SESSION['Language']=='zh_HK' OR $_SESSION['Language']=='zh_TW') {
 	include('FPDF_Chinese.php');
-} elseif ($_SESSION['Language']=='ja_JP'){
+} elseif ($_SESSION['Language']=='ja_JP') {
 	include('FPDF_Japanese.php');
-}elseif ($_SESSION['Language']=='ko_KR'){
+} elseif ($_SESSION['Language']=='ko_KR') {
 	include('FPDF_Korean.php');
 } else {
 	class PDF_Language extends FPDF {
-		function PDF_Language($orientation='P',$unit='mm',$format='A4') {
-			$this->FPDF($orientation,$unit,$format);
+		function PDF_Language($orientation='P', $unit='mm', $format='A4') {
+			$this->FPDF($orientation, $unit, $format);
 		}
 	}
 }
@@ -46,35 +56,32 @@ if ($_SESSION['Language']=='zh_CN' OR $_SESSION['Language']=='zh_HK' OR $_SESSIO
 // Javier: I remove PDF_Language class
 /* 
 class PDF_Language extends TCPDF {
-		function PDF_Language($orientation='P',$unit='mm',$format='A4') {
+		function PDF_Language($orientation='P', $unit='mm', $format='A4') {
 			$this->TCPDF($orientation, $unit, $format); // TCPDF constructor PhP4 format.
 		}
 	}
 */
 
-//class Cpdf now extends TCPDF instead PDF_Language {
+//Javier: Cpdf class now inherits from TCPDF instead of PDF_Language
 class Cpdf extends TCPDF {
-// Original
+// Javier: I change the constructor
 //	function Cpdf($pageSize=array(0,0,612,792)) {
-// Javier: have to look if would be good to change pt units into mm, see PDFStarter.php and every report
 	public function __construct($DocOrientation='P', $DocUnits='mm', $DocPaper='A4') {
 
-	
-// Original	$this->PDF_Language( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) );
-// Javier v1	$this->TCPDF( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) ); // TCPDF constructor PhP4 format.
-// Javier v2	parent::__construct( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) );
-/* Javier v3 */ parent::__construct($DocOrientation, $DocUnits, $DocPaper, true, 'UTF-8', false);
+// Javier: I change and correct the call to the parent constructor
+//		$this->PDF_Language( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) );
+		parent::__construct($DocOrientation, $DocUnits, $DocPaper, true, 'UTF-8', false);
 
-// Javier: With TCPDF we don't embed fonts
+// Javier: I remove this stanza cause we don't want to embed fonts
 /*		
 		// Next three lines should be here for any fonts genarted with 'makefont' utility
 		if ($_SESSION['Language']=='zh_TW' or $_SESSION['Language']=='zh_HK'){
 			$this->AddBig5Font();
-		} elseif ($_SESSION['Language']=='zh_CN'){
+		} elseif ($_SESSION['Language']=='zh_CN') {
 			$this->AddGBFont();
-		}elseif ($_SESSION['Language']=='ja_JP'){
+		} elseif ($_SESSION['Language']=='ja_JP') {
 			$this->AddSJISFont();
-		}elseif ($_SESSION['Language']=='ko_KR'){
+		} elseif ($_SESSION['Language']=='ko_KR') {
 			$this->AddUHCFont();
 		} else {
 		//	$this->AddFont('helvetica');
@@ -82,14 +89,18 @@ class Cpdf extends TCPDF {
 		//	$this->AddFont('helvetica','B');
 		}
 */
-	}
+
+	} // End of constructor
 
 
-// Javier: We now use just three fonts and still have not seen styles for CJK,
-//         styles are not in the font's name except Helvetica. Needs checking.	
 	function selectFont($FontName = 'helvetica') {
-/*		
-		$type = '';
+
+/* Javier: 	PDF doesn't support UTF-8 pan-unicode fonts but 16 bits CMaps CID fonts.
+		Free use of CID fonts is very limited by Adobe.
+		Free use of styles like bold or italic is limited to core fonts.	*/
+
+
+/*		$type = '';
 		if(strpos($FontName, 'Oblique')) {
 			$type = 'I';
 		}
@@ -108,7 +119,10 @@ class Cpdf extends TCPDF {
 			$FontName ='helvetica';
 		}
 */
-// Javier 		$this->SetFont($FontName, $type);
+
+/* Javier: 	I had to work in TCPDF CID fonts, which are font definitions or descriptions, meta-data.
+		This selection should rely on user's choice regardless user's language */
+//			$this->SetFont($FontName, $type);
 		if (($FontName == null) or ($FontName == '')) {$DFontName = 'helvetica';}
 		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
  			$this->SetFont('helvetica', '', 11);
@@ -120,7 +134,7 @@ class Cpdf extends TCPDF {
 	}
 
 	function newPage() {
-		/* $this->setPrintHeader(false);  must be called before Add Page */
+/* Javier: 	$this->setPrintHeader(false);  This is not a removed call but added in. */
 		$this->AddPage();
 	}
 	
@@ -139,15 +153,23 @@ class Cpdf extends TCPDF {
 	
 	function addInfo($label, $value) {
 		if ($label == 'Creator') {
+
+// Javier: The Creator was changed from R&OS to FPDF, now I change it to be TCPDF.
 			// The Creator info in source is not exactly it should be ;) 
-/* Javier		$value = str_replace( "ros.co.nz", "fpdf.org", $value );
+/*			$value = str_replace( "ros.co.nz", "fpdf.org", $value );
 			$value = str_replace( "R&OS", "", $value );
-*/			$this->SetCreator( $value );
-// Javier		$this->SetCreator(PDF_CREATOR); // PDF_CREATOR is defined as 'TCPDF' in config/tcpdfconfig.php
+			$this->SetCreator( $value );
+*/
+/* Javier: Many scripts set the creator to be WebERP like this		
+			$pdf->addInfo('Creator', 'WebERP http://www.weberp.org');
+   Javier: But the Creator is TCPDF by Nicola Asuni, PDF_CREATOR is defined as 'TCPDF' in tcpdf/config/tcpdfconfig.php
+*/ 			$this->SetCreator(PDF_CREATOR);
 		}
 		if ($label == 'Author') {
-			$this->SetAuthor( $value );
-// Javier		$this->SetAuthor('Nicola Asuni');
+/* Javier: Many scripts set the author to be WebERP like this	
+			$pdf->addInfo('Author', 'WebERP ' . $Version);
+	But the Author might be set to be the user
+*/			$this->SetAuthor( $value );
 		}
 		if ($label == 'Title') {
 			$this->SetTitle( $value );
@@ -159,7 +181,8 @@ class Cpdf extends TCPDF {
 			$this->SetKeywords( $value );
 		}
 	}
-	
+
+
 	function addJpegFromFile($img,$x,$y,$w=0,$h=0){
 		$this->Image($img, $x, $this->h-$y-$h, $w, $h);
 	}
@@ -246,19 +269,22 @@ class Cpdf extends TCPDF {
 		$tmp.=' S';
 		}
 		}
-		if ($angle !=0){
+		if ($angle !=0) {
 		$tmp .=' Q';
 		}
 		$this->_out($tmp);
 	}
 
-// Javier: We should give a file's name if we don't want file extension to be .php
 	function Stream() {
+// Javier: This was the wrapper to not change every script, it will become obsolete
+//		$this->Output('','I');
+// Javier: We should give a file's name if we don't want file extension to be .php
 		$this->Output('ThisScriptNeedsReview.pdf','I');
 	}
 
-// Javier: 2 new functions to manage the output: OutputI and OutputD.
-// The recursive scripts needs D. For the rest you may change I to D if you want to force all pdf to be downloaded or open in a desktop app instead the browser.
+/* Javier: These 2 new functions, OutputI and OutputD, will be going replacing the previous to manage the output.
+	The reason is that TCPDF has a different behaviour than FPDF, The recursive scripts needs D */
+// The admin/user may change I to D to force all pdf to be downloaded or open in a desktop app instead the browser plugin.
 	function OutputI($DocumentFilename = 'Document.pdf') {
 		if (($DocumentFilename == null) or ($DocumentFilename == '')) { 
 			$DocumentFilename = _('Document.pdf');
