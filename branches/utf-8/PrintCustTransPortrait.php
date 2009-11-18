@@ -1,47 +1,56 @@
 <?php
 
-/* $Revision: 1.39 $ */
+/* $Id$ */
+
+/* $Revision: 1.40 $ */
+
+/* Javier: Hay 5 PDF Outputs en este fichero, y una clase FPDI class, y una función , ... 
+	Sin embargo cierta persona aki cambió 2 L520 y L570, 3 son de fpdi y el 5º está en L457  */
 
 $PageSecurity = 1;
 
+
+
 include('includes/session.inc');
 
-if (isset($_GET['FromTransNo'])){
+if (isset($_GET['FromTransNo'])) {
 	$FromTransNo = $_GET['FromTransNo'];
 } elseif (isset($_POST['FromTransNo'])){
 	$FromTransNo = $_POST['FromTransNo'];
 }
 
-
-if (isset($_GET['InvOrCredit'])){
+if (isset($_GET['InvOrCredit'])) {
 	$InvOrCredit = $_GET['InvOrCredit'];
-} elseif (isset($_POST['InvOrCredit'])){
+} elseif (isset($_POST['InvOrCredit'])) {
 	$InvOrCredit = $_POST['InvOrCredit'];
 }
-if (isset($_GET['PrintPDF'])){
+
+if (isset($_GET['PrintPDF'])) {
 	$PrintPDF = $_GET['PrintPDF'];
-} elseif (isset($_POST['PrintPDF'])){
+} elseif (isset($_POST['PrintPDF'])) {
 	$PrintPDF = $_POST['PrintPDF'];
 }
 
 If (!isset($_POST['ToTransNo'])
-	OR trim($_POST['ToTransNo'])==''
-	OR $_POST['ToTransNo'] < $FromTransNo){
+	or trim($_POST['ToTransNo'])==''
+	or $_POST['ToTransNo'] < $FromTransNo) {
 
 	$_POST['ToTransNo'] = $FromTransNo;
 }
 
-$FirstTrans = $FromTransNo; /*Need to start a new page only on subsequent transactions */
+$FirstTrans = $FromTransNo; /* Need to start a new page only on subsequent transactions */
 
 If (isset($PrintPDF)
-	AND $PrintPDF!=''
-	AND isset($FromTransNo)
-	AND isset($InvOrCredit)
-	AND $FromTransNo!=''){
+	and $PrintPDF!=''
+	and isset($FromTransNo)
+	and isset($InvOrCredit)
+	and $FromTransNo!=''){
 
         include ('includes/class.pdf.php');
 //      define('FPDF_FONTPATH','font/');
         require('fpdi/fpdi.php');
+
+
 
         $Page_Width=595;
         $Page_Height=842;
@@ -50,13 +59,12 @@ If (isset($PrintPDF)
         $Left_Margin=40;
         $Right_Margin=30;
 
-	$PageSize = array(0,0,$Page_Width,$Page_Height);
-	$pdf = & new Cpdf($PageSize);
-	$pdf->selectFont('helvetica');
+// Javier: now I use the native constructor, better to not use references
+//	$PageSize = array(0,0,$Page_Width,$Page_Height);
+//	$pdf = & new Cpdf($PageSize);
+	$pdf = new Cpdf('P', 'pt', 'A4');
 	$pdf->addinfo('Author','webERP ' . $Version);
 	$pdf->addinfo('Creator','webERP http://www.weberp.org');
-
-	$FirstPage = true;
 
 	if ($InvOrCredit=='Invoice'){
 		$pdf->addinfo('Title',_('Sales Invoice') . ' ' . $FromTransNo . ' to ' . $_POST['ToTransNo']);
@@ -66,6 +74,18 @@ If (isset($PrintPDF)
 		$pdf->addinfo('Subject',_('Credit Notes from') . ' ' . $FromTransNo . ' ' . _('to') . ' ' . $_POST['ToTransNo']);
 	}
 
+/* Javier: I have brought this piece from the pdf class constructor to get it closer to the admin/user,
+	I corrected it to match TCPDF, but it still needs some check, after which,
+	I think it should be moved to each report to provide flexible Document Header and Margins in a per-report basis. */
+	$pdf->setAutoPageBreak(0);	// Javier: needs check.
+	$pdf->setPrintHeader(false);	// Javier: I added this must be called before Add Page
+	$pdf->AddPage();
+//	$this->SetLineWidth(1); 	   Javier: It was ok for FPDF but now is too gross with TCPDF. TCPDF defaults to 0'57 pt (0'2 mm) which is ok.
+	$pdf->cMargin = 0;		// Javier: needs check.
+/* END Brought from class.pdf.php constructor */
+
+	$pdf->selectFont('helvetica');
+	$FirstPage = true;
 	$line_height=16;
 
 	while ($FromTransNo <= $_POST['ToTransNo']){
@@ -495,9 +515,12 @@ If (isset($PrintPDF)
 	    $FromTransNo++;
 	} /* end loop to print invoices */
 
+/* Javier: This actually would produce the output, and maybe it should do
 //	$pdfcode = $pdf->stream();
-	$pdfcode = $pdf->Output('Invoice.pdf', "I");
-	$len = strlen($pdfcode);
+	$pdfcode = $pdf->Output('Invoice.pdf', "I"); una mala jugada de cierta persona
+	$len = strlen($pdfcode); Este fichero es especial pq $len anulado en L596
+*/
+
 // Start FPDI concatination to append PDF files conditionally to the invoice
 // This part taken from FPDI example page
 class concat_pdf extends FPDI {
@@ -562,6 +585,7 @@ while ($row=DB_fetch_array($result)){
         $pdf->concat();
         $pdfcode = $pdf->Output($_SESSION['CompanyRecord']['coyname'] . '_Invoice.pdf');
     } else {
+// Javier: esto tiene que estar mal, si imprime la factura sin adjuntar nada pq llama a concat?
         // If the appendfile field is empty and EMAIL is not selected, just print the invoice without any appended pages
         $pdf->setFiles(array($_SESSION['reports_dir'] . '/Invoice.pdf'));
         $pdf->concat();
@@ -604,14 +628,18 @@ while ($row=DB_fetch_array($result)){
 		exit;
 
 	} else {
+
+/* Javier: este es el más importante según cierta persona ya q es el único q cambió, pero nadie parece saber nada, despues cambió tb L520 pero no en la factura apaisada
+// Javier: TCPDF sends its own http header, it's an error to send it twice. 
 		header('Content-type: application/pdf');
 		header('Content-Length: ' . $len);
 		header('Content-Disposition: inline; filename=Customer_trans.pdf');
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 		header('Pragma: public');
-
-		$pdf->Output('PrintCustTransPortrait.pdf', 'I');
+*/
+		$pdf->OutputD('PrintCustTrans.pdf');
+		$pdf-> __destruct();
 	}
 
 } else { /*The option to print PDF was not hit */

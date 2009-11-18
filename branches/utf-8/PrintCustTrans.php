@@ -5,7 +5,7 @@
 /* $Revision: 1.53 $ */
 
 /* Javier: Hay 5 PDF Outputs en este fichero, y una clase FPDI class, y una función , ... 
-	El único q cambió t está en L570, 3 son de fpdi y el 5º está en L457  */
+	El único q cambió cierta persona está en L570, 3 son de fpdi y el 5º está en L457  */
 
 $PageSecurity = 1;
 
@@ -33,7 +33,7 @@ if (isset($_GET['PrintPDF'])) {
 
 if (!isset($_POST['ToTransNo'])
 	or trim($_POST['ToTransNo'])==''
-	or $_POST['ToTransNo'] < $FromTransNo){
+	or $_POST['ToTransNo'] < $FromTransNo) {
 
 	$_POST['ToTransNo'] = $FromTransNo;
 }
@@ -452,10 +452,9 @@ if (isset($PrintPDF) or isset($_GET['PrintPDF'])
 		$FromTransNo++;
 	} /* end loop to print invoices */
 
-/* Javier: This actually would produce the output
+/* Javier: This actually would produce the output, and maybe it should do
 	$pdfcode = $pdf->output($_SESSION['reports_dir'] . '/Invoice.pdf', "F");
-	$len = strlen($pdfcode);
-Este fichero es especial pq est´a anulado en L530
+	$len = strlen($pdfcode); Este fichero es especial pq $len anulado en L529
 */
 
 // Start FPDI concatination to append PDF files conditionally to the invoice
@@ -562,7 +561,7 @@ while ($row=DB_fetch_array($result)) {
 
 	} else {
 
-/* Javier: este es el más importante según t ya q es el único q cambió, pero nadie parece saber nada
+/* Javier: este es el más importante según cierta persona ya q es el único q cambió, pero nadie parece saber nada
 // Javier: TCPDF sends its own http header, it's an error to send it twice. 
 		header('Content-type: application/pdf');
 		header('Content-Length: ' . $len);
