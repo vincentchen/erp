@@ -11,10 +11,10 @@
 	------------------------------------------------------------------------------------- */
 
 
-include ('class.pdf.php');
+require_once (dirname(__FILE__).'/class.pdf.php');
 
 /*
-//	Changes to move from FPDF to TCPDF to support UTF-8 by Javier de Lorenzo-Cáceres <info@civicom.eu> 
+//	Changes to move from FPDF to TCPDF to support UTF-8 by Javier de Lorenzo-Cáceres <info@civicom.eu>
 */
 
 if (!isset($PaperSize)){				// Javier: Results True, it's not set.
@@ -139,8 +139,8 @@ $pdf->addInfo('Author', 'WebERP ' . $Version);
 /* Javier: I have brought this piece from the pdf class constructor to get it closer to the admin/user,
 	I corrected it to match TCPDF, but it still needs check, after which,
 	I think it should be moved to each report to provide flexible Document Header and Margins in a per-report basis. */
-	$pdf->setAutoPageBreak(0);	// Javier: needs check.
-	$pdf->setPrintHeader(false);	// Javier: I added this must be called before Add Page
+ 	$pdf->SetAutoPageBreak(0);	// Javier: needs check.
+	$pdf->SetPrintHeader(false);	// Javier: I added this must be called before Add Page
 	$pdf->AddPage();
 //	$this->SetLineWidth(1); 	   Javier: It was ok for FPDF but now is too gross with TCPDF. TCPDF defaults to 0'57 pt (0'2 mm) which is ok.
 	$pdf->cMargin = 0;		// Javier: needs check.

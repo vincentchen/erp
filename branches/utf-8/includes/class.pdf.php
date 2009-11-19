@@ -3,19 +3,19 @@
 /* $Id$ */
 
      /* -----------------------------------------------------------------------------------------------
-	This class was an extension to the FPDF class to use the syntax of the R&OS pdf.php class, 
+	This class was an extension to the FPDF class to use the syntax of the R&OS pdf.php class,
 	the syntax that WebERP original reports were written in.
 	Due to limitation of R&OS class for foreign character support, this wrapper class was
 	written to allow the same code base to use the more functional fpdf.class by Olivier Plathey.
-	
+
 	Wrapper for use R&OSpdf API with fpdf.org class by:
 		Janusz Dobrowolski <janusz@iron.from.pl>
 		David Luo <davidluo188@yahoo.com.cn>
 
-	Extended for Chinese/Japanese/Korean support by: 
+	Extended for Chinese/Japanese/Korean support by:
 		Phil Daintree
-	
-	Chinese GB&BIG5 support by: 
+
+	Chinese GB&BIG5 support by:
 		Edward Yang <edward.yangcn@gmail.com>
 
 
@@ -32,8 +32,8 @@
 // include ('includes/fpdf.php');
 
 // Javier: ... with TCPDF ...
-require_once('tcpdf/config/lang/eng.php');
-require_once('tcpdf/tcpdf.php');
+require_once(dirname(__FILE__).'/tcpdf/config/lang/eng.php');
+require_once(dirname(__FILE__).'/tcpdf/tcpdf.php');
 
 
 // Javier: I remove CJK that now is supported by TCPDF
