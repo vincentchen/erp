@@ -638,7 +638,7 @@ while ($row=DB_fetch_array($result)){
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 		header('Pragma: public');
 */
-		$pdf->OutputD('PrintCustTrans.pdf');
+		$pdf->OutputD('PrintCustTransPortrait.pdf');
 		$pdf-> __destruct();
 	}
 

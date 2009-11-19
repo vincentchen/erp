@@ -1,6 +1,6 @@
 <?php
 
-/* $Id: PO_Header.php 2996 2009-11-14 10:31:14Z tim_schofield $ */
+/* $Id: PO_Header.php 3048 2009-11-18 20:06:51Z tim_schofield $ */
 /* $Revision: 1.35 $ */
 
 /*
@@ -41,6 +41,10 @@ if (isset($_GET['ModifyOrderNumber'])) {
 	$title = _('Modify Purchase Order') . ' ' . $_GET['ModifyOrderNumber'];
 } else {
 	$title = _('Purchase Order Entry');
+}
+
+if (isset($_GET['SupplierID'])) {
+	$_POST['Select']=$_GET['SupplierID'];
 }
 
 include('includes/header.inc');
