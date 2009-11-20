@@ -100,7 +100,9 @@ If (isset($_POST['PrintPDF'])
 	}
 
 	$SupplierResult = DB_query($SQL,$db,'','',False,False); /*dont trap errors */
-    $ListCount = count ($SupplierResult); // UldisN
+
+    $ListCount = mysql_num_rows($SupplierResult); // UldisN
+
 	if (DB_error_no($db) !=0) {
 	  $title = _('Aged Supplier Account Analysis') . ' - ' . _('Problem Report') ;
 	  include("includes/header.inc");

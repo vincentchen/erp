@@ -1,6 +1,6 @@
 <?php
 
-/* $Id$ */
+ /* $Id$ */
 
 /* $Revision: 1.20 $ */
 
@@ -260,7 +260,9 @@ if (isset($_POST['PrintPDF'])
 		) <>0";
 	}
 	$CustomerResult = DB_query($SQL,$db,'','',False,False); /*dont trap errors handled below*/
-	$ListCount = count ($CustomerResult); // Javier
+
+	//$ListCount = count ($CustomerResult); // Javier
+	$ListCount = mysql_num_rows($CustomerResult);
 
 	if (DB_error_no($db) !=0) {
 		$title = _('Aged Customer Account Analysis') . ' - ' . _('Problem Report') . '.... ';
