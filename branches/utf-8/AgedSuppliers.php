@@ -101,8 +101,6 @@ If (isset($_POST['PrintPDF'])
 
 	$SupplierResult = DB_query($SQL,$db,'','',False,False); /*dont trap errors */
 
-    $ListCount = mysql_num_rows($SupplierResult); // UldisN
-
 	if (DB_error_no($db) !=0) {
 	  $title = _('Aged Supplier Account Analysis') . ' - ' . _('Problem Report') ;
 	  include("includes/header.inc");
@@ -121,6 +119,8 @@ If (isset($_POST['PrintPDF'])
 	$TotCurr = 0;
 	$TotOD1 = 0;
 	$TotOD2 = 0;
+
+    $ListCount = DB_num_rows($SupplierResult); // UldisN
 
 	While ($AgedAnalysis = DB_fetch_array($SupplierResult,$db)){
 

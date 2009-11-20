@@ -206,7 +206,7 @@ If (isset($_POST['PrintPDF'])) {
                        stockmaster.decimalplaces,
                        stockmaster.mbflag';
 	$result = DB_query($sql,$db);
-  	$ListCount = mysql_num_rows($result); // UldisN
+  	$ListCount = DB_num_rows($result); // UldisN
 	While ($myrow = DB_fetch_array($result,$db)){
 
 

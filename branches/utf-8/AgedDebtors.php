@@ -262,7 +262,6 @@ if (isset($_POST['PrintPDF'])
 	$CustomerResult = DB_query($SQL,$db,'','',False,False); /*dont trap errors handled below*/
 
 	//$ListCount = count ($CustomerResult); // Javier
-	$ListCount = mysql_num_rows($CustomerResult);
 
 	if (DB_error_no($db) !=0) {
 		$title = _('Aged Customer Account Analysis') . ' - ' . _('Problem Report') . '.... ';
@@ -283,6 +282,8 @@ if (isset($_POST['PrintPDF'])
 	$TotDue=0;
 	$TotOD1=0;
 	$TotOD2=0;
+
+ 	$ListCount = DB_num_rows($CustomerResult); //UldisN
 
 	while ($AgedAnalysis = DB_fetch_array($CustomerResult,$db)){
 
