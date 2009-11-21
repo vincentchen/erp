@@ -135,13 +135,13 @@ class Cpdf extends TCPDF {
 	function ellipse($x0,$y0,$r1,$r2=0,$angle=0,$nSeg=8,$astart=0,$afinish=360,$close=1,$fill=0) {
 		
 		if ($r1==0){
-		return;
+			return;
 		}
 		if ($r2==0){
-		$r2=$r1;
+			$r2=$r1;
 		}
 		if ($nSeg<2){
-		$nSeg=2;
+			$nSeg=2;
 		}
 		
 		$astart = deg2rad((float)$astart);
@@ -152,12 +152,12 @@ class Cpdf extends TCPDF {
 		$dtm = $dt/3;
 		
 		if ($angle != 0){
-		$a = -1*deg2rad((float)$angle);
-		$tmp = "\n q ";
-		$tmp .= sprintf('%.3f',cos($a)).' '.sprintf('%.3f',(-1.0*sin($a))).' '.sprintf('%.3f',sin($a)).' '.sprintf('%.3f',cos($a)).' ';
-		$tmp .= sprintf('%.3f',$x0).' '.sprintf('%.3f',$y0).' cm';
-		$x0=0;
-		$y0=0;
+			$a = -1*deg2rad((float)$angle);
+			$tmp = "\n q ";
+			$tmp .= sprintf('%.3f',cos($a)).' '.sprintf('%.3f',(-1.0*sin($a))).' '.sprintf('%.3f',sin($a)).' '.sprintf('%.3f',cos($a)).' ';
+			$tmp .= sprintf('%.3f',$x0).' '.sprintf('%.3f',$y0).' cm';
+			$x0=0;
+			$y0=0;
 		} else {
 			$tmp='';
 		}
@@ -170,31 +170,31 @@ class Cpdf extends TCPDF {
 		
 		$tmp.="\n".sprintf('%.3f',$a0).' '.sprintf('%.3f',$b0).' m ';
 		for ($i=1;$i<=$nSeg;$i++){
-		// draw this bit of the total curve
-		$t1 = $i*$dt+$astart;
-		$a1 = $x0+$r1*cos($t1);
-		$b1 = $y0+$r2*sin($t1);
-		$c1 = -$r1*sin($t1);
-		$d1 = $r2*cos($t1);
-		$tmp.="\n".sprintf('%.3f',($a0+$c0*$dtm)).' '.sprintf('%.3f',($b0+$d0*$dtm));
-		$tmp.= ' '.sprintf('%.3f',($a1-$c1*$dtm)).' '.sprintf('%.3f',($b1-$d1*$dtm)).' '.sprintf('%.3f',$a1).' '.sprintf('%.3f',$b1).' c';
-		$a0=$a1;
-		$b0=$b1;
-		$c0=$c1;
-		$d0=$d1;    
+			// draw this bit of the total curve
+			$t1 = $i*$dt+$astart;
+			$a1 = $x0+$r1*cos($t1);
+			$b1 = $y0+$r2*sin($t1);
+			$c1 = -$r1*sin($t1);
+			$d1 = $r2*cos($t1);
+			$tmp.="\n".sprintf('%.3f',($a0+$c0*$dtm)).' '.sprintf('%.3f',($b0+$d0*$dtm));
+			$tmp.= ' '.sprintf('%.3f',($a1-$c1*$dtm)).' '.sprintf('%.3f',($b1-$d1*$dtm)).' '.sprintf('%.3f',$a1).' '.sprintf('%.3f',$b1).' c';
+			$a0=$a1;
+			$b0=$b1;
+			$c0=$c1;
+			$d0=$d1;    
 		}
 		if ($fill){
-		//$this->objects[$this->currentContents]['c']
-		$tmp.=' f';
+			//$this->objects[$this->currentContents]['c']
+			$tmp.=' f';
 		} else {
 		if ($close){
-		$tmp.=' s'; // small 's' signifies closing the path as well
+			$tmp.=' s'; // small 's' signifies closing the path as well
 		} else {
-		$tmp.=' S';
+			$tmp.=' S';
 		}
 		}
 		if ($angle !=0) {
-		$tmp .=' Q';
+			$tmp .=' Q';
 		}
 		$this->_out($tmp);
 	}
