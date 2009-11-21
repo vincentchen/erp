@@ -1,5 +1,8 @@
 <?php
-/* $Revision: 1.13 $ */
+
+/*$Id$*/
+
+/* $Revision: 1.14 $ */
 
 $PageSecurity = 2;
 include('includes/session.inc');
@@ -7,6 +10,11 @@ include('includes/session.inc');
 if (isset($_POST['PrintPDF'])){
 
 	include('includes/PDFStarter.php');
+	$pdf->addInfo('Title', _('Customer Listing') );
+	$pdf->addInfo('Subject', _('Customer Listing') );
+	$line_height=12;
+	$PageNumber = 0;
+	$FontSize=10;
 
 	if ($_POST['Activity']!='All'){
 		if (!is_numeric($_POST['ActivityAmount'])){
@@ -18,14 +26,6 @@ if (isset($_POST['PrintPDF'])){
 			exit;
 		}
 	}
-
-	$PageNumber = 0;
-
-	$FontSize=10;
-	$pdf->addinfo('Title', _('Customer Listing') );
-	$pdf->addinfo('Subject', _('Customer Listing') );
-
-	$line_height=12;
 
 	/* Now figure out the customer data to report for the selections made */
 
@@ -241,6 +241,19 @@ if (isset($_POST['PrintPDF'])){
 	   exit;
 	}
 
+	if (DB_num_rows($CustomersResult) == 0) {
+	  $title = _('Customer List') . ' - ' . _('Problem Report') . '....';
+	  include('includes/header.inc');
+	   prnMsg( _('No any customer retrieved'),'warn' );
+	   echo '<br><a href="' .$rootpath .'/index.php?' . SID . '">'. _('Back to the menu'). '</a>';
+	   if ($debug==1){
+	      echo '<br>'. $SQL;
+	   }
+	   include('includes/footer.inc');
+	   exit;
+	}
+
+
 	include('includes/PDFCustomerListPageHeader.inc');
 
 	$Area ='';
@@ -351,7 +364,7 @@ if (isset($_POST['PrintPDF'])){
 		} /*end if $PrintThisCustomer == true */
 	} /*end while loop */
 
-
+    /* uldisN
 	$pdfcode = $pdf->output('PDFCustomerList.pdf', 'I');
 	$len = strlen($pdfcode);
 
@@ -374,6 +387,9 @@ if (isset($_POST['PrintPDF'])){
 		$pdf->Output('PDFCustomerList.pdf', 'I');
 
 	}
+    */
+    $pdf->OutputD($_SESSION['DatabaseName'] . '_CustomerList_' . date('Y-m-d').'.pdf');//UldisN
+    $pdf->__destruct(); //UldisN
 	exit;
 
 } else {

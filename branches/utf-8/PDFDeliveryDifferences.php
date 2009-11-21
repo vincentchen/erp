@@ -1,6 +1,8 @@
 <?php
 
-/* $Revision: 1.14 $ */
+/*$Id$*/
+
+/* $Revision: 1.15 $ */
 
 $PageSecurity = 3;
 include ('includes/session.inc');
@@ -169,12 +171,10 @@ include('includes/PDFStarter.php');
 
 /*PDFStarter.php has all the variables for page size and width set up depending on the users default preferences for paper size */
 
-$pdf->addinfo('Title',_('Variances Between Deliveries and Orders'));
-$pdf->addinfo('Subject',_('Variances Between Deliveries and Orders from') . ' ' . $_POST['FromDate'] . ' ' . _('to') . ' ' . $_POST['ToDate']);
-
+$pdf->addInfo('Title',_('Variances Between Deliveries and Orders'));
+$pdf->addInfo('Subject',_('Variances Between Deliveries and Orders from') . ' ' . $_POST['FromDate'] . ' ' . _('to') . ' ' . $_POST['ToDate']);
 $line_height=12;
 $PageNumber = 1;
-
 $TotalDiffs = 0;
 
 include ('includes/PDFDeliveryDifferencesPageHeader.inc');
@@ -253,7 +253,7 @@ $LeftOvers = $pdf->addTextWrap($Left_Margin,$YPos,200,$FontSize,_('Total number 
 $YPos-=$line_height;
 $LeftOvers = $pdf->addTextWrap($Left_Margin,$YPos,200,$FontSize,_('DIFOT') . ' ' . number_format((1-($TotalDiffs/$myrow[0])) * 100,2) . '%', 'left');
 
-
+/* UldisN
 $pdfcode = $pdf->output();
 $len = strlen($pdfcode);
 header('Content-type: application/pdf');
@@ -264,21 +264,24 @@ header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 header('Pragma: public');
 
 $pdf->stream();
+*/
+$ReportFileName = $_SESSION['DatabaseName'] . '_DeliveryDifferences_' . date('Y-m-d').'.pdf';
+$pdf->OutputD($ReportFileName);//UldisN
 
 if ($_POST['Email']=='Yes'){
-	if (file_exists($_SESSION['reports_dir'] . '/DeliveryDifferences.pdf')){
-		unlink($_SESSION['reports_dir'] . '/DeliveryDifferences.pdf');
+	if (file_exists($_SESSION['reports_dir'] . '/'.$ReportFileName)){
+		unlink($_SESSION['reports_dir'] . '/'.$ReportFileName);
 	}
-    	$fp = fopen( $_SESSION['reports_dir'] . '/DeliveryDifferences.pdf','wb');
+    	$fp = fopen( $_SESSION['reports_dir'] . '/'.$ReportFileName,'wb');
 	fwrite ($fp, $pdfcode);
 	fclose ($fp);
 
 	include('includes/htmlMimeMail.php');
 
 	$mail = new htmlMimeMail();
-	$attachment = $mail->getFile($_SESSION['reports_dir'] . '/DeliveryDifferences.pdf');
+	$attachment = $mail->getFile($_SESSION['reports_dir'] . '/'.$ReportFileName);
 	$mail->setText(_('Please find herewith delivery differences report from') . ' ' . $_POST['FromDate'] .  ' '. _('to') . ' ' . $_POST['ToDate']);
-	$mail->addAttachment($attachment, 'DeliveryDifferences.pdf', 'application/pdf');
+	$mail->addAttachment($attachment, $ReportFileName, 'application/pdf');
 	$mail->setFrom($_SESSION['CompanyRecord']['coyname'] . '<' . $_SESSION['CompanyRecord']['email'] .'>');
 
 	/* $DelDiffsRecipients defined in config.php */
