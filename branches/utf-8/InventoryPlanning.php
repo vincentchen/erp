@@ -14,7 +14,7 @@ if (isset($_POST['PrintPDF'])
 	and isset($_POST['ToCriteria'])
 	and strlen($_POST['ToCriteria'])>=1) {
 
-        include ('includes/class.pdf.php');
+    include ('includes/class.pdf.php');
 
 	/* A4_Landscape */
 
@@ -49,9 +49,6 @@ if (isset($_POST['PrintPDF'])
 /* END Brought from class.pdf.php constructor */
 
 // Javier:
-//	$PageNumber = 0;
-//	$line_height=12;
-
 	$pdf->selectFont('./fonts/Helvetica.afm'); //this will not go to that directory any more, see class.pdf.php
 	$PageNumber = 1;
 	$line_height = 12;
@@ -350,10 +347,6 @@ if (isset($_POST['PrintPDF'])
 
 	$pdf->line($Left_Margin, $YPos+$line_height,$Page_Width-$Right_Margin, $YPos+$line_height);
 
-// Javier: This actually would produce the output
-//	$pdfcode = $pdf->output();
-//	$len = strlen($pdfcode);
-//	if ($len<=20){
 	if ($ListCount == 0){
 		$title = _('Print Inventory Planning Report Empty');
 		include('includes/header.inc');
@@ -370,7 +363,7 @@ if (isset($_POST['PrintPDF'])
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 		header('Pragma: public'); */
 
-		$pdf->OutputD('InventoryPlanning');
+		$pdf->Output('InventoryPlanning','I');
 		$pdf-> __destruct();
 	}
 
