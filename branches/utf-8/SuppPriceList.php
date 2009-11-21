@@ -1,6 +1,6 @@
 <?php
 
-/* $Revision: 1.2 $ */
+/* $Id$ */
 
 $PageSecurity = 2;
 include('includes/session.inc');
@@ -13,10 +13,10 @@ if (isset($_POST['PrintPDF'])) {
 
 	include('includes/PDFStarter.php');
     
+	$pdf->addInfo('Title',_('Supplier Price List'));
+	$pdf->addInfo('Subject',_('Price List of goods from a Supplier'));
+	
 	$FontSize=9;
-	$pdf->addinfo('Title',_('Supplier Price List'));
-	$pdf->addinfo('Subject',_('Price List of goods from a Supplier'));
-
 	$PageNumber=1;
 	$line_height=12;
 	
@@ -115,7 +115,7 @@ if (isset($_POST['PrintPDF'])) {
 	$result = DB_query($sql,$db,'','',false,true);
 
 	if (DB_error_no($db) !=0) {
-		$title = _('Price List') . ' - ' . _('Problem Report');
+		$title = _('Price List - Problem Report');
 		include('includes/header.inc');
 		prnMsg( _('The Price List could not be retrieved by the SQL because') . ' '  . DB_error_msg($db),'error');
 		echo "<br><a href='" .$rootpath .'/index.php?' . SID . "'>" . _('Back to the menu') . '</a>';
@@ -125,6 +125,14 @@ if (isset($_POST['PrintPDF'])) {
 		include('includes/footer.inc');
 		exit;
 	}
+	if (DB_num_rows($result)==0){
+		$title = _('Price List - Problem Report');
+		include('includes/header.inc');
+		prnMsg( _('There are no entries to list in this price list'),'error');
+		echo "<br><a href='" .$rootpath .'/index.php?' . SID . "'>" . _('Back to the menu') . '</a>';
+		include('includes/footer.inc');
+		exit;
+	}	
 
 	PrintHeader($pdf,$YPos,$PageNumber,$Page_Height,$Top_Margin,$Left_Margin,
 	            $Page_Width,$Right_Margin,$Supp,$Categoryname,$Currency,$DatePrice);
@@ -174,18 +182,8 @@ if (isset($_POST['PrintPDF'])) {
 	                   $Right_Margin,$Supp,$Categoryname,$Currency,$DatePrice);
 	}
 
-
-	$pdfcode = $pdf->output();
-	
-	header('Content-type: application/pdf');
-	header("Content-Length: " . $len);
-	header('Content-Disposition: inline; filename=Supplier Price List.pdf');
-	header('Expires: 0');
-	header('Cache-Control: private, post-check=0, pre-check=0');
-	header('Pragma: public');	
-	$pdf->Output('SuppPriceList.pdf', 'I');
-
-
+	$pdf->OutputD($_SESSION['DatabaseName'] . '_Supplier_Price_List_' . Date('Y-m-d') . '.pdf');
+	$pdf->__destruct();
 	
 } else { /*The option to print PDF was not hit so display form */
 

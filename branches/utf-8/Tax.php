@@ -1,6 +1,6 @@
 <?php
 
-/* $Revision: 1.22 $ */
+/* $Id$ */
 
 $PageSecurity = 2;
 include('includes/session.inc');
@@ -24,14 +24,14 @@ if (isset($_POST['TaxAuthority']) AND
 	$TaxAuthDescription = DB_fetch_row($result);
 	$TaxAuthorityName =  $TaxAuthDescription[0];
 
+	$pdf->addInfo('Title',_('Taxation Report'));
+	$ReportTitle = $TaxAuthorityName . ' ' . _('Tax Report for') . ' ' . $_POST['NoOfPeriods'] . ' ' . _('months to') . ' ' . $PeriodEnd;  
+    $pdf->addInfo('Subject', $ReportTitle);
+	
 	$FontSize=12;
-	$pdf->addinfo('Title',_('Taxation Report'));
-	$ReportTitle = $TaxAuthorityName . ' ' . _('Tax Report for') . ' ' . $_POST['NoOfPeriods'] . ' ' . _('months to') . ' ' . $PeriodEnd;
-	$pdf->addinfo('Subject', $ReportTitle);
-
 	$PageNumber=0;
 	$line_height=12;
-      
+    
       /*Now get the invoices for the tax report */
 	
 	$SQL = 'SELECT debtortrans.transno,
@@ -55,16 +55,24 @@ if (isset($_POST['TaxAuthority']) AND
 		AND debtortranstaxes.taxauthid = ' . $_POST['TaxAuthority'] . '
 		ORDER BY debtortrans.id';
 
-	$DebtorTransResult = DB_query($SQL,$db,'','',false,false); //doint trap errors in DB_query
+	$DebtorTransResult = DB_query($SQL,$db,'','',false,false); //don't trap errors in DB_query
 
 	if (DB_error_no($db) !=0) {
 		$title = _('Taxation Reporting Error');
 		include('includes/header.inc');
-		echo _('The accounts receivable transaction details could not be retrieved because') . ' ' . DB_error_msg($db);
+		prnMsg(_('The accounts receivable transaction details could not be retrieved because') . ' ' . DB_error_msg($db),'error');
 		echo "<br><a href='$rootpath/index.php?" . SID . "'>" . _('Back to the menu') . '</a>';
 		if ($debug==1){
 			echo "<br>$SQL";
 		}
+		include('includes/footer.inc');
+		exit;
+	}
+	if (DB_num_rows($DebtorTransResult)==0){
+		$title = _('Taxation Reporting Error');
+		include('includes/header.inc');
+		prnMsg (_('There are no tax entries to list'),'info');
+		echo "<br><a href='$rootpath/index.php?" . SID . "'>" . _('Back to the menu') . '</a>';
 		include('includes/footer.inc');
 		exit;
 	}
@@ -264,21 +272,9 @@ if (isset($_POST['TaxAuthority']) AND
 	$LeftOvers = $pdf->addTextWrap(40,$YPos,500,$FontSize,_('Adjustments for Tax paid to Customs, FBT, entertainments etc must also be entered'),'left');
 	$YPos -= $line_height;
 	$LeftOvers = $pdf->addTextWrap(40,$YPos,500,$FontSize,_('This information excludes Tax on journal entries/payments/receipts all Tax should be entered through AR/AP'),'left');
-	
-	$buf = $pdf->output();
-	$len = strlen($buf);
 
-
-
-	header('Content-type: application/pdf');
-	header("Content-Length: $len");
-	header('Content-Disposition: inline; filename=TaxReport.pdf');
-	header('Expires: 0');
-	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-	header('Pragma: public');
-
-	$pdf->stream();
-
+	$pdf->OutputD($_SESSION['DatabaseName'] . '_Tax_Report_' . Date('Y-m-d'));
+	$pdf->__destruct();
 } else { /*The option to print PDF was not hit */
 
 	$title=_('Tax Reporting');

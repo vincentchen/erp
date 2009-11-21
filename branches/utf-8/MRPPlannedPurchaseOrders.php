@@ -1,5 +1,5 @@
 <?php
-/* $Id */
+/* $Id$ */
 // MRPPlannedPurchaseOrders.php - Report of purchase parts that MRP has determined should have
 // purchase orders created for them
 $PageSecurity = 2;
@@ -239,15 +239,8 @@ If (isset($_POST['PrintPDF'])) {
 	$DisplayTotalVal = number_format($Total_Extcost,2);
     $pdf->addTextWrap(310,$YPos,60,$FontSize,$DisplayTotalVal, 'right');
 
-	/*		header('Content-type: application/pdf');
-			header("Content-Length: " . $len);
-			header('Content-Disposition: inline; filename=MRPPlannedOrders.pdf');
-			header('Expires: 0');
-			header('Cache-Control: private, post-check=0, pre-check=0');
-			header('Pragma: public');
-	*/
-	
-	$pdf->Output($_SESSION['DatabaseName'] . '_MRP_Planned_Purchase_Orders_' . Date('Y-m-d') . '.pdf', 'I');
+	$pdf->OutputD($_SESSION['DatabaseName'] . '_MRP_Planned_Purchase_Orders_' . Date('Y-m-d') . '.pdf');
+	$pdf->__destruct();
 	
 } else { /*The option to print PDF was not hit so display form */
 

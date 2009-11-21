@@ -1,5 +1,5 @@
 <?php
-/* $Id  */
+/* $Id$  */
 $PageSecurity = 2;
 include('includes/session.inc');
 
@@ -183,17 +183,8 @@ If (isset($_POST['PrintPDF'])
 	$DisplayTotalVal = number_format($Tot_Val,2);
     $LeftOvers = $pdf->addTextWrap(500,$YPos,60,$FontSize,$DisplayTotalVal, 'right');
 
-   
-   /*
-	header('Content-type: application/pdf');
-	header("Content-Length: " . $len);
-	header('Content-Disposition: inline; filename=Customer_trans.pdf');
-	header('Expires: 0');
-	header('Cache-Control: private, post-check=0, pre-check=0');
-	header('Pragma: public');
-*/
-	$pdf->Output($_SESSION['DatabaseName'] . '_Inventory_Valuation_' . Date('Y-m-d') . '.pdf', 'I');
-
+	$pdf->OutputD($_SESSION['DatabaseName'] . '_Inventory_Valuation_' . Date('Y-m-d') . '.pdf');
+	$pdf->__destruct();
 } else { /*The option to print PDF was not hit */
 
 	$title=_('Inventory Valuation Reporting');

@@ -484,16 +484,7 @@ echo '<div class="page_help_text">' . _('Profit and loss statement (P&L), also c
 	$pdf->line($Left_Margin+310, $YPos+$line_height,$Left_Margin+500, $YPos+$line_height);
 	$pdf->line($Left_Margin+310, $YPos,$Left_Margin+500, $YPos);	
 	
-	
-	/*
-	header('Content-type: application/pdf');
-	header('Content-Length: ' . $len);
-	header('Content-Disposition: inline; filename=Profit_Loss.pdf');
-	header('Expires: 0');
-	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-	header('Pragma: public');
-	*/
-	$pdf->Output($_SESSION['DatabaseName'] . '_' .'Income_Statement_' . date('Y-m-d').'.pdf','I');
+	$pdf->OutputD($_SESSION['DatabaseName'] . '_' .'Income_Statement_' . date('Y-m-d').'.pdf');
 	$pdf->__destruct();
 	exit;
 	
