@@ -118,7 +118,7 @@ If (isset($_POST['PrintPDF'])
 
 	$pdf->stream();
     */
-    $pdf->OutputD('BOMListing.pdf');//UldisN
+    $pdf->OutputD($_SESSION['DatabaseName'] . '_BOMListing_' . date('Y-m-d').'.pdf');//UldisN
     $pdf->__destruct(); //UldisN
 
 } else { /*The option to print PDF was not hit */

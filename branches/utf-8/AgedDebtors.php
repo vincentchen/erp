@@ -454,9 +454,9 @@ if (isset($_POST['PrintPDF'])
 	$pdf->stream(); */
 
 // This else was missed
-		else {
-	$pdf->OutputD('AgedDebtors.pdf');
-	$pdf-> __destruct();
+    else {
+	    $pdf->OutputD($_SESSION['DatabaseName'] . '_' .'AgedDebtors_' . date('Y-m-d').'.pdf');
+	    $pdf-> __destruct();
 	}
 
 } else { /*The option to print PDF was not hit */

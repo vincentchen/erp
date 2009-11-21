@@ -265,7 +265,7 @@ If (isset($_POST['PrintPDF'])
     if ($ListCount == 0) {
         prnMsg('there are no results so the PDF is empty');
     } else {
-        $pdf->OutputD('AggedSupliers.pdf');
+        $pdf->OutputD($_SESSION['DatabaseName'] . '_AggedSupliers_' . date('Y-m-d').'.pdf');//UldisN
     }
     $pdf->__destruct();
 } else { /*The option to print PDF was not hit */

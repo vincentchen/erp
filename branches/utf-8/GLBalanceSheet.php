@@ -310,7 +310,7 @@ echo '<div class="page_help_text">'
 		header('Pragma: public');
 		$pdf->Output('GLBalanceSheet.pdf', 'I');
         */
-        $pdf->OutputD('GLBalanceSheet.pdf');//UldisN
+        $pdf->OutputD($_SESSION['DatabaseName'] . '_GLBalanceSheet_' . date('Y-m-d').'.pdf');//UldisN
         $pdf->__destruct(); //UldisN
 	}
 	exit;

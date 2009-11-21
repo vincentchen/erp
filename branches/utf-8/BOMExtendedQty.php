@@ -274,7 +274,7 @@ If (isset($_POST['PrintPDF'])) {
 
 			$pdf->Output('BOMExtendedQty', 'I');
 */
-	    $pdf->OutputD('Customer_trans.pdf');
+        $pdf->OutputD($_SESSION['DatabaseName'] . '_Customer_trans_' . date('Y-m-d').'.pdf');//UldisN
 	    $pdf-> __destruct();
     }
 
