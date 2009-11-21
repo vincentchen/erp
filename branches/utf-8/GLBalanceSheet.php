@@ -1,6 +1,8 @@
 <?php
 
-/* $Revision: 1.21 $ */
+/*$Id$*/
+
+/* $Revision: 1.22 $ */
 
 /*Through deviousness and cunning, this system allows shows the balance sheets as at the end of any period selected - so first off need to show the input of criteria screen while the user is selecting the period end of the balance date meanwhile the system is posting any unposted transactions */
 
@@ -59,11 +61,11 @@ echo '<div class="page_help_text">'
 } elseif (isset($_POST['PrintPDF'])) {
 
 	include('includes/PDFStarter.php');
+	$pdf->addInfo('Title', _('Balance Sheet') );
+	$pdf->addInfo('Subject', _('Balance Sheet') );
+	$line_height = 12;
 	$PageNumber = 0;
 	$FontSize = 10;
-	$pdf->addinfo('Title', _('Balance Sheet') );
-	$pdf->addinfo('Subject', _('Balance Sheet') );
-	$line_height = 12;
 
 	$RetainedEarningsAct = $_SESSION['CompanyRecord']['retainedearnings'];
 
@@ -131,6 +133,8 @@ echo '<div class="page_help_text">'
 		include('includes/footer.inc');
 		exit;
 	}
+
+    $ListCount = DB_num_rows($AccountsResult); // UldisN
 
 	include('includes/PDFBalanceSheetPageHeader.inc');
 
@@ -287,7 +291,8 @@ echo '<div class="page_help_text">'
 	$pdfcode = $pdf->output();
 	$len = strlen($pdfcode);
 
-	if ($len<=20){
+	//if ($len<=20){
+    if ($ListCount == 0) {   //UldisN
 		$title = _('Print Balance Sheet Error');
 		include('includes/header.inc');
 		echo '<p>';
@@ -296,13 +301,17 @@ echo '<div class="page_help_text">'
 		include('includes/footer.inc');
 		exit;
 	} else {
-	        header('Content-type: application/pdf');
+	    /* UldisN
+        header('Content-type: application/pdf');
 		header('Content-Length: ' . $len);
 		header('Content-Disposition: inline; filename="BalanceSheet.pdf"');
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 		header('Pragma: public');
 		$pdf->Output('GLBalanceSheet.pdf', 'I');
+        */
+        $pdf->OutputD('GLBalanceSheet.pdf');//UldisN
+        $pdf->__destruct(); //UldisN
 	}
 	exit;
 } else {
