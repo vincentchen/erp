@@ -8,59 +8,17 @@
 	Due to limitation of R&OS class for foreign character support, this wrapper class was
 	written to allow the same code base to use the more functional fpdf.class by Olivier Plathey.
 
-	Wrapper for use R&OSpdf API with fpdf.org class by:
-		Janusz Dobrowolski <janusz@iron.from.pl>
-		David Luo <davidluo188@yahoo.com.cn>
-
-	Extended for Chinese/Japanese/Korean support by:
-		Phil Daintree
-
-	Chinese GB&BIG5 support by:
-		Edward Yang <edward.yangcn@gmail.com>
-
-
-	Due to limitation of FPDF class for UTF-8 support, now this class inherits from the TCPDF class
+	However, due to limitations of FPDF class for UTF-8 support, now this class inherits from the TCPDF class
 	by Nicola Asuni.
 
 	Work to move from FPDF to TCPDF by:
 		Javier de Lorenzo-Cáceres <info@civicom.eu>
 	----------------------------------------------------------------------------------------------- */
 
-
-// Javier: I replace FPDF ...
-// define('FPDF_FONTPATH','./fonts/');
-// include ('includes/fpdf.php');
-
 // Javier: ... with TCPDF ...
 require_once(dirname(__FILE__).'/tcpdf/config/lang/eng.php');
 require_once(dirname(__FILE__).'/tcpdf/tcpdf.php');
 
-
-// Javier: I remove CJK that now is supported by TCPDF
-/*
-if ($_SESSION['Language']=='zh_CN' OR $_SESSION['Language']=='zh_HK' OR $_SESSION['Language']=='zh_TW') {
-	include('FPDF_Chinese.php');
-} elseif ($_SESSION['Language']=='ja_JP') {
-	include('FPDF_Japanese.php');
-} elseif ($_SESSION['Language']=='ko_KR') {
-	include('FPDF_Korean.php');
-} else {
-	class PDF_Language extends FPDF {
-		function PDF_Language($orientation='P', $unit='mm', $format='A4') {
-			$this->FPDF($orientation, $unit, $format);
-		}
-	}
-}
-*/
-
-// Javier: I remove PDF_Language class
-/* 
-class PDF_Language extends FPDF {
-		function PDF_Language($orientation='P', $unit='mm', $format='A4') {
-			$this->TCPDF($orientation, $unit, $format); // TCPDF constructor PhP4 format.
-		}
-	}
-*/
 
 //Javier: Cpdf class now inherits from TCPDF instead of PDF_Language
 class Cpdf extends TCPDF {
@@ -69,26 +27,7 @@ class Cpdf extends TCPDF {
 	public function __construct($DocOrientation='P', $DocUnits='mm', $DocPaper='A4') {
 
 // Javier: I change and correct the call to the parent constructor
-//		$this->PDF_Language( 'P', 'pt', array($pageSize[2]-$pageSize[0], $pageSize[3]-$pageSize[1]) );
 		parent::__construct($DocOrientation, $DocUnits, $DocPaper, true, 'UTF-8', false);
-
-// Javier: I remove this stanza cause we don't want to embed fonts
-/*		
-		// Next three lines should be here for any fonts genarted with 'makefont' utility
-		if ($_SESSION['Language']=='zh_TW' or $_SESSION['Language']=='zh_HK'){
-			$this->AddBig5Font();
-		} elseif ($_SESSION['Language']=='zh_CN') {
-			$this->AddGBFont();
-		} elseif ($_SESSION['Language']=='ja_JP') {
-			$this->AddSJISFont();
-		} elseif ($_SESSION['Language']=='ko_KR') {
-			$this->AddUHCFont();
-		} else {
-		//	$this->AddFont('helvetica');
-		//	$this->AddFont('helvetica','I');
-		//	$this->AddFont('helvetica','B');
-		}
-*/
 
 	} // End of constructor
 
@@ -100,31 +39,15 @@ class Cpdf extends TCPDF {
 		Free use of styles like bold or italic is limited to core fonts.	*/
 
 
-/*		$type = '';
-		if(strpos($FontName, 'Oblique')) {
-			$type = 'I';
-		}
-		if(strpos($FontName, 'Bold')) {
-			$type = 'B';
-		}
-		if ($_SESSION['Language']=='zh_TW' or $_SESSION['Language']=='zh_HK'){
-			$FontName = 'Big5';
-		} elseif ($_SESSION['Language']=='zh_CN'){
-			$FontName = 'GB';
-		} elseif ($_SESSION['Language']=='ja_JP'){
-			$FontName = 'SJIS';
-		} elseif ($_SESSION['Language']=='ko_KR'){
-			$FontName = 'UHC';
-		} else {
-			$FontName ='helvetica';
-		}
-*/
-
 /* Javier: 	I had to work in TCPDF CID fonts, which are font definitions or descriptions, meta-data.
 		This selection should rely on user's choice regardless user's language. 
 		This is an early implementation cause it's the key to multilanguage support. */
+
 //			$this->SetFont($FontName, $type);
-		if (($FontName == null) or ($FontName == '')) {$DFontName = 'helvetica';}
+
+		if (($FontName == null) or ($FontName == '')) {
+			$FontName = 'helvetica';
+		}
 		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
  			$this->SetFont('helvetica', '', 11);
 		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
