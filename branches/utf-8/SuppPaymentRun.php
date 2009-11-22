@@ -213,7 +213,7 @@ If ((isset($_POST['PrintPDF']) OR isset($_POST['PrintPDFAndProcess']))
 			prnMsg(_('None of the payments will be processed. Unfortunately, there was a problem committing the changes to the database because') . ' - ' . DB_error_msg($db),'error');
 			echo '<br><a href="' . $rootpath . '/index.php">' . _('Back to the menu') . '</a>';
 			if ($debug==1){
-				echo '<br>' . _('The SQL that failed was') . $SQL;
+				prnMsg(_('The SQL that failed was') . '<br>' . $SQL,'error');
 			}
 			$ProcessResult = DB_Txn_Rollback($db);
 			include('includes/footer.inc');

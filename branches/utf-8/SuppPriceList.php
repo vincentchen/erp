@@ -43,14 +43,14 @@ if (isset($_POST['PrintPDF'])) {
 	$Currency=$RowCur['0'];
 		
 	//get date price
-	if ($_POST['price']=="all"){
+	if ($_POST['price']=='all'){
 		$DatePrice=_('All Price');
 	} else {
 		$DatePrice=_('Current Price');
 	}
 	
 	//price and category = all
-	if (($_POST['price']=="all")and($_POST['category']=="all")){
+	if (($_POST['price']=='all')and($_POST['category']=='all')){
 		$sql = "SELECT 	purchdata.stockid,
 					stockmaster.description,
 					purchdata.price,
@@ -62,7 +62,7 @@ if (isset($_POST['PrintPDF'])) {
 			ORDER BY stockid ASC ,dateprice DESC";
 	} else {
 	//category=all and price != all
-		if (($_POST['price']!="all")and($_POST['category']=="all")){	
+		if (($_POST['price']!='all')and($_POST['category']=='all')){	
 		
 			$sql = "SELECT purchdata.stockid, 
 						stockmaster.description,
@@ -268,15 +268,12 @@ function PrintHeader(&$pdf,&$YPos,&$PageNumber,$Page_Height,$Top_Margin,$Left_Ma
 	$YPos -=(2*$line_height);	
 	/*set up the headings */
 	
-	
-	
 	$pdf->addTextWrap(50,$YPos,100,$FontSize,_('Code'), 'left');
 	$pdf->addTextWrap(145,$YPos,200,$FontSize,_('Description'), 'left');
 	$pdf->addTextWrap(370,$YPos,60,$FontSize,_('Price'), 'left');
 	$pdf->addTextWrap(390,$YPos,80,$FontSize,_('Date Price'), 'right');
 	$pdf->addTextWrap(470,$YPos,80,$FontSize,_('Supp Code'), 'right');
-	
-	
+		
 	$FontSize=8;
 	$PageNumber++;
 } // End of PrintHeader() function
