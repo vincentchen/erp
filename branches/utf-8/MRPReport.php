@@ -43,7 +43,7 @@ If (isset($_POST['PrintPDF']) AND $_POST['Part']!='') {
 	    $holddb = $db;
 	    $title = _('Print MRP Report Warning');
 		include('includes/header.inc');
-		prnMsg(_('The MRP calculation must be run before this report will have any output. MRP requires set up of many parameters, including, EOQ, lead times, minimums, bills of materials, demand types, master schedule etc'),'warn');
+		prnMsg(_('The MRP calculation must be run before this report will have any output. MRP requires set up of many parameters, including, EOQ, lead times, minimums, bills of materials, demand types, master schedule, etc'), 'warn');
 		echo "<br><a href='$rootpath/index.php?" . SID . "'>" . _('Back to the menu') . '</a>';
 		include('includes/footer.inc');
 		exit;

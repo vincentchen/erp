@@ -98,7 +98,7 @@ if (DB_error_no($db)!=0){
 	}
 	include('includes/footer.inc');
   	exit;
-} elseif (DB_num_rows($Result)==0){
+} elseif (DB_num_rows($Result) == 0){
 	$title = _('Payment Listing');
 	include('includes/header.inc');
   	prnMsg (_('There were no bank transactions found in the database within the period from') . ' ' . $_POST['FromDate'] . ' ' . _('to') . ' ' . $_POST['ToDate'] . '. ' ._('Please try again selecting a different date range or account'), 'error');

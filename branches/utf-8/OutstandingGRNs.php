@@ -61,7 +61,7 @@ If (isset($_POST['PrintPDF'])
 	if (DB_num_rows($GRNsResult) == 0) {
 	  $title = _('Outstanding GRN Valuation') . ' - ' . _('Problem Report');
 	  include('includes/header.inc');
-	  prnMsg(_('No any outstanding GRNs valuation details retrieved'),'warn');
+	  prnMsg(_('No outstanding GRNs valuation details retrieved'), 'warn');
 	   echo "<br><a href='" .$rootpath ."/index.php?" . SID . "'>" . _('Back to the menu') . '</a>';
 	   if ($debug==1){
 	      echo "<br>$SQL";

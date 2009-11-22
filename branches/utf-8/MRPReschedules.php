@@ -46,7 +46,7 @@ If (isset($_POST['PrintPDF'])) {
 	if (DB_num_rows($result) == 0) {
 	  $title = _('MRP Reschedules') . ' - ' . _('Problem Report');
 	  include('includes/header.inc');
-	   prnMsg( _('No any the MRP reschedule retrieved'),'warn');
+	   prnMsg( _('No MRP reschedule retrieved'), 'warn');
 	   echo "<br><a href='" .$rootpath .'/index.php?' . SID . "'>" . _('Back to the menu') . '</a>';
 	   if ($debug==1){
 	      echo "<br>$sql";

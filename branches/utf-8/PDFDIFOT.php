@@ -162,10 +162,10 @@ if (DB_error_no($db)!=0){
 	}
 	include ('includes/footer.inc');
 	exit;
-} elseif (DB_num_rows($Result)==0){
+} elseif (DB_num_rows($Result) == 0){
 	$title = _('DIFOT Report Error');
   	include('includes/header.inc');
-	prnMsg( _('There were no variances between deliveries and orders found in the database within the period from') . ' ' . $_POST['FromDate'] . ' ' . _('to') . ' ' . $_POST['ToDate'] . '. ' . _('Please try again selecting a different date range'),'info');
+	prnMsg( _('There were no variances between deliveries and orders found in the database within the period from') . ' ' . $_POST['FromDate'] . ' ' . _('to') . ' ' . $_POST['ToDate'] . '. ' . _('Please try again selecting a different date range'), 'info');
 	if ($debug==1) {
 		prnMsg( _('The SQL that returned no rows was') . '<br>' . $sql,'error');
 	}

@@ -123,7 +123,7 @@ If (isset($_POST['PrintPDF'])) {
 	if (DB_num_rows($result) == 0) {
 	  $title = _('MRP Shortages') . ' - ' . _('Problem Report');
 	  include('includes/header.inc');
-	   prnMsg( _('No any  MRP shortages retrieved'),'warn');
+	   prnMsg( _('No MRP shortages retrieved'), 'warn');
 	   echo "</br><a href='" .$rootpath .'/index.php?' . SID . "'>" . _('Back to the menu') . '</a>';
 	   if ($debug==1){
 	      echo "</br>$sql";
