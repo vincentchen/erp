@@ -1,6 +1,8 @@
 <?php
 
-/* $Revision: 1.29 $ */
+/*$Id$*/
+
+/* $Revision: 1.30 $ */
 
 $PageSecurity = 2;
 include('includes/session.inc');
@@ -138,19 +140,18 @@ if (isset($OrderNo) && $OrderNo != "" && $OrderNo > 0){
 }//if there is a valid order number
 
 if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
-	
-	$PaperSize = 'A4_Landscape';
 
-	include('includes/PDFStarter.php');
+   	   $PaperSize = 'A4_Landscape';
 
-	$pdf->addinfo('Title', _('Purchase Order') );
-	$pdf->addinfo('Subject', _('Purchase Order Number').' ' . $OrderNo);
+       include('includes/PDFStarter.php');
+       $pdf->addInfo('Title', _('Purchase Order') );
+       $pdf->addInfo('Subject', _('Purchase Order Number' ) . ' ' . $OrderNo);
+       $line_height = 16;
+       $PageNumber = 1;
 
-	$line_height=16;
 	   /* Then there's an order to print and its not been printed already (or its been flagged for reprinting)
 	   Now ... Has it got any line items */
 
-	   $PageNumber = 1;
 	   $ErrMsg = _('There was a problem retrieving the line details for order number') . ' ' . $OrderNo . ' ' .
 			_('from the database');
 	   $sql = "SELECT itemcode,
@@ -270,7 +271,7 @@ if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
     //failed var to allow us to print if the email fails.
     $failed = false;
     if ($MakePDFThenDisplayIt){
-
+        /* UldisN
     	$buf = $pdf->output();
     	$len = strlen($buf);
     	header('Content-type: application/pdf');
@@ -281,32 +282,42 @@ if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
     	header('Pragma: public');
 
     	$pdf->Output('PurchOrder.pdf','I');
+        */
+        $pdf->OutputD($_SESSION['DatabaseName'] . '_PurchaseOrder_' . date('Y-m-d') . '.pdf');//UldisN
+        $pdf->__destruct(); //UldisN
 
     } else { /* must be MakingPDF to email it */
 
-    	$pdfcode = $pdf->output();
-	$fp = fopen( $_SESSION['reports_dir'] . '/PurchOrder.pdf','wb');
-	fwrite ($fp, $pdfcode);
-	fclose ($fp);
+        /* UldisN
+      	$pdfcode = $pdf->output();
+    	$fp = fopen( $_SESSION['reports_dir'] . '/PurchOrder.pdf','wb');
+	    fwrite ($fp, $pdfcode);
+	    fclose ($fp);
+        */
 
-	include('includes/htmlMimeMail.php');
+        $PdfFileName = $_SESSION['DatabaseName'] . '_PurchaseOrder_' . date('Y-m-d') . '.pdf';
+        $ReportsDirName = $_SESSION['reports_dir'];
+        $pdf->Output($ReportsDirName . '/' . $PdfFileName,'F');//UldisN
+        $pdf->__destruct(); //UldisN
 
-	$mail = new htmlMimeMail();
-	$attachment = $mail->getFile($_SESSION['reports_dir'] . '/PurchOrder.pdf');
-	$mail->setText( _('Please find herewith our purchase order number').' ' . $OrderNo);
-	$mail->setSubject( _('Purchase Order Number').' ' . $OrderNo);
-	$mail->addAttachment($attachment, 'PurchOrder.pdf', 'application/pdf');
-	$mail->setFrom($_SESSION['CompanyRecord']['coyname'] . "<" . $_SESSION['CompanyRecord']['email'] .">");
-	$result = $mail->send(array($_POST['EmailTo']));
-	if ($result==1){
-		$failed = false;
-		echo '<p>';
-		prnMsg( _('Purchase Order'). ' ' . $OrderNo.' ' . _('has been emailed to') .' ' . $_POST['EmailTo'] . ' ' . _('as directed'), 'success');
-	} else {
-		$failed = true;
-		echo '<p>';
-		prnMsg( _('Emailing Purchase order'). ' ' . $OrderNo.' ' . _('to') .' ' . $_POST['EmailTo'] . ' ' . _('failed'), 'error');
-	}
+    	include('includes/htmlMimeMail.php');
+
+    	$mail = new htmlMimeMail();
+    	$attachment = $mail->getFile($ReportsDirName . '/' . $PdfFileName);
+    	$mail->setText( _('Please find herewith our purchase order number').' ' . $OrderNo);
+    	$mail->setSubject( _('Purchase Order Number').' ' . $OrderNo);
+    	$mail->addAttachment($attachment, $PdfFileName, 'application/pdf');
+    	$mail->setFrom($_SESSION['CompanyRecord']['coyname'] . "<" . $_SESSION['CompanyRecord']['email'] .">");
+    	$result = $mail->send(array($_POST['EmailTo']));
+    	if ($result==1){
+    		$failed = false;
+    		echo '<p>';
+    		prnMsg( _('Purchase Order'). ' ' . $OrderNo.' ' . _('has been emailed to') .' ' . $_POST['EmailTo'] . ' ' . _('as directed'), 'success');
+    	} else {
+    		$failed = true;
+    		echo '<p>';
+    		prnMsg( _('Emailing Purchase order'). ' ' . $OrderNo.' ' . _('to') .' ' . $_POST['EmailTo'] . ' ' . _('failed'), 'error');
+    	}
 
     }
 

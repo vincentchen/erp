@@ -1,21 +1,20 @@
 <?php
+
 /* $Id $ */
 
 $PageSecurity = 2;
 include('includes/session.inc');
 
 include('includes/PDFStarter.php');
-
+$pdf->addInfo('Title', _('Sales Receipt') );
 $FontSize=10;
-$pdf->addinfo('Title', _('Sales Receipt') );
-
 $PageNumber=1;
 $line_height=12;
+
 if ($PageNumber>1){
 	$pdf->newPage();
 }
 
-$FontSize=10;
 $YPos= $Page_Height-$Top_Margin;
 $XPos=0;
 $pdf->addJpegFromFile($_SESSION['LogoFile'] ,$XPos+20,$YPos-50,0,60);
@@ -117,5 +116,7 @@ $YPos=$YPos-($line_height*10);
 
 $LeftOvers = $pdf->addTextWrap(50,$YPos,300,$FontSize,'______________________________________________________________________________');
 
-$pdf->Output('Receipt-'.$_GET['ReceiptNumber'], 'I');
+//$pdf->Output('Receipt-'.$_GET['ReceiptNumber'], 'I');
+$pdf->OutputD($_SESSION['DatabaseName'] . '_' . 'Receipt-'.$_GET['ReceiptNumber'] . '_' . date('Y-m-d') . '.pdf');//UldisN
+$pdf->__destruct(); //UldisN
 ?>

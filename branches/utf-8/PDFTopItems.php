@@ -1,21 +1,19 @@
 <?php
+
+/*$Id$*/
+
 /* $Revision: 1.2 $ */
 
 $PageSecurity = 2;
 include('includes/session.inc');
 
-
 include('includes/PDFStarter.php');
-
+$pdf->addInfo('Title', _('Top Items Search Result') );
 $FontSize=10;
-$pdf->addinfo('Title', _('Top Items Search Result') );
-
 $PageNumber=1;
 $line_height=12;
 
-
 include('includes/PDFTopItemsHeader.inc');
-
 $FontSize =10;
 
 //the situation if the location and customer type selected "All"		
@@ -104,6 +102,14 @@ $FontSize =10;
 		
 $result = DB_query($SQL,$db);
 
+If (DB_num_rows($result) == 0){
+	include ('includes/header.inc');
+	prnMsg(_('There are no records returned'), 'warn');
+	include ('includes/footer.inc');
+	exit;
+}
+
+
 $YPos=$YPos-6;
 while ($myrow=DB_fetch_array($result))	{
 				
@@ -149,7 +155,7 @@ while ($myrow=DB_fetch_array($result))	{
 			
 				
 }
-
+/*
 $pdfcode = $pdf->output();
 $len = strlen($pdfcode);
 
@@ -170,7 +176,9 @@ if (DB_num_rows($result)==0){
 
 	$pdf->Output('TopItems.pdf', 'I');
 }
-
+*/
+$pdf->OutputD($_SESSION['DatabaseName'] . '_TopItems_' . date('Y-m-d') . '.pdf');//UldisN
+$pdf->__destruct(); //UldisN
 
  /*end of else not PrintPDF */
 ?>
