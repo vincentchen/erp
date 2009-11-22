@@ -1,6 +1,8 @@
 <?php
 
-/* $Revision: 1.2 $ */
+/*$Id$*/
+
+/* $Revision: 1.3 $ */
 
 $PageSecurity = 2;
 
@@ -106,11 +108,13 @@ if (DB_num_rows($result)==0){
 LETS GO */
 $PaperSize = 'A4_Landscape';
 include('includes/PDFStarter.php');
-
+$pdf->addInfo('Title', _('Customer Laser Packing Slip') );
+$pdf->addInfo('Subject', _('Laser Packing slip for order') . ' ' . $_GET['TransNo']);
 $FontSize=12;
+
 $pdf->selectFont('./fonts/Helvetica.afm');
-$pdf->addinfo('Title', _('Customer Laser Packing Slip') );
-$pdf->addinfo('Subject', _('Laser Packing slip for order') . ' ' . $_GET['TransNo']);
+
+$ListCount = 0; // UldisN
 
 for ($i=1;$i<=2;$i++){  /*Print it out twice one copy for customer and one for office */
 	if ($i==2){
@@ -143,6 +147,8 @@ for ($i=1;$i<=2;$i++){  /*Print it out twice one copy for customer and one for o
 
 		while ($myrow2=DB_fetch_array($result)){
 
+            $ListCount ++;
+
 			$DisplayQty = number_format($myrow2['quantity'],2);
 			$DisplayPrevDel = number_format($myrow2['qtyinvoiced'],2);
 			$DisplayQtySupplied = number_format($myrow2['quantity'] - $myrow2['qtyinvoiced'],2);
@@ -170,9 +176,9 @@ for ($i=1;$i<=2;$i++){  /*Print it out twice one copy for customer and one for o
 
 } /*end for loop to print the whole lot twice */
 
-$pdfcode = $pdf->output();
-$len = strlen($pdfcode);
-if ($len<=20){
+//$pdfcode = $pdf->output();
+//$len = strlen($pdfcode);
+if ($ListCount == 0){
         $title = _('Print Packing Slip Error');
         include('includes/header.inc');
         echo '<p>'. _('There were no outstanding items on the order to deliver') . '. ' . _('A packing slip cannot be printed').
@@ -181,6 +187,7 @@ if ($len<=20){
         include('includes/footer.inc');
 	exit;
 } else {
+/*
 	header('Content-type: application/pdf');
 	header('Content-Length: ' . $len);
 	header('Content-Disposition: inline; filename=PackingSlip.pdf');
@@ -189,6 +196,9 @@ if ($len<=20){
 	header('Pragma: public');
 //echo 'here';
 	$pdf->Output('SalesOrder.pdf', 'I');
+*/
+    $pdf->OutputI($_SESSION['DatabaseName'] . '_SalesOrder_' . date('Y-m-d') . '.pdf');//UldisN
+    $pdf->__destruct(); //UldisN
 
 //	$sql = "UPDATE salesorders SET printedpackingslip=1, datepackingslipprinted='" . Date('Y-m-d') . "' WHERE salesorders.orderno=" .$_GET['TransNo'];
 //	$result = DB_query($sql,$db);

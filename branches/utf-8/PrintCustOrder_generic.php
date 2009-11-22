@@ -2,7 +2,7 @@
 
 /*$Id$*/
 
-/* $Revision: 1.19 $ */
+/* $Revision: 1.20 $ */
 
 $PageSecurity = 2;
 
@@ -109,8 +109,8 @@ LETS GO */
 $PaperSize = 'A4_Landscape';
 include('includes/PDFStarter.php');
 $pdf->selectFont('./fonts/Helvetica.afm');
-$pdf->addinfo('Title', _('Customer Laser Packing Slip') );
-$pdf->addinfo('Subject', _('Laser Packing slip for order') . ' ' . $_GET['TransNo']);
+$pdf->addInfo('Title', _('Customer Laser Packing Slip') );
+$pdf->addInfo('Subject', _('Laser Packing slip for order') . ' ' . $_GET['TransNo']);
 $FontSize=12;
 $line_height=24;
 $PageNumber = 1;
