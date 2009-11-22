@@ -8,8 +8,8 @@ If (isset($_POST['PrintPDF'])) {
 
 	include('includes/PDFStarter.php');
 
-	$pdf->addinfo('Title',_('MRP Planned Work Orders Report'));
-	$pdf->addinfo('Subject',_('MRP Planned Work Orders'));
+	$pdf->addInfo('Title',_('MRP Planned Work Orders Report'));
+	$pdf->addInfo('Subject',_('MRP Planned Work Orders'));
 	
 	$FontSize=9;
 	$PageNumber=1;

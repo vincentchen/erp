@@ -7,12 +7,12 @@ include('includes/session.inc');
 If (isset($_POST['PrintPDF'])) {
 
 	include('includes/PDFStarter.php');
-
-	$pdf->addinfo('Title',_('Inventory Quantities Report'));
-	$pdf->addinfo('Subject',_('Parts With Quantities'));
+	$pdf->addInfo('Title',_('Inventory Quantities Report'));
+	$pdf->addInfo('Subject',_('Parts With Quantities'));
 	$FontSize=9;
 	$PageNumber=1;
 	$line_height=12;
+
 	$Xpos = $Left_Margin+1;
 	$wherecategory = " ";
 	$catdescription = " ";

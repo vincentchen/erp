@@ -11,8 +11,8 @@ If (isset($_POST['PrintPDF'])
 
 	include('includes/PDFStarter.php');
 
-	$pdf->addinfo('Title',_('Inventory Valuation Report'));
-	$pdf->addinfo('Subject',_('Inventory Valuation'));
+	$pdf->addInfo('Title',_('Inventory Valuation Report'));
+	$pdf->addInfo('Subject',_('Inventory Valuation'));
 	$FontSize=9;
 	$PageNumber=1;
 	$line_height=12;

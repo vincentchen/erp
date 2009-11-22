@@ -13,11 +13,9 @@ if (isset($_POST['PrintPDF'])
 		 and strlen($_POST['ToCriteria'])>=1){
 
 	include('includes/PDFStarter.php');
-
+	$pdf->addInfo('Title', _('Price Listing Report') );
+	$pdf->addInfo('Subject', _('Price List') );
 	$FontSize=10;
-	$pdf->addinfo('Title', _('Price Listing Report') );
-	$pdf->addinfo('Subject', _('Price List') );
-
 	$PageNumber=1;
 	$line_height=12;
 

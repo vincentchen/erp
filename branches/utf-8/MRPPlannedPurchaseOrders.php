@@ -7,11 +7,12 @@ include('includes/session.inc');
 If (isset($_POST['PrintPDF'])) {
 
 	include('includes/PDFStarter.php');
-	$pdf->addinfo('Title',_('MRP Planned Purchase Orders Report'));
-	$pdf->addinfo('Subject',_('MRP Planned Purchase Orders'));
+	$pdf->addInfo('Title',_('MRP Planned Purchase Orders Report'));
+	$pdf->addInfo('Subject',_('MRP Planned Purchase Orders'));
 	$FontSize=9;
 	$PageNumber=1;
 	$line_height=12;
+
 	$Xpos = $Left_Margin+1;
 	$wheredate = " ";
 	$reportdate = " ";
