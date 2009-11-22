@@ -455,7 +455,7 @@ if (isset($_POST['PrintPDF'])
 
 // This else was missed
     else {
-	    $pdf->OutputD($_SESSION['DatabaseName'] . '_' .'AgedDebtors_' . date('Y-m-d').'.pdf');
+	    $pdf->OutputD($_SESSION['DatabaseName'] . '_' . 'AgedDebtors_' . date('Y-m-d') . '.pdf');
 	    $pdf-> __destruct();
 	}
 
