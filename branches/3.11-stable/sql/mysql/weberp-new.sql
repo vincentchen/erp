@@ -2370,6 +2370,12 @@ INSERT INTO `taxprovinces` VALUES (1,'Default Tax province');
 INSERT INTO `www_users` VALUES ('admin','weberp','Demonstration user','','','','','MEL',8,'2009-05-17 14:03:53','','A4','1,1,1,1,1,1,1,1,',0,50,'professional','en_GB');
 
 --
+-- Dumping data for table `factorcompanies`
+--
+
+INSERT INTO `factorcompanies` VALUES (4,'None','','','','','','','','','','');
+
+--
 -- Dumping data for table `edi_orders_segs`
 --
 

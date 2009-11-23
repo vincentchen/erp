@@ -6323,8 +6323,6 @@ INSERT INTO `edi_orders_segs` VALUES (95,'UNT',50,1);
 --
 
 INSERT INTO `factorcompanies` VALUES (4,'None','','','','','','','','','','');
-INSERT INTO `factorcompanies` VALUES (5,'None','','','','','','','','','','');
-INSERT INTO `factorcompanies` VALUES (6,'None','','','','','','','','','','');
 
 --
 -- Dumping data for table `freightcosts`
