@@ -8,28 +8,23 @@
 	Due to limitation of R&OS class for foreign character support, this wrapper class was
 	written to allow the same code base to use the more functional fpdf.class by Olivier Plathey.
 
-	However, due to limitations of FPDF class for UTF-8 support, now this class inherits from the TCPDF class
-	by Nicola Asuni.
+	However, due to limitations of FPDF class for UTF-8 support, now this class inherits from 
+	the TCPDF class by Nicola Asuni.
 
 	Work to move from FPDF to TCPDF by:
 		Javier de Lorenzo-Cáceres <info@civicom.eu>
 	----------------------------------------------------------------------------------------------- */
 
-// Javier: ... with TCPDF ...
 require_once(dirname(__FILE__).'/tcpdf/config/lang/eng.php');
 require_once(dirname(__FILE__).'/tcpdf/tcpdf.php');
 
 
-//Javier: Cpdf class now inherits from TCPDF instead of PDF_Language
 class Cpdf extends TCPDF {
-// Javier: I change the constructor
-//	function Cpdf($pageSize=array(0,0,612,792)) {
 	public function __construct($DocOrientation='P', $DocUnits='mm', $DocPaper='A4') {
 
-// Javier: I change and correct the call to the parent constructor
 		parent::__construct($DocOrientation, $DocUnits, $DocPaper, true, 'UTF-8', false);
 
-	} // End of constructor
+	}
 
 
 	function selectFont($FontName = 'helvetica') {
@@ -199,12 +194,15 @@ class Cpdf extends TCPDF {
 		$this->_out($tmp);
 	}
 
+/*
 	function Stream() {
-// Javier: This was the wrapper to not change every script, it will become obsolete
+// Javier: This was the wrapper to not change every script, it has became obsolete
 //		$this->Output('','I');
-// Javier: We should give a file's name if we don't want file extension to be .php
+// Javier: A file's name is needed if we don't want file extension to be .php
 		$this->Output('ThisScriptNeedsReview.pdf','I');
 	}
+*/
+
 
 /* Javier: These 2 new functions, OutputI and OutputD, will be going replacing the previous to manage the output.
 	The reason is that TCPDF has a different behaviour than FPDF, The recursive scripts needs D */
