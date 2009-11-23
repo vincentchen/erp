@@ -1,4 +1,5 @@
 <?php
+/* $Id$ */
 /* This file is included in session.inc or PDFStarter.php or a report script that does not use PDFStarter.php
 to check for the existance of gettext function and setup the necessary enviroment to allow for automatic translation
 
@@ -25,9 +26,9 @@ if (function_exists('gettext')){
 	$Locale = setlocale (LC_ALL, $_SESSION['Language']);
 
 	//$Locale = setlocale (LC_CTYPE, $_SESSION['Language']);
-	$Locale = setlocale (LC_CTYPE, 'lv_LV.utf8');
+	$Locale = setlocale (LC_CTYPE, $_SESSION['Language']);
 	//$Locale = setlocale (LC_MESSAGES, $_SESSION['Language']);
-    setlocale (LC_TIME, 'lv_LV.utf8');
+    setlocale (LC_TIME, $_SESSION['Language']);
 
 	$Locale = setlocale (LC_NUMERIC, 'en_GB'); //currently need all decimal points etc to be as expected on webserver
 
