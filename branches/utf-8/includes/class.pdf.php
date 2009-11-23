@@ -47,6 +47,8 @@ class Cpdf extends TCPDF {
  			$this->SetFont('helvetica', '', 11);
 		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
 			$this->SetFont('javiergb', '', 11);
+		} elseif ($_SESSION['Language']=='lv_LV') {  
+			$this->SetFont('times', '', 11);
 		} else {
 			$this->SetFont('javierjp', '', 11);
 		}
