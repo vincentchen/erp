@@ -72,7 +72,7 @@ if (!isset($AllowAnyone)){ /* only do security checks if AllowAnyone is not true
 		$_SESSION['Module'] = '';
 		$_SESSION['PageSize'] = '';
 		$_SESSION['UserStockLocation'] = '';
-		$_SESSION['PDF_Language']= '';
+		$_SESSION['PDFLanguage']= '';
 		$_SESSION['AttemptsCounter']++;
 
 
