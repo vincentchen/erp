@@ -49,15 +49,11 @@ class Cpdf extends TCPDF {
 		} else {
 			$userpdffont = 'helvetica';
 		}
-	$this->SetFont($userpdffont, '', 11);
-//	       SetFont($family, $style='', $size=0, $fontfile='') {	
+
+		$this->SetFont($userpdffont, '', 11);
+//		       SetFont($family, $style='', $size=0, $fontfile='') {	
 	}
 
-
-/* Javier: 	PDF doesn't support UTF-8 pan-unicode fonts but 16 bits CMaps CID fonts.
-		Free use of CID fonts is very limited by Adobe.
-		I had to work in TCPDF CID fonts, which are font definitions or descriptions, meta-data.
-		Most free use CID fonts lack styles like bold or italic.	*/
 
 	function newPage() {
 /* Javier: 	$this->setPrintHeader(false);  This is not a removed call but added in. */
@@ -80,21 +76,15 @@ class Cpdf extends TCPDF {
 	function addInfo($label, $value) {
 		if ($label == 'Creator') {
 
-// Javier: The Creator was changed from R&OS to FPDF, now I change it to be TCPDF.
-			// The Creator info in source is not exactly it should be ;) 
-/*			$value = str_replace( "ros.co.nz", "fpdf.org", $value );
-			$value = str_replace( "R&OS", "", $value );
-			$this->SetCreator( $value );
-*/
-/* Javier: Many scripts set the creator to be WebERP like this		
+/* Javier: Some scripts set the creator to be WebERP like this		
 			$pdf->addInfo('Creator', 'WebERP http://www.weberp.org');
-   Javier: But the Creator is TCPDF by Nicola Asuni, PDF_CREATOR is defined as 'TCPDF' in tcpdf/config/tcpdfconfig.php
+	But the Creator is TCPDF by Nicola Asuni, PDF_CREATOR is defined as 'TCPDF' in tcpdf/config/tcpdfconfig.php
 */ 			$this->SetCreator(PDF_CREATOR);
 		}
 		if ($label == 'Author') {
 /* Javier: Many scripts set the author to be WebERP like this	
 			$pdf->addInfo('Author', 'WebERP ' . $Version);
-	But the Author might be set to be the user
+	But the Author might be set to be the user or make it constant here.
 */			$this->SetAuthor( $value );
 		}
 		if ($label == 'Title') {
@@ -201,19 +191,13 @@ class Cpdf extends TCPDF {
 		$this->_out($tmp);
 	}
 
-/*
-	function Stream() {
-// Javier: This was the wrapper to not change every script, it has became obsolete
-//		$this->Output('','I');
-// Javier: A file's name is needed if we don't want file extension to be .php
-		$this->Output('ThisScriptNeedsReview.pdf','I');
-	}
+/* Javier:
+	A file's name is needed if we don't want file extension to be .php
+	TCPDF has a different behaviour than FPDF, the recursive scripts needs D.
+	The admin/user may change I to D to force all pdf to be downloaded or open in a desktop app instead the browser plugin, but not vice-versa.
+	The admin/user may change I and D to F to save all pdf in the server for Document Management.
 */
 
-
-/* Javier: These 2 new functions, OutputI and OutputD, will be going replacing the previous to manage the output.
-	The reason is that TCPDF has a different behaviour than FPDF, The recursive scripts needs D */
-// The admin/user may change I to D to force all pdf to be downloaded or open in a desktop app instead the browser plugin.
 	function OutputI($DocumentFilename = 'Document.pdf') {
 		if (($DocumentFilename == null) or ($DocumentFilename == '')) { 
 			$DocumentFilename = _('Document.pdf');
