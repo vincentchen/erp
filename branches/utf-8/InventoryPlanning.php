@@ -2,11 +2,8 @@
 
 /* $Id */
 
-/* $Revision: 1.21 $ */
-
 $PageSecurity = 2;
 include('includes/session.inc');
-
 
 if (isset($_POST['PrintPDF'])
 	and isset($_POST['FromCriteria'])
@@ -49,7 +46,6 @@ if (isset($_POST['PrintPDF'])
 /* END Brought from class.pdf.php constructor */
 
 // Javier:
-	$pdf->selectFont('./fonts/Helvetica.afm'); //this will not go to that directory any more, see class.pdf.php
 	$PageNumber = 1;
 	$line_height = 12;
 
@@ -205,7 +201,7 @@ if (isset($_POST['PrintPDF'])
 		}
 
 		$DemandResult = DB_query($SQL, $db, '', '', false , false);
-/* Javier */	$ListCount = count ($DemandResult);
+		$ListCount = DB_num_rows($DemandResult); 
 
 		if (DB_error_no($db) !=0) {
 	 		$title = _('Inventory Planning') . ' - ' . _('Problem Report') . '....';
@@ -355,15 +351,7 @@ if (isset($_POST['PrintPDF'])
 		include('includes/footer.inc');
 		exit;
 	} else {
-// Javier: TCPDF sends its own http header, it's an error to send it twice.
-	/*	header('Content-type: application/pdf');
-		header('Content-Length: ' . $len);
-		header('Content-Disposition: inline; filename=InventoryPlanning.pdf');
-		header('Expires: 0');
-		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-		header('Pragma: public'); */
-
-		$pdf->Output('InventoryPlanning','I');
+		$pdf->OutputD($_SESSION['DatabaseName'] . '_Inventory_Planning_' . Date('Y-m-d') . '.pdf');
 		$pdf-> __destruct();
 	}
 

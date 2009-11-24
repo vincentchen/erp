@@ -158,7 +158,6 @@ if (DB_num_rows($result)>0){
 /* END Brought from class.pdf.php constructor */
 
 	$FontSize=12;
-	$pdf->selectFont('./fonts/Helvetica.afm');
 	$line_height=16;
 
 	include('includes/PDFOrderPageHeader.inc');
@@ -188,14 +187,12 @@ if (DB_num_rows($result)>0){
 
       } //end while there are line items to print out
 
-} /*end if there are order details to show on the order*/
+	$pdf->OutputD($_SESSION['DatabaseName'] . '_Customer_Order_' . $_GET['TransNo'] . '_' . Date('Y-m-d') .'.pdf');
+	$pdf-> __destruct();
 
-
-// Javier: This actually would produce the output
-//	$pdfcode = $pdf->output();
-//	$len = strlen($pdfcode);
-//	if ($len<=20){
-if ($ListCount == 0) {
+	$sql = "UPDATE salesorders SET printedpackingslip=1, datepackingslipprinted='" . Date('Y-m-d') . "' WHERE salesorders.orderno=" .$_GET['TransNo'];
+	$result = DB_query($sql,$db);
+} else {
 	$title = _('Print Packing Slip Error');
 	include('includes/header.inc');
 	echo '<p>'. _('There were no outstanding items on the order to deliver. A dispatch note cannot be printed').
@@ -203,20 +200,5 @@ if ($ListCount == 0) {
 		'</a>' . '<br>'. '<a href="' . $rootpath . '/index.php?' . SID . '">' . _('Back to the menu') . '</a>';
 	include('includes/footer.inc');
 	exit;
-} else {
-// Javier: TCPDF sends its own http header, would be an error to send it twice.
-/*	header('Content-type: application/pdf');
-	header('Content-Length: ' . $len);
-	header('Content-Disposition: inline; filename=PackingSlip.pdf');
-	header('Expires: 0');
-	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-	header('Pragma: public');
-*/
-	$pdf->OutputI('PrintCustOrder.pdf');
-	$pdf-> __destruct();
-
-	$sql = "UPDATE salesorders SET printedpackingslip=1, datepackingslipprinted='" . Date('Y-m-d') . "' WHERE salesorders.orderno=" .$_GET['TransNo'];
-	$result = DB_query($sql,$db);
-}
-
+} /*end if there are order details to show on the order*/
 ?>

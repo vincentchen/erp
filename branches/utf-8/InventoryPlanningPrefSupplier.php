@@ -143,7 +143,6 @@ if (isset($_POST['PrintPDF'])){
 	$pdf->cMargin = 0;		// Javier: needs check.
 /* END Brought from class.pdf.php constructor */
 
-	$pdf->selectFont('./fonts/Helvetica.afm'); //this will not go to that directory any more, see class.pdf.php
 //	$line_height=12;
 
 	$PageNumber= 1;
@@ -204,7 +203,8 @@ if (isset($_POST['PrintPDF'])){
 
 	}
 	$InventoryResult = DB_query($SQL, $db, '', '', false, false);
-
+	$ListCount = DB_num_rows($InventoryResult);
+	
 	if (DB_error_no($db) !=0) {
 	  $title = _('Inventory Planning') . ' - ' . _('Problem Report') . '....';
 	  include('includes/header.inc');
@@ -226,6 +226,7 @@ if (isset($_POST['PrintPDF'])){
 	$Period_2 = $CurrentPeriod -2;
 	$Period_3 = $CurrentPeriod -3;
 	$Period_4 = $CurrentPeriod -4;
+
 
 	While ($InventoryPlan = DB_fetch_array($InventoryResult,$db)){
 
@@ -304,7 +305,6 @@ if (isset($_POST['PrintPDF'])){
 		}
 
 		$DemandResult = DB_query($SQL, $db, '', '', false, false);
-/* Javier */	$ListCount = count ($DemandResult);
 
 		if (DB_error_no($db) !=0) {
 	 		 $title = _('Inventory Planning') . ' - ' . _('Problem Report') . '....';
@@ -439,10 +439,6 @@ if (isset($_POST['PrintPDF'])){
 
 	$pdf->line($Left_Margin, $YPos+$line_height,$Page_Width-$Right_Margin, $YPos+$line_height);
 
-// Javier: This actually would produce the output
-//	$pdfcode = $pdf->output();
-//	$len = strlen($pdfcode);
-//	if ($len<=20){
 	if ($ListCount == 0) {
 		$title = _('Print Inventory Planning Report Empty');
 		include('includes/header.inc');
@@ -451,15 +447,7 @@ if (isset($_POST['PrintPDF'])){
 		include('includes/footer.inc');
 		exit;
 	} else {
-// Javier: TCPDF sends its own http header, would be an error to send it twice.
-	/*	header('Content-type: application/pdf');
-		header('Content-Length: ' . $len);
-		header('Content-Disposition: inline; filename=InventoryPlanning.pdf');
-		header('Expires: 0');
-		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-		header('Pragma: public');
-	*/
-		$pdf->OutputD('InventoryPlanningPrefSupplier.pdf');
+		$pdf->OutputD($_SESSION['DatabaseName'] . '_Inventory_Planning_PrefSupplier_' . Date('Y-m-d') . '.pdf');
 		$pdf-> __destruct();
 	}
 	exit; // Javier: needs check

@@ -1,6 +1,6 @@
 <?php
 
-/* $Revision: 1.12 $ */
+/* $Id$ */
 
 include ('includes/class.pdf.php');
 
@@ -18,14 +18,13 @@ $pdf = & new Cpdf($PageSize);
 
 $PageNumber = 0;
 
-$pdf->selectFont('./fonts/Helvetica.afm');
 
 /* Standard PDF file creation header stuff */
 
-$pdf->addinfo('Author','webERP ' . $Version);
-$pdf->addinfo('Creator','webERP http://www.weberp.org');
-$pdf->addinfo('Title',$ReportSpec['reportheading']);
-$pdf->addinfo('Subject',_('Sales Analysis Report') . ' ' . $ReportSpec['reportheading']);
+$pdf->addInfo('Author','webERP ' . $Version);
+$pdf->addInfo('Creator','webERP http://www.weberp.org');
+$pdf->addInfo('Title',$ReportSpec['reportheading']);
+$pdf->addInfo('Subject',_('Sales Analysis Report') . ' ' . $ReportSpec['reportheading']);
 
 $line_height=12;
 
