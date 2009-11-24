@@ -4,8 +4,8 @@
 
 /* $Revision: 1.53 $ */
 
-/* Javier: Hay 5 PDF Outputs en este fichero, y una clase FPDI class, y una función , ... 
-	El único q cambió cierta persona está en L570, 3 son de fpdi y el 5º está en L457  */
+/* Javier: This file has 5 PDF Outputs, one FPDI class, one function, 
+	El único q cambió alguien está en L570, 3 son de fpdi y el 5º está en L457  */
 
 $PageSecurity = 1;
 

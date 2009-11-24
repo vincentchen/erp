@@ -2,14 +2,10 @@
 
 /* $Id$ */
 
-/* $Revision: 1.40 $ */
-
-/* Javier: Hay 5 PDF Outputs en este fichero, y una clase FPDI class, y una función , ... 
-	Sin embargo cierta persona aki cambió 2 L520 y L570, 3 son de fpdi y el 5º está en L457  */
+/* Javier: This file has 5 PDF Outputs, one FPDI class, and one function, 
+	The Outputs are L520 and L570, 3 are about FPDI y el 5th is in L457  */
 
 $PageSecurity = 1;
-
-
 
 include('includes/session.inc');
 
@@ -67,11 +63,11 @@ If (isset($PrintPDF)
 	$pdf->addinfo('Creator','webERP http://www.weberp.org');
 
 	if ($InvOrCredit=='Invoice'){
-		$pdf->addinfo('Title',_('Sales Invoice') . ' ' . $FromTransNo . ' to ' . $_POST['ToTransNo']);
-		$pdf->addinfo('Subject',_('Invoices from') . ' ' . $FromTransNo . ' ' . _('to') . ' ' . $_POST['ToTransNo']);
+		$pdf->addInfo('Title',_('Sales Invoice') . ' ' . $FromTransNo . ' to ' . $_POST['ToTransNo']);
+		$pdf->addInfo('Subject',_('Invoices from') . ' ' . $FromTransNo . ' ' . _('to') . ' ' . $_POST['ToTransNo']);
 	} else {
-		$pdf->addinfo('Title',_('Sales Credit Note') );
-		$pdf->addinfo('Subject',_('Credit Notes from') . ' ' . $FromTransNo . ' ' . _('to') . ' ' . $_POST['ToTransNo']);
+		$pdf->addInfo('Title',_('Sales Credit Note') );
+		$pdf->addInfo('Subject',_('Credit Notes from') . ' ' . $FromTransNo . ' ' . _('to') . ' ' . $_POST['ToTransNo']);
 	}
 
 /* Javier: I have brought this piece from the pdf class constructor to get it closer to the admin/user,
@@ -84,7 +80,6 @@ If (isset($PrintPDF)
 	$pdf->cMargin = 0;		// Javier: needs check.
 /* END Brought from class.pdf.php constructor */
 
-//	$pdf->selectFont('helvetica');
 	$FirstPage = true;
 	$line_height=16;
 
@@ -629,16 +624,9 @@ while ($row=DB_fetch_array($result)){
 
 	} else {
 
-/* Javier: este es el más importante según cierta persona ya q es el único q cambió, pero nadie parece saber nada, despues cambió tb L520 pero no en la factura apaisada
-// Javier: TCPDF sends its own http header, it's an error to send it twice. 
-		header('Content-type: application/pdf');
-		header('Content-Length: ' . $len);
-		header('Content-Disposition: inline; filename=Customer_trans.pdf');
-		header('Expires: 0');
-		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-		header('Pragma: public');
-*/
-		$pdf->OutputD('PrintCustTransPortrait.pdf');
+// Javier: este es el más importante según alguien pq es el único q cambió, despues cambió tb L520 pero no en la factura apaisada
+
+		$pdf->OutputD($_SESSION['DatabaseName'] . '_Invoice' . date('Y-m-d') . '.pdf');
 		$pdf-> __destruct();
 	}
 

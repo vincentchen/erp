@@ -1,6 +1,6 @@
 <?php
 
-/* $Id */
+/* $Id$ */
 
 $PageSecurity = 2;
 include('includes/session.inc');
@@ -11,7 +11,7 @@ if (isset($_POST['PrintPDF'])
 	and isset($_POST['ToCriteria'])
 	and strlen($_POST['ToCriteria'])>=1) {
 
-    include ('includes/class.pdf.php');
+	include ('includes/class.pdf.php');
 
 	/* A4_Landscape */
 
@@ -201,7 +201,7 @@ if (isset($_POST['PrintPDF'])
 		}
 
 		$DemandResult = DB_query($SQL, $db, '', '', false , false);
-		$ListCount = DB_num_rows($DemandResult); 
+		$ListCount = DB_num_rows($DemandResult);
 
 		if (DB_error_no($db) !=0) {
 	 		$title = _('Inventory Planning') . ' - ' . _('Problem Report') . '....';

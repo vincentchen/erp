@@ -143,7 +143,6 @@ if (isset($_POST['PrintPDF'])){
 	$pdf->cMargin = 0;		// Javier: needs check.
 /* END Brought from class.pdf.php constructor */
 
-//	$line_height=12;
 
 	$PageNumber= 1;
 	$line_height= 12;
@@ -204,7 +203,7 @@ if (isset($_POST['PrintPDF'])){
 	}
 	$InventoryResult = DB_query($SQL, $db, '', '', false, false);
 	$ListCount = DB_num_rows($InventoryResult);
-	
+
 	if (DB_error_no($db) !=0) {
 	  $title = _('Inventory Planning') . ' - ' . _('Problem Report') . '....';
 	  include('includes/header.inc');
@@ -228,7 +227,7 @@ if (isset($_POST['PrintPDF'])){
 	$Period_4 = $CurrentPeriod -4;
 
 
-	While ($InventoryPlan = DB_fetch_array($InventoryResult,$db)){
+	while ($InventoryPlan = DB_fetch_array($InventoryResult,$db)){
 
 		if ($SupplierID!=$InventoryPlan['supplierno']){
 			$FontSize=10;
@@ -305,6 +304,7 @@ if (isset($_POST['PrintPDF'])){
 		}
 
 		$DemandResult = DB_query($SQL, $db, '', '', false, false);
+
 
 		if (DB_error_no($db) !=0) {
 	 		 $title = _('Inventory Planning') . ' - ' . _('Problem Report') . '....';
