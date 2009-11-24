@@ -1,5 +1,5 @@
 <?php
-/* $Revision: 1.67 $ */
+/* $Id$ */
 
 if (!isset($PathPrefix)) {
 	$PathPrefix='';
