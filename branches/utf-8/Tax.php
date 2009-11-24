@@ -68,15 +68,15 @@ if (isset($_POST['TaxAuthority']) AND
 		include('includes/footer.inc');
 		exit;
 	}
-	if (DB_num_rows($DebtorTransResult)==0){
-		$title = _('Taxation Reporting Error');
-		include('includes/header.inc');
-		prnMsg (_('There are no tax entries to list'),'info');
-		echo "<br><a href='$rootpath/index.php?" . SID . "'>" . _('Back to the menu') . '</a>';
-		include('includes/footer.inc');
-		exit;
-	}
-
+//	if (DB_num_rows($DebtorTransResult)==0){
+//		$title = _('Taxation Reporting Error');
+//		include('includes/header.inc');
+//		prnMsg (_('There are no tax entries to list'),'info');
+//		echo "<br><a href='$rootpath/index.php?" . SID . "'>" . _('Back to the menu') . '</a>';
+//		include('includes/footer.inc');
+//		exit;
+//	}
+//
 	if ($_POST['DetailOrSummary']=='Detail'){
 		include ('includes/PDFTaxPageHeader.inc');
 		$LeftOvers = $pdf->addTextWrap($Left_Margin,$YPos,120,$FontSize+2, _('Tax On Sales'),'left');
@@ -88,7 +88,11 @@ if (isset($_POST['TaxAuthority']) AND
 	$Inputs =0;
 	$InputTax =0;
 
+    $ListCount = 0;
+
 	While ($DebtorTransRow = DB_fetch_array($DebtorTransResult,$db)){
+
+        $ListCount ++;
 
 		if ($_POST['DetailOrSummary']=='Detail'){
 			$LeftOvers = $pdf->addTextWrap($Left_Margin,$YPos,60,$FontSize, $DebtorTransRow['typename'],'left');
@@ -187,6 +191,8 @@ if (isset($_POST['TaxAuthority']) AND
 
 	While ($SuppTransRow = DB_fetch_array($SuppTransResult,$db)){
 
+        $ListCount ++;
+
 		if ($_POST['DetailOrSummary']=='Detail'){
 			$LeftOvers = $pdf->addTextWrap($Left_Margin,$YPos,60,$FontSize, $SuppTransRow['typename'],'left');
 			$LeftOvers = $pdf->addTextWrap(100,$YPos,40,$FontSize, $SuppTransRow['suppreference'],'left');
@@ -273,8 +279,17 @@ if (isset($_POST['TaxAuthority']) AND
 	$YPos -= $line_height;
 	$LeftOvers = $pdf->addTextWrap(40,$YPos,500,$FontSize,_('This information excludes Tax on journal entries/payments/receipts all Tax should be entered through AR/AP'),'left');
 
-	$pdf->OutputD($_SESSION['DatabaseName'] . '_Tax_Report_' . Date('Y-m-d'));
-	$pdf->__destruct();
+   	if ($ListCount == 0) {
+		$title = _('Taxation Reporting Error');
+		include('includes/header.inc');
+		prnMsg (_('There are no tax entries to list'),'info');
+		echo "<br><a href='$rootpath/index.php?" . SID . "'>" . _('Back to the menu') . '</a>';
+		include('includes/footer.inc');
+		exit;
+    } else {
+    	$pdf->OutputD($_SESSION['DatabaseName'] . '_Tax_Report_' . Date('Y-m-d'));
+    }
+    $pdf->__destruct();
 } else { /*The option to print PDF was not hit */
 
 	$title=_('Tax Reporting');
