@@ -20,14 +20,11 @@ require_once(dirname(__FILE__).'/tcpdf/tcpdf.php');
 
 class Cpdf extends TCPDF {
 
-	protected $userpdffont ='helvetica';
-
 	public function __construct($DocOrientation='P', $DocUnits='mm', $DocPaper='A4') {
 
 		parent::__construct($DocOrientation, $DocUnits, $DocPaper, true, 'UTF-8', false);
 
 		$this->setuserpdffont();
-		
 	}
 
 	protected function setuserpdffont() {
@@ -39,34 +36,28 @@ class Cpdf extends TCPDF {
 			$userpdflang = $_SESSION['PDFLanguage'];
 
 			switch ($userpdflang) {
-				case 0: $this->userpdffont = 'helvetica'; break;
-				case 1: $this->userpdffont = 'javierjp';  break;
-				case 2: $this->userpdffont = 'javiergb';  break;
-				case 3: $this->userpdffont = 'javierjp';  break;
-				case 4: $this->userpdffont = 'javierjp';  break;
-				case 5: $this->userpdffont = 'javierjp';  break;
-				case 6: $this->userpdffont = 'javierjp';  break;
-				case 7: $this->userpdffont = 'javierjp';  break;
+				case 0: $userpdffont = 'helvetica'; break;
+				case 1: $userpdffont = 'javierjp';  break;
+				case 2: $userpdffont = 'javiergb';  break;
+				case 3: $userpdffont = 'javierjp';  break;
+				case 4: $userpdffont = 'javierjp';  break;
+				case 5: $userpdffont = 'javierjp';  break;
+				case 6: $userpdffont = 'javierjp';  break;
+				case 7: $userpdffont = 'javierjp';  break;
 			}
 
 		} else {
-			$this->userpdffont = 'helvetica';
+			$userpdffont = 'helvetica';
 		}
-		
+	$this->SetFont($userpdffont, '', 11);
+//	       SetFont($family, $style='', $size=0, $fontfile='') {	
 	}
 
-
-	public function selectFont($FontName = 'helvetica', $style) {
-//	public function selectFont($family, $style='', $size=0, $fontfile='') {
 
 /* Javier: 	PDF doesn't support UTF-8 pan-unicode fonts but 16 bits CMaps CID fonts.
 		Free use of CID fonts is very limited by Adobe.
 		I had to work in TCPDF CID fonts, which are font definitions or descriptions, meta-data.
 		Most free use CID fonts lack styles like bold or italic.	*/
-
-		$this->SetFont($this->userpdffont, '', 11);
-
-	}
 
 	function newPage() {
 /* Javier: 	$this->setPrintHeader(false);  This is not a removed call but added in. */

@@ -1,8 +1,8 @@
 <?php
 
-/* $Id$ */
+/* $Id */
 
-     /* -------------------------------------------------------------------------------------
+/*	-------------------------------------------------------------------------------------
 	November 2009. Moving from FPDF to TCPDF.
  	This file is included by most of the scripts (47 from 54 at now) that creates a pdf.
 	This file creates a new instance of the PDF object defined in class.pdf.php
@@ -14,7 +14,7 @@
 require_once (dirname(__FILE__).'/class.pdf.php');
 
 /*
-	Changes to move from FPDF to TCPDF to support UTF-8 by Javier de Lorenzo-Cáceres <info@civicom.eu>
+//	Changes to move from FPDF to TCPDF to support UTF-8 by Javier de Lorenzo-Cáceres <info@civicom.eu>
 */
 
 if (!isset($PaperSize)){				// Javier: Results True, it's not set.
@@ -146,5 +146,4 @@ $pdf->addInfo('Author', 'WebERP ' . $Version);
 	$pdf->cMargin = 0;		// Javier: needs check.
 /* END Brought from class.pdf.php constructor */
 
-$pdf->selectFont('helvetica');
 ?>
