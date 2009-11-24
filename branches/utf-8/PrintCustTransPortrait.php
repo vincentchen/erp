@@ -63,15 +63,15 @@ If (isset($PrintPDF)
 //	$PageSize = array(0,0,$Page_Width,$Page_Height);
 //	$pdf = & new Cpdf($PageSize);
 	$pdf = new Cpdf('P', 'pt', 'A4');
-	$pdf->addInfo('Author','webERP ' . $Version);
-	$pdf->addInfo('Creator','webERP http://www.weberp.org');
+	$pdf->addinfo('Author','webERP ' . $Version);
+	$pdf->addinfo('Creator','webERP http://www.weberp.org');
 
 	if ($InvOrCredit=='Invoice'){
-		$pdf->addInfo('Title',_('Sales Invoice') . ' ' . $FromTransNo . ' to ' . $_POST['ToTransNo']);
+		$pdf->addinfo('Title',_('Sales Invoice') . ' ' . $FromTransNo . ' to ' . $_POST['ToTransNo']);
 		$pdf->addinfo('Subject',_('Invoices from') . ' ' . $FromTransNo . ' ' . _('to') . ' ' . $_POST['ToTransNo']);
 	} else {
-		$pdf->addInfo('Title',_('Sales Credit Note') );
-		$pdf->addInfo('Subject',_('Credit Notes from') . ' ' . $FromTransNo . ' ' . _('to') . ' ' . $_POST['ToTransNo']);
+		$pdf->addinfo('Title',_('Sales Credit Note') );
+		$pdf->addinfo('Subject',_('Credit Notes from') . ' ' . $FromTransNo . ' ' . _('to') . ' ' . $_POST['ToTransNo']);
 	}
 
 /* Javier: I have brought this piece from the pdf class constructor to get it closer to the admin/user,
@@ -84,7 +84,7 @@ If (isset($PrintPDF)
 	$pdf->cMargin = 0;		// Javier: needs check.
 /* END Brought from class.pdf.php constructor */
 
-	$pdf->selectFont('helvetica');
+//	$pdf->selectFont('helvetica');
 	$FirstPage = true;
 	$line_height=16;
 
@@ -638,7 +638,7 @@ while ($row=DB_fetch_array($result)){
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 		header('Pragma: public');
 */
-        $pdf->OutputD($_SESSION['DatabaseName'] . '_Customer_trans_' . date('Y-m-d') . '.pdf');//UldisN
+		$pdf->OutputD('PrintCustTransPortrait.pdf');
 		$pdf-> __destruct();
 	}
 

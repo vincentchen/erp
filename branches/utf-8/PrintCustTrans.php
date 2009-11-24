@@ -84,7 +84,7 @@ if (isset($PrintPDF) or isset($_GET['PrintPDF'])
 	$pdf->cMargin = 0;		// Javier: needs check.
 /* END Brought from class.pdf.php constructor */
 
-	$pdf->selectFont('helvetica');
+//	$pdf->selectFont('helvetica');
 	$FirstPage = true;
 	$line_height=16;
 
