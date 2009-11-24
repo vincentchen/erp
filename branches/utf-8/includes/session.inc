@@ -127,7 +127,7 @@ if (!isset($AllowAnyone)){ /* only do security checks if AllowAnyone is not true
 			$_SESSION['UserID'] = $myrow[11];
 			$_SESSION['Language'] = $myrow[12];
 			$_SESSION['SalesmanLogin'] = $myrow[13];
-			$_SESSION['PDF_Language']= $myrow[14];
+			$_SESSION['PDFLanguage']= $myrow[14];
 			if ($myrow[10] > 0) {
 				$_SESSION['DisplayRecordsMax'] = $myrow[10];
 			} else {
