@@ -18,40 +18,54 @@
 require_once(dirname(__FILE__).'/tcpdf/config/lang/eng.php');
 require_once(dirname(__FILE__).'/tcpdf/tcpdf.php');
 
-
 class Cpdf extends TCPDF {
+
+	protected $userpdffont ='helvetica';
+
 	public function __construct($DocOrientation='P', $DocUnits='mm', $DocPaper='A4') {
 
 		parent::__construct($DocOrientation, $DocUnits, $DocPaper, true, 'UTF-8', false);
 
+		$this->setuserpdffont();
+		
+	}
+
+	protected function setuserpdffont() {
+
+		session_start();
+
+		if (isset($_SESSION['PDFLanguage'])) {
+
+			$userpdflang = $_SESSION['PDFLanguage'];
+
+			switch ($userpdflang) {
+				case 0: $this->userpdffont = 'helvetica'; break;
+				case 1: $this->userpdffont = 'javierjp';  break;
+				case 2: $this->userpdffont = 'javiergb';  break;
+				case 3: $this->userpdffont = 'javierjp';  break;
+				case 4: $this->userpdffont = 'javierjp';  break;
+				case 5: $this->userpdffont = 'javierjp';  break;
+				case 6: $this->userpdffont = 'javierjp';  break;
+				case 7: $this->userpdffont = 'javierjp';  break;
+			}
+
+		} else {
+			$this->userpdffont = 'helvetica';
+		}
+		
 	}
 
 
-	function selectFont($FontName = 'helvetica') {
+	public function selectFont($FontName = 'helvetica', $style) {
+//	public function selectFont($family, $style='', $size=0, $fontfile='') {
 
 /* Javier: 	PDF doesn't support UTF-8 pan-unicode fonts but 16 bits CMaps CID fonts.
 		Free use of CID fonts is very limited by Adobe.
-		Free use of styles like bold or italic is limited to core fonts.	*/
+		I had to work in TCPDF CID fonts, which are font definitions or descriptions, meta-data.
+		Most free use CID fonts lack styles like bold or italic.	*/
 
+		$this->SetFont($this->userpdffont, '', 11);
 
-/* Javier: 	I had to work in TCPDF CID fonts, which are font definitions or descriptions, meta-data.
-		This selection should rely on user's choice regardless user's language. 
-		This is an early implementation cause it's the key to multilanguage support. */
-
-//			$this->SetFont($FontName, $type);
-
-		if (($FontName == null) or ($FontName == '')) {
-			$FontName = 'helvetica';
-		}
-		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
- 			$this->SetFont('helvetica', '', 11);
-		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-			$this->SetFont('javiergb', '', 11);
-		} elseif ($_SESSION['Language']=='lv_LV') {  
-			$this->SetFont('times', '', 11);
-		} else {
-			$this->SetFont('javierjp', '', 11);
-		}
 	}
 
 	function newPage() {
