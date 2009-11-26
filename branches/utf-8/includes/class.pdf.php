@@ -18,11 +18,13 @@
 require_once(dirname(__FILE__).'/tcpdf/config/lang/eng.php');
 require_once(dirname(__FILE__).'/tcpdf/tcpdf.php');
 
+if (!class_exists('Cpdf', false)) {
+
 class Cpdf extends TCPDF {
 
 	public function __construct($DocOrientation='P', $DocUnits='mm', $DocPaper='A4') {
 
-		parent::__construct($DocOrientation, $DocUnits, $DocPaper, true, 'UTF-8', false);
+		parent::__construct($DocOrientation, $DocUnits, $DocPaper, true, _('UTF-8'), false);
 
 		$this->setuserpdffont();
 	}
@@ -36,7 +38,7 @@ class Cpdf extends TCPDF {
 			$userpdflang = $_SESSION['PDFLanguage'];
 
 			switch ($userpdflang) {
-				case 0: $userpdffont = 'helvetica'; break;
+				case 0: $userpdffont = 'times';     break;
 				case 1: $userpdffont = 'javierjp';  break;
 				case 2: $userpdffont = 'javiergb';  break;
 				case 3: $userpdffont = 'javierjp';  break;
@@ -51,7 +53,7 @@ class Cpdf extends TCPDF {
 		}
 
 		$this->SetFont($userpdffont, '', 11);
-//		       SetFont($family, $style='', $size=0, $fontfile='') {	
+		//     SetFont($family, $style='', $size=0, $fontfile='')	
 	}
 
 
@@ -296,4 +298,5 @@ class Cpdf extends TCPDF {
 		
 } // end of class
 
+}
 ?>
