@@ -2,26 +2,7 @@
 
 /* $Id$ */
 
-// Javier: I remove CJK that now is supported by TCPDF
-/*
-// for compatability with extended char sets
-if ($_SESSION['Language']=='zh_CN'){
-	include($PathPrefix . 'includes/FPDF_Chinese.php');
-} elseif ($_SESSION['Language']=='ja_JP'){
-	include($PathPrefix . 'includes/FPDF_Japanese.php');
-} elseif ($_SESSION['Language']=='ko_KR'){
-	include($PathPrefix . 'includes/FPDF_Korean.php');
-} else {
-	class PDF_Language extends FPDF { }
-}
-*/
-
-// Javier: But I respect Phil's class to isolate possible issues. 
-//	   We should merge them in a near future (in the short term).
-// class PDF_Language extends TCPDF { }
-
-// class PDF extends PDF_Language {
-class PDF extends TCPPDF {
+class PDF extends Cpdf {
 	var $y0; // current y position
 	var $x0; // current x position
 	var $pageY; // y value of bottom of page less bottom margin
@@ -31,7 +12,10 @@ class PDF extends TCPPDF {
 		global $Prefs;
 		define('RowSpace',2); // define separation between the heading rows
 		$PaperSize = explode(':',$Prefs['papersize']);
-		$this->PDF_Language($Prefs['paperorientation'], 'mm', $PaperSize[0]);
+//		$this->PDF_Language($Prefs['paperorientation'], 'mm', $PaperSize[0]); 		This was the calling used
+//			__construct($DocOrientation='P', $DocUnits='mm', $DocPaper='A4');	This is the actual contructor
+		parent::__construct($Prefs['paperorientation'], 'mm', $PaperSize[0]);		
+
 		if ($Prefs['paperorientation']=='P') { // Portrait - calculate max page height
 			$this->pageY = $PaperSize[2]-$Prefs['marginbottom'];
 		} else { // Landscape
@@ -39,29 +23,11 @@ class PDF extends TCPPDF {
 		}
 		$this->SetMargins($Prefs['marginleft'], $Prefs['margintop'], $Prefs['marginright']);
 		$this->SetAutoPageBreak(0, $Prefs['marginbottom']);
-
-// Javier		$this->SetFont('Helvetica');
-		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-			$this->SetFont('helvetica');
-		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-			$this->SetFont('javiergb');
-		} else {
-			$this->SetFont('javierjp');
-		}
-
 		$this->SetDrawColor(128,0,0);
 		$this->SetLineWidth(.35); // 1 point
-
-// Javier: We don't embed fonts	
-/*		if ($_SESSION['Language']=='zh_CN'){
-			$this->AddBig5Font();
-		} elseif ($_SESSION['Language']=='ja_JP'){
-			$this->AddSJISFont();
-		} elseif ($_SESSION['Language']=='ko_KR'){
-			$this->AddUHCFont();
-		}
-*/
+// Javier	$this->SetFont('Helvetica');
 	}
+
 
 	function Header() { // prints all static information on the page
 		global $FieldListings, $FieldValues;
@@ -114,14 +80,8 @@ class PDF extends TCPPDF {
 			}
 			$this->SetXY($Params['LineXStrt'],$Params['LineYStrt']);
 
-// Javier			$this->SetFont('Helvetica', '', '10');
-			if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-				$this->SetFont('helvetica', '', '10');
-			} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-				$this->SetFont('javiergb', '', 10);
-			} else {
-				$this->SetFont('javierjp', '', 10);
-			}
+// Javier		$this->SetFont('Helvetica', '', '10');
+			$this->SetFont('', '', '10');
 
 			$this->SetTextColor(255,0,0);
 			$this->SetDrawColor(255,0,0);
@@ -183,13 +143,7 @@ class PDF extends TCPPDF {
 
 // Javier: CJK don't have the choice to select a font
 //			$this->SetFont($Params['Font'],'',$Params['FontSize']);
-		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-			$this->SetFont($Params['Font'], '',$Params['FontSize']);
-		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-			$this->SetFont('javiergb', '', $Params['FontSize']);
-		} else {
-			$this->SetFont('javierjp', '', $Params['FontSize']);
-		}
+		$this->SetFont('', '', $Params['FontSize']);
 
 		if ($Params['Color']=='2') $RGB=$Params['FontRed'].':'.$Params['FontGreen'].':'.$Params['FontBlue'];
 			else $RGB=$Params['FontColor'];
@@ -269,14 +223,8 @@ class PDF extends TCPPDF {
 				$this->SetXY($NextXPos, $this->y0);
 
 // Javier: CJK don't have the choice to select a font
-//					$this->SetFont($Params['Seq'][$Col]['Font'], '', $Params['Seq'][$Col]['FontSize']);
-				if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-					$this->SetFont($Params['Seq'][$Col]['Font'], '', $Params['Seq'][$Col]['FontSize']);
-				} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-					$this->SetFont('javiergb', '', $Params['Seq'][$Col]['FontSize']);
-				} else {
-					$this->SetFont('javierjp', '', $Params['Seq'][$Col]['FontSize']);
-				}
+//				$this->SetFont($Params['Seq'][$Col]['Font'], '', $Params['Seq'][$Col]['FontSize']);
+				$this->SetFont('', '', $Params['Seq'][$Col]['FontSize']);
 
 				$TC = explode(':',$Params['Seq'][$Col]['FontColor']);
 				$this->SetTextColor($TC[0],$TC[1],$TC[2]);

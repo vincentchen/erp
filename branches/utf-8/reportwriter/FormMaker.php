@@ -2,8 +2,6 @@
 
 /* $Id$ */
 
-/* $Revision: 1.3 $ */
-
 $DirectoryLevelsDeep = 1;
 $PathPrefix = '../';
 $PageSecurity = 1; // set security level for webERP 
@@ -104,7 +102,7 @@ switch ($_POST['todo']) {
 		// All done with setup, build the form
 // Javier
 //		require($PathPrefix . 'includes/fpdf.php'); // FPDF class to generate reports
-		require($PathPrefix . 'includes/tcpdf/tcpdf.php'); // TCPDF class to generate reports
+		require($PathPrefix . 'includes/class.pdf.php'); // Cpdf TCPDF class to generate reports
 		require('WriteForm.inc');
 		// build the pdf pages (this function exits the script if successful; otherwise returns with error)
 		$success = BuildPDF($ReportID, $Prefs); // build and output form, should not return from this function

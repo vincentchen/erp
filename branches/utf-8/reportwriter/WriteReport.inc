@@ -2,26 +2,7 @@
 
 /* $Id$ */
 
-// Javier: I remove CJK that now is supported by TCPDF
-/*
-// for compatability with extended char sets
-if ($_SESSION['Language']=='zh_CN'){
-	include($PathPrefix . 'includes/FPDF_Chinese.php');
-} elseif ($_SESSION['Language']=='ja_JP'){
-	include($PathPrefix . 'includes/FPDF_Japanese.php');
-} elseif ($_SESSION['Language']=='ko_KR'){
-	include($PathPrefix . 'includes/FPDF_Korean.php');
-} else {
-	class PDF_Language extends FPDF { }
-}
-*/
-
-// Javier: But I respect Phil's class to isolate possible issues. 
-//	   We should merge them in a near future (in the short term).
-//class PDF_Language extends TCPDF { }
-
-//class PDF extends PDF_Language {
-class PDF extends TCPDF {
+class PDF extends Cpdf {
 
 	var $y0;	// current y position
 	var $x0;	// current x position
@@ -30,7 +11,10 @@ class PDF extends TCPDF {
 	function PDF() {
 		global $Prefs;
 		$PaperSize = explode(':',$Prefs['papersize']);
-		$this->PDF_Language($Prefs['paperorientation'], 'mm', $PaperSize[0]);
+//		$this->PDF_Language($Prefs['paperorientation'], 'mm', $PaperSize[0]);
+//			__construct($DocOrientation='P', $DocUnits='mm', $DocPaper='A4');
+		parent::__construct($Prefs['paperorientation'], 'mm', $PaperSize[0]);	
+
 		if ($Prefs['paperorientation']=='P') { // Portrait - calculate max page height
 			$this->pageY = $PaperSize[2]-$Prefs['marginbottom'];
 		} else { // Landscape
@@ -38,33 +22,13 @@ class PDF extends TCPDF {
 		}
 		$this->SetMargins($Prefs['marginleft'], $Prefs['margintop'], $Prefs['marginright']);
 		$this->SetAutoPageBreak(0, $Prefs['marginbottom']);
-
-	// Javier	$this->SetFont($Prefs['coynamefont']);
-		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-			$this->SetFont($Prefs['coynamefont']);
-		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-			$this->SetFont('javiergb');
-		} else {
-			$this->SetFont('javierjp');
-		}
-
 		$this->SetDrawColor(128,0,0);
 		$this->SetLineWidth(.35); // 1 point
 		$this->AliasNbPages();
 		$this->AddPage();
-
-	// Javier: We don't embed fonts	
-	/*	if ($_SESSION['Language']=='zh_CN'){
-			$this->AddBig5Font();
-		} elseif ($_SESSION['Language']=='zh_HK'){
-			$this->AddCIDFont();
-		} elseif ($_SESSION['Language']=='ja_JP'){
-			$this->AddSJISFont();
-		} elseif ($_SESSION['Language']=='ko_KR'){
-			$this->AddUHCFont();
-		}
-	*/
+// Javier	$this->SetFont($Prefs['coynamefont']);
 	}
+
 
 	function Header() {
 		global $Prefs, $Heading, $Seq;
@@ -72,15 +36,9 @@ class PDF extends TCPDF {
 
 		if ($Prefs['coynameshow']) { // Show the company name
 
-// Javier: Look at the font bold style, B removed for CJK
-//				$this->SetFont($Prefs['coynamefont'], 'B', $Prefs['coynamefontsize']);
-			if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-				$this->SetFont($Prefs['coynamefont'], 'B', $Prefs['coynamefontsize']);
-			} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-				$this->SetFont('javiergb', '', $Prefs['coynamefontsize']);
-			} else {
-				$this->SetFont('javierjp', '', $Prefs['coynamefontsize']);
-			}
+// Javier: 		$this->SetFont($Prefs['coynamefont'], 'B', $Prefs['coynamefontsize']);
+			$this->SetFont('', 'B', $Prefs['coynamefontsize']);
+
 			$Colors = explode(':',$Prefs['coynamefontcolor']);
 			$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
 			$CellHeight = ($Prefs['coynamefontsize']+RowSpace)*0.35;
@@ -88,14 +46,8 @@ class PDF extends TCPDF {
 		}
 		if ($Prefs['title1show']) { // Set title 1 heading
 
-// Javier			$this->SetFont($Prefs['title1font'], '', $Prefs['title1fontsize']);
-			if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-				$this->SetFont($Prefs['title1font'],'',$Prefs['title1fontsize']);
-			} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-				$this->SetFont('javiergb', '', $Prefs['title1fontsize']);
-			} else {
-				$this->SetFont('javierjp', '', $Prefs['title1fontsize']);
-			}
+// Javier		$this->SetFont($Prefs['title1font'], '', $Prefs['title1fontsize']);
+			$this->SetFont('', '', $Prefs['title1fontsize']);
 			$Colors = explode(':',$Prefs['title1fontcolor']);
 			$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
 			$CellHeight = ($Prefs['title1fontsize']+RowSpace)*0.35;
@@ -103,14 +55,8 @@ class PDF extends TCPDF {
 		}
 
 		if ($Prefs['title2show']) {	// Set Title 2 heading
-// Javier			$this->SetFont($Prefs['title2font'], '', $Prefs['title2fontsize']);
-			if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-				$this->SetFont($Prefs['title2font'], '', $Prefs['title2fontsize']);
-			} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-				$this->SetFont('javiergb', '', $Prefs['title2fontsize']);
-			} else {
-				$this->SetFont('javierjp', '', $Prefs['title2fontsize']);
-			}
+// Javier		$this->SetFont($Prefs['title2font'], '', $Prefs['title2fontsize']);
+			$this->SetFont('', '', $Prefs['title2fontsize']);
 			$Colors = explode(':',$Prefs['title2fontcolor']);
 			$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
 			$CellHeight = ($Prefs['title2fontsize']+RowSpace)*0.35;
@@ -118,14 +64,8 @@ class PDF extends TCPDF {
 		}
 		// Set the filter heading
 
-// Javier		$this->SetFont($Prefs['filterfont'], '', $Prefs['filterfontsize']);
-		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-			$this->SetFont($Prefs['filterfont'], '', $Prefs['filterfontsize']);
-		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-			$this->SetFont('javiergb', '', $Prefs['filterfontsize']);
-		} else {
-			$this->SetFont('javierjp', '', $Prefs['filterfontsize']);
-		}
+// Javier	$this->SetFont($Prefs['filterfont'], '', $Prefs['filterfontsize']);
+		$this->SetFont('', '', $Prefs['filterfontsize']);
 
 		$Colors = explode(':',$Prefs['filterfontcolor']);
 		$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
@@ -134,14 +74,8 @@ class PDF extends TCPDF {
 		$this->y0=$this->GetY(); // set y position after report headings before column titles
 		// Set the table header
 
-// Javier		$this->SetFont($Prefs['datafont'],'',$Prefs['datafontsize']);
-		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-			$this->SetFont($Prefs['datafont'], '', $Prefs['datafontsize']);
-		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-			$this->SetFont('javiergb', '', $Prefs['datafontsize']);
-		} else {
-			$this->SetFont('javierjp', '', $Prefs['datafontsize']);
-		}
+// Javier	$this->SetFont($Prefs['datafont'],'',$Prefs['datafontsize']);
+		$this->SetFont('','',$Prefs['datafontsize']);
 
 		$Colors = explode(':',$Prefs['datafontcolor']);
 		$this->SetTextColor($Colors[0], $Colors[1], $Colors[2]);
@@ -194,13 +128,7 @@ class PDF extends TCPDF {
 		//Arial italic 8
 
 // Javier	$this->SetFont('Helvetica', '', 8);
-		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-			$this->SetFont('helvetica', '', 8);
-		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-			$this->SetFont('javiergb', '', 8);
-		} else {
-			$this->SetFont('javierjp', '', 8);
-		}
+		$this->SetFont('','', 8);
 	
 		$this->SetTextColor(0);
 		//Page number
@@ -212,14 +140,8 @@ class PDF extends TCPDF {
 
 		$FillColor = array(224, 235, 255);
 
-// Javier		$this->SetFont($Prefs['datafont'], '', $Prefs['datafontsize']);
-		if ($_SESSION['Language']=='en_GB.utf8' or $_SESSION['Language']=='en_US.utf8' or $_SESSION['Language']=='es_ES.utf8' or $_SESSION['Language']=='de_DE.utf8') {
-			$this->SetFont($Prefs['datafont'], '', $Prefs['datafontsize']);
-		} elseif ($_SESSION['Language']=='zh_CN.utf8' or $_SESSION['Language']=='zh_TW.utf8' or $_SESSION['Language']=='zh_HK.utf8') {
-			$this->SetFont('javiergb', '', $Prefs['datafontsize']);
-		} else {
-			$this->SetFont('javierjp', '', $Prefs['datafontsize']);
-		}
+// Javier	$this->SetFont($Prefs['datafont'], '', $Prefs['datafontsize']);
+		$this->SetFont('','', $Prefs['datafontsize']);
 
 		$this->SetFillColor($FillColor[0],$FillColor[1],$FillColor[2]);
 		$Colors = explode(':',$Prefs['datafontcolor']);
@@ -691,7 +613,9 @@ function GeneratePDFFile($Data, $Prefs) {
 	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 	header('Pragma: public');
 */
-	$pdf->Stream($ReportName);
+//	$pdf->Stream($ReportName);
+	$pdf->OutputD($ReportName);
+	$pdf->__destruct();
 	exit(); // needs to be here to properly render the pdf file.
 }
 

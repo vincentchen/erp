@@ -2,8 +2,6 @@
 
 /* $Id$ */
 
-/* $Revision: 1.7 $ */
-
 $DirectoryLevelsDeep =1;
 $PathPrefix = '../';
 $PageSecurity = 1; // set security level for webERP
@@ -138,7 +136,7 @@ if (!isset($_GET['action']) OR (!isset($_POST['ReportID']))) {
 			// include the necessary files to build report
 // Javier
 //			require($PathPrefix . 'includes/fpdf.php'); // FPDF class to generate reports
-			require($PathPrefix . 'includes/tcpdf/tcpdf.php'); // TCPDF class to generate reports
+			require($PathPrefix . 'includes/class.pdf.php'); // Cpdf TCPDF class to generate reports
 			require('WriteReport.inc');
 			$ReportData = '';
 			$success = BuildSQL($Prefs);
@@ -259,10 +257,7 @@ function RetrieveFields($ReportID, $EntryType) {
 	return $FieldListings;
 }
 
-function ChangeSequence($ReportID, 
-						$SeqNum, 
-						$EntryType, 
-						$UpDown) {
+function ChangeSequence($ReportID, $SeqNum, $EntryType, $UpDown) {
 	global $db;
 	// find the id of the row to move
 	$sql = "SELECT id FROM ".DBRptFields." 
