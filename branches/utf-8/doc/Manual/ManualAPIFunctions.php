@@ -1,5 +1,6 @@
 <?php
 
+/* $Id$ */
 
 $PageSecurity = 1;
 $PathPrefix= $_SERVER['HTTP_HOST'].$rootpath.'/../../';
@@ -12,7 +13,7 @@ $title = 'API documentation';
 echo '<html xmlns="http://www.w3.org/1999/xhtml"><head><title>' . $title . '</title>';
 echo '<link REL="shortcut icon" HREF="'. $rootpath.'/favicon.ico">';
 echo '<link REL="icon" HREF="' . $rootpath.'/favicon.ico">';
-echo '<meta http-equiv="Content-Type" content="text/html; charset=' . _('UTF-8') . '">';
+echo '<meta http-equiv="Content-Type" content="text/html; charset=' . _('ISO-8859-1') . '">';
 echo '<link href="'.$rootpath. '/../../css/'. $_SESSION['Theme'] .'/default.css" REL="stylesheet" TYPE="text/css">';
 echo '</head>';
 
