@@ -5670,6 +5670,8 @@ INSERT INTO `config` VALUES ('FrequentlyOrderedItems','0');
 INSERT INTO `config` VALUES ('geocode_integration','0');
 INSERT INTO `config` VALUES ('HTTPS_Only','0');
 INSERT INTO `config` VALUES ('InvoicePortraitFormat','0');
+INSERT INTO  `config` (`confname`, `confvalue`) VALUES ('LogPath', '');
+INSERT INTO  `config` (`confname`, `confvalue`) VALUES ('LogSeverity', '0');
 INSERT INTO `config` VALUES ('MaxImageSize','300');
 INSERT INTO `config` VALUES ('MonthsAuditTrail','1');
 INSERT INTO `config` VALUES ('NumberOfPeriodsOfStockUsage','12');
