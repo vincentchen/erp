@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: WebERP 3.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-27 13:03+0000\n"
-"PO-Revision-Date: 2009-11-27 18:22-0000\n"
+"PO-Revision-Date: 2009-11-27 18:24-0000\n"
 "Last-Translator: Javier De Lorenzo-Cáceres <info@civicom.eu>\n"
 "Language-Team: WebERP Translation <web-erp-translation@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: KBabel 0.9.5\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
 
 #: AccountGroups.php:8
 #: index.php:1156
@@ -9589,7 +9589,7 @@ msgstr "Pedidos de Venta completadas"
 #: includes/ConnectDB_postgres.inc:125
 #: includes/header.inc:11
 #: includes/header.inc:20
-msgid "UTF-8"
+msgid "ISO-8859-1"
 msgstr ""
 
 #: EmailConfirmation.php:26
