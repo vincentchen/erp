@@ -1,6 +1,7 @@
 <?php
 
 /* $Id$ */
+
 	// Titles and screen header
 	// Needs the file config.php loaded where the variables are defined for
 	//  $rootpath

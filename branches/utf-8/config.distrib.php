@@ -1,18 +1,19 @@
 <?php
 
-/* $Revision: 1.4 $ */
+/* $Id$ */
+
 // User configurable variables
 //---------------------------------------------------
 
 //DefaultLanguage to use for the login screen and the setup of new users - the users language selection will override
-$DefaultLanguage ='en_GB.utf8';
+$DefaultLanguage ='en_GB';
 
 // Whether to display the demo login and password or not on the login screen
 $allow_demo_mode = True;
 
 // webERP version
 
-$Version = '3.12-rc0 UTF-8 alpha';
+$Version = '3.13-rc0 UTF-8 capable';
 
 // The timezone of the business - this allows the possibility of having
 // the web-server on a overseas machine but record local time

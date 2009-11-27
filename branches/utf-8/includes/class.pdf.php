@@ -24,7 +24,7 @@ class Cpdf extends TCPDF {
 
 	public function __construct($DocOrientation='P', $DocUnits='mm', $DocPaper='A4') {
 
-		parent::__construct($DocOrientation, $DocUnits, $DocPaper, true, _('UTF-8'), false);
+		parent::__construct($DocOrientation, $DocUnits, $DocPaper, true, _('ISO-8859-1'), false);
 
 		$this->setuserpdffont();
 	}

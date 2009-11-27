@@ -3,7 +3,7 @@
 // Display demo user name and password within login form if $allow_demo_mode is true
 include ('LanguageSetup.php');
 
-if ($allow_demo_mode == True AND !isset($demo_text)) {
+if ($allow_demo_mode == True and !isset($demo_text)) {
 	$demo_text = _('login as user') .': <i>' . _('admin') . '</i><BR>' ._('with password') . ': <i>' . _('weberp') . '</i>';
 } elseif (!isset($demo_text)) {
 	$demo_text = _('Please login here');
@@ -13,7 +13,7 @@ if ($allow_demo_mode == True AND !isset($demo_text)) {
 <html>
 <head>
     <title>webERP Login screen</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo _('UTF-8'); ?>" />
+    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo _('ISO-8859-1'); ?>" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/<?php echo $theme;?>/login.css" type="text/css" />
 </head>
