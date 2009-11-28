@@ -950,7 +950,7 @@ while ($row=DB_fetch_array($result)) {
 						   } else {
 							    echo '<font color=RED size=4>' . _('TAX CREDIT NOTE') . ' ';
 						   }
-						   echo '</b>' . _('Number') . ' ' . $FromTransNo . '</font><br><font size=1>' . _('GST Number') . ' - ' . $_SESSION['CompanyRecord']['gstno'] . '</td></tr><class=table1';
+						   echo '</b>' . _('Number') . ' ' . $FromTransNo . '</font><br /><font size=1>' . _('GST Number') . ' - ' . $_SESSION['CompanyRecord']['gstno'] . '</td></tr></table>';
 
 						/*Now print out company name and address */
 						    echo "<table class='table1'><tr>
