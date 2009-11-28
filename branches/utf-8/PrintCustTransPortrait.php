@@ -252,7 +252,7 @@ If (isset($PrintPDF)
 				stockmaster.description,
 				stockmaster.serialised,
 				stockmaster.controlled,
-				-stockmoves.qty as Quantity,
+				-stockmoves.qty as quantity,
 				stockmoves.narrative,
 				stockmaster.units,
 				stockmaster.decimalplaces,
@@ -271,7 +271,7 @@ If (isset($PrintPDF)
 						stockmaster.description,
 						stockmaster.serialised,
 						stockmaster.controlled,
-						stockmoves.qty as Quantity,
+						stockmoves.qty as quantity,
 						stockmoves.narrative,
 						stockmaster.units,
 						stockmaster.decimalplaces,
@@ -322,11 +322,15 @@ If (isset($PrintPDF)
 				/*check the price after discount*/
 				if ($myrow2['discountpercent']==0){
 					$DisplayDiscount ='';
-					$DisplayNet=number_format(($myrow3['unitprice'] * $myrow2['Quantity']),2);
+					$DisplayNet=number_format(($myrow3['unitprice'] * $myrow2['quantity']),2);
+					$DisplayPrice=$myrow3['unitprice'];
+					$DisplayQty=$myrow2['quantity'];
 				} else {
 					$DisplayDiscount =number_format($myrow2['discountpercent']*100,2);
 					$DiscountPrice=$myrow2['discountpercent'] * $myrow3['unitprice'];
-					$DisplayNet=number_format((($myrow3['unitprice'] - $DiscountPrice) * $myrow2['Quantity']),2);
+					$DisplayPrice=$myrow3['unitprice'];
+					$DisplayQty=$myrow2['quantity'];
+					$DisplayNet=number_format((($myrow3['unitprice'] - $DiscountPrice) * $myrow2['quantity']),2);
 				}
 					
 								
@@ -340,7 +344,7 @@ If (isset($PrintPDF)
 				}
 				
 				$LeftOvers = $pdf->addTextWrap($Left_Margin+270,$YPos,76,$FontSize,number_format($myrow3['unitprice'],2),'right');
-				$LeftOvers = $pdf->addTextWrap($Left_Margin+350,$YPos,36,$FontSize,number_format($myrow2['Quantity'],2),'right');
+				$LeftOvers = $pdf->addTextWrap($Left_Margin+350,$YPos,36,$FontSize,number_format($myrow2['quantity'],2),'right');
 				$LeftOvers = $pdf->addTextWrap($Left_Margin+390,$YPos,26,$FontSize,$myrow2['units'],'center');
 				$LeftOvers = $pdf->addTextWrap($Left_Margin+420,$YPos,26,$FontSize,$DisplayDiscount,'right');
 				$LeftOvers = $pdf->addTextWrap($Left_Margin+450,$YPos,72,$FontSize,$DisplayNet,'right');
@@ -377,9 +381,8 @@ If (isset($PrintPDF)
 					}
 				}
 				$YPos -= ($FontSize*$lines);
-				$Narrative = $myrow2['narrative'];
 
-				$lines=explode('\r\n',$Narrative);
+				$lines=explode('\r\n',$myrow2['narrative']);
 				for ($i=0;$i<sizeOf($lines);$i++) {
 				while (strlen($lines[$i])>1){
 					if ($YPos-$line_height <= $Bottom_Margin){
@@ -640,7 +643,7 @@ while ($row=DB_fetch_array($result)){
 
 	/*if FromTransNo is not set then show a form to allow input of either a single invoice number or a range of invoices to be printed. Also get the last invoice number created to show the user where the current range is up to */
 
-		echo "<form action='" . $_SERVER['PHP_SELF'] . '?' . SID . "' method='POST'><table>";
+		echo '<form action="' . $_SERVER['PHP_SELF'] . '?' . SID . '" method="POST"><table class="table1">';
 		echo '<div class="centre"><p class="page_title_text"><img src="'.$rootpath.'/css/'.$theme.'/images/printer.png" title="' . _('Print') . '" alt="">' . ' ' . _('Print Invoices or Credit Notes (Portrait Mode)') . '</div>';
 		echo '<tr><td>' . _('Print Invoices or Credit Notes') . '</td><td><select name=InvOrCredit>';
 		if ($InvOrCredit=='Invoice' OR !isset($InvOrCredit)){
@@ -811,7 +814,7 @@ while ($row=DB_fetch_array($result)){
 				$ExchRate = $myrow['rate'];
 				$PageNumber = 1;
 
-				echo "<table WIDTH=100%><tr><td VALIGN=TOP WIDTH=10%><img src='" . $_SESSION['LogoFile'] . "'></td><td bgcolor='#BBBBBB'><b>";
+				echo '<table class="table1"><tr><td VALIGN=TOP WIDTH=10%><img src="' . $_SESSION['LogoFile'] . '"></td><td bgcolor="#bbb"><b>';
 
 				if ($InvOrCredit=='Invoice') {
 				   echo '<font size=4>' . _('TAX INVOICE') . ' ';
@@ -821,7 +824,7 @@ while ($row=DB_fetch_array($result)){
 				echo '</b>' . _('Number') . ' ' . $FromTransNo . '</font><br><font size=1>' . _('Tax Authority Ref') . '. ' . $_SESSION['CompanyRecord']['gstno'] . '</td></tr></table>';
 
 	/*Now print out the logo and company name and address */
-				echo "<table WIDTH=100%><tr><td><font size=4 color='#333333'><b>" . $_SESSION['CompanyRecord']['coyname'] . "</b></font><br>";
+				echo '<table class"table1"><tr><td><font size=4 color="#333"><b>' . $_SESSION['CompanyRecord']['coyname'] . '</b></font><br>';
 				echo $_SESSION['CompanyRecord']['regoffice1'] . '<br>';
 				echo $_SESSION['CompanyRecord']['regoffice2'] . '<br>';
 				echo $_SESSION['CompanyRecord']['regoffice3'] . '<br>';
@@ -836,7 +839,7 @@ while ($row=DB_fetch_array($result)){
 
 	/*Now the customer charged to details in a sub table within a cell of the main table*/
 
-				echo "<table WIDTH=100%><tr><td align=left bgcolor='#BBBBBB'><b>" . _('Charge To') . ":</b></td></tr><tr><td bgcolor='#EEEEEE'>";
+				echo '<table class="table1"><tr><td align="left" bgcolor="#bbb"><b>' . _('Charge To') . ':</b></td></tr><tr><td bgcolor="#eee">';
 				echo $myrow['name'] . '<br>' . $myrow['address1'] . '<br>' . $myrow['address2'] . '<br>' . $myrow['address3'] . '<br>' . $myrow['address4'] . '<br>' . $myrow['address5'] . '<br>' . $myrow['address6'];
 				echo '</td></tr></table>';
 				/*end of the small table showing charge to account details */
@@ -846,28 +849,28 @@ while ($row=DB_fetch_array($result)){
 
 				if ($InvOrCredit=='Invoice') {
 
-				   echo "<table WIDTH=100%>
-				   			<tr>
-				   				<td align=left bgcolor='#BBBBBB'><b>" . _('Charge Branch') . ":</b></td>
-								<td align=left bgcolor='#BBBBBB'><b>" . _('Delivered To') . ":</b></td>
-							</tr>";
-				   echo "<tr>
-				   		<td bgcolor='#EEEEEE'>" .$myrow['brname'] . '<br>' . $myrow['braddress1'] . '<br>' . $myrow['braddress2'] . '<br>' . $myrow['braddress3'] . '<br>' . $myrow['braddress4'] . '<br>' . $myrow['braddress5'] . '<br>' . $myrow['braddress6'] . '</td>';
+				   echo '<table class="table1">
+				   		<tr>
+				   			<td align=left bgcolor="#bbb"><b>' . _('Charge Branch') . ':</b></td>
+							<td align=left bgcolor="#bbb"><b>' . _('Delivered To') . ':</b></td>
+						</tr>';
+				   echo '<tr>
+				   		<td bgcolor="#eee">' .$myrow['brname'] . '<br />' . $myrow['braddress1'] . '<br />' . $myrow['braddress2'] . '<br />' . $myrow['braddress3'] . '<br />' . $myrow['braddress4'] . '<br />' . $myrow['braddress5'] . '<br />' . $myrow['braddress6'] . '</td>';
 
-				   	echo "<td bgcolor='#EEEEEE'>" . $myrow['deliverto'] . '<br>' . $myrow['deladd1'] . '<br>' . $myrow['deladd2'] . '<br>' . $myrow['deladd3'] . '<br>' . $myrow['deladd4'] . '<br>' . $myrow['deladd5'] . '<br>' . $myrow['deladd6'] . '</td>';
+				   echo '<td bgcolor="#eee">' . $myrow['deliverto'] . '<br />' . $myrow['deladd1'] . '<br />' . $myrow['deladd2'] . '<br />' . $myrow['deladd3'] . '<br />' . $myrow['deladd4'] . '<br />' . $myrow['deladd5'] . '<br />' . $myrow['deladd6'] . '</td>';
 				   echo '</tr>
 				   </table><hr>';
 
-				   echo "<table WIDTH=100%>
+				   echo '<table class="table1">
 				   		<tr>
-							<td align=left bgcolor='#BBBBBB'><b>" . _('Your Order Ref') . "</b></td>
-							<td align=left bgcolor='#BBBBBB'><b>" . _('Our Order No') . "</b></td>
-							<td align=left bgcolor='#BBBBBB'><b>" . _('Order Date') . "</b></td>
-							<td align=left bgcolor='#BBBBBB'><b>" . _('Invoice Date') . "</b></td>
-							<td align=left bgcolor='#BBBBBB'><b>" . _('Sales Person') . "</font></b></td>
-							<td align=left bgcolor='#BBBBBB'><b>" . _('Shipper') . "</b></td>
-							<td align=left bgcolor='#BBBBBB'><b>" . _('Consignment Ref') . "</b></td>
-						</tr>";
+							<td align=left bgcolor="#bbb"><b>' . _('Your Order Ref') . '</b></td>
+							<td align=left bgcolor="#bbb"><b>' . _('Our Order No') . '</b></td>
+							<td align=left bgcolor="#bbb"><b>' . _('Order Date') . '</b></td>
+							<td align=left bgcolor="#bbb"><b>' . _('Invoice Date') . '</b></td>
+							<td align=left bgcolor="#bbb"><b>' . _('Sales Person') . '</font></b></td>
+							<td align=left bgcolor="#bbb"><b>' . _('Shipper') . '</b></td>
+							<td align=left bgcolor="#bbb"><b>' . _('Consignment Ref') . '</b></td>
+						</tr>';
 				   	echo "<tr>
 							<td bgcolor='#EEEEEE'>" . $myrow['customerref'] . "</td>
 							<td bgcolor='#EEEEEE'>" .$myrow['orderno'] . "</td>
@@ -881,7 +884,7 @@ while ($row=DB_fetch_array($result)){
 
 				   $sql ='SELECT stockmoves.stockid,
 				   		stockmaster.description,
-						-stockmoves.qty as Quantity,
+						-stockmoves.qty as quantity,
 						stockmoves.discountpercent,
 						((1 - stockmoves.discountpercent) * stockmoves.price * ' . $ExchRate . '* -stockmoves.qty) AS fxnet,
 						(stockmoves.price * ' . $ExchRate . ') AS fxprice,
@@ -903,8 +906,8 @@ while ($row=DB_fetch_array($result)){
 				   echo "<tr>
 				   		<td bgcolor='#EEEEEE'>" .$myrow['brname'] . '<br>' . $myrow['braddress1'] . '<br>' . $myrow['braddress2'] . '<br>' . $myrow['braddress3'] . '<br>' . $myrow['braddress4'] . '<br>' . $myrow['braddress5'] . '<br>' . $myrow['braddress6'] . '</td>
 					</tr></table>';
-				   echo "<hr><table WIDTH=100%><tr>
-				   		<td align=left bgcolor='#BBBBBB'><b>" . _('Date') . "</b></td>
+				   echo '<hr><table class="table1"><tr>
+				   		<td align=left bgcolor="#bbb"><b>' . _('Date') . "</b></td>
 						<td align=left bgcolor='#BBBBBB'><b>" . _('Sales Person') . "</font></b></td>
 					</tr>";
 				   echo "<tr>
@@ -915,7 +918,7 @@ while ($row=DB_fetch_array($result)){
 				   
 				   $sql ='SELECT stockmoves.stockid,
 				   		stockmaster.description,
-						stockmoves.qty as Quantity,
+						stockmoves.qty as quantity,
 						stockmoves.discountpercent, ((1 - stockmoves.discountpercent) * stockmoves.price * ' . $ExchRate . ' * stockmoves.qty) AS fxnet,
 						(stockmoves.price * ' . $ExchRate . ') AS fxprice,
 						stockmaster.units
@@ -940,8 +943,8 @@ while ($row=DB_fetch_array($result)){
 				}
 
 				if (DB_num_rows($result)>0){
-					echo "<table width=100% cellpadding=5>
-						<tr><th>" . _('Item Code') . "</th>
+					echo '<table class="table1">
+						<tr><th>' . _('Item Code') . "</th>
 						<th>" . _('Item Description') . "</th>
 						<th>" . _('Quantity') . "</th>
 						<th>" . _('Unit') . "</th>
@@ -965,7 +968,7 @@ while ($row=DB_fetch_array($result)){
 					      echo $RowStarter;
 
 					      $DisplayPrice =number_format($myrow2['fxprice'],2);
-					      $DisplayQty = number_format($myrow2['Quantity'],2);
+					      $DisplayQty = number_format($myrow2['quantity'],2);
 					      $DisplayNet = number_format($myrow2['fxnet'],2);
 
 					      if ($myrow2['discountpercent']==0){
@@ -1002,17 +1005,17 @@ while ($row=DB_fetch_array($result)){
 						/* head up a new invoice/credit note page */
 
 						   $PageNumber++;
-						   echo "</table><table width=100%><tr><td VALIGN=TOp><img src='" . $_SESSION['LogoFile'] . "'></td><td bgcolor='#BBBBBB'><b>";
+						   echo '</table><table class="table1"><tr><td VALIGN=TOP><img src="' . $_SESSION['LogoFile'] . '"></td><td bgcolor="#bbb"><b>';
 						   if ($InvOrCredit=='Invoice') {
 							    echo '<font size=4>' . _('TAX INVOICE') . ' ';
 						   } else {
 							    echo '<font color=RED size=4>' . _('TAX CREDIT NOTE') . ' ';
 						   }
-						   echo '</b>' . _('Number') . ' ' . $FromTransNo . '</font><br><font size=1>' . _('GST Number') . ' - ' . $_SESSION['CompanyRecord']['gstno'] . '</td></tr><table>';
+						   echo '</b>' . _('Number') . ' ' . $FromTransNo . '</font><br><font size=1>' . _('GST Number') . ' - ' . $_SESSION['CompanyRecord']['gstno'] . '</td></tr></table>';
 
 	/*Now print out company name and address */
-						    echo "<table WIDTH=100%><tr>
-						    	<td><font size=4 color='#333333'><b>" . $_SESSION['CompanyRecord']['coyname'] . '</b></font><br>';
+						    echo '<table class="table1"><tr>
+						    	<td><font size=4 color="#333"><b>' . $_SESSION['CompanyRecord']['coyname'] . '</b></font><br>';
 						    echo $_SESSION['CompanyRecord']['regoffice1'] . '<br>';
 						    echo $_SESSION['CompanyRecord']['regoffice2'] . '<br>';
 						    echo $_SESSION['CompanyRecord']['regoffice3'] . '<br>';
@@ -1023,8 +1026,8 @@ while ($row=DB_fetch_array($result)){
 						    echo _('Facsimile') . ': ' . $_SESSION['CompanyRecord']['fax'] . '<br>';
 						    echo _('Email') . ': ' . $_SESSION['CompanyRecord']['email'] . '<br>';
 						    echo '</td><td align=right>' . _('Page') . ": $PageNumber</td></tr></table>";
-						    echo "<table WIDTH=100% cellpadding=5><tr>
-						    	<th>" . _('Item Code') . "</th>
+						    echo '<table class="table1"><tr>
+						    	<th>' . _('Item Code') . "</th>
 							<th>" . _('Item Description') . "</th>
 							<th>" . _('Quantity') . "</th>
 							<th>" . _('Unit') . "</th>
@@ -1047,16 +1050,16 @@ while ($row=DB_fetch_array($result)){
 					/* head up a new invoice/credit note page */
 
 					$PageNumber++;
-					echo "<table WIDTH=100%><tr><td VALIGN=TOp><img src='" . $_SESSION['LogoFile'] . "'></td><td bgcolor='#BBBBBB'><b>";
+					echo '<table class="table1"><tr><td VALIGN="TOP"><img src="' . $_SESSION['LogoFile'] . '"></td><td bgcolor="#bbb"><b>';
 					if ($InvOrCredit=='Invoice') {
 					      echo '<font size=4>' . _('TAX INVOICE') .' ';
 					} else {
 					      echo '<font color=RED size=4>' . _('TAX CREDIT NOTE') . ' ';
 					}
-					echo '</b>' . _('Number') . ' ' . $FromTransNo . '</font><br><font size=1>' . _('GST Number') . ' - ' . $_SESSION['CompanyRecord']['gstno'] . '</td></tr><table>';
+					echo '</b>' . _('Number') . ' ' . $FromTransNo . '</font><br><font size=1>' . _('GST Number') . ' - ' . $_SESSION['CompanyRecord']['gstno'] . '</td></tr></table>';
 
 	/*Print out the logo and company name and address */
-					echo "<table WIDTH=100%><tr><td><font size=4 color='#333333'><b>" . $_SESSION['CompanyRecord']['coyname'] . "</b></font><br>";
+					echo '<table class="table1"><tr><td><font size=4 color="#333"><b>' . $_SESSION['CompanyRecord']['coyname'] . '</b></font><br>';
 					echo $_SESSION['CompanyRecord']['regoffice1'] . '<br>';
 					echo $_SESSION['CompanyRecord']['regoffice2'] . '<br>';
 					echo $_SESSION['CompanyRecord']['regoffice3'] . '<br>';
@@ -1067,25 +1070,25 @@ while ($row=DB_fetch_array($result)){
 					echo _('Facsimile') . ': ' . $_SESSION['CompanyRecord']['fax'] . '<br>';
 					echo _('Email') . ': ' . $_SESSION['CompanyRecord']['email'] . '<br>';
 					echo '</td><td align=right>' . _('Page') . ": $PageNumber</td></tr></table>";
-					echo "<table WIDTH=100% cellpadding=5><tr>
-						<th>" . _('Item Code') . "</th>
+					echo '<table class="table1"><tr>
+						<th>' . _('Item Code') . "</th>
 						<th>" . _('Item Description') . "</th>
 						<th>" . _('Quantity') . "</th>
 						<th>" . _('Unit') . "</th>
 						<th>" . _('Price') . "</th>
 						<th>" . _('Discount') . "</th>
-						<th>" . _('Net') . '</th></tr>';
+						<th>" . _('Net') . '</th></tr></table>';
 
 					$LineCounter = 10;
 				}
 
 	/*Space out the footer to the bottom of the page */
 
-				echo '<br><br>' . $myrow['invtext'];
+				echo '<br /><br />' . $myrow['invtext'];
 
 				$LineCounter=$LineCounter+2+$LinesRequiredForText;
 				while ($LineCounter < ($_SESSION['PageLength'] -6)){
-					echo '<br>';
+					echo '<br />';
 					$LineCounter++;
 				}
 
@@ -1104,7 +1107,7 @@ while ($row=DB_fetch_array($result)){
 				   $DisplayTotal = number_format(-$myrow['ovfreight']-$myrow['ovgst']-$myrow['ovamount'],2);
 				}
 	/*Print out the invoice text entered */
-				echo '<table WIDTH=100%><tr>
+				echo '<table class="table1"><tr>
 					<td align=right>' . _('Sub Total') . "</td>
 					<td align=right bgcolor='#EEEEEE' WIDTH='15%'>$DisplaySubTot</td></tr>";
 				echo '<tr><td align=right>' . _('Freight') . "</td>
