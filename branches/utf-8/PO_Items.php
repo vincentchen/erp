@@ -277,7 +277,7 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 
 			/*Now Update the purchase order detail records */
 			foreach ($_SESSION['PO'.$identifier]->LineItems as $POLine) {
-				$sql='UPDATE purchorders SET status="'._('Pending').'" WHERE orderno=' . $_SESSION['PO'.$identifier]->OrderNo;
+				$sql='UPDATE purchorders SET status = "Pending" WHERE orderno=' . $_SESSION['PO'.$identifier]->OrderNo;
 				$result=DB_query($sql,$db);
 				if ($POLine->Deleted==true) {
 					if ($POLine->PODetailRec!='') {

@@ -41,7 +41,7 @@ $result=DB_query($sql, $db);
 $myrow=DB_fetch_array($result);
 $OrderStatus=$myrow['status'];
 
-if ($OrderStatus!=_('Authorised') and $OrderStatus!=_('Printed')) {
+if ($OrderStatus != 'Authorised' and $OrderStatus != 'Printed') {
 	include('includes/header.inc');
 	prnMsg( _('Purchase orders can only be printed once they have been authorised').'. '.
 		_('This order is currently at a status of').' '.$OrderStatus,'warn');
@@ -332,10 +332,10 @@ if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
 		$date = date($_SESSION['DefaultDateFormat']);
 		$StatusComment=$date.' - Printed by <a href="mailto:'.$emailrow['email'].'">'.$_SESSION['UserID'].
 			'</a><br>'.$comment;
-		$sql = "UPDATE purchorders 
+		$sql = "UPDATE purchorders
 			SET allowprint=0, 
 				dateprinted='" . Date('Y-m-d') . "',
-				status='"._('Printed')."',
+				status='Printed',
 				stat_comment='".$StatusComment."' 
 			WHERE purchorders.orderno=" .$OrderNo;
 		$result = DB_query($sql,$db);

@@ -406,7 +406,7 @@ $completed = " AND purchorderdetails.completed=0";
 
 	echo '<table cellpadding=2 colspan=7 WIDTH=100%>';
 
-//	               '</td><td class="tableheader">' . _('Receive') .	
+//	               '</td><td class="tableheader">' . _('Receive') .
 	$TableHeader = '<tr><th>' . _('Order #') .
 			'</th><th>' . _('Order Date') .
 			'</th><th>' . _('Initiated by') .
@@ -434,23 +434,23 @@ $completed = " AND purchorderdetails.completed=0";
 		}
 
 		$ModifyPage = $rootpath . "/PO_Header.php?" . SID . "&ModifyOrderNumber=" . $myrow["orderno"];
-		if ($myrow['status']==_('Printed')) {
+		if ($myrow['status'] == 'Printed') {
 			$ReceiveOrder = "<a href='".$rootpath . "/GoodsReceived.php?" . SID . "&PONumber=" . $myrow["orderno"]."'>".
 				_('Receive').'</a>';
 		} else {
-			$ReceiveOrder = "Receive";
+			$ReceiveOrder = _('Receive');
 		}
-		if ($myrow["allowprint"]==1){
+		if ($myrow["allowprint"] == 1){
 			$PrintPurchOrder = '<a target="_blank" href="' . $rootpath . '/PO_PDFPurchOrder.php?' . SID . '&OrderNo=' . $myrow['orderno'] . '">' . _('Print Now') . '</a>';
 		} else {
 // not open yet
 //			$PrintPurchOrder = '<font color=GREY>' . _('Printed') . '</font>';
 
 		}
-		if ($myrow['status']==_('Authorised')) {
+		if ($myrow['status'] == 'Authorised') {
 			$PrintPurchOrder = '<a target="_blank" href="' . $rootpath . '/PO_PDFPurchOrder.php?' . SID . '&OrderNo=' . $myrow['orderno'] . '&realorderno=' . $myrow['realorderno'] . '&ViewingOnly=2">' . _('Print') . '</a>';
 		} else {
-			$PrintPurchOrder = 'Print';
+			$PrintPurchOrder = _('Print');
 		}
 		$PrintPurchOrder2 = '<a target="_blank" href="' . $rootpath . '/PO_PDFPurchOrder.php?' . SID . '&OrderNo=' . $myrow['orderno'] . '&realorderno=' . $myrow['realorderno'] . '&ViewingOnly=1">' . _('Show') . '</a>';
 		$s2 = '<a target="_blank" href="' . $rootpath . '/PO_PDFPurchOrder.php?' . SID . '&OrderNo=' . $myrow['orderno'] . '&realorderno=' . $myrow['realorderno'] . '&ViewingOnly=1">' . $myrow['realorderno']. '</a>';
@@ -483,7 +483,7 @@ $completed = " AND purchorderdetails.completed=0";
 			$myrow['suppname'],
 			$myrow['currcode'],
 			$FormatedOrderValue,			
-			$myrow['status'],
+			_($myrow['status']),
 			$ModifyPage,
 			$PrintPurchOrder,
 			$ReceiveOrder
