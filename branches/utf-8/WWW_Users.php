@@ -1,6 +1,6 @@
 <?php
 
-/* $Id$ */
+/* $Revision: 1.37 $ */
 
 $PageSecurity=15;
 
@@ -20,15 +20,6 @@ $ModuleList = array(_('Orders'),
 					_('General Ledger'), 
 					_('Asset Manager'), 
 					_('Setup'));
-					
-$PDFLanguages = array(_('Latin Western Languages'),
-						_('Eastern European Russian Japanese'),
-						_('Chinese'),
-						_('Korean'),
-						_('Vietnamese'),
-						_('Hebrew'),
-						_('Arabic'),
-						_('Thai'));
 
 $title = _('User Maintenance');
 include('includes/header.inc');
@@ -143,8 +134,7 @@ if (isset($_POST['submit'])) {
 						language ='" . $_POST['UserLanguage'] . "',
 						defaultlocation='" . $_POST['DefaultLocation'] ."',
 						modulesallowed='" . $ModulesAllowed . "',
-						blocked=" . $_POST['Blocked'] . ",
-						pdflanguage=" . $_POST['PDFLanguage'] . "
+						blocked=" . $_POST['Blocked'] . "
 					WHERE userid = '$SelectedUser'";
 
 		$msg = _('The selected user record has been updated');
@@ -164,8 +154,7 @@ if (isset($_POST['submit'])) {
 						modulesallowed,
 						displayrecordsmax,
 						theme,
-						language,
-						pdflanguage)
+						language)
 					VALUES ('" . $_POST['UserID'] . "',
 						'" . $_POST['RealName'] ."',
 						'" . $_POST['Cust'] ."',
@@ -180,8 +169,7 @@ if (isset($_POST['submit'])) {
 						'" . $ModulesAllowed . "',
 						" . $_SESSION['DefaultDisplayRecordsMax'] . ",
 						'" . $_POST['Theme'] . "',
-						'". $_POST['UserLanguage'] ."',
-						" . $_POST['PDFLanguage'] . ")";
+						'". $_POST['UserLanguage'] ."')";
 		$msg = _('A new user record has been inserted');
 	}
 
@@ -206,7 +194,6 @@ if (isset($_POST['submit'])) {
 		unset($_POST['Blocked']);
 		unset($_POST['Theme']);
 		unset($_POST['UserLanguage']);
-		unset($_POST['PDFLanguage']);
 		unset($SelectedUser);
 	}
 
@@ -280,8 +267,12 @@ if (!isset($SelectedUser)) {
 			echo '<tr class="OddTableRows">';
 			$k=1;
 		}
-
+	
+	if ($myrow[6]=='') {
+		$LastVisitDate = Date('Y-m-d');
+	} else {
 		$LastVisitDate = ConvertSQLDate($myrow[6]);
+	}
 
 		/*The SecurityHeadings array is defined in config.php */
 
@@ -345,8 +336,7 @@ if (isset($SelectedUser)) {
 			modulesallowed,
 			blocked,
 			theme,
-			language,
-			pdflanguage		
+			language		
 		FROM www_users
 		WHERE userid='" . $SelectedUser . "'";
 
@@ -367,7 +357,6 @@ if (isset($SelectedUser)) {
 	$_POST['Theme'] = $myrow['theme'];
 	$_POST['UserLanguage'] = $myrow['language'];
 	$_POST['Blocked'] = $myrow['blocked'];
-	$_POST['PDFLanguage'] = $myrow['pdflanguage'];
 	
 	echo "<input type='hidden' name='SelectedUser' value='" . $SelectedUser . "'>";
 	echo "<input type='hidden' name='UserID' value='" . $_POST['UserID'] . "'>";
@@ -584,28 +573,15 @@ foreach($ModuleList as $ModuleName){
 
 	echo '<tr><td>' . _('Display') . ' ' . $ModuleName . ' ' . _('options') . ": </td><td><select name='Module_" . $i . "'>";
 	if ($ModulesAllowed[$i]==0){
-		echo '<option selected value=0>' . _('No') . '</option>';
-		echo '<option value=1>' . _('Yes') . '</option>';
+		echo '<option selected value=0>' . _('No');
+		echo '<option value=1>' . _('Yes');
 	} else {
-	 	echo '<option selected value=1>' . _('Yes') . '</option>';
-		echo '<option value=0>' . _('No') . '</option>';
+	 	echo '<option selected value=1>' . _('Yes');
+		echo '<option value=0>' . _('No');
 	}
 	echo '</select></td></tr>';
 	$i++;
 }
-if (!isset($_POST['PDFLanguage'])){
-	$_POST['PDFLanguage']=0;
-}
-	
-echo '<tr><td>' . _('PDF Language Support') . ': </td><td><select name="PDFLanguage">';
-for($i=0;$i<=7;$i++){
-	if ($_POST['PDFLanguage']==$i){
-		echo '<option selected value=' . $i .'>' . $PDFLanguages[$i] . '</option>';
-	} else {
-		echo '<option value=' . $i .'>' . $PDFLanguages[$i]. '</option>';
-	}
-}
-echo '</select></td></tr>';
 
 echo '<tr><td>' . _('Account Status') . ":</td><td><select name='Blocked'>";
 if ($_POST['Blocked']==0){
