@@ -108,7 +108,7 @@ if (DB_num_rows($result)==0){
 LETS GO */
 $PaperSize = 'A4_Landscape';
 include('includes/PDFStarter.php');
-$pdf->selectFont('./fonts/Helvetica.afm');
+//$pdf->selectFont('./fonts/Helvetica.afm');
 $pdf->addInfo('Title', _('Customer Laser Packing Slip') );
 $pdf->addInfo('Subject', _('Laser Packing slip for order') . ' ' . $_GET['TransNo']);
 $FontSize=12;
