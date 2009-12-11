@@ -110,7 +110,7 @@ $pdf->setLanguageArray($l);
 // ---------------------------------------------------------
 
 // set font
-$pdf->SetFont('times', '', 9);
+$pdf->SetFont('times', '', 9);
 // add a page
 $pdf->AddPage();
 
