@@ -1,11 +1,21 @@
 <?php
-/* $Revision: 1.15 $ */
+
+/*$Id$*/
+
+/* $Revision: 1.18 $ */
+
 $PageSecurity = 2;
 include('includes/session.inc');
 
 If (isset($_POST['PrintPDF']) AND isset($_POST['ReportOrClose'])){
 
 	include('includes/PDFStarter.php');
+	$pdf->addInfo('Title', _('Check Comparison Report') );
+	$pdf->addInfo('Subject', _('Inventory Check Comparison'). ' ' . Date($_SESSION['DefaultDateFormat']));
+	$PageNumber=1;
+	$line_height=15;
+
+
 	include('includes/SQL_CommonFunctions.inc');
 
 
@@ -194,6 +204,7 @@ If (isset($_POST['PrintPDF']) AND isset($_POST['ReportOrClose'])){
 	$CheckedItems = DB_query($sql,$db, $ErrMsg, $DbgMsg);
 
 	if (DB_num_rows($CheckedItems)==0){
+		$title= _('Inventory Comparison Comparison Report');
 		include('includes/header.inc');
 		echo '<p>';
 		prnMsg(_('There is no inventory check data to report on'), 'warn');
@@ -201,13 +212,6 @@ If (isset($_POST['PrintPDF']) AND isset($_POST['ReportOrClose'])){
 		include('includes/footer.inc');
 		exit;
 	}
-
-	$pdf->addinfo('Title', _('Check Comparison Report') );
-	$pdf->addinfo('Subject', _('Inventory Check Comparison'). ' ' . Date($_SESSION['DefaultDateFormat']));
-
-
-	$PageNumber=1;
-	$line_height=15;
 
 	include ('includes/PDFStockComparisonPageHeader.inc');
 
@@ -302,7 +306,7 @@ If (isset($_POST['PrintPDF']) AND isset($_POST['ReportOrClose'])){
 	} /*end STOCK comparison while loop */
 
 	$YPos -= (2*$line_height);
-
+/*
  	$pdfcode = $pdf->output();
 	$len = strlen($pdfcode);
 
@@ -322,9 +326,12 @@ If (isset($_POST['PrintPDF']) AND isset($_POST['ReportOrClose'])){
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 		header('Pragma: public');
 
-		$pdf->Stream();
+		$pdf->Output('StockCheckComparison.pdf', 'I');
 
 	}
+*/
+    $pdf->OutputD($_SESSION['DatabaseName'] . '_StockComparison_' . date('Y-m-d') . '.pdf');//UldisN
+    $pdf->__destruct(); //UldisN
 
 	if ($_POST['ReportOrClose']=='ReportAndClose'){
 		//need to print the report first before this but don't risk re-adjusting all the stock!!
@@ -335,11 +342,9 @@ If (isset($_POST['PrintPDF']) AND isset($_POST['ReportOrClose'])){
 		$result = DB_query($sql,$db);
 	}
 
-
-
 } else { /*The option to print PDF was not hit */
 
-	$title= _('Inventory Comparison Comparison Report');
+	$title= _('Inventory Comparison Report');
 	include('includes/header.inc');
 
 	echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST"><table>';

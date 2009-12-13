@@ -1,5 +1,8 @@
 <?php
-/* $Revision: 1.42 $ */
+
+/*$Id$*/
+
+/* $Revision: 1.44 $ */
 
 $PageSecurity = 11;
 
@@ -45,9 +48,9 @@ $statusresult=DB_query($statussql, $db);
 $mystatusrow=DB_fetch_array($statusresult);
 $Status=$mystatusrow['status'];
 
-if ($Status!=_('Printed')) {
+if ($Status != PurchOrder::STATUS_PRINTED) {
 	prnMsg( _('Purchase orders must have a status of Printed before they can be received').'.<br>'.
-		_('Order number').' '.$_GET['PONumber'].' '._('has a status of').' '.$Status, 'warn');
+		_('Order number') . ' ' . $_GET['PONumber'] . ' ' . _('has a status of') . ' ' . _($Status), 'warn');
 	include('includes/footer.inc');
 	exit;
 }
@@ -522,8 +525,29 @@ if ($SomethingReceived==0 AND isset($_POST['ProcessGoodsReceived'])){ /*Then don
 								$ErrMsg =  _('CRITICAL ERROR') . '! ' . _('NOTE DOWN THIS ERROR AND SEEK ASSISTANCE') . ': ' . _('The serial stock item record could not be inserted because');
 								$DbgMsg =  _('The following SQL to insert the serial stock item records was used');
 								$Result = DB_query($SQL, $db, $ErrMsg, $DbgMsg, true);
-//assetmanager								
-							/** end of handle stockserialitems records */
+								
+								/*Update fixed asset details */
+								$sql='select stocktype from stockcategory
+									 left join stockmaster on 
+									 stockcategory.categoryid=stockmaster.categoryid 
+									 where stockmaster.stockid="'.$OrderLine->StockID.'"';
+								$result=DB_query($sql, $db);
+								$myrow=DB_fetch_array($result);
+								if ($myrow['stocktype']=='A') {
+									$SQL = "INSERT INTO assetmanager 
+											VALUES (NULL,
+												'" . $OrderLine->StockID . "',
+												'" . $Item->BundleRef . "',
+												'',
+												".$Item->BundleQty*$OrderLine->Price.",
+												0,'".
+												$_POST['DefaultReceivedDate']."',0)";
+									$ErrMsg =  _('CRITICAL ERROR') . '! ' . _('NOTE DOWN THIS ERROR AND SEEK ASSISTANCE') . ': ' . _('The serial stock item record could not be inserted because');
+									$DbgMsg =  _('The following SQL to insert the serial stock item records was used');
+									$Result = DB_query($SQL, $db, $ErrMsg, $DbgMsg, true);
+								}
+
+															/** end of handle stockserialitems records */
 
 							/** now insert the serial stock movement **/
 							$SQL = "INSERT INTO stockserialmoves (stockmoveno,
@@ -608,7 +632,7 @@ if ($SomethingReceived==0 AND isset($_POST['ProcessGoodsReceived'])){ /*Then don
 		$date = date($_SESSION['DefaultDateFormat']);
 		$StatusComment=$date.' - Order Completed'.'<br>'.$comment;
 		$sql="UPDATE purchorders 
-				SET status='"._('Completed')."',
+				SET status='" . PurchOrder::STATUS_COMPLITED . "',
 				stat_comment='".$StatusComment."'
 				WHERE orderno=".$_SESSION['PO']->OrderNo;
 		$result=DB_query($sql,$db);

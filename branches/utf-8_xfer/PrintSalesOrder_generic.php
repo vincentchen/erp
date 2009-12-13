@@ -1,7 +1,6 @@
 <?php
 
-/* $Revision: 1.17 $ */
-
+/* $Id$ */
 $PageSecurity = 2;
 
 include('includes/session.inc');
@@ -106,11 +105,11 @@ if (DB_num_rows($result)==0){
 LETS GO */
 $PaperSize = 'A4_Landscape';
 include('includes/PDFStarter.php');
-
+$pdf->addInfo('Title', _('Customer Laser Packing Slip') );
+$pdf->addInfo('Subject', _('Laser Packing slip for order') . ' ' . $_GET['TransNo']);
 $FontSize=12;
-$pdf->selectFont('./fonts/Helvetica.afm');
-$pdf->addinfo('Title', _('Customer Laser Packing Slip') );
-$pdf->addinfo('Subject', _('Laser Packing slip for order') . ' ' . $_GET['TransNo']);
+
+$ListCount = 0; // UldisN
 
 for ($i=1;$i<=2;$i++){  /*Print it out twice one copy for customer and one for office */
 	if ($i==2){
@@ -143,17 +142,14 @@ for ($i=1;$i<=2;$i++){  /*Print it out twice one copy for customer and one for o
 
 		while ($myrow2=DB_fetch_array($result)){
 
+            $ListCount ++;
+
 			$DisplayQty = number_format($myrow2['quantity'],2);
 			$DisplayPrevDel = number_format($myrow2['qtyinvoiced'],2);
 			$DisplayQtySupplied = number_format($myrow2['quantity'] - $myrow2['qtyinvoiced'],2);
 			$itemdesc = $myrow2['description'] . ' - ' . $myrow2['narrative'];
-			$itemlistdesc= str_split($itemdesc, 46);
 			$LeftOvers = $pdf->addTextWrap($XPos,$YPos,127,$FontSize,$myrow2['stkcode']);
-			$LeftOvers = $pdf->addTextWrap(140,$YPos,355,$FontSize,$itemlistdesc[0]);
-			$LeftOvers = $pdf->addTextWrap(140,$YPos-12,355,$FontSize,$itemlistdesc[1]);
-			$LeftOvers = $pdf->addTextWrap(140,$YPos-24,355,$FontSize,$itemlistdesc[2]);
-			$LeftOvers = $pdf->addTextWrap(140,$YPos-36,355,$FontSize,$itemlistdesc[3]);
-			$LeftOvers = $pdf->addTextWrap(140,$YPos-48,355,$FontSize,$itemlistdesc[4]);
+			$LeftOvers = $pdf->addTextWrap(147,$YPos,355,$FontSize,$itemdesc);
 			$LeftOvers = $pdf->addTextWrap(400,$YPos,85,$FontSize,$DisplayQty,'right');
 			$LeftOvers = $pdf->addTextWrap(503,$YPos,85,$FontSize,$DisplayQtySupplied,'right');
 			$LeftOvers = $pdf->addTextWrap(602,$YPos,85,$FontSize,$DisplayPrevDel,'right');
@@ -175,28 +171,20 @@ for ($i=1;$i<=2;$i++){  /*Print it out twice one copy for customer and one for o
 
 } /*end for loop to print the whole lot twice */
 
-$pdfcode = $pdf->output();
-$len = strlen($pdfcode);
-if ($len<=20){
-        $title = _('Print Packing Slip Error');
-        include('includes/header.inc');
-        echo '<p>'. _('There were no outstanding items on the order to deliver') . '. ' . _('A packing slip cannot be printed').
-                '<br><a href="' . $rootpath . '/SelectSalesOrder.php?' . SID . '">'. _('Print Another Packing Slip/Order').
-                '</a>' . '<br>'. '<a href="' . $rootpath . '/index.php?' . SID . '">' . _('Back to the menu') . '</a>';
-        include('includes/footer.inc');
+if ($ListCount == 0){
+	$title = _('Print Packing Slip Error');
+	include('includes/header.inc');
+	echo '<p>'. _('There were no outstanding items on the order to deliver. A packing slip cannot be printed').
+			'<br><a href="' . $rootpath . '/SelectSalesOrder.php?' . SID . '">'. _('Print Another Packing Slip/Order').
+			'</a>' . '<br>'. '<a href="' . $rootpath . '/index.php?' . SID . '">' . _('Back to the menu') . '</a>';
+	include('includes/footer.inc');
 	exit;
 } else {
-	header('Content-type: application/pdf');
-	header('Content-Length: ' . $len);
-	header('Content-Disposition: inline; filename=PackingSlip.pdf');
-	header('Expires: 0');
-	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-	header('Pragma: public');
-//echo 'here';
-	$pdf->Stream();
+    $pdf->OutputD($_SESSION['DatabaseName'] . '_SalesOrder_' . date('Y-m-d') . '.pdf');//UldisN
+    $pdf->__destruct(); //UldisN
 
-//	$sql = "UPDATE salesorders SET printedpackingslip=1, datepackingslipprinted='" . Date('Y-m-d') . "' WHERE salesorders.orderno=" .$_GET['TransNo'];
-//	$result = DB_query($sql,$db);
+	$sql = "UPDATE salesorders SET printedpackingslip=1, datepackingslipprinted='" . Date('Y-m-d') . "' WHERE salesorders.orderno=" .$_GET['TransNo'];
+	$result = DB_query($sql,$db);
 }
 
 ?>

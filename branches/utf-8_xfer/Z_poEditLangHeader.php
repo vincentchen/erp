@@ -1,5 +1,7 @@
 <?php
-/* $Revision: 1.7 $ */
+
+/* $Id: Z_poEditLangHeader.php 3152 2009-12-11 14:28:49Z tim_schofield $ */
+/* $Revision: 1.8 $ */
 
 /* Steve Kitchen */
 
@@ -24,7 +26,7 @@ $PathToNewLanguage	= './locale/' . $_SESSION['Language'] . '/LC_MESSAGES/message
 $fpIn = fopen($PathToLanguage, 'r');
 
 for ($i=1; $i<=17; $i++){	/* message.po header is 17 lines long - this is easily broken */
-	$LanguageHeader[$i] = htmlspecialchars(fgets($fpIn));
+	$LanguageHeader[$i] = fgets($fpIn);
 }
 
 if (isset($_POST['submit'])) {

@@ -1,7 +1,7 @@
 <?php
 
-
-/* $Revision: 1.9 $ */
+/* $Id: StockQuantityByDate.php 3152 2009-12-11 14:28:49Z tim_schofield $ */
+/* $Revision: 1.10 $ */
 /* Contributed by Chris Bice - gettext by Kitch*/
 
 
@@ -66,7 +66,7 @@ echo '</form><hr>';
 
 $TotalQuantity = 0;
 
-if(isset($_POST['ShowStatus']) AND is_date($_POST['OnHandDate']))
+if(isset($_POST['ShowStatus']) AND Is_Date($_POST['OnHandDate']))
 {
 	$sql = "SELECT stockid,
 			description,

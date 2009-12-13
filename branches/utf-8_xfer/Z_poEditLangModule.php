@@ -1,5 +1,7 @@
 <?php
-/* $Revision: 1.10 $ */
+
+/* $Id: Z_poEditLangModule.php 3152 2009-12-11 14:28:49Z tim_schofield $ */
+/* $Revision: 1.11 $ */
 
 /* Steve Kitchen */
 
@@ -67,7 +69,7 @@ if (isset($_POST['module'])) {
 
 		for ($i=17; $i<=$LangFileEntries; $i++) {
 			if (isset($_POST['msgstr_'.$i])) {
-				$LangFile[$i] = 'msgstr "' . htmlentities($_POST['moduletext_'.$i]) . '"' . "\n";
+				$LangFile[$i] = 'msgstr "' . $_POST['moduletext_'.$i] . '"' . "\n";
 			}
 		}
 		$fpOut = fopen($PathToNewLanguage, 'w');

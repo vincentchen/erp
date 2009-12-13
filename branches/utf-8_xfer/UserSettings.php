@@ -122,7 +122,11 @@ echo '<tr>
 
 	while (false != ($LanguageEntry = $LangDirHandle->read())){
 	
-		if (is_dir('locale/' . $LanguageEntry) AND $LanguageEntry != '..' AND $LanguageEntry != 'CVS' AND $LanguageEntry!='.'){
+		if (is_dir('locale/' . $LanguageEntry) 
+				AND $LanguageEntry != '..' 
+				AND $LanguageEntry != 'CVS'
+				AND $LanguageEntry != '.svn' 
+				AND $LanguageEntry!='.'){
 	
 			if ($_SESSION['Language'] == $LanguageEntry){
 				echo "<option selected VALUE='$LanguageEntry'>$LanguageEntry";
@@ -144,7 +148,7 @@ $ThemeDirectory = dir('css/');
 
 while (false != ($ThemeName = $ThemeDirectory->read())){
 
-	if (is_dir("css/$ThemeName") AND $ThemeName != '.' AND $ThemeName != '..' AND $ThemeName != 'CVS'){
+	if (is_dir("css/$ThemeName") AND $ThemeName != '.' AND $ThemeName != '..' AND $ThemeName != '.svn'){
 
 		if ($_SESSION['Theme'] == $ThemeName){
 			echo "<option selected VALUE='$ThemeName'>$ThemeName";

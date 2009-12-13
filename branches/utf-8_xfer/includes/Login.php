@@ -3,7 +3,7 @@
 // Display demo user name and password within login form if $allow_demo_mode is true
 include ('LanguageSetup.php');
 
-if ($allow_demo_mode == True AND !isset($demo_text)) {
+if ($allow_demo_mode == True and !isset($demo_text)) {
 	$demo_text = _('login as user') .': <i>' . _('admin') . '</i><BR>' ._('with password') . ': <i>' . _('weberp') . '</i>';
 } elseif (!isset($demo_text)) {
 	$demo_text = _('Please login here');
@@ -38,17 +38,17 @@ if (get_magic_quotes_gpc()){
 			echo '<select name="CompanyNameField">';
 			$DirHandle = dir('companies/');
 			while (false != ($CompanyEntry = $DirHandle->read())){
-				if (is_dir('companies/' . $CompanyEntry) AND $CompanyEntry != '..' AND $CompanyEntry != 'CVS' AND $CompanyEntry!='.'){
+				if (is_dir('companies/' . $CompanyEntry) AND $CompanyEntry != '..' AND $CompanyEntry != 'CVS' AND $CompanyEntry!='.svn' AND $CompanyEntry!='.'){
 					if ($CompanyEntry==$DefaultCompany) {
-						echo "<option selected  value='$CompanyEntry'>$CompanyEntry";
+						echo "<option selected value='$CompanyEntry'>$CompanyEntry</option>";
 					} else {
-						echo "<option  value='$CompanyEntry'>$CompanyEntry";
+						echo "<option  value='$CompanyEntry'>$CompanyEntry</option>";
 					}
 				}
 			}
 			echo '</select>';
 		} else {
-			echo '<input type="text" name="CompanyNameField"  value="' . $DefaultCompany . '">';
+			echo '<input type="text" name="CompanyNameField"  value="' . $DefaultCompany . '" />';
 		}
 	?>
 	<br />

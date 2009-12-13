@@ -1,6 +1,7 @@
 <?php
 
-/* $Revision: 1.43 $ */
+/* $Id: Suppliers.php 3152 2009-12-11 14:28:49Z tim_schofield $ */
+/* $Revision: 1.44 $ */
 
 $PageSecurity = 5;
 
@@ -352,7 +353,7 @@ if (isset($_POST['submit'])) {
 		$Errors[$i]='BankRef';
 		$i++;
 	}
-	if (!is_date($_POST['SupplierSince'])) {
+	if (!Is_Date($_POST['SupplierSince'])) {
 		$InputError = 1;
 		prnMsg(_('The supplier since field must be a date in the format') . ' ' . $_SESSION['DefaultDateFormat'],'error');
 		$Errors[$i]='SupplierSince';
@@ -634,7 +635,7 @@ if (!isset($SupplierID)) {
 	$result=DB_query('SELECT id, coyname FROM factorcompanies', $db);
 
 	echo '<tr><td>' . _('Factor Company') . ":</td><td><select name='FactorID'>";
-
+	echo '<option VALUE=0>' . _('None');
 	while ($myrow = DB_fetch_array($result)) {
 		if (isset($_POST['FactorID']) and $_POST['FactorID'] == $myrow['id']){
 		echo '<option selected VALUE=' . $myrow['id'] . '>' . $myrow['coyname'];
@@ -768,7 +769,7 @@ if (!isset($SupplierID)) {
 	$result=DB_query('SELECT id, coyname FROM factorcompanies', $db);
 
 	echo '<tr><td>' . _('Factor Company') . ":</td><td><select name='FactorID'>";
-
+	echo '<option VALUE=0>' . _('None');
 	while ($myrow = DB_fetch_array($result)) {
 		if ($_POST['FactorID'] == $myrow['id']){
 		echo '<option selected VALUE=' . $myrow['id'] . '>' . $myrow['coyname'];

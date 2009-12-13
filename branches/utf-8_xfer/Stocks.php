@@ -1,6 +1,7 @@
 <?php
 
-/* $Revision: 1.73 $ */
+/* $Id: Stocks.php 3152 2009-12-11 14:28:49Z tim_schofield $ */
+/* $Revision: 1.75 $ */
 
 $PageSecurity = 11;
 
@@ -636,7 +637,7 @@ if (isset($_POST['Description'])) {
 } else {
 	$Description ='';
 }
-echo '<tr><td>' . _('Part Description') . ' (' . _('short') . '):</td><td><input ' . (in_array('Description',$Errors) ?  'class="inputerror"' : '' ) .' type="Text" name="Description" size=52 maxlength=50 value="' . htmlentities($Description,ENT_QUOTES,_('ISO-8859-1')) . '"></td></tr>'."\n";
+echo '<tr><td>' . _('Part Description') . ' (' . _('short') . '):</td><td><input ' . (in_array('Description',$Errors) ?  'class="inputerror"' : '' ) .' type="Text" name="Description" size=52 maxlength=50 value="' . $Description . '"></td></tr>'."\n";
 
 if (isset($_POST['LongDescription'])) {
 	$LongDescription = AddCarriageReturns($_POST['LongDescription']);
@@ -690,7 +691,7 @@ echo '<tr><td>'. _('Image File (.jpg)') . ':</td><td><input type="file" id="Item
 
  echo '<tr><td>' . _('Category') . ':</td><td><select name="CategoryID" onChange="ReloadForm(ItemForm.UpdateCategories)">';
 
-$sql = 'SELECT categoryid, categorydescription FROM stockcategory';
+$sql = 'SELECT categoryid, categorydescription FROM stockcategory WHERE stocktype!="A"';
 $ErrMsg = _('The stock categories could not be retrieved because');
 $DbgMsg = _('The SQL used to retrieve stock categories and failed was');
 $result = DB_query($sql,$db,$ErrMsg,$DbgMsg);

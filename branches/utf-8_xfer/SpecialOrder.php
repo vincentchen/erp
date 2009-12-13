@@ -1,6 +1,7 @@
 <?php
 
-/* $Revision: 1.18 $ */
+/* $Id: SpecialOrder.php 3152 2009-12-11 14:28:49Z tim_schofield $ */
+/* $Revision: 1.20 $ */
 
 $PageSecurity = 4;
 
@@ -24,11 +25,13 @@ if (!isset($_SESSION['SupplierID'])){
 	echo '<br><br>';
 	prnMsg(_('To set up a special') . ', ' . _('the supplier must first be selected from the Select Supplier page'),'info');
 	echo "<br><a href='$rootpath/SelectSupplier.php?" . SID . "'>" . _('Select the supplier now') . "</a>";
+	include('includes/footer.inc');
 	exit;
 }
 
 if (!isset($_SESSION['CustomerID']) OR $_SESSION['CustomerID']==""){
 	echo "<br><br>" . _('To set up a special') . ', ' . _('the customer must first be selected from the Select Customer page') . "<br><a href='$rootpath/SelectCustomer.php?" . SID . "'>" . _('Select the customer now') . "</a>";
+	include('includes/footer.inc');
 	exit;
 }
 
@@ -209,7 +212,7 @@ If(isset($_POST['EnterLine'])){
 		prnMsg( _('Cannot Enter this order line') . '<br>' . _('The sale is at a lower price than the cost'),'warn');
 	}
 
-	if (!is_date($_POST['ReqDelDate'])){
+	if (!Is_Date($_POST['ReqDelDate'])){
 		$AllowAdd = False;
 		prnMsg( _('Cannot Enter this order line') . '<br>' . _('The date entered must be in the format') . ' ' . $_SESSION['DefaultDateFormat'],'warn');
 	}
@@ -394,7 +397,7 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 
 		} /* end of the loop round the detail line items on the order */
 
-		echo '<br><br>' . _('Purchase order') . ' ' . $_SESSION['SPL']->PurchOrderNo . ' ' . _('on') . ' ' . $_SESSION['SPL']->SupplierName . ' ' . _('has been created');
+		echo '<br><br>' . _('Purchase Order') . ' ' . $_SESSION['SPL']->PurchOrderNo . ' ' . _('on') . ' ' . $_SESSION['SPL']->SupplierName . ' ' . _('has been created');
 		echo "<br><a href='$rootpath/PO_PDFPurchOrder.php?" . SID . '&OrderNo=' . $_SESSION['SPL']->PurchOrderNo . "'>" . _('Print Purchase Order') . '</a>';
 
 /*Now insert the sales order too */

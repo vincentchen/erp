@@ -1,6 +1,7 @@
 <?php
 
-/* $Revision: 1.39 $ */
+/* $Id: PO_Items.php 3152 2009-12-11 14:28:49Z tim_schofield $ */
+/* $Revision: 1.43 $ */
 
 $PageSecurity = 4;
 
@@ -63,13 +64,13 @@ if (isset($_POST['StockID2']) && $_GET['Edit']=='') {
 	$_POST['cuft'] = $myrow[6];
 } // end if (isset($_POST['StockID2']) && $_GET['Edit']=='')
 
-if (isset($_POST['UpdateLines'])) {
+if (isset($_POST['UpdateLines']) OR isset($_POST['Commit'])) {
 	foreach ($_SESSION['PO'.$identifier]->LineItems as $POLine) {
 		if ($POLine->Deleted==False) {
-			$POLine->Quantity=$_POST['Qty'.$POLine->LineNo];
-			$POLine->Price=$_POST['Price'.$POLine->LineNo];
-			$POLine->nw=$_POST['nw'.$POLine->LineNo];
-			$POLine->ReqDelDate=$_POST['ReqDelDate'.$POLine->LineNo];
+			$_SESSION['PO'.$identifier]->LineItems[$POLine->LineNo]->Quantity=$_POST['Qty'.$POLine->LineNo];
+			$_SESSION['PO'.$identifier]->LineItems[$POLine->LineNo]->Price=$_POST['Price'.$POLine->LineNo];
+			$_SESSION['PO'.$identifier]->LineItems[$POLine->LineNo]->nw=$_POST['nw'.$POLine->LineNo];
+			$_SESSION['PO'.$identifier]->LineItems[$POLine->LineNo]->ReqDelDate=$_POST['ReqDelDate'.$POLine->LineNo];
 		}
 	}
 }
@@ -81,7 +82,7 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
  */
 	$InputError=0; /*Start off assuming the best */
 	if ($_SESSION['PO'.$identifier]->DelAdd1=='' or strlen($_SESSION['PO'.$identifier]->DelAdd1)<3){
-		prnMsg( _('The purchase order can not be committed to the database because there is no delivery steet address specified'),'error');
+		prnMsg( _('The purchase order can not be committed to the database because there is no delivery street address specified'),'error');
 		$InputError=1;
 	} elseif ($_SESSION['PO'.$identifier]->Location=='' or ! isset($_SESSION['PO'.$identifier]->Location)){
 		prnMsg( _('The purchase order can not be committed to the database because there is no location specified to book any stock items into'),'error');
@@ -104,8 +105,13 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 			$date = date($_SESSION['DefaultDateFormat']);
 			$StatusComment=$date.' - Order Created by <a href="mailto:'.$emailrow['email'].'">'.$_SESSION['PO'.$identifier]->Initiator.
 				'</a> - '.$_SESSION['PO'.$identifier]->StatusMessage.'<br>';
+			
+			/*Get the order number */
+			$_SESSION['PO'.$identifier]->OrderNo =  GetNextTransNo(18, $db);
+			
 			/*Insert to purchase order header record */
 			$sql = "INSERT INTO purchorders (
+					orderno,
 					supplierno,
 					comments,
 					orddate,
@@ -119,46 +125,63 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 					deladd4,
 					deladd5,
 					deladd6,
+					tel,
+					suppdeladdress1,
+					suppdeladdress2,
+					suppdeladdress3,
+					suppdeladdress4,
+					suppdeladdress5,
+					suppdeladdress6,
+					suppliercontact,
+					supptel,
+					contact,
 					version,
-					realorderno,
 					revised,
 					deliveryby,
 					status,
 					stat_comment,
-					deliverydate)
-				VALUES(
-					'" . $_SESSION['PO'.$identifier]->SupplierID . "',
-					'" . $_SESSION['PO'.$identifier]->Comments . "',
-					'" . Date("Y-m-d") . "',
-					'" . $_SESSION['PO'.$identifier]->ExRate . "',
-					'" . $_SESSION['PO'.$identifier]->Initiator . "',
-					'" . $_SESSION['PO'.$identifier]->RequisitionNo . "',
-					'" . $_SESSION['PO'.$identifier]->Location . "',
-					'" . $_SESSION['PO'.$identifier]->DelAdd1 . "',
-					'" . $_SESSION['PO'.$identifier]->DelAdd2 . "',
-					'" . $_SESSION['PO'.$identifier]->DelAdd3 . "',
-					'" . $_SESSION['PO'.$identifier]->DelAdd4 . "',
-					'" . $_SESSION['PO'.$identifier]->DelAdd5 . "',
-					'" . $_SESSION['PO'.$identifier]->DelAdd6 . "',
-					'" . $_SESSION['PO'.$identifier]->version . "',			
-					'" . $_SESSION['PO'.$identifier]->OrderNo2 . "',
-					'" . FormatDateForSQL($date) . "',
-					'" . $_SESSION['PO'.$identifier]->deliveryby . "',				
-					'" . 'Pending' . "',
-					'" . $StatusComment . "',
-					'" . FormatDateForSQL($_SESSION['PO'.$identifier]->deliverydate) . "'
-				)";
+					deliverydate,
+					paymentterms)
+				VALUES(" . $_SESSION['PO'.$identifier]->OrderNo . ",
+						'" . $_SESSION['PO'.$identifier]->SupplierID . "',
+						'" . $_SESSION['PO'.$identifier]->Comments . "',
+						'" . Date('Y-m-d') . "',
+						'" . $_SESSION['PO'.$identifier]->ExRate . "',
+						'" . $_SESSION['PO'.$identifier]->Initiator . "',
+						'" . $_SESSION['PO'.$identifier]->RequisitionNo . "',
+						'" . $_SESSION['PO'.$identifier]->Location . "',
+						'" . $_SESSION['PO'.$identifier]->DelAdd1 . "',
+						'" . $_SESSION['PO'.$identifier]->DelAdd2 . "',
+						'" . $_SESSION['PO'.$identifier]->DelAdd3 . "',
+						'" . $_SESSION['PO'.$identifier]->DelAdd4 . "',
+						'" . $_SESSION['PO'.$identifier]->DelAdd5 . "',
+						'" . $_SESSION['PO'.$identifier]->DelAdd6 . "',
+						'" . $_SESSION['PO'.$identifier]->tel . "',
+						'" . $_SESSION['PO'.$identifier]->suppDelAdd1 . "',
+						'" . $_SESSION['PO'.$identifier]->suppDelAdd2 . "',
+						'" . $_SESSION['PO'.$identifier]->suppDelAdd3 . "',
+						'" . $_SESSION['PO'.$identifier]->suppDelAdd4 . "',
+						'" . $_SESSION['PO'.$identifier]->suppDelAdd5 . "',
+						'" . $_SESSION['PO'.$identifier]->suppDelAdd6 . "',
+						'" . $_SESSION['PO'.$identifier]->SupplierContact . "',
+						'" . $_SESSION['PO'.$identifier]->supptel. "',
+						'" . $_SESSION['PO'.$identifier]->contact . "',
+						'" . $_SESSION['PO'.$identifier]->version . "',			
+						'" . FormatDateForSQL($date) . "',
+						'" . $_SESSION['PO'.$identifier]->deliveryby . "',				
+						'" . 'Pending' . "',
+						'" . $StatusComment . "',
+						'" . FormatDateForSQL($_SESSION['PO'.$identifier]->deliverydate) . "',
+						'" . $_SESSION['PO'.$identifier]->paymentterms. "'
+					)";
 
 			$ErrMsg =  _('The purchase order header record could not be inserted into the database because');
 			$DbgMsg = _('The SQL statement used to insert the purchase order header record and failed was');
 			$result = DB_query($sql,$db,$ErrMsg,$DbgMsg,true);
 
-			/*Get the auto increment value of the order number created from the SQL above */
-			$_SESSION['PO'.$identifier]->OrderNo =  GetNextTransNo(18, $db);
-
 		     /*Insert the purchase order detail records */
 			foreach ($_SESSION['PO'.$identifier]->LineItems as $POLine) {
-			if ($POLine->Deleted==False) {
+				if ($POLine->Deleted==False) {
 					$sql = "INSERT INTO purchorderdetails (
 							orderno,
 							itemcode,
@@ -179,8 +202,7 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 							gw,
 							cuft,
 							total_quantity,
-							total_amount
-							)
+							total_amount )
 					VALUES (
 							" . $_SESSION['PO'.$identifier]->OrderNo . ",
 							'" . $POLine->StockID . "',
@@ -209,9 +231,9 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 				}
 			} /* end of the loop round the detail line items on the order */
 			echo '<p>';
-			prnMsg(_('Purchase order') . ' ' . $_SESSION['PO'.$identifier]->OrderNo . ' ' . _('on') . ' ' . 
+			prnMsg(_('Purchase Order') . ' ' . $_SESSION['PO'.$identifier]->OrderNo . ' ' . _('on') . ' ' . 
 		     	$_SESSION['PO'.$identifier]->SupplierName . ' ' . _('has been created'),'success');
-			echo '<p class="page_title_text"><img src="'.$rootpath.'/css/'.$theme.'/images/printer.png" title="' . 
+			echo '<p class="page_title_text"><img src="'.$rootpath.'/css/'.$theme.'/images/printer.png" title="' .
 				_('Print') . '" alt="">' . ' ' . _('Print Purchase Order') . '';
 		} else { /*its an existing order need to update the old order info */
 	//	 		$_SESSION['PO'.$identifier]->version += 0.01;
@@ -220,31 +242,44 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 
 			$sql = "UPDATE purchorders SET
 		     			supplierno = '" . $_SESSION['PO'.$identifier]->SupplierID . "' ,
-					comments='" . $_SESSION['PO'.$identifier]->Comments . "',
-					rate=" . $_SESSION['PO'.$identifier]->ExRate . ",
-					initiator='" . $_SESSION['PO'.$identifier]->Initiator . "',
-					requisitionno= '" . $_SESSION['PO'.$identifier]->RequisitionNo . "',
-					version= '" .  $_SESSION['PO'.$identifier]->version . "',
-					deliveryby='" . $_SESSION['PO'.$identifier]->deliveryby . "',					
-					deliverydate='" . FormatDateForSQL($_SESSION['PO'.$identifier]->deliverydate) . "',
-					revised= '" . FormatDateForSQL($date) . "',
-					intostocklocation='" . $_SESSION['PO'.$identifier]->Location . "',
-					deladd1='" . $_SESSION['PO'.$identifier]->DelAdd1 . "',
-					deladd2='" . $_SESSION['PO'.$identifier]->DelAdd2 . "',
-					deladd3='" . $_SESSION['PO'.$identifier]->DelAdd3 . "',
-					deladd4='" . $_SESSION['PO'.$identifier]->DelAdd4 . "',
-					deladd5='" . $_SESSION['PO'.$identifier]->DelAdd5 . "',
-					deladd6='" . $_SESSION['PO'.$identifier]->DelAdd6 . "',
-					allowprint=" . $_SESSION['PO'.$identifier]->AllowPrintPO . "
-		     		WHERE orderno = '" . $_SESSION['PO'.$identifier]->OrderNo ."'";
+						comments='" . $_SESSION['PO'.$identifier]->Comments . "',
+						rate=" . $_SESSION['PO'.$identifier]->ExRate . ",
+						initiator='" . $_SESSION['PO'.$identifier]->Initiator . "',
+						requisitionno= '" . $_SESSION['PO'.$identifier]->RequisitionNo . "',
+						version= '" .  $_SESSION['PO'.$identifier]->version . "',
+						deliveryby='" . $_SESSION['PO'.$identifier]->deliveryby . "',					
+						deliverydate='" . FormatDateForSQL($_SESSION['PO'.$identifier]->deliverydate) . "',
+						revised= '" . FormatDateForSQL($date) . "',
+						intostocklocation='" . $_SESSION['PO'.$identifier]->Location . "',
+						deladd1='" . $_SESSION['PO'.$identifier]->DelAdd1 . "',
+						deladd2='" . $_SESSION['PO'.$identifier]->DelAdd2 . "',
+						deladd3='" . $_SESSION['PO'.$identifier]->DelAdd3 . "',
+						deladd4='" . $_SESSION['PO'.$identifier]->DelAdd4 . "',
+						deladd5='" . $_SESSION['PO'.$identifier]->DelAdd5 . "',
+						deladd6='" . $_SESSION['PO'.$identifier]->DelAdd6 . "',
+						deladd6='" . $_SESSION['PO'.$identifier]->tel . "',
+						suppdeladdress1='" . $_SESSION['PO'.$identifier]->suppDelAdd1 . "',
+						suppdeladdress2='" . $_SESSION['PO'.$identifier]->suppDelAdd2 . "',
+						suppdeladdress3='" . $_SESSION['PO'.$identifier]->suppDelAdd3 . "',
+						suppdeladdress4='" . $_SESSION['PO'.$identifier]->suppDelAdd4 . "',
+						suppdeladdress5='" . $_SESSION['PO'.$identifier]->suppDelAdd5 . "',
+						suppdeladdress6='" . $_SESSION['PO'.$identifier]->suppDelAdd6 . "',
+						suppliercontact='" . $_SESSION['PO'.$identifier]->SupplierContact . "',
+						supptel='" . $_SESSION['PO'.$identifier]->supptel . "',
+						contact='" . $_SESSION['PO'.$identifier]->contact . "',
+						paymentterms='" . $_SESSION['PO'.$identifier]->paymentterms . "',
+						allowprint=" . $_SESSION['PO'.$identifier]->AllowPrintPO . "
+						WHERE orderno = '" . $_SESSION['PO'.$identifier]->OrderNo ."'";
 
 			$ErrMsg =  _('The purchase order could not be updated because');
 			$DbgMsg = _('The SQL statement used to update the purchase order header record, that failed was');
-			$result =DB_query($sql,$db,$ErrMsg,$DbgMsg,true);
+			$result = DB_query($sql,$db,$ErrMsg,$DbgMsg,true);
 
 			/*Now Update the purchase order detail records */
 			foreach ($_SESSION['PO'.$identifier]->LineItems as $POLine) {
-				$sql='UPDATE purchorders SET status="'._('Pending').'" WHERE orderno=' . $_SESSION['PO'.$identifier]->OrderNo;
+				$sql="UPDATE purchorders
+                      SET status = '" . PurchOrder::STATUS_PENDING . "'
+                      WHERE orderno = " . $_SESSION['PO'.$identifier]->OrderNo;
 				$result=DB_query($sql,$db);
 				if ($POLine->Deleted==true) {
 					if ($POLine->PODetailRec!='') {
@@ -354,7 +389,7 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 				$result =DB_query($sql,$db,$ErrMsg,$DbgMsg,true);
 		     } /* end of the loop round the detail line items on the order */
 		     echo '<br><br>';
-		     prnMsg(_('Purchase order') . ' ' . $_SESSION['PO'.$identifier]->OrderNo . ' ' . _('has been updated'),'success');
+		     prnMsg(_('Purchase Order') . ' ' . $_SESSION['PO'.$identifier]->OrderNo . ' ' . _('has been updated'),'success');
 		     if ($_SESSION['PO'.$identifier]->AllowPrintPO==1){
 			 //    echo '<br><a target="_blank" href="'.$rootpath.'/PO_PDFPurchOrder.php?' . SID . '&OrderNo=' . $_SESSION['PO'.$identifier]->OrderNo . '">' . _('Print Purchase Order') . '</a>';
 		     }
@@ -492,7 +527,7 @@ if (isset($_POST['Search'])){  /*ie seach for stock items */
 /* Always do the stuff below if not looking for a supplierid */
 
 if(isset($_GET['Delete'])){
-	if($_SESSION['PO'.$identifier]->Some_Already_Received($_POST['LineNo'])==0){
+	if($_SESSION['PO'.$identifier]->Some_Already_Received($_GET['Delete'])==0){
 		$_SESSION['PO'.$identifier]->LineItems[$_GET['Delete']]->Deleted=True;
 		include ('includes/PO_UnsetFormVbls.php');
 	} else {
@@ -603,7 +638,7 @@ if (isset($_POST['EnterLine'])){ /*Inputs from the form directly without selecti
 		$AllowUpdate = false;
 		prnMsg( _('Cannot Enter this order line') . '<br>' . _('The price entered must be numeric'),'error');
 	}
-	if (!is_date($_POST['ReqDelDate'])){
+	if (!Is_Date($_POST['ReqDelDate'])){
 // mark on 081013
 		$AllowUpdate = False;
 		prnMsg( _('Cannot Enter this order line') . '</b><br>' . _('The date entered must be in the format') . ' ' . $_SESSION['DefaultDateFormat'], 'error');
@@ -762,7 +797,7 @@ if (isset($_POST['NewItem'])){ /* NewItem is set from the part selection list as
 				$result1 = DB_query($sql,$db,$ErrMsg,$DbgMsg);
 
 				if ($myrow = DB_fetch_array($result1)){
-					if (is_numeric($myrow['price'])){
+					if (isset($myrow['price']) and is_numeric($myrow['price'])){
 
 						$_SESSION['PO'.$identifier]->add_to_order ($_SESSION['PO'.$identifier]->LinesOnOrder+1,
 							$ItemCode,
@@ -850,7 +885,7 @@ echo "<form name=form1 action='" . $_SERVER['PHP_SELF'] . "?" . SID . "identifie
 
 if (count($_SESSION['PO'.$identifier]->LineItems)>0 and !isset($_GET['Edit'])){
 	echo '<p class="page_title_text"><img src="'.$rootpath.'/css/'.$theme.'/images/supplier.png" title="' . 
-		_('Purchase Order') . '" alt="">';
+		_('Purchase Order') . '" alt="">  '.$_SESSION['PO'.$identifier]->SupplierName;
 		
 	if (isset($_SESSION['PO'.$identifier]->OrderNo)) {
 		echo  ' ' . _('Purchase Order') .' '. $_SESSION['PO'.$identifier]->OrderNo ;
@@ -937,7 +972,7 @@ if (count($_SESSION['PO'.$identifier]->LineItems)>0 and !isset($_GET['Edit'])){
 
 
 if (isset($_POST['NonStockOrder'])) {
-	echo '<br><table><tr><td>'._('Description of Item').'</td>';
+	echo '<br><table><tr><td>'._('Item Description').'</td>';
 	echo '<td><input type=text name=ItemDescription size=40></td></tr>';
 	echo '<tr><td>'._('General Ledger Code').'</td>';
 	echo '<td><select name="GLCode">';
@@ -991,6 +1026,9 @@ if (!isset($_GET['Edit'])) {
 		}
 	}
 
+	unset($_POST['Keywords']);
+	unset($_POST['StockCode']);
+
 	if (!isset($_POST['Keywords'])) {
 		$_POST['Keywords']='';
 	}
@@ -999,8 +1037,6 @@ if (!isset($_GET['Edit'])) {
 		$_POST['StockCode']='';
 	}
 
-	unset($_POST['Keywords']);
-	unset($_POST['StockCode']);
 	echo '</select></td>
 		<td><font size=2>' . _('Enter text extracts in the description') . ":</font></td>
 		<td><input type='text' name='Keywords' size=20 maxlength=25 value='" . $_POST['Keywords'] . "'></td></tr>
