@@ -1,6 +1,6 @@
 <?php
 
-/* $Revision: 1.35 $ */
+/* $Revision: 1.37 $ */
 
 $PageSecurity=15;
 
@@ -18,6 +18,7 @@ $ModuleList = array(_('Orders'),
 					_('Inventory'), 
 					_('Manufacturing'), 
 					_('General Ledger'), 
+					_('Asset Manager'), 
 					_('Setup'));
 
 $title = _('User Maintenance');
@@ -266,8 +267,12 @@ if (!isset($SelectedUser)) {
 			echo '<tr class="OddTableRows">';
 			$k=1;
 		}
-
+	
+	if ($myrow[6]=='') {
+		$LastVisitDate = Date('Y-m-d');
+	} else {
 		$LastVisitDate = ConvertSQLDate($myrow[6]);
+	}
 
 		/*The SecurityHeadings array is defined in config.php */
 
@@ -438,10 +443,10 @@ if (!isset($_POST['BranchCode'])) {
 	$_POST['BranchCode']='';
 }
 echo '<tr><td>' . _('Customer Code') . ':</td>
-	<td><input type="text" name="Cust" size=10 maxlength=8 value="' . $_POST['Cust'] . '"></td></tr>';
+	<td><input type="text" name="Cust" size=10 maxlength=10 value="' . $_POST['Cust'] . '"></td></tr>';
 
 echo '<tr><td>' . _('Branch Code') . ':</td>
-	<td><input type="text" name="BranchCode" size=10 maxlength=8 VALUE="' . $_POST['BranchCode'] .'"></td></tr>';
+	<td><input type="text" name="BranchCode" size=10 maxlength=10 VALUE="' . $_POST['BranchCode'] .'"></td></tr>';
 
 echo '<tr><td>' . _('Restrict to Sales Person') . ':</td>
 	<td><select name="Salesman">';
@@ -521,7 +526,7 @@ $ThemeDirectory = dir('css/');
 
 while (false != ($ThemeName = $ThemeDirectory->read())){
 
-	if (is_dir("css/$ThemeName") AND $ThemeName != '.' AND $ThemeName != '..' AND $ThemeName != 'CVS'){
+	if (is_dir("css/$ThemeName") AND $ThemeName != '.' AND $ThemeName != '..' AND $ThemeName != '.svn'){
 
 		if (isset($_POST['Theme']) and $_POST['Theme'] == $ThemeName){
 			echo "<option selected value='$ThemeName'>$ThemeName";

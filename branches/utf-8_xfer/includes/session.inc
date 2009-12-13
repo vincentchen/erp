@@ -1,5 +1,5 @@
 <?php
-/* $Revision: 1.67 $ */
+/* $Id: session.inc 3152 2009-12-11 14:28:49Z tim_schofield $ */
 
 if (!isset($PathPrefix)) {
 	$PathPrefix='';
@@ -72,6 +72,7 @@ if (!isset($AllowAnyone)){ /* only do security checks if AllowAnyone is not true
 		$_SESSION['Module'] = '';
 		$_SESSION['PageSize'] = '';
 		$_SESSION['UserStockLocation'] = '';
+		$_SESSION['PDFLanguage']= '';
 		$_SESSION['AttemptsCounter']++;
 
 
@@ -97,7 +98,8 @@ if (!isset($AllowAnyone)){ /* only do security checks if AllowAnyone is not true
 				www_users.displayrecordsmax,
 				www_users.userid,
 				www_users.language,
-				www_users.salesman
+				www_users.salesman,
+				www_users.pdflanguage
 			FROM www_users
 			WHERE www_users.userid='" . DB_escape_string($_POST['UserNameEntryField']) . "'
 			AND (www_users.password='" . CryptPass(DB_escape_string($_POST['Password'])) . "'
@@ -125,6 +127,7 @@ if (!isset($AllowAnyone)){ /* only do security checks if AllowAnyone is not true
 			$_SESSION['UserID'] = $myrow[11];
 			$_SESSION['Language'] = $myrow[12];
 			$_SESSION['SalesmanLogin'] = $myrow[13];
+			$_SESSION['PDFLanguage']= $myrow[14];
 			if ($myrow[10] > 0) {
 				$_SESSION['DisplayRecordsMax'] = $myrow[10];
 			} else {
@@ -155,10 +158,9 @@ if (!isset($AllowAnyone)){ /* only do security checks if AllowAnyone is not true
 					$i++;
 				}
 			}
-
-
-			echo '<meta http-equiv="refresh" content="0" url="' . $_SERVER['PHP_SELF'] . '?' . SID . '">';
-			exit;
+			
+			//echo '<meta http-equiv="refresh" content="0" url="' . $_SERVER['PHP_SELF'] . '?' . SID . '">';
+			//exit;
 		} else {     // Incorrect password
 			// 5 login attempts, show failed login screen
 			if (!isset($_SESSION['AttemptsCounter'])) {

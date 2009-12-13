@@ -1,6 +1,7 @@
 <?php
 
-/* $Revision: 1.31 $ */
+/* $Id: ConnectDB_mysql.inc 3152 2009-12-11 14:28:49Z tim_schofield $ */
+/* $Revision: 1.32 $ */
 
 define ('LIKE','LIKE');
 
@@ -136,7 +137,7 @@ function DB_Last_Insert_ID(&$Conn,$table, $fieldname){
 }
 
 function DB_escape_string($String){
-	return mysql_real_escape_string(htmlspecialchars($String, ENT_COMPAT, _('iso-8859-1')));
+	return mysql_real_escape_string(htmlspecialchars($String, ENT_COMPAT, _('ISO-8859-1')));
 }
 
 function DB_show_tables(&$Conn){

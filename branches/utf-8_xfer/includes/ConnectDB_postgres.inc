@@ -1,6 +1,7 @@
 <?php
 
-/* $Revision: 1.14 $ */
+/* $Id: ConnectDB_postgres.inc 3152 2009-12-11 14:28:49Z tim_schofield $ */
+/* $Revision: 1.15 $ */
 
 define ('LIKE','ILIKE');
 /* $PgConnStr = $PgConnStr = "host=".$host." dbname=".$_SESSION['DatabaseName']; */

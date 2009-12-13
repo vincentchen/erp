@@ -26,7 +26,10 @@ body {
 	margin-right: 0px;
 	padding: 0px;
 }
-img {border:none;}
+
+img {
+	border:none;
+}
 /*links before selection */
 a {
 	font-family: Verdana, Arial, Helvetica;
@@ -42,85 +45,31 @@ a:hover {
 	text-decoration: none;
 	
 }
-font.good {
-    font-weight: bold;
-    color: green;
-}
-font.bad {
-    font-weight: bold;
-    color:red;
-}
-/* In Jelly theme we don't want the page title text in the menu bar */
-font.header_title {
-    display:none
-}
-input{
-  	background: url(images/input.png) #eee;
-	color:#000;
-	border: 0px 0px 1px 1px #000 dashed;
-	font-family: Verdana, Arial, Helvetica;
-	font-size: 12px;
-}
-input.number{
-	text-align: right;
-}
-input:hover{
-	background: url(images/inputh.png) #eee;
-	color:#000;
-	border: 1px 1px 1px 1px #000 solid;
-}
-textarea{
-	background: url(images/inputtxt.png) #eee;
-	color:#000;
-	border: 0px 0px 1px 1px #000 dashed;
-	font-family: Verdana, Arial, Helvetica;
-	font-size: 12px;
-	}
-textarea:hover{
-	background: url(images/inputhtxt.png) #eee;
-	color:#000;
-	border: 1px 1px 1px 1px #000 solid;
-}
+
 /* Table type is used for default tables*/
 table {
   background: #eee;
   border: 0px 0px 2px 2px #222 solid;
-  background: #eee;
   margin: 0 auto;
+  background: #eee;
 }
-/* Table type is used for UI tables type 1 */
-.table1 {
-  width:90%;
-  background: #eee;
-  BORDER: black 1px solid;
-  background: #eee;
-  margin: 0 auto;
-}
-/* Table type is used for UI tables type 2 */
-.table2 {
-  width:80%;
-  background: #eee;
-  border: black 1px solid;
-  background: #eee;
-  margin: 1 auto;
-}
+
 .dpTbl {
 	border: solid navy 1px;
 }
+
 div.centre {
-  display:block;
   margin: 0 auto;
   text-align:center;
 }
+
 /*table detail items default format */
 td {
 	font-family: Verdana, Arial, Helvetica;
 	font-size: 12px;
 	text-align:left;
 }
-input.address3 {
-	text-transform: uppercase;
-}
+
 .dpTD {
 	border: 0;
 	width:20px;
@@ -128,6 +77,7 @@ input.address3 {
 	text-align:right;
 	cursor:pointer;	
 }
+
 .dpDayHighlight {
 	border: 0;
 	width:20px;
@@ -135,6 +85,7 @@ input.address3 {
 	text-align:right;
 	cursor:pointer;	
 }
+
 .dpTDHover {
 	border: 0;
 	width:20px;
@@ -142,9 +93,27 @@ input.address3 {
 	text-align:right;
 	cursor:pointer;	
 }
+
 td.number {
 	text-align: right;
 }
+
+.EvenTableRows {
+	background: #CCCCCC;
+}
+
+.OddTableRows {
+	background: #EEEEEE;
+}
+
+th {
+	font-weight: normal;
+	background: #ccc;
+	font-size: 12px;
+	color: #330000;
+	text-align: center;
+}
+
 div.error {
 	background:red;
 	color: white;
@@ -167,7 +136,6 @@ div.error {
 
 div.warn {
 	background: #fa0 url(images/error.png) top left no-repeat;
-	display:block;
 	color: black;
 	border: 1px solid black;
 	PADDING-LEFT: 10px;
@@ -187,7 +155,6 @@ div.warn {
 
 div.success {
 	background: #b9ecb4 url(images/accept.png) top left no-repeat;
-	display:block;
 	color: black;
 	border: 1px solid #008000;
         PADDING-LEFT: 10px;
@@ -207,12 +174,11 @@ div.success {
 
 div.info {
 	background: #fa0 url(images/help.png) top left no-repeat;
-	display:block;
 	color: white;
 	border: 1px solid black;
 	PADDING-LEFT: 10px;
         Z-INDEX: 1;
-        width: 80%;
+        width: 50%;
         FLOAT: none;
         VISIBILITY: visible;
         MARGIN: 0 auto;
@@ -225,39 +191,22 @@ div.info {
         TEXT-ALIGN:center;
 }
 
-div.csv {
-        background:lightgray;
-        color: black;
-        border: 1px solid black;
-        PADDING-LEFT: 3px;
-        Z-INDEX: 1;
-        width: 80%;
-        FLOAT: none;
-        VISIBILITY: visible;
-        MARGIN: 0 auto;
-        POSITION: static;
-        font-family: Verdana, Arial, Helvetica;
-        padding-top: 1px;
-        padding-bottom: 1px;
-        font-weight: normal;
-        font-size: 10px;
-        TEXT-ALIGN:center;
-}
-
-.EvenTableRows {
-	background: #CCCCCC;
-}
-
-.OddTableRows {
-	background: #EEEEEE;
-}
-
-th {
-	font-weight: normal;
-	background: #ccc;
+input{
+  	background: url(images/input.png) #eee;
+	color:#000;
+	border: 0px 0px 1px 1px #000 dashed;
+	font-family: Verdana, Arial, Helvetica;
 	font-size: 12px;
-	color: #330000;
-	text-align: center;
+}
+
+input.number{
+	text-align: right;
+}
+
+input:hover{
+	background: url(images/inputh.png) #eee;
+	color:#000;
+	border: 1px 1px 1px 1px #000 solid;
 }
 
 select {background:#eee;
@@ -266,6 +215,19 @@ select {background:#eee;
 	font-size: 12px;
 }
 
+font.good {
+    font-weight: bold;
+    color: green;
+}
+
+font.bad {
+    font-weight: bold;
+    color:red;
+}
+/* In Jelly theme we don't want the page title text in the menu bar */
+font.header_title {
+    display:none
+}
 
 #topMenu {
 	width: 100%;
@@ -315,6 +277,58 @@ select {background:#eee;
 	background: white;
 	border: none;
 }
+
+textarea{
+	background: url(images/inputtxt.png) #eee;
+	color:#000;
+	border: 0px 0px 1px 1px #000 dashed;
+	font-family: Verdana, Arial, Helvetica;
+	font-size: 12px;
+	}
+textarea:hover{
+	background: url(images/inputhtxt.png) #eee;
+	color:#000;
+	border: 1px 1px 1px 1px #000 solid;
+}
+/* Table type is used for UI tables type 1 */
+.table1 {
+  width:90%;
+  background: #eee;
+  border: 0px 0px 2px 2px #222 solid;
+  margin: 0 auto;
+}
+
+/* Table type is used for UI tables type 2 */
+.table2 {
+  width:90%;
+  background: #eee;
+  border: 0px 0px 2px 2px #222 solid;
+  margin: 0 auto;
+}
+
+input.address3 {
+	text-transform: uppercase;
+}
+
+div.csv {
+        background:lightgray;
+        color: black;
+        border: 1px solid black;
+        PADDING-LEFT: 3px;
+        Z-INDEX: 1;
+        width: 50%;
+        FLOAT: none;
+        VISIBILITY: visible;
+        MARGIN: 0 auto;
+        POSITION: static;
+        font-family: Verdana, Arial, Helvetica;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        font-weight: normal;
+        font-size: 10px;
+        TEXT-ALIGN:center;
+}
+
 
 .callout_main {
 	font-family: Verdana, Arial, Helvetica;
@@ -391,26 +405,28 @@ select {background:#eee;
 }
 
 .quick_menu_tab a{
-color:#fff;
-font-weight:bold;
-}
-.quick_menu_left a{
-color:#fff;
+	color:#fff;
+	font-weight:bold;
 }
 
+.quick_menu_left a{
+	color:#fff;
+}
 
 .quick_menu_tab a:hover{
-color:#ffc;
-text-decoration:none;
-font-weight:bold;
+	color:#ffc;
+	text-decoration:none;
+	font-weight:bold;
 }
+
 .quick_menu_left a:hover{
-color:#ffc;
-text-decoration:none;
+	color:#ffc;
+	text-decoration:none;
 }
+
 .quick_menu_tab:hover{
-color:#ffd;
-background: url(images/gelblueh.png) 0px -2px repeat-x;
+	color:#ffd;
+	background: url(images/gelblueh.png) 0px -2px repeat-x;
 }
 /*the Select Customer / Item / Supplier Menu tabs */
 .system_menu_tabs {
@@ -442,7 +458,7 @@ background: url(images/gelblueh.png) 0px -2px repeat-x;
 }
 
 .main_menu {
-background:none;
+	background:none; 
 	border: 0px;
 	height:28px;
 }
@@ -506,6 +522,12 @@ span.main_menu_nolink {
 	white-space: nowrap;
 }
 
+.main_menu a {
+}
+
+.main_menu a:hover {
+}
+
 .menu_group_img {
 	background: #CCCCCC;
 	text-align: center;
@@ -521,7 +543,6 @@ span.main_menu_nolink {
 
 .menu_group_area {
   border: none;
-  
 }
 
 .blank_area table {
@@ -548,13 +569,19 @@ span.main_menu_nolink {
 .menu_group_items {
 	vertical-align: top;
 	border: none;
-	padding: 10px;
+	padding: 10px
 }
 
 .menu_group_item {
-	
 	padding-top: 2px;
-	padding-bottom: 2px;
+	background: #eee;
+	padding-bottom: 2px
+}
+
+.menu_group_item p {
+	color: #00f; /* This is the color for bullets, I like it to be the same as the anchor color, but it's up to you */
+	text-indent: -12px; /* this makes the bullet to appear as the li tag previously used */
+	margin: 0 0 0 12px;/* One thing that I didn´t like of the li was that it had no left margin applied */
 }
 
 .page_title_text {
@@ -584,25 +611,6 @@ DIV.page_help_text {
         font-size: 10px;
         color: black;
 	TEXT-ALIGN:center;
-}
-/* Used to layout invoices and credit notes in HTML mode */
-DIV.invoice {
-        background: lightgrey;
-        BORDER: #a52a2a 1px solid;
-        padding-top:2px;
-        padding-bottom: 2px;
-        PADDING-LEFT: 2px;
-        Z-INDEX: 1;
-        width: 80%;
-        FLOAT: none;
-        VISIBILITY: visible;
-        MARGIN: 0 auto;
-        POSITION: static;
-        font-family: Verdana, Arial, Helvetica;
-        font-weight: normal;
-        font-size: 10px;
-        color: black;
-        TEXT-ALIGN:center;
 }
 
 DIV.system_check {
@@ -646,6 +654,13 @@ span.menu_group_nolink {
 	position: relative;
 }
 
+a.footer {
+	font-family: Verdana, Arial, Helvetica;
+	color: black;
+	font-weight: normal;
+	font-size: 8px;
+}
+
 .footer {
 	font-family: Verdana, Arial, Helvetica;
 	color: black;
@@ -653,6 +668,7 @@ span.menu_group_nolink {
 	font-size: 8px;
 	text-align: center;
 }
+
 .legal {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 9px;
@@ -728,4 +744,12 @@ select.selecterror {
 .OsRow {
 	background: #234567;
 	color: white;
+}
+
+.table_index {
+	background-color: #F1FFDD;
+}
+
+li {
+	list-style-image: url(bullet.gif);
 }

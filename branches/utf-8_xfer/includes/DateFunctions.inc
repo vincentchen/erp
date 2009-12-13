@@ -104,7 +104,6 @@ function MonthAndYearFromSQLDate($DateEntry) {
 
 function DayOfWeekFromSQLDate($DateEntry) {
 
-
 	if (strpos($DateEntry,'/')) {
 		$Date_Array = explode('/',$DateEntry);
 	} elseif (strpos ($DateEntry,'-')) {
@@ -118,6 +117,24 @@ function DayOfWeekFromSQLDate($DateEntry) {
 	}
 
 	return date( 'w', mktime(0,0,0, (int)$Date_Array[1],(int)$Date_Array[2],(int)$Date_Array[0]));
+
+}
+
+function DayOfMonthFromSQLDate($DateEntry) {
+
+	if (strpos($DateEntry,'/')) {
+		$Date_Array = explode('/',$DateEntry);
+	} elseif (strpos ($DateEntry,'-')) {
+		$Date_Array = explode('-',$DateEntry);
+	} elseif (strpos ($DateEntry,'.')) {
+		$Date_Array = explode('.',$DateEntry);
+	}
+
+	if (strlen($Date_Array[2])>4) {
+		$Date_Array[2]= substr($Date_Array[2],0,2);
+	}
+
+	return date( 'j', mktime(0,0,0, (int)$Date_Array[1],(int)$Date_Array[2],(int)$Date_Array[0]));
 
 }
 
@@ -379,13 +396,10 @@ and converts to a yyyy/mm/dd format */
 		$Date_Array[2]= substr($DateEntry,6,2);
 	}
 
-
-
 	if ($_SESSION['DefaultDateFormat']=='Y/m/d') {
 		return $Date_Array[0].'/'.$Date_Array[1].'/'.$Date_Array[2];
-
 	}
-
+	
 //to modify assumption in 2030
 	if (strlen($Date_Array[0])==2) {
 		if ((int)$Date_Array[2] <60) {
@@ -402,10 +416,9 @@ and converts to a yyyy/mm/dd format */
 	} elseif ($_SESSION['DefaultDateFormat']=='d.m.Y') {
 		return $Date_Array[2].'.'.$Date_Array[1].'.'.$Date_Array[0];
 	} elseif ($_SESSION['DefaultDateFormat']=='m/d/Y') {
-		return $Date_Array[2].'/'.$Date_Array[0].'/'.$Date_Array[1];
+		return $Date_Array[1].'/'.$Date_Array[2].'/'.$Date_Array[0];
 	} elseif ($_SESSION['DefaultDateFormat']=='Y/m/d') {
 		return $Date_Array[0].'/'.$Date_Array[1].'/'.$Date_Array[2];
-
 	}
 
 }// end of function
@@ -539,11 +552,11 @@ function DateAdd ($DateToAddTo,$PeriodString,$NumberPeriods){
   $DateToAddTo = trim($DateToAddTo);
 
 	if (strpos($DateToAddTo,'/')) {
-		$Date_Array = explode('/',$DateToAddTo);
+		$Date_array = explode('/',$DateToAddTo);
 	} elseif (strpos ($DateToAddTo,'-')) {
-		$Date_Array = explode('-',$DateToAddTo);
+		$Date_array = explode('-',$DateToAddTo);
 	} elseif (strpos ($TranDate,'.')) {
-		$Date_Array = explode('.',$DateToAddTo);
+		$Date_array = explode('.',$DateToAddTo);
   }
 
 	if (($_SESSION['DefaultDateFormat']=='d/m/Y') || ($_SESSION['DefaultDateFormat']=='d.m.Y')){

@@ -36,10 +36,10 @@
 		$result=DB_query($sql, $db);
 		$myrow=DB_fetch_array($result);
 		$DateFormat=$myrow[0];
-		if (strstr('/',$PeriodEnd)) {
-			$Date_Array = explode('/',$PeriodEnd);
-		} elseif (strstr('.',$PeriodEnd)) {
-			$Date_Array = explode('.',$PeriodEnd);
+		if (strstr($orddate,"/")) {
+			$DateArray = explode('/',$orddate);
+		} elseif (strstr($orddate,".")) {
+			$DateArray = explode('.',$orddate);
 		}
 		if ($DateFormat=='d/m/Y') {
 			$Day=$DateArray[0];
@@ -114,10 +114,10 @@
 		$result=DB_query($sql, $db);
 		$myrow=DB_fetch_array($result);
 		$DateFormat=$myrow[0];
-		if (strstr('/',$PeriodEnd)) {
-			$Date_Array = explode('/',$PeriodEnd);
-		} elseif (strstr('.',$PeriodEnd)) {
-			$Date_Array = explode('.',$PeriodEnd);
+		if (strstr($deliverydate,'/')) {
+			$DateArray = explode('/',$deliverydate);
+		} elseif (strstr($PeriodEnd,'.')) {
+			$DateArray = explode('.',$deliverydate);
 		}
 		if ($DateFormat=='d/m/Y') {
 			$Day=$DateArray[0];
@@ -224,10 +224,10 @@
 		$result=DB_query($sql, $db);
 		$myrow=DB_fetch_array($result);
 		$DateFormat=$myrow[0];
-		if (strstr('/',$PeriodEnd)) {
-			$Date_Array = explode('/',$PeriodEnd);
-		} elseif (strstr('.',$PeriodEnd)) {
-			$Date_Array = explode('.',$PeriodEnd);
+		if (strstr($itemdue,'/')) {
+			$DateArray = explode('/',$itemdue);
+		} elseif (strstr($itemdue,'.')) {
+			$DateArray = explode('.',$itemdue);
 		}
 		if ($DateFormat=='d/m/Y') {
 			$Day=$DateArray[0];
@@ -322,14 +322,14 @@
 			$Errors=VerifyFromStockLocation($OrderHeader['fromstkloc'], sizeof($Errors), $Errors, $db);
 		}
 		if (isset($OrderHeader['deliverydate'])){
-			$Errors=VerifyDeliveryDate($OrderHeader['deliverydate'], sizeof($Errors), $Errors);
+			$Errors=VerifyDeliveryDate($OrderHeader['deliverydate'], sizeof($Errors), $Errors, $db);
 		}
 		if (isset($OrderHeader['quotation'])){
 			$Errors=VerifyQuotation($OrderHeader['quotation'], sizeof($Errors), $Errors);
 		}
 		$FieldNames='';
 		$FieldValues='';
-		$OrderHeader['orderno'] = GetNextTransNo(30);
+		$OrderHeader['orderno'] = GetNextTransNo(30,$db);
 		foreach ($OrderHeader as $key => $value) {
 			$FieldNames.=$key.', ';
 			$FieldValues.='"'.$value.'", ';
@@ -418,7 +418,7 @@
 			$Errors=VerifyFromStockLocation($OrderHeader['fromstkloc'], sizeof($Errors), $Errors, $db);
 		}
 		if (isset($OrderHeader['deliverydate'])){
-			$Errors=VerifyDeliveryDate($OrderHeader['deliverydate'], sizeof($Errors), $Errors);
+			$Errors=VerifyDeliveryDate($OrderHeader['deliverydate'], sizeof($Errors), $Errors, $db);
 		}
 		if (isset($OrderHeader['quotation'])){
 			$Errors=VerifyQuotation($OrderHeader['quotation'], sizeof($Errors), $Errors);

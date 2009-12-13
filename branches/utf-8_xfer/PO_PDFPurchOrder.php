@@ -1,10 +1,14 @@
 <?php
 
-/* $Revision: 1.26 $ */
+/*$Id$*/
+
+/* $Revision: 1.30 $ */
 
 $PageSecurity = 2;
 include('includes/session.inc');
 include('includes/SQL_CommonFunctions.inc');
+
+include('includes/DefinePOClass.php');
 
 if(!isset($_GET['OrderNo']) && !isset($_POST['OrderNo'])){
         $title = _('Select a Purchase Order');
@@ -39,10 +43,10 @@ $result=DB_query($sql, $db);
 $myrow=DB_fetch_array($result);
 $OrderStatus=$myrow['status'];
 
-if ($OrderStatus!=_('Authorised') and $OrderStatus!=_('Printed')) {
+if ($OrderStatus != PurchOrder::STATUS_AUTHORISED and $OrderStatus != PurchOrder::STATUS_PRINTED) {
 	include('includes/header.inc');
-	prnMsg( _('Purchase orders can only be printed once they have been authorised').'. '.
-		_('This order is currently at a status of').' '.$OrderStatus,'warn');
+	prnMsg( _('Purchase orders can only be printed once they have been authorised') . '. ' .
+		_('This order is currently at a status of') . ' ' . _($OrderStatus),'warn');
 	include('includes/footer.inc');
 	exit;
 }
@@ -86,6 +90,7 @@ if (isset($OrderNo) && $OrderNo != "" && $OrderNo > 0){
 			purchorders.allowprint,
 			purchorders.requisitionno,
 			purchorders.initiator,
+			purchorders.paymentterms,
 			suppliers.currcode
 		FROM purchorders INNER JOIN suppliers
 			ON purchorders.supplierno = suppliers.supplierid
@@ -114,11 +119,11 @@ if (isset($OrderNo) && $OrderNo != "" && $OrderNo > 0){
 			  $title = _('Purchase Order Already Printed');
 			  include('includes/header.inc');
 			  echo '<p>';
-			  prnMsg( _('Purchase order number').' ' . $OrderNo . ' '.
+			  prnMsg( _('Purchase Order Number').' ' . $OrderNo . ' '.
 				_('has previously been printed') . '. ' . _('It was printed on'). ' ' .
 				ConvertSQLDate($POHeader['dateprinted']) . '<br>'.
 				_('To re-print the order it must be modified to allow a reprint'). '<br>'.
-				_('This check is there to ensure that duplicate purchase orders are not sent to the supplier	resulting in several deliveries of the same supplies'), 'warn');
+				_('This check is there to ensure that duplicate purchase orders are not sent to the supplier resulting in several deliveries of the same supplies'), 'warn');
            echo '<br><table class="table_index">
                 <tr><td class="menu_group_item">
  					 <LI><a href="' . $rootpath . '/PO_PDFPurchOrder.php?' . SID . 'OrderNo=' . $OrderNo . '&ViewingOnly=1">'.
@@ -137,19 +142,18 @@ if (isset($OrderNo) && $OrderNo != "" && $OrderNo > 0){
 }//if there is a valid order number
 
 if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
-	
-	$PaperSize = 'A4_Landscape';
 
-	include('includes/PDFStarter.php');
+   	   $PaperSize = 'A4_Landscape';
 
-	$pdf->addinfo('Title', _('Purchase Order') );
-	$pdf->addinfo('Subject', _('Purchase Order Number').' ' . $OrderNo);
+       include('includes/PDFStarter.php');
+       $pdf->addInfo('Title', _('Purchase Order') );
+       $pdf->addInfo('Subject', _('Purchase Order Number' ) . ' ' . $OrderNo);
+       $line_height = 16;
+       $PageNumber = 1;
 
-	$line_height=16;
 	   /* Then there's an order to print and its not been printed already (or its been flagged for reprinting)
 	   Now ... Has it got any line items */
 
-	   $PageNumber = 1;
 	   $ErrMsg = _('There was a problem retrieving the line details for order number') . ' ' . $OrderNo . ' ' .
 			_('from the database');
 	   $sql = "SELECT itemcode,
@@ -175,7 +179,7 @@ if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
 
 		while ($POLine=DB_fetch_array($result)){
 
-			$sql = "SELECT supplierdescription 
+			/*$sql = "SELECT supplierdescription 
 				FROM purchdata 
 				WHERE stockid='" . $POLine['itemcode'] . "' 
 				AND supplierno ='" . $POHeader['supplierno'] . "'";
@@ -193,7 +197,7 @@ if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
 			}
 			if (strlen($ItemDescription)<2){
 				$ItemDescription = $POLine['itemdescription'];
-			}
+			}*/
 
 			$DisplayQty = number_format($POLine['quantityord'],$POLine['decimalplaces']);
 			if ($_POST['ShowAmounts']=='Yes'){
@@ -207,16 +211,31 @@ if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
 			} else {
 				$DisplayLineTotal = "----";
 			}
-
+			
+			//check the supplier code from code item 
+			$sqlsupp = "SELECT supplierdescription 
+				FROM purchdata 
+				WHERE stockid='" . $POLine['itemcode'] . "' 
+				AND supplierno ='" . $POHeader['supplierno'] . "'
+				AND price='".$POLine['unitprice']."'";
+				
+			$SuppResult = DB_query($sqlsupp,$db);
+			$SuppDescRow = DB_fetch_row($SuppResult);	
+			if($SuppDescRow[0]==""){
+				$Desc=$POLine['itemdescription'];
+			}else{
+				$Desc="".$SuppDescRow['0']." - ".$POLine['itemdescription']."";
+			}
 			$OrderTotal += ($POLine['unitprice']*$POLine['quantityord']);
 
 			$LeftOvers = $pdf->addTextWrap($Left_Margin+1,$YPos,94,$FontSize,$POLine['itemcode'], 'left');
-			$LeftOvers = $pdf->addTextWrap($Left_Margin+1+94+270,$YPos,85,$FontSize,$DisplayQty, 'right');
+			$LeftOvers = $pdf->addTextWrap($Left_Margin+1+94,$YPos,270,$FontSize,$Desc, 'left');
+			$LeftOvers = $pdf->addTextWrap($Left_Margin+1+94+260,$YPos,85,$FontSize,$DisplayQty, 'right');
 			$LeftOvers = $pdf->addTextWrap($Left_Margin+1+94+270+85+3,$YPos,37,$FontSize,$POLine['units'], 'left');
 			$LeftOvers = $pdf->addTextWrap($Left_Margin+1+94+270+85+3+37,$YPos,60,$FontSize,$DisplayDelDate, 'left');
 			$LeftOvers = $pdf->addTextWrap($Left_Margin+1+94+270+85+40+60,$YPos,85,$FontSize,$DisplayPrice, 'right');
 			$LeftOvers = $pdf->addTextWrap($Left_Margin+1+94+270+85+40+60+85,$YPos,85,$FontSize,$DisplayLineTotal, 'right');
-			$LeftOvers = $pdf->addTextWrap($Left_Margin+1+94,$YPos,270,$FontSize,$ItemDescription, 'left');
+			
 			if (strlen($LeftOvers)>1){
 				$LeftOvers = $pdf->addTextWrap($Left_Margin+1+94,$YPos-$line_height,270,$FontSize,$LeftOvers, 'left');
 				$YPos-=$line_height;
@@ -254,7 +273,7 @@ if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
     //failed var to allow us to print if the email fails.
     $failed = false;
     if ($MakePDFThenDisplayIt){
-
+        /* UldisN
     	$buf = $pdf->output();
     	$len = strlen($buf);
     	header('Content-type: application/pdf');
@@ -264,33 +283,43 @@ if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
     	header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
     	header('Pragma: public');
 
-    	$pdf->stream();
+    	$pdf->Output('PurchOrder.pdf','I');
+        */
+        $pdf->OutputD($_SESSION['DatabaseName'] . '_PurchaseOrder_' . date('Y-m-d') . '.pdf');//UldisN
+        $pdf->__destruct(); //UldisN
 
     } else { /* must be MakingPDF to email it */
 
-    	$pdfcode = $pdf->output();
-	$fp = fopen( $_SESSION['reports_dir'] . '/PurchOrder.pdf','wb');
-	fwrite ($fp, $pdfcode);
-	fclose ($fp);
+        /* UldisN
+      	$pdfcode = $pdf->output();
+    	$fp = fopen( $_SESSION['reports_dir'] . '/PurchOrder.pdf','wb');
+	    fwrite ($fp, $pdfcode);
+	    fclose ($fp);
+        */
 
-	include('includes/htmlMimeMail.php');
+        $PdfFileName = $_SESSION['DatabaseName'] . '_PurchaseOrder_' . date('Y-m-d') . '.pdf';
+        $ReportsDirName = $_SESSION['reports_dir'];
+        $pdf->Output($ReportsDirName . '/' . $PdfFileName,'F');//UldisN
+        $pdf->__destruct(); //UldisN
 
-	$mail = new htmlMimeMail();
-	$attachment = $mail->getFile($_SESSION['reports_dir'] . '/PurchOrder.pdf');
-	$mail->setText( _('Please find herewith our purchase order number').' ' . $OrderNo);
-	$mail->setSubject( _('Purchase Order Number').' ' . $OrderNo);
-	$mail->addAttachment($attachment, 'PurchOrder.pdf', 'application/pdf');
-	$mail->setFrom($_SESSION['CompanyRecord']['coyname'] . "<" . $_SESSION['CompanyRecord']['email'] .">");
-	$result = $mail->send(array($_POST['EmailTo']));
-	if ($result==1){
-		$failed = false;
-		echo '<p>';
-		prnMsg( _('Purchase order'). ' ' . $OrderNo.' ' . _('has been emailed to') .' ' . $_POST['EmailTo'] . ' ' . _('as directed'), 'success');
-	} else {
-		$failed = true;
-		echo '<p>';
-		prnMsg( _('Emailing Purchase order'). ' ' . $OrderNo.' ' . _('to') .' ' . $_POST['EmailTo'] . ' ' . _('failed'), 'error');
-	}
+    	include('includes/htmlMimeMail.php');
+
+    	$mail = new htmlMimeMail();
+    	$attachment = $mail->getFile($ReportsDirName . '/' . $PdfFileName);
+    	$mail->setText( _('Please find herewith our purchase order number').' ' . $OrderNo);
+    	$mail->setSubject( _('Purchase Order Number').' ' . $OrderNo);
+    	$mail->addAttachment($attachment, $PdfFileName, 'application/pdf');
+    	$mail->setFrom($_SESSION['CompanyRecord']['coyname'] . "<" . $_SESSION['CompanyRecord']['email'] .">");
+    	$result = $mail->send(array($_POST['EmailTo']));
+    	if ($result==1){
+    		$failed = false;
+    		echo '<p>';
+    		prnMsg( _('Purchase Order'). ' ' . $OrderNo.' ' . _('has been emailed to') .' ' . $_POST['EmailTo'] . ' ' . _('as directed'), 'success');
+    	} else {
+    		$failed = true;
+    		echo '<p>';
+    		prnMsg( _('Emailing Purchase order'). ' ' . $OrderNo.' ' . _('to') .' ' . $_POST['EmailTo'] . ' ' . _('failed'), 'error');
+    	}
 
     }
 
@@ -305,12 +334,15 @@ if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
 		$date = date($_SESSION['DefaultDateFormat']);
 		$StatusComment=$date.' - Printed by <a href="mailto:'.$emailrow['email'].'">'.$_SESSION['UserID'].
 			'</a><br>'.$comment;
-		$sql = "UPDATE purchorders 
-			SET allowprint=0, 
-				dateprinted='" . Date('Y-m-d') . "',
-				status='"._('Printed')."',
-				stat_comment='".$StatusComment."' 
-			WHERE purchorders.orderno=" .$OrderNo;
+		$sql = "
+            UPDATE purchorders
+			SET
+                allowprint   =  0,
+				dateprinted  = '" . Date('Y-m-d') . "',
+				status       = '" . PurchOrder::STATUS_PRINTED . "',
+				stat_comment = '" . $StatusComment . "'
+			WHERE
+                purchorders.orderno = " .  $OrderNo;
 		$result = DB_query($sql,$db);
 	}
 

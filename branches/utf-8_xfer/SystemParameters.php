@@ -1,16 +1,14 @@
 <?php
 
-/* $Revision: 1.54 $ */
+/* $Revision: 1.59 $ */
 
 $PageSecurity =15;
 
 include('includes/session.inc');
 
 $title = _('System Configuration');
-include('includes/header.inc');
 
-echo '<div class="centre"><p class="page_title_text"><img src="'.$rootpath.'/css/'.$theme.'/images/company.png" title="' . _('System Paramters') . '" alt="">' . ' ' . _('System Parameters') . '</div>';
-echo '<div class="page_help_text">' . _('Configure webERP with various default settings.') . '</div>';
+include('includes/header.inc');
 
 if (isset($_POST['submit'])) {
 
@@ -79,12 +77,13 @@ if (isset($_POST['submit'])) {
 		$_POST['X_MaxImageSize'] < 1 ) {
 		$InputError = 1;
 		prnMsg(_('The maximum size of item image files must be between 50 and 500 (NB this figure refers to KB)'),'error');
-}
-// Commented out, as the email address should be OK to be blank
-//	}elseif (!IsEmailAddress($_POST['X_FactoryManagerEmail'])){
-//		$InputError = 1;
-//		prnMsg(_('The Factory Manager Email address does not appear to be valid'),'error');
-//	}
+	}elseif (!IsEmailAddress($_POST['X_FactoryManagerEmail'])){
+		$InputError = 1;
+		prnMsg(_('The Factory Manager Email address does not appear to be valid'),'error');
+	}elseif (strlen($_POST['X_FrequentlyOrderedItems']) > 2 || !is_numeric($_POST['X_FrequentlyOrderedItems'])) {
+		$InputError = 1;
+		prnMsg(_('The number of frequently ordered items to display must be numeric'),'error');
+	}
 
 	if ($InputError !=1){
 
@@ -177,6 +176,10 @@ if (isset($_POST['submit'])) {
 		if ($_SESSION['MaxImageSize'] != $_POST['X_MaxImageSize'] ) {
 			$sql[] = "UPDATE config SET confvalue = '".$_POST['X_MaxImageSize']."' WHERE confname = 'MaxImageSize'";
 		}
+//new number must be shown
+		if ($_SESSION['NumberOfMonthMustBeShown'] != $_POST['X_NumberOfMonthMustBeShown'] ) {
+			$sql[] = "UPDATE config SET confvalue = '".$_POST['X_NumberOfMonthMustBeShown']."' WHERE confname = 'NumberOfMonthMustBeShown'";
+		}
 		if ($_SESSION['part_pics_dir'] != $_POST['X_part_pics_dir'] ) {
 			$sql[] = "UPDATE config SET confvalue = 'companies/" . $_SESSION['DatabaseName'] . '/' . $_POST['X_part_pics_dir']."' WHERE confname = 'part_pics_dir'";
 		}
@@ -224,9 +227,6 @@ if (isset($_POST['submit'])) {
 		}
 		if ($_SESSION['Extended_CustomerInfo'] != $_POST['X_Extended_CustomerInfo'] ) {
 			$sql[] = "UPDATE config SET confvalue = '". $_POST['X_Extended_CustomerInfo']."' WHERE confname = 'Extended_CustomerInfo'";
-		} 
-		if ($_SESSION['SalesOrder_FOI'] != $_POST['X_SalesOrder_FOI'] ) {
-                        $sql[] = "UPDATE config SET confvalue = '". $_POST['X_SalesOrder_FOI']."' WHERE confname = 'SalesOrder_FOI'";
 		}
 		if ($_SESSION['ProhibitPostingsBefore'] != $_POST['X_ProhibitPostingsBefore'] ) {
 			$sql[] = "UPDATE config SET confvalue = '" . $_POST['X_ProhibitPostingsBefore']."' WHERE confname = 'ProhibitPostingsBefore'";
@@ -243,6 +243,12 @@ if (isset($_POST['submit'])) {
 		if ($_SESSION['MonthsAuditTrail'] != $_POST['X_MonthsAuditTrail']){
 			$sql[] = 'UPDATE config SET confvalue=' . $_POST['X_MonthsAuditTrail'] . " WHERE confname='MonthsAuditTrail'";
 		}
+		if ($_SESSION['LogSeverity'] != $_POST['X_LogSeverity']){
+			$sql[] = 'UPDATE config SET confvalue=' . $_POST['X_LogSeverity'] . " WHERE confname='LogSeverity'";
+		}
+		if ($_SESSION['LogPath'] != $_POST['X_LogPath']){
+			$sql[] = "UPDATE config SET confvalue='" . $_POST['X_LogPath'] . "' WHERE confname='LogPath'";
+		}
 		if ($_SESSION['UpdateCurrencyRatesDaily'] != $_POST['X_UpdateCurrencyRatesDaily']){
 			if ($_POST['X_UpdateCurrencyRatesDaily']=='Auto'){
 				$sql[] = "UPDATE config SET confvalue='" . Date('Y-m-d',mktime(0,0,0,Date('m'),Date('d')-1,Date('Y'))) . "' WHERE confname='UpdateCurrencyRatesDaily'";
@@ -250,7 +256,7 @@ if (isset($_POST['submit'])) {
 				$sql[] = "UPDATE config SET confvalue='0' WHERE confname='UpdateCurrencyRatesDaily'";
 			}
 		}
-		if ($_SESSION['FactoryManagerEmail'] != $_POST['X_FactoryMangerEmail']){
+		if ($_SESSION['FactoryManagerEmail'] != $_POST['X_FactoryManagerEmail']){
 			$sql[] = "UPDATE config SET confvalue='" . $_POST['X_FactoryManagerEmail'] . "' WHERE confname='FactoryManagerEmail'";
 		}
 		if ($_SESSION['AutoCreateWOs'] != $_POST['X_AutoCreateWOs']){
@@ -261,6 +267,9 @@ if (isset($_POST['submit'])) {
 		}
 		if ($_SESSION['DefineControlledOnWOEntry'] != $_POST['X_DefineControlledOnWOEntry']){
 			$sql[] = "UPDATE config SET confvalue='" . $_POST['X_DefineControlledOnWOEntry'] . "' WHERE confname='DefineControlledOnWOEntry'";
+		}
+		if ($_SESSION['FrequentlyOrderedItems'] != $_POST['X_FrequentlyOrderedItems']){
+			$sql[] = "UPDATE config SET confvalue='" . $_POST['X_FrequentlyOrderedItems'] . "' WHERE confname='FrequentlyOrderedItems'";
 		}
 		$ErrMsg =  _('The system configuration could not be updated because');
 		if (sizeof($sql) > 1 ) {
@@ -285,7 +294,7 @@ if (isset($_POST['submit'])) {
 } /* end of if submit */
 
 echo '<form method="post" action=' . $_SERVER['PHP_SELF'] . '>';
-echo '<table class=table1 BORDER=1>';
+echo '<table BORDER=1>';
 
 $TableHeader = '<tr><th>' . _('System Variable Name') . '</th>
 	<th>' . _('Value') . '</th>
@@ -309,7 +318,7 @@ echo '<tr><td>' . _('New Users Default Theme') . ':</td>
 	 <td><select Name="X_DefaultTheme">';
 $ThemeDirectory = dir('css/');
 while (false != ($ThemeName = $ThemeDirectory->read())){
-	if (is_dir("css/$ThemeName") AND $ThemeName != '.' AND $ThemeName != '..' AND $ThemeName != 'CVS'){
+	if (is_dir("css/$ThemeName") AND $ThemeName != '.' AND $ThemeName != '..' AND $ThemeName != '.svn'){
 		if ($_SESSION['DefaultTheme'] == $ThemeName)
 			echo "<option selected value='$ThemeName'>$ThemeName";
 		else
@@ -334,7 +343,7 @@ echo '<tr><td>' . _('Second Overdue Deadline in (days)') . ':</td>
 
 // DefaultCreditLimit
 echo '<tr><td>' . _('Default Credit Limit') . ':</td>
-	<td><input type="Text" class="number" Name="X_DefaultCreditLimit" value="' . $_SESSION['DefaultCreditLimit'] . '" size=6 maxlength=12></td>
+	<td><input type="Text" class="number" Name="X_DefaultCreditLimit" value="' . $_SESSION['DefaultCreditLimit'] . '" size=12 maxlength=12></td>
 	<td>' . _('The default used in new customer set up') . '</td></tr>';
 
 // Check Credit Limits
@@ -356,13 +365,18 @@ echo '<tr><td>' . _('Show Settled Last Month') . ':</td>
 
 //RomalpaClause
 echo '<tr><td>' . _('Romalpa Clause') . ':</td>
-	<td><textarea Name="X_RomalpaClause" rows=3 cols=40>' . htmlentities($_SESSION['RomalpaClause']) . '</textarea></td>
+	<td><textarea Name="X_RomalpaClause" rows=3 cols=40>' . $_SESSION['RomalpaClause'] . '</textarea></td>
 	<td>' . _('This text appears on invoices and credit notes in small print. Normally a reservation of title clause that gives the company rights to collect goods which have not been paid for - to give some protection for bad debts.') . '</td></tr>';
 
 // QuickEntries
 echo '<tr><td>' . _('Quick Entries') . ':</td>
 	<td><input type="Text" class="number" Name="X_QuickEntries" value="' . $_SESSION['QuickEntries'] . '" size=3 maxlength=2></td>
 	<td>' . _('This parameter defines the layout of the sales order entry screen. The number of fields available for quick entries. Any number from 1 to 99 can be entered.') . '</td></tr>';
+
+// Frequently Ordered Items
+echo '<tr><td>' . _('Frequently Ordered Items') . ':</td>
+	<td><input type="Text" class="number" Name="X_FrequentlyOrderedItems" value="' . $_SESSION['FrequentlyOrderedItems'] . '" size=3 maxlength=2></td>
+	<td>' . _('To show the most frequently ordered items enter the number of frequently ordered items you wish to display from 1 to 99. If you do not wish to display the frequently ordered item list enter 0.') . '</td></tr>';
 
 //'AllowOrderLineItemNarrative'
 echo '<tr><td>' . _('Order Entry allows Line Item Narrative') . ':</td>
@@ -475,7 +489,7 @@ echo '<tr><td>' . _('Do Freight Calculation') . ':</td>
 
 //FreightChargeAppliesIfLessThan
 echo '<tr><td>' . _('Apply freight charges if an order is less than') . ':</td>
-	<td><input type="Text" class="number" Name="X_FreightChargeAppliesIfLessThan" size=6 maxlength=12 value="' . $_SESSION['FreightChargeAppliesIfLessThan'] . '"></td>
+	<td><input type="Text" class="number" Name="X_FreightChargeAppliesIfLessThan" size=12 maxlength=12 value="' . $_SESSION['FreightChargeAppliesIfLessThan'] . '"></td>
 	<td>' . _('This parameter is only effective if Do Freight Calculation is set to Yes. If it is set to 0 then freight is always charged. The total order value is compared to this value in deciding whether or not to charge freight') .'</td></tr>';
 
 
@@ -617,10 +631,25 @@ echo '<tr><td>' . _('Maximum Size in KB of uploaded images') . ':</td>
 	<td><input type="text" class="number" name="X_MaxImageSize" size=4 maxlength=3 value="' . $_SESSION['MaxImageSize'] . '"></td>
 	<td>' . _('Picture files of items can be uploaded to the server. The system will check that files uploaded are less than this size (in KB) before they will be allowed to be uploaded. Large pictures will make the system slow and will be difficult to view in the stock maintenance screen.') .'</td>
 </tr>';
+//NumberOfMonthMustBeShown
+$sql = 'SELECT confvalue 
+		FROM `config` 
+		WHERE confname ="numberOfMonthMustBeShown"';
+
+$ErrMsg = _('Could not load the Number Of Month Must be Shown');
+$result = DB_query($sql,$db,$ErrMsg);
+$row = DB_fetch_array($result);
+$_SESSION['NumberOfMonthMustBeShown'] = $row['confvalue'];
+
+echo '<tr><td>' . _('Number Of Month Must Be Shown') . ':</td>
+		  <td><input type="text" class="number" name="X_NumberOfMonthMustBeShown" size=4 maxlength=3 value="' . $_SESSION['NumberOfMonthMustBeShown'] . '"></td>	
+		  <td>' . _('Number of month must be shown on report can be changed with this parameters ex: in CustomerInquiry.php ') .'</td>
+      </tr>';
 
 //$part_pics_dir
 echo '<tr><td>' . _('The directory where images are stored') . ':</td>
-	<td><select name="X_part_pics_dir">';
+	 <td><select name="X_part_pics_dir">';
+
 
 $CompanyDirectory = 'companies/' . $_SESSION['DatabaseName'] . '/';
 $DirHandle = dir($CompanyDirectory);
@@ -733,7 +762,7 @@ echo '<tr><td>' . _('Wiki Path') . ':</td>
 	<td><input type="text" name="X_WikiPath" size=40 maxlength=40 value="' . $_SESSION['WikiPath'] . '"></td>
 	<td>' . _('The path to the wiki installation to form the basis of wiki URLs - this should be the directory on the web-server where the wiki is installed. The wiki must be installed on the same web-server as webERP') .'</td></tr>';
 
-echo '<tr><td>' . _('Geocode Customers and Suppliers:') . ':</td>
+echo '<tr><td>' . _('Geocode Customers and Suppliers') . ':</td>
         <td><select name="X_geocode_integration">';
 if ($_SESSION['geocode_integration']==1){
         echo  '<option selected value="1">' . _('Geocode Integration Enabled') . '</option>';
@@ -768,19 +797,6 @@ if ($_SESSION['Extended_SupplierInfo']==1){
 }
 echo '</select></td>
         <td>' . _('This feature will give extended information in the Select Supplier screen.') .'</td></tr>';
-// Start Frequently Ordered Items option
-echo '<tr><td>' . _('Frequently Ordered Items for Sales Orders') . ':</td>
-        <td><select name="X_SalesOrder_FOI">';
-if ($_SESSION['SalesOrder_FOI']==1){
-        echo  '<option selected value="1">' . _('FOI Sales Orders Enabled') . '</option>';
-        echo  '<option value="0">' . _('FOI Sales Orders Disabled') . '</option>';
-} else {
-        echo  '<option selected value="0">' . _('FOI Sales Orders Disabled') . '</option>';
-        echo  '<option value="1">' . _('FOI Sales Orders Enabled') . '</option>';
-}
-echo '</select></td>
-        <td>' . _('This feature will give users the ability to select frequently ordered items during sales order entry.') .'</td></tr>';
-
 
 echo '<tr><td>' . _('Prohibit GL Journals to Control Accounts') . ':</td>
 	<td><select name="X_ProhibitJournalsToControlAccounts">';
@@ -851,8 +867,49 @@ echo '<tr><td>' . _('Months of Audit Trail to Retain') . ':</td>
 	<td><input type="text" class="number" name="X_MonthsAuditTrail" size=3 maxlength=2 value="' . $_SESSION['MonthsAuditTrail'] . '"></td><td>' . _('If this parameter is set to 0 (zero) then no audit trail is retained. An audit trail is a log of which users performed which additions updates and deletes of database records. The full SQL is retained') . '</td>
 </tr>';
 
+//Which messages to log
+echo '<tr><td>' . _('Log Severity Level') . ':</td><td><select name="X_LogSeverity" >';
+if ($_SESSION['LogSeverity']==0) {
+	echo '<option selected value=0>' ._('None'). '</option>';
+	echo '<option value=1>' ._('Errors Only'). '</option>';
+	echo '<option value=2>' ._('Errors and Warnings'). '</option>';
+	echo '<option value=3>' ._('Errors, Warnings and Info'). '</option>';
+	echo '<option value=4>' ._('All'). '</option>';
+} else if ($_SESSION['LogSeverity']==1) {
+	echo '<option value=0>' ._('None'). '</option>';
+	echo '<option selected value=1>' ._('Errors Only'). '</option>';
+	echo '<option value=2>' ._('Errors and Warnings'). '</option>';
+	echo '<option value=3>' ._('Errors, Warnings and Info'). '</option>';
+	echo '<option value=4>' ._('All'). '</option>';
+} else if ($_SESSION['LogSeverity']==2) {
+	echo '<option value=0>' ._('None'). '</option>';
+	echo '<option value=1>' ._('Errors Only'). '</option>';
+	echo '<option selected value=2>' ._('Errors and Warnings'). '</option>';
+	echo '<option value=3>' ._('Errors, Warnings and Info'). '</option>';
+	echo '<option value=4>' ._('All'). '</option>';
+} else if ($_SESSION['LogSeverity']==3) {
+	echo '<option value=0>' ._('None'). '</option>';
+	echo '<option value=1>' ._('Errors Only'). '</option>';
+	echo '<option value=2>' ._('Errors and Warnings'). '</option>';
+	echo '<option selected value=3>' ._('Errors, Warnings and Info'). '</option>';
+	echo '<option value=4>' ._('All'). '</option>';
+} else if ($_SESSION['LogSeverity']==4) {
+	echo '<option value=0>' ._('None'). '</option>';
+	echo '<option value=1>' ._('Errors Only'). '</option>';
+	echo '<option value=2>' ._('Errors andWarnings'). '</option>';
+	echo '<option value=3>' ._('Errors, Warnings and Info'). '</option>';
+	echo '<option selected value=4>' ._('All'). '</option>';
+}
+echo '</select></td>';
+echo '<td>' . _('Choose which Status messages to keep in your log file.') . '</td></tr>';
+
+//Path to keep log files in
+echo '<tr><td>' . _('Path to log files') . ':</td>
+	<td><input type="text" name="X_LogPath" size=40 maxlength=79 value="' . $_SESSION['LogPath'] . '"></td><td>' . _('The path to the directory where the log files will be stored. Note the apache user must have write permissions on this directory.') . '</td>
+</tr>';
+
 //DefineControlledOnWOEntry
-echo '<tr><td>' . _('Controlled Items Defined At Work Order Entrry') . ':</td>
+echo '<tr><td>' . _('Controlled Items Defined At Work Order Entry') . ':</td>
 	<td><select Name="X_DefineControlledOnWOEntry">
 	<option '.($_SESSION['DefineControlledOnWOEntry']?'selected ':'').'value="1">'._('Yes').'
 	<option '.(!$_SESSION['DefineControlledOnWOEntry']?'selected ':'').'value="0">'._('No').'

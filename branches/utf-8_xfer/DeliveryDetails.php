@@ -1,6 +1,7 @@
 <?php
 
-/* $Revision: 1.73 $ */
+/* $Id: DeliveryDetails.php 3152 2009-12-11 14:28:49Z tim_schofield $ */
+/* $Revision: 1.76 $ */
 
 /*
 This is where the delivery details are confirmed/entered/modified and the order committed to the database once the place order/modify order button is hit.
@@ -31,7 +32,7 @@ if (!isset($_SESSION['Items'.$identifier]) OR !isset($_SESSION['Items'.$identifi
 }
 
 if ($_SESSION['Items'.$identifier]->ItemsOrdered == 0){
-	prnMsg(_('This page can only be read if an there are items on the order') . '. ' . _('To enter an order select customer transactions, then sales order entry'),'error');
+	prnMsg(_('This page can only be read if an there are items on the order') . '. ' . _('To enter an order select customer transactions then sales order entry'),'error');
 	include('includes/footer.inc');
 	exit;
 }
@@ -461,6 +462,7 @@ if (isset($OK_to_PROCESS) and $OK_to_PROCESS == 1 && $_SESSION['ExistingOrder']=
 					FROM woitems INNER JOIN workorders
 					ON woitems.wo=workorders.wo
 					WHERE woitems.stockid = '" . $StockItem->StockID . "'
+					AND woitems.qtyreqd > woitems.qtyrecd
 					AND workorders.closed = 0";
 			$WorkOrdersResult = DB_query($SQL,$db);
 			$WorkOrdersRow = DB_fetch_row($WorkOrdersResult);
@@ -576,7 +578,7 @@ if (isset($OK_to_PROCESS) and $OK_to_PROCESS == 1 && $_SESSION['ExistingOrder']=
 
 			echo '<p><img src="'.$rootpath.'/css/'.$theme.'/images/reports.png" title="' . _('Invoice') . '" alt="">' . ' ' . '<a href="' . $rootpath . '/ConfirmDispatch_Invoice.php?' . SID .'identifier='.$identifier . '&OrderNumber=' . $OrderNo .'">'. _('Confirm Dispatch and Produce Invoice') .'</a>';
 			//Add option to Print Sales Orders or Proforma invoice
-			echo '<p><img src="'.$rootpath.'/css/'.$theme.'/images/pdf.png" title="' . _('Sales Order') . '" alt="">' . ' ' . '<a href="' . $rootpath . '//PrintSalesOrder_generic.php?' . SID .'identifier='.$identifier . '&TransNo=' . $OrderNo .'">'. _('Print Sales Order / Pro-forma Invoice') .'</a></div>';
+			echo '<p><img src="'.$rootpath.'/css/'.$theme.'/images/pdf.png" title="' . _('Sales Order') . '" alt="">' . ' ' . '<a href="' . $rootpath . '/PrintSalesOrder_generic.php?' . SID .'identifier='.$identifier . '&TransNo=' . $OrderNo .'">'. _('Print Sales Order / Pro-forma Invoice') .'</a></div>';
 
 		} else {
 			/*link to print the quotation */
@@ -668,7 +670,7 @@ if (isset($OK_to_PROCESS) and $OK_to_PROCESS == 1 && $_SESSION['ExistingOrder']=
 	unset($_SESSION['Items'.$identifier]->LineItems);
 	unset($_SESSION['Items'.$identifier]);
 
-	prnMsg(_('Order number') .' ' . $_SESSION['ExistingOrder'] . ' ' . _('has been updated'),'success');
+	prnMsg(_('Order Number') .' ' . $_SESSION['ExistingOrder'] . ' ' . _('has been updated'),'success');
 
 	echo '<br><a href="' . $rootpath . '/PrintCustOrder.php?' . SID.'identifier='.$identifier  . '&TransNo=' . $_SESSION['ExistingOrder'] . '">'. _('Print packing slip - pre-printed stationery') .'</a>';
 	echo '<p><a href="' . $rootpath .'/ConfirmDispatch_Invoice.php?' . SID.'identifier='.$identifier  . '&OrderNumber=' . $_SESSION['ExistingOrder'] . '">'. _('Confirm Order Delivery Quantities and Produce Invoice') .'</a>';
@@ -827,7 +829,7 @@ if (in_array(2,$_SESSION['AllowedPageSecurityTokens'])){
 
 echo '<br><table><tr>
 	<td>'. _('Deliver To') .':</td>
-	<td><input type=text size=42 maxlength=40 name="DeliverTo" value="' . html_entity_decode($_SESSION['Items'.$identifier]->DeliverTo) . '"></td>
+	<td><input type=text size=42 maxlength=40 name="DeliverTo" value="' . $_SESSION['Items'.$identifier]->DeliverTo . '"></td>
 </tr>';
 
 echo '<tr>

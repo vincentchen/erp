@@ -1,5 +1,9 @@
 <?php
-/* $Revision: 1.4 $ */
+
+/* $Id$ */
+
+/* $Revision: 1.8 $ */
+
 // BOMExtendedQty.php - Quantiy Extended Bill of Materials
 $PageSecurity = 2;
 include('includes/session.inc');
@@ -7,13 +11,12 @@ include('includes/session.inc');
 If (isset($_POST['PrintPDF'])) {
 
 	include('includes/PDFStarter.php');
-
+	$pdf->addInfo('Title',_('Quantity Extended BOM Listing'));
+	$pdf->addInfo('Subject',_('Quantity Extended BOM Listing'));
 	$FontSize=9;
-	$pdf->addinfo('Title',_('Quantiy Extended BOM Listing'));
-	$pdf->addinfo('Subject',_('Quantiy Extended BOM Listing'));
-
 	$PageNumber=1;
 	$line_height=12;
+
 	if (!$_POST['Quantity'] || !is_numeric($_POST['Quantity'])) {
 	    $_POST['Quantity'] = 1;
 	}
@@ -150,7 +153,7 @@ If (isset($_POST['PrintPDF'])) {
 	} // End of while $componentctr > 0
 
 	if (DB_error_no($db) !=0) {
-	  $title = _('Quantiy Extended BOM Listing') . ' - ' . _('Problem Report');
+	  $title = _('Quantity Extended BOM Listing') . ' - ' . _('Problem Report');
 	  include('includes/header.inc');
 	   prnMsg( _('The Quantiy Extended BOM Listing could not be retrieved by the SQL because') . ' '  . DB_error_msg($db),'error');
 	   echo "<br><a href='" .$rootpath .'/index.php?' . SID . "'>" . _('Back to the menu') . '</a>';
@@ -203,6 +206,7 @@ If (isset($_POST['PrintPDF'])) {
                        stockmaster.decimalplaces,
                        stockmaster.mbflag';
 	$result = DB_query($sql,$db);
+  	$ListCount = DB_num_rows($result); // UldisN
 	While ($myrow = DB_fetch_array($result,$db)){
 
 
@@ -247,11 +251,12 @@ If (isset($_POST['PrintPDF'])) {
 		   PrintHeader($pdf,$YPos,$PageNumber,$Page_Height,$Top_Margin,$Left_Margin,$Page_Width,
 	                   $Right_Margin);
 	}
-
+/*  Uldisn:This actually would produce the output
 	$pdfcode = $pdf->output();
 	$len = strlen($pdfcode);
-
-	if ($len<=20){
+*/
+//	if ($len<=20){
+	if ($ListCount == 0) {  //UldisN
 			$title = _('Print Indented BOM Listing Error');
 			include('includes/header.inc');
 			prnMsg(_('There were no items for the selected assembly'),'error');
@@ -259,19 +264,23 @@ If (isset($_POST['PrintPDF'])) {
 			include('includes/footer.inc');
 			exit;
 	} else {
+/*  UldisN
 			header('Content-type: application/pdf');
 			header("Content-Length: " . $len);
 			header('Content-Disposition: inline; filename=Customer_trans.pdf');
 			header('Expires: 0');
 			header('Cache-Control: private, post-check=0, pre-check=0');
 			header('Pragma: public');
-	
-			$pdf->Stream();
-	}
-	
+
+			$pdf->Output('BOMExtendedQty', 'I');
+*/
+        $pdf->OutputD($_SESSION['DatabaseName'] . '_Customer_trans_' . date('Y-m-d').'.pdf');//UldisN
+	    $pdf-> __destruct();
+    }
+
 } else { /*The option to print PDF was not hit so display form */
 
-	$title=_('Extended Quantity BOM Listing');
+	$title=_('Quantity Extended BOM Listing');
 	include('includes/header.inc');
 
 	echo '</br></br><form action=' . $_SERVER['PHP_SELF'] . " method='post'><table>";
