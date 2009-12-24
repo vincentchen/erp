@@ -1,5 +1,5 @@
-CREATE DATABASE weberpdemo;
-USE weberpdemo;
+CREATE DATABASE `weberp-stable`;
+USE `weberp-stable`;
 SET FOREIGN_KEY_CHECKS = 0;
 -- MySQL dump 10.11
 --

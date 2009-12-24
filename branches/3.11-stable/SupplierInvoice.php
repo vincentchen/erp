@@ -31,7 +31,7 @@ if (!isset($_SESSION['SuppTrans']->SupplierName)) {
 }
 
 echo '<div class="centre"><p class="page_title_text"><img src="'.$rootpath.'/css/'.$theme.'/images/transactions.png" title="' . _('Supplier Invoice') . '" alt="">' . ' '
-        . _('Enter Supplier Invoice:') . ' ' . $_SESSION['SuppTrans']->SupplierName;
+        . _('Enter Supplier Invoice:') . ' ' . $SupplierName;
 echo '</div>';
 if (isset($_GET['SupplierID']) and $_GET['SupplierID']!=''){
 
