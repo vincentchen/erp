@@ -401,7 +401,7 @@ and converts to a yyyy/mm/dd format */
 		return $Date_Array[2].'/'.$Date_Array[1].'/'.$Date_Array[0];
 
 	} elseif ($_SESSION['DefaultDateFormat']=='m/d/Y') {
-		return $Date_Array[1].'/'.$Date_Array[2].'/'.$Date_Array[0];
+		return $Date_Array[2].'/'.$Date_Array[0].'/'.$Date_Array[1];
 	} elseif ($_SESSION['DefaultDateFormat']=='Y/m/d') {
 		return $Date_Array[0].'/'.$Date_Array[1].'/'.$Date_Array[2];
 
