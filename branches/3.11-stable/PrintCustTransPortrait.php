@@ -84,12 +84,13 @@ If (isset($PrintPDF)
 				$myrow = DB_fetch_array($result);
 				$DefaultBankAccountNumber = _('Account:') .' ' .$myrow['bankaccountnumber'];
 				$DefaultBankAccountCode =  _('Bank Code:') .' ' .$myrow['bankaccountcode'];
+			} else {
+				$DefaultBankAccountNumber = '';
+				$DefaultBankAccountCode =  '';
 			}
 		} // gather the invoice data
 		if ($InvOrCredit=='Invoice') {
 			$sql = 'SELECT debtortrans.trandate,
-				bankaccounts.bankaccountnumber,
-				bankaccounts.bankaccountcode,
 				debtortrans.ovamount,
 				debtortrans.ovdiscount,
 				debtortrans.ovfreight,
@@ -143,8 +144,7 @@ If (isset($PrintPDF)
 				shippers,
 				salesman,
 				locations,
-				paymentterms,
-				bankaccounts
+				paymentterms
 			WHERE debtortrans.order_ = salesorders.orderno
 			AND debtortrans.type=10
 			AND debtortrans.transno=' . $FromTransNo . '
@@ -472,7 +472,6 @@ If (isset($PrintPDF)
 			if (file_exists('companies/' . $_SESSION['DatabaseName'] . '/payment.jpg')) {
             	$pdf->addJpegFromFile('companies/' . $_SESSION['DatabaseName'] . '/payment.jpg',$Page_Width/2 -60,$YPos-15,0,20);
 			}
-            $pdf->addText($Page_Width-$Right_Margin-392, $YPos - ($line_height*3)+22,$FontSize, _('Bank Code:') . $myrow['bankaccountcode'] . _(' Bank Account:') . $myrow['bankaccountnumber']);
 			 // Print Bank acount details if available and default for invoices is selected
              $pdf->addText($Page_Width-$Right_Margin-392, $YPos - ($line_height*3)+22,$FontSize, $DefaultBankAccountCode . $DefaultBankAccountNumber);
 			$FontSize=10;
