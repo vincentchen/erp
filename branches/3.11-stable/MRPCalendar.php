@@ -41,7 +41,7 @@ function submit(&$db,&$ChangeDate)  //####SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUB
 	if (!is_date($_POST['FromDate'])) {
 		$InputError = 1;
 		prnMsg(_('Invalid From Date'),'error');
-	} 
+	}
 
 	if (!is_date($_POST['ToDate'])) {
 		$InputError = 1;
@@ -56,10 +56,10 @@ function submit(&$db,&$ChangeDate)  //####SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUB
 	$formattodate = FormatDateForSQL($_POST['ToDate']);
 	$convertfromdate = ConvertSQLDate($formatfromdate);
 	$converttodate = ConvertSQLDate($formattodate);
-		
+
 	$dategreater = Date1GreaterThanDate2($_POST['ToDate'],$_POST['FromDate']);
 	$datediff = DateDiff($converttodate,$convertfromdate,"d"); // Date1 minus Date2
-	
+
 	if ($datediff < 1) {
 		$InputError = 1;
 		prnMsg(_('To Date Must Be Greater Than From Date'),'error');
@@ -68,12 +68,12 @@ function submit(&$db,&$ChangeDate)  //####SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUB
 
      if ($InputError == 1) {
 		display($db,$ChangeDate);
-		return;     
+		return;
      }
-     
+
 	$sql = 'DROP TABLE IF EXISTS mrpcalendar';
 	$result = DB_query($sql,$db);
-	
+
 	$sql = 'CREATE TABLE mrpcalendar (
 				calendardate date NOT NULL,
 				daynumber int(6) NOT NULL,
@@ -82,9 +82,9 @@ function submit(&$db,&$ChangeDate)  //####SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUB
 				PRIMARY KEY (calendardate))';
 	$ErrMsg = _('The SQL to to create passbom failed with the message');
 	$result = DB_query($sql,$db,$ErrMsg);
-	
+
 	$i = 0;
-	
+
 	// $daystext used so can get text of day based on the value get from DayOfWeekFromSQLDate of
 	// the calendar date. See if that text is in the ExcludeDays array
 	$daysText = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
@@ -93,7 +93,7 @@ function submit(&$db,&$ChangeDate)  //####SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUB
 	$caldate = $convertfromdate;
 	for ($i = 0; $i <= $datediff; $i++) {
 		 $dateadd = FormatDateForSQL(DateAdd($caldate,"d",$i));
-		 
+
 		 // If the check box for the calendar date's day of week was clicked, set the manufacturing flag to 0
 		 $dayofweek = DayOfWeekFromSQLDate($dateadd);
 		 $manuflag = 1;
@@ -102,7 +102,7 @@ function submit(&$db,&$ChangeDate)  //####SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUB
 				 $manuflag = 0;
 			 }
 		 }
-		 
+
 		 $sql = "INSERT INTO mrpcalendar (
 					calendardate,
 					daynumber,
@@ -112,7 +112,7 @@ function submit(&$db,&$ChangeDate)  //####SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUB
 						'$manuflag')";
 		$result = DB_query($sql,$db,$ErrMsg);
 	}
-	
+
 	// Update daynumber. Set it so non-manufacturing days will have the same daynumber as a valid
 	// manufacturing day that precedes it. That way can read the table by the non-manufacturing day,
 	// subtract the leadtime from the daynumber, and find the valid manufacturing day with that daynumber.
@@ -141,7 +141,7 @@ function update(&$db,&$ChangeDate)  //####UPDATE_UPDATE_UPDATE_UPDATE_UPDATE_UPD
 
     $InputError = 0;
     $caldate = FormatDateForSQL($ChangeDate);
-	$sql="SELECT COUNT(*) FROM mrpcalendar 
+	$sql="SELECT COUNT(*) FROM mrpcalendar
 	      WHERE calendardate='$caldate'
 	      GROUP BY calendardate";
 	$result = DB_query($sql,$db);
@@ -150,10 +150,10 @@ function update(&$db,&$ChangeDate)  //####UPDATE_UPDATE_UPDATE_UPDATE_UPDATE_UPD
 	    $InputError = 1;
 		prnMsg(_('Invalid Change Date'),'error');
 	}
-	
+
      if ($InputError == 1) {
 		display($db,$ChangeDate);
-		return;     
+		return;
      }
 
 	$sql="SELECT mrpcalendar.* FROM mrpcalendar WHERE calendardate='$caldate'";
@@ -169,7 +169,7 @@ function update(&$db,&$ChangeDate)  //####UPDATE_UPDATE_UPDATE_UPDATE_UPDATE_UPD
 	prnMsg(_("The MRP calendar record for $ChangeDate has been updated"),'succes');
 	unset ($ChangeDate);
 	display($db,$ChangeDate);
-	
+
 	// Have to update daynumber any time change a date from or to a manufacturing date
 	// Update daynumber. Set it so non-manufacturing days will have the same daynumber as a valid
 	// manufacturing day that precedes it. That way can read the table by the non-manufacturing day,
@@ -205,7 +205,7 @@ function listall(&$db)  //####LISTALL_LISTALL_LISTALL_LISTALL_LISTALL_LISTALL_LI
 
 	$ErrMsg = _('The SQL to find the parts selected failed with the message');
 	$result = DB_query($sql,$db,$ErrMsg);
-		
+
 	echo "</br><table border=1>
 		<tr BGCOLOR =#800000>
 		    <th>" . _('Date') . "</th>
@@ -225,7 +225,7 @@ function listall(&$db)  //####LISTALL_LISTALL_LISTALL_LISTALL_LISTALL_LISTALL_LI
 				_($myrow[3]),
 				$flag);
 	} //END WHILE LIST LOOP
-	
+
 	echo '</table>';
     echo '</br></br>';
     unset ($ChangeDate);
@@ -253,7 +253,7 @@ function display(&$db,&$ChangeDate)  //####DISPLAY_DISPLAY_DISPLAY_DISPLAY_DISPL
 	</tr>
 	<tr><td></td></tr>
 	<tr><td></td></tr>
-	<tr><td>Exclude The Following Days</td></tr>
+	<tr><td>'._('Exclude The Following Days').'</td></tr>
      <tr>
         <td>' . _('Saturday') . ":</td>
 	    <td><input type='checkbox' name='Saturday' value='Saturday'></td>
