@@ -519,7 +519,7 @@ if (isset($_POST['CommitBatch'])){
 
 			$ErrMsg = _('Cannot insert a bank transaction because');
 			$DbgMsg = _('Cannot insert a bank transaction using the SQL');
-			$result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);	
+			$result = DB_query($SQL,$db,$ErrMsg,$DbgMsg,true);
 		} else {
 			foreach ($_SESSION['PaymentDetail']->GLItems as $PaymentItem) {
 				$SQL="INSERT INTO banktrans (transno,
@@ -854,7 +854,7 @@ if ($_SESSION['CompanyRecord']['gllink_creditors']==1 AND $_SESSION['PaymentDeta
 			<td align=left>' . $PaymentItem->cheque . '</td>
 			<td align=right>' . number_format($PaymentItem->Amount,2) . '</td>
 			<td>' . $PaymentItem->GLCode . ' - ' . $PaymentItem->GLActName . '</td>
-			<td>' . $PaymentItem->Narrative  . '</td>
+			<td>' . stripslashes($PaymentItem->Narrative)  . '</td>
 			<td>' . $PaymentItem->tag . ' - ' . $tagname . '</td>
 			<td><a href="' . $_SERVER['PHP_SELF'] . '?' . SID . '&Delete=' . $PaymentItem->ID . '">' . _('Delete') . '</a></td>
 			</tr>';
@@ -896,7 +896,7 @@ if ($_SESSION['CompanyRecord']['gllink_creditors']==1 AND $_SESSION['PaymentDeta
 		echo '<tr><td>' . _('Enter GL Account Manually') . ':</td>
 			<td><input type=Text Name="GLManualCode" Maxlength=12 size=12 onChange="return inArray(this, this.value, GLCode.options,'.
 		"'".'The account code '."'".'+ this.value+ '."'".' doesnt exist'."'".')"' .
-			' onKeyPress="return restrictToNumbers(this, event)"></td></tr>';		
+			' onKeyPress="return restrictToNumbers(this, event)"></td></tr>';
 	}
 	echo '<tr><td>' . _('Select GL Account') . ':</td>
 		<td><select name="GLCode" onChange="return assignComboToInput(this,'.'GLManualCode'.')">';
@@ -926,14 +926,14 @@ if ($_SESSION['CompanyRecord']['gllink_creditors']==1 AND $_SESSION['PaymentDeta
 	if (isset($_POST['GLNarrative'])) {
 		echo '<tr><td>' . _('GL Narrative') . ':</td><td><input type="text" name="GLNarrative" maxlength=50 size=52 value="' . $_POST['GLNarrative'] . '"></td></tr>';
 	} else {
-		echo '<tr><td>' . _('GL Narrative') . ':</td><td><input type="text" name="GLNarrative" maxlength=50 size=52></td></tr>';		
+		echo '<tr><td>' . _('GL Narrative') . ':</td><td><input type="text" name="GLNarrative" maxlength=50 size=52></td></tr>';
 	}
-	
+
 	if (isset($_POST['GLAmount'])) {
-		echo '<tr><td>' . _('Amount') . ' (' . $_SESSION['PaymentDetail']->Currency . '):</td><td><input type=Text Name="GLAmount" Maxlength=12 size=12 onKeyPress="return restrictToNumbers(this, event)"  onChange="numberFormat(this,2)" onFocus="return setTextAlign(this, '."'".'right'."'".')" VALUE=' . $_POST['GLAmount'] . '></td></tr>';		
+		echo '<tr><td>' . _('Amount') . ' (' . $_SESSION['PaymentDetail']->Currency . '):</td><td><input type=Text Name="GLAmount" Maxlength=12 size=12 onKeyPress="return restrictToNumbers(this, event)"  onChange="numberFormat(this,2)" onFocus="return setTextAlign(this, '."'".'right'."'".')" VALUE=' . $_POST['GLAmount'] . '></td></tr>';
 	} else {
 		echo '<tr><td>' . _('Amount') . ' (' . $_SESSION['PaymentDetail']->Currency . '):</td><td><input type=Text Name="GLAmount" Maxlength=12 size=12 onKeyPress="return restrictToNumbers(this, event)"  onChange="numberFormat(this,2)" onFocus="return setTextAlign(this, '."'".'right'."'".')"></td></tr>';
-	}	
+	}
 
 	echo '</table>';
 	echo '<div class="centre"><input type=submit name="Process" value="' . _('Accept') . '"><input type=submit name="Cancel" value="' . _('Cancel') . '"></div>';
