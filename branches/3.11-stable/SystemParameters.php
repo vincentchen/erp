@@ -237,11 +237,7 @@ if (isset($_POST['submit'])) {
 			$sql[] = 'UPDATE config SET confvalue=' . $_POST['X_MonthsAuditTrail'] . " WHERE confname='MonthsAuditTrail'";
 		}
 		if ($_SESSION['UpdateCurrencyRatesDaily'] != $_POST['X_UpdateCurrencyRatesDaily']){
-			if ($_POST['X_UpdateCurrencyRatesDaily']=='Auto'){
-				$sql[] = "UPDATE config SET confvalue='" . Date('Y-m-d',mktime(0,0,0,Date('m'),Date('d')-1,Date('Y'))) . "' WHERE confname='UpdateCurrencyRatesDaily'";
-			} else {
-				$sql[] = "UPDATE config SET confvalue='0' WHERE confname='UpdateCurrencyRatesDaily'";
-			}
+			$sql[] = "UPDATE config SET confvalue='".$_POST['X_UpdateCurrencyRatesDaily']."' WHERE confname='UpdateCurrencyRatesDaily'";
 		}
 		if ($_SESSION['FactoryManagerEmail'] != $_POST['X_FactoryManagerEmail']){
 			$sql[] = "UPDATE config SET confvalue='" . $_POST['X_FactoryManagerEmail'] . "' WHERE confname='FactoryManagerEmail'";
@@ -368,7 +364,7 @@ echo '<tr><td>' . _('Order Entry allows Line Item Narrative') . ':</td>
 //UpdateCurrencyRatesDaily
 echo '<tr><td>' . _('Auto Update Exchange Rates Daily') . ':</td>
 	<td><select Name="X_UpdateCurrencyRatesDaily">
-	<option '.($_SESSION['UpdateCurrencyRatesDaily']!='0'?'selected ':'').'value="Auto">'._('Automatic').'
+	<option '.($_SESSION['UpdateCurrencyRatesDaily']!='0'?'selected ':'').'value="1">'._('Automatic').'
 	<option '.($_SESSION['UpdateCurrencyRatesDaily']=='0'?'selected ':'').'value="0">'._('Manual').'
 	</select></td>
 	<td>' . _('Automatic updates to exchange rates will retrieve the latest daily rates from the European Central Bank once per day - when the first user logs in for the day. Manual will never update the rates automatically - exchange rates will need to be maintained manually') . '</td>
