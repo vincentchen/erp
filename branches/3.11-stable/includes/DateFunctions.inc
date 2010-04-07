@@ -745,9 +745,9 @@ function GetPeriod ($TransDate, &$db) {
 
 	if (strlen($_SESSION['ProhibitPostingsBefore'])>=8){ //then the ProhibitPostingsBefore configuration is set
 		$Date_array = explode('-', $_SESSION['ProhibitPostingsBefore']);
-	
+
 		$ProhibitPostingsBefore = mktime(0,0,0,$Date_array[1],$Date_array[2],$Date_array[0]);
-		
+
 		/* If transaction date is in a closed period use the month end of that period */
 		if ($TransDate < $ProhibitPostingsBefore) {
 			$TransDate = $ProhibitPostingsBefore;
@@ -774,7 +774,7 @@ function GetPeriod ($TransDate, &$db) {
 	$Date_array = explode('-', $myrow[0]);
 	$FirstPeriodEnd = mktime(0,0,0,$Date_array[1],0,(int)$Date_array[0]);
 	$FirstPeriod = $myrow[1];
-	
+
 	/* If the period number doesn't exist */
 	if (!PeriodExists($TransDate, $db)) {
 		/* if the transaction is after the last period */
@@ -822,7 +822,7 @@ function GetPeriod ($TransDate, &$db) {
 
 	$MonthAfterTransDate = Mktime(0,0,0,Date('m',$TransDate)+1,Date('d',$TransDate),Date('Y',$TransDate));
 	$GetPrdSQL = "SELECT periodno FROM periods WHERE lastdate_in_period < '" .
-	Date('Y/m/d', $MonthAfterTransDate) . "' AND lastdate_in_period >= '" . Date('Y/m/d', $TransDate) . "'";
+    Date('Y-m-d', $MonthAfterTransDate) . "' AND lastdate_in_period >= '" . Date('Y-m-d', $TransDate) . "'";
 
 	$ErrMsg = _('An error occurred in retrieving the period number');
 	$GetPrdResult = DB_query($GetPrdSQL,$db,$ErrMsg);
