@@ -111,8 +111,7 @@ if (!isset($Id)) {
 			<th>' . _('Date') . '</th>
 			<th>' . _('Note') . '</th>
 			<th>' . _('href') . '</th>
-			<th>' . _('Priority') . '</th>
-		</tr>';
+			<th>' . _('Priority') . '</th>';
 
 	$k=0; //row colour counter
 
