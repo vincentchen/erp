@@ -137,7 +137,7 @@ if (isset($_POST['ShowResults']) && $_POST['TransType'] != ''){
 		if ($_POST['TransType']==10){ /* invoices */
 
 			printf($format_base .
-					'<td><a target="_blank" href=%s/PrintCustTrans.php?FromTransNo=%s&InvOrCredit=Invoice"><img src="%s" title="' . _('Click to preview the invoice') . '" /></a></td>
+					'<td><a target="_blank" href="%s/PrintCustTrans.php?FromTransNo=%s&InvOrCredit=Invoice"><img src="%s" title="' . _('Click to preview the invoice') . '" /></a></td>
 					</tr>',
 					$myrow['typename'],
 					$myrow['transno'],
