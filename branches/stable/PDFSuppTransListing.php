@@ -24,7 +24,7 @@ if (!isset($_POST['Date'])){
 		prnMsg($msg,'error');
 	}
 
-	 echo '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">';
+	 echo '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES,'UTF-8') . '">';
 	echo '<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />';
 	 echo '<table class="selection">
 	 			<tr>
@@ -65,11 +65,11 @@ $sql= "SELECT type,
 			decimalplaces AS currdecimalplaces,
 			suppname
 		FROM supptrans INNER JOIN suppliers
-		ON supptrans.supplierno = suppliers.supplierno
+		ON supptrans.supplierno = suppliers.supplierid
 		INNER JOIN currencies
 		ON suppliers.currcode=currencies.currabrev
 		WHERE type='" . $_POST['TransType'] . "'
-		AND inputdate='" . FormatDateForSQL($_POST['Date']) . "'";
+		AND trandate='" . FormatDateForSQL($_POST['Date']) . "'";
 
 $result=DB_query($sql,$db,'','',false,false);
 
@@ -77,8 +77,8 @@ if (DB_error_no($db)!=0){
 	$title = _('Payment Listing');
 	include('includes/header.inc');
 	prnMsg(_('An error occurred getting the payments'),'error');
-	if ($Debug==1){
-			prnMsg(_('The SQL used to get the receipt header information that failed was') . ':<br />' . $SQL,'error');
+	if ($debug==1){
+			prnMsg(_('The SQL used to get the receipt header information that failed was') . ':<br />' . $sql,'error');
 	}
 	include('includes/footer.inc');
   	exit;
