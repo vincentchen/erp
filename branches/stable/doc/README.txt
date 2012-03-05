@@ -2,6 +2,10 @@ webERP README
 
 /* $Id$*/
 
+Version  4.07.1 of webERP
+
+This version fixed bugs reported from version4.07.1 which released on Feb 23, 2012. You can found more details in Change.txt
+
 Version  4.x of webERP
 
 Now fully utf-8 compatible. Now reports can be created in any language using the utf-8 character set, the resultant pdf reports use Adobe CID fonts and the fonts that come with the Adobe Acrobat reader on client computers. This avoids the problem of large pdf downloads on the creation of reports as the alternative is to bundle the enormous utf-8 fonts with the reports. 
