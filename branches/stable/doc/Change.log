@@ -1,4 +1,9 @@
 webERP Change Log
+2/3/2012 DeliveryDetails.php  Display Sales Orders information after quotation modification instead of quotation information selection. Reported by rfthomas.Fixed by Exson
+
+28/2/2012 Added DB_escape_string() to narrative in SQL INSERT statements. Fixes a problem posting to database when the string contains quotes. Fixed by Vitaly
+
+28/2/2012 Add missing security.png to css/aguapop/images reported by James Dupin and fixed by Exson
 26/2/2012 Fixed bugs in SelectOrderItems.php where Frequently ordered items cannot be added to orders fixed by Exson
 26/2/2012 Prevent from duplication records caused by page refreshing of PO_Items.php reported by CQZ from webERP Chinese Forum QQ group fixed by Exson
 26/2/2012 PDFChequeListing.php does not show debug info Report and fixed by Vitaly.
