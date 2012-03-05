@@ -1,5 +1,6 @@
 webERP Change Log
-
+26/2/2012 Fixed bugs in SelectOrderItems.php where Frequently ordered items cannot be added to orders fixed by Exson
+26/2/2012 Prevent from duplication records caused by page refreshing of PO_Items.php reported by CQZ from webERP Chinese Forum QQ group fixed by Exson
 26/2/2012 PDFChequeListing.php does not show debug info Report and fixed by Vitaly.
 26/2/2012 PDFSuppTransListing.php does not work properly. Report and fixed by Vitaly
 26/2/12 menu of default theme cannot display properly Reported by James Dupin and fixed by Tim
