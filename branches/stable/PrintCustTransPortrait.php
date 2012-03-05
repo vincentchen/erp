@@ -523,7 +523,7 @@ If (isset($PrintPDF)
 
 	/*if FromTransNo is not set then show a form to allow input of either a single invoice number or a range of invoices to be printed. Also get the last invoice number created to show the user where the current range is up to */
 
-		echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
+		echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES,'UTF-8') . '" method="post">';
 		echo '<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />';
 
 		echo '<p class="page_title_text"><img src="'.$rootpath.'/css/'.$theme.'/images/printer.png" title="' . _('Print') . '" alt="" />' . ' ' . _('Print Invoices or Credit Notes (Portrait Mode)') . '</p>';
@@ -725,7 +725,7 @@ If (isset($PrintPDF)
 				echo '<table class="table1">
 						<tr>
 							<td valign=top width="10%"><img src="' . $_SESSION['LogoFile'] . '" /></td>
-							<td bgcolor="#bbb"><b>';
+							<td bgcolor="#bbbbbb"><b>';
 
 				if ($InvOrCredit=='Invoice') {
 				   echo '<font size="4">' . _('TAX INVOICE') . ' ';
@@ -759,10 +759,10 @@ If (isset($PrintPDF)
 
 				echo '<table class="table1">
 						<tr>
-							<td align="left" bgcolor="#bbb"><b>' . _('Charge To') . ':</b></td>
+							<td align="left" bgcolor="#bbbbbb"><b>' . _('Charge To') . ':</b></td>
 						</tr>
 						<tr>
-							<td bgcolor="#eee">';
+							<td bgcolor="#eeeeee">';
 				echo $myrow['name'] .
 					'<br />' . $myrow['address1'] .
 					'<br />' . $myrow['address2'] .
@@ -785,11 +785,11 @@ If (isset($PrintPDF)
 
 				   echo '<table class="table1">
 				   		<tr>
-				   			<td align=left bgcolor="#bbb"><b>' . _('Charge Branch') . ':</b></td>
-							<td align=left bgcolor="#bbb"><b>' . _('Delivered To') . ':</b></td>
+				   			<td align=left bgcolor="#bbbbbb"><b>' . _('Charge Branch') . ':</b></td>
+							<td align=left bgcolor="#bbbbbb"><b>' . _('Delivered To') . ':</b></td>
 						</tr>';
 				   echo '<tr>
-				   		<td bgcolor="#eee">' .$myrow['brname'] .
+				   		<td bgcolor="#eeeeee">' .$myrow['brname'] .
 									'<br />' . $myrow['braddress1'] .
 									'<br />' . $myrow['braddress2'] .
 									'<br />' . $myrow['braddress3'] .
@@ -798,7 +798,7 @@ If (isset($PrintPDF)
 									'<br />' . $myrow['braddress6'] .
 						'</td>';
 
-				   echo '<td bgcolor="#eee">' . $myrow['deliverto'] .
+				   echo '<td bgcolor="#eeeeee">' . $myrow['deliverto'] .
 									'<br />' . $myrow['deladd1'] .
 									'<br />' . $myrow['deladd2'] .
 									'<br />' . $myrow['deladd3'] .
@@ -811,13 +811,13 @@ If (isset($PrintPDF)
 
 				   echo '<table class="table1">
 				   		<tr>
-							<td align=left bgcolor="#bbb"><b>' . _('Your Order Ref') . '</b></td>
-							<td align=left bgcolor="#bbb"><b>' . _('Our Order No') . '</b></td>
-							<td align=left bgcolor="#bbb"><b>' . _('Order Date') . '</b></td>
-							<td align=left bgcolor="#bbb"><b>' . _('Invoice Date') . '</b></td>
-							<td align=left bgcolor="#bbb"><b>' . _('Sales Person') . '</font></b></td>
-							<td align=left bgcolor="#bbb"><b>' . _('Shipper') . '</b></td>
-							<td align=left bgcolor="#bbb"><b>' . _('Consignment Ref') . '</b></td>
+							<td align=left bgcolor="#bbbbbb"><b>' . _('Your Order Ref') . '</b></td>
+							<td align=left bgcolor="#bbbbbb"><b>' . _('Our Order No') . '</b></td>
+							<td align=left bgcolor="#bbbbbb"><b>' . _('Order Date') . '</b></td>
+							<td align=left bgcolor="#bbbbbb"><b>' . _('Invoice Date') . '</b></td>
+							<td align=left bgcolor="#bbbbbb"><b>' . _('Sales Person') . '</font></b></td>
+							<td align=left bgcolor="#bbbbbb"><b>' . _('Shipper') . '</b></td>
+							<td align=left bgcolor="#bbbbbb"><b>' . _('Consignment Ref') . '</b></td>
 						</tr>';
 				   	echo '<tr>
 							<td bgcolor="#EEEEEE">' . $myrow['customerref'] . '</td>
@@ -973,7 +973,7 @@ If (isset($PrintPDF)
 								<table class="table1">
 								<tr>
 									<td valign="top"><img src="' . $_SESSION['LogoFile'] . '" /></td>
-									<td bgcolor="#bbb"><b>';
+									<td bgcolor="#bbbbbb"><b>';
 
 						   if ($InvOrCredit=='Invoice') {
 							    echo '<font size="4">' . _('TAX INVOICE') . ' ';
@@ -1029,7 +1029,7 @@ If (isset($PrintPDF)
 					echo '<table class="table1">
 							<tr>
 								<td valign="top"><img src="' . $_SESSION['LogoFile'] . '" /></td>
-								<td bgcolor="#bbb"><b>';
+								<td bgcolor="#bbbbbb"><b>';
 					if ($InvOrCredit=='Invoice') {
 					      echo '<font size="4">' . _('TAX INVOICE') .' ';
 					} else {
