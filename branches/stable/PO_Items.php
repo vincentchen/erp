@@ -184,7 +184,7 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 									'" . Date('Y-m-d') . "',
 									'" . $_SESSION['PO'.$identifier]->DeliveryBy . "',
 									'" . $_SESSION['PO'.$identifier]->Status . "',
-									'" . htmlentities($StatusComment,ENT_QUOTES,'UTF-8') . "',
+									'" . htmlspecialchars($StatusComment,ENT_QUOTES,'UTF-8') . "',
 									'" . FormatDateForSQL($_SESSION['PO'.$identifier]->DeliveryDate) . "',
 									'" . $_SESSION['PO'.$identifier]->PaymentTerms. "',
 									'" . $_SESSION['PO'.$identifier]->AllowPrintPO . "' )";
@@ -277,7 +277,7 @@ if (isset($_POST['Commit'])){ /*User wishes to commit the order to the database 
 										paymentterms='" . $_SESSION['PO'.$identifier]->PaymentTerms . "',
 										allowprint='" . $_SESSION['PO'.$identifier]->AllowPrintPO . "',
 										status = '" . $_SESSION['PO'.$identifier]->Status . "',
-										stat_comment = '" . htmlentities($_SESSION['PO'.$identifier]->StatusComments,ENT_QUOTES,'UTF-8') . "' 
+										stat_comment = '" . htmlspecialchars($_SESSION['PO'.$identifier]->StatusComments,ENT_QUOTES,'UTF-8') . "' 
 										WHERE orderno = '" . $_SESSION['PO'.$identifier]->OrderNo ."'";
 
 			$ErrMsg =  _('The purchase order could not be updated because');
@@ -507,8 +507,10 @@ if (isset($_POST['EnterLine'])){ /*Inputs from the form directly without selecti
 }
  /*end if Enter line button was hit - adding non stock items */
 
+//Add variables $_SESSION['PO_ItemsResubmitForm' . $identifier] and $_POST['PO_ItemsResubmitFormValue'] to prevent from page refreshing effect
 
-if (isset($_POST['NewItem'])){ 
+$_SESSION['PO_ItemsResubmitForm' . $identifier] = (empty($_SESSION['PO_ItemsResubmitForm' . $identifier]))? '1' : $_SESSION['PO_ItemsResubmitForm' . $identifier];
+if (isset($_POST['NewItem']) and !empty($_POST['PO_ItemsResubmitFormValue']) and $_SESSION['PO_ItemsResubmitForm' . $identifier] == $_POST['PO_ItemsResubmitFormValue']){ //only submit values can be processed 
 	
 	/* NewItem is set from the part selection list as the part code selected 
 	* take the form entries and enter the data from the form into the PurchOrder class variable 
@@ -634,11 +636,12 @@ if (isset($_POST['NewItem'])){
 			} /* end of if not already on the order */
 		} /* end if the $_POST has NewQty in the variable name */
 	} /* end loop around the $_POST array */
+	$_SESSION['PO_ItemsResubmitForm' . $identifier]++; //change the $_SESSION VALUE
 } /* end of if its a new item */
 
 /* This is where the order as selected should be displayed  reflecting any deletions or insertions*/
 
-echo '<form name="form1" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?identifier=' . $identifier . '" method=post>';
+echo '<form name="form1" action="' . htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES,'UTF-8') . '?identifier=' . $identifier . '" method=post>';
 echo '<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />';
 
 /*need to set up entry for item description where not a stock item and GL Codes */
@@ -702,9 +705,9 @@ if (count($_SESSION['PO'.$identifier]->LineItems)>0 and !isset($_GET['Edit'])){
 				<td class="number">' . $DisplayLineTotal . '</td>
 				<td><input type="text" class="date" alt="' .$_SESSION['DefaultDateFormat'].'" name="ReqDelDate' . $POLine->LineNo.'" size="10" value="' .$POLine->ReqDelDate .'" /></td>';
 			if ($POLine->QtyReceived !=0 AND $POLine->Completed!=1){
-				echo '<td><a href="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?identifier='.$identifier .'&Complete=' . $POLine->LineNo . '">' . _('Complete') . '</a></td>';
+				echo '<td><a href="' . htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES,'UTF-8') . '?identifier='.$identifier .'&Complete=' . $POLine->LineNo . '">' . _('Complete') . '</a></td>';
 			} elseif ($POLine->QtyReceived ==0) {
-				echo '<td><a href="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?identifier='.$identifier .'&Delete=' . $POLine->LineNo . '">' . _('Delete'). '</a></td>';
+				echo '<td><a href="' . htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES,'UTF-8') . '?identifier='.$identifier .'&Delete=' . $POLine->LineNo . '">' . _('Delete'). '</a></td>';
 			}
 			echo '</tr>';
 			$_SESSION['PO'.$identifier]->Total += $LineTotal;
@@ -1126,6 +1129,7 @@ if (isset($SearchResult)) {
 	}
 #end of while loop
 	echo '</table>';
+	echo '<input type="hidden" name="PO_ItemsResubmitFormValue" value="' . $_SESSION['PO_ItemsResubmitForm' . $identifier] . '" />';
 	echo '<a name="end"></a><br /><div class="centre"><input type="submit" name="NewItem" value="Order some" /></div>';
 }#end if SearchResults to show
 
