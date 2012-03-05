@@ -1,5 +1,7 @@
 webERP Change Log
-
+26/2/12 menu of default theme cannot display properly Reported by James Dupin and fixed by Tim
+25/2/12 James Dupin: remove extra ")" in CompanyPreference.php.
+24/2/12 James Dupin: gettext function missing in AgedSuppliers. 
 Release 4.07
 
 11/2/12 Phil: Fix Prices.php for end dates when a new price with no end date is inserted with a start date in the future.
