@@ -577,7 +577,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 	echo '<p class="page_title_text"><img src="'.$rootpath.'/css/'.$theme.'/images/magnifier.png" title="' . _('Search') . '" alt="" />' .
 	' ' . _('Enter an Order or Quotation') . ' : ' . _('Search for the Customer Branch.') . '</p>';
 	echo '<div class="page_help_text">' . _('Orders/Quotations are placed against the Customer Branch. A Customer may have several Branches.') . '</div>';
-	echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?identifier='.$identifier . '" name="SelectCustomer" method="post">
+	echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES,'UTF-8') . '?identifier='.$identifier . '" name="SelectCustomer" method="post">
 		<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />';
 
 	echo '<table cellpadding="3" colspan="4" class="selection">
@@ -620,14 +620,14 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 				echo '<tr class="OddTableRows">';
 				$k=1;
 			}
-			echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?identifier='.$identifier . '" name="SelectParts" method="post">';
+			echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES,'UTF-8') . '?identifier='.$identifier . '" name="SelectParts" method="post">';
 			echo '<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />';
 			if ($LastCustomer != $myrow['name']) {
 				echo '<td>'.$myrow['name'].'</td>';
 			} else {
 				echo '<td></td>';
 			}
-			echo '<td><input tabindex="'.strval($j+5).'" type="submit" name="SubmitCustomerSelection' . $j .'" value="' . htmlentities($myrow['brname'], ENT_QUOTES,'UTF-8'). '" /></td>
+			echo '<td><input tabindex="'.strval($j+5).'" type="submit" name="SubmitCustomerSelection' . $j .'" value="' . htmlspecialchars($myrow['brname'], ENT_QUOTES,'UTF-8'). '" /></td>
 					<input type="hidden" name="SelectedCustomer' . $j .'" value="'.$myrow['debtorno'].'" />
 					<input type="hidden" name="SelectedBranch' . $j .'" value="'. $myrow['branchcode'].'" />
 					<td>'.$myrow['contactname'].'</td>
@@ -840,7 +840,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 
 #Always do the stuff below if not looking for a customerid
 
-	echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?identifier='.$identifier . '" name="SelectParts" method="post">';
+	echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES,'UTF-8') . '?identifier='.$identifier . '" name="SelectParts" method="post">';
 	echo '<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />';
 
 //Get The exchange rate used for GPPercent calculations on adding or amending items
@@ -1336,7 +1336,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 				<th>' . _('Unit') . '</th>
 				<th>' . _('Price') . '</th>';
 
-		if (in_array(2,$_SESSION['AllowedPageSecurityTokens'])){
+		if (in_array(13,$_SESSION['AllowedPageSecurityTokens'])){
 			echo '<th>' . _('Discount') . '</th>
 						<th>' . _('GP %') . '</th>';
 		}
@@ -1384,7 +1384,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 					<td class="number">' . locale_number_format($OrderLine->QOHatLoc,$OrderLine->DecimalPlaces) . '</td>
 					<td>' . $OrderLine->Units . '</td>';
 
-			if (in_array(2,$_SESSION['AllowedPageSecurityTokens'])){
+			if (in_array(13,$_SESSION['AllowedPageSecurityTokens'])){
 				/*OK to display with discount if it is an internal user with appropriate permissions */
 				echo '<td><input class="number" type="text" name="Price_' . $OrderLine->LineNumber . '" size="16" maxlength="16" value="' . locale_number_format($OrderLine->Price,$_SESSION['Items'.$identifier]->CurrDecimalPlaces)  . '" /></td>
 					<td><input class="number" type="text" name="Discount_' . $OrderLine->LineNumber . '" size="5" maxlength="4" value="' . locale_number_format(($OrderLine->DiscountPercent * 100),2) . '" /></td>
@@ -1408,7 +1408,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 
 			echo '<td><input type="text" class="date" alt="'.$_SESSION['DefaultDateFormat'].'" name="ItemDue_' . $OrderLine->LineNumber . '" size="10" maxlength="10" value="' . $LineDueDate . '" /></td>';
 
-			echo '<td><a href="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?identifier=' . $identifier . '&Delete=' . $OrderLine->LineNumber . '" onclick="return confirm(\'' . _('Are You Sure?') . '\');">' . $RemTxt . '</a></td></tr>';
+			echo '<td><a href="' . htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES,'UTF-8') . '?identifier=' . $identifier . '&Delete=' . $OrderLine->LineNumber . '" onclick="return confirm(\'' . _('Are You Sure?') . '\');">' . $RemTxt . '</a></td></tr>';
 
 			if ($_SESSION['AllowOrderLineItemNarrative'] == 1){
 				echo $RowStarter;
@@ -1424,13 +1424,13 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 		} /* end of loop around items */
 
 		$DisplayTotal = locale_number_format($_SESSION['Items'.$identifier]->total,$_SESSION['Items'.$identifier]->CurrDecimalPlaces);
-		if (in_array(2,$_SESSION['AllowedPageSecurityTokens'])){
+		if (in_array(13,$_SESSION['AllowedPageSecurityTokens'])){
 			$ColSpanNumber = 2;
 		} else {
 			$ColSpanNumber = 1;
 		}
 		echo '<tr class="EvenTableRows">
-				<td class="number" colspan="7"><b>' . _('TOTAL Excl Tax/Freight') . '</b></td>
+				<td class="number" colspan="6"><b>' . _('TOTAL Excl Tax/Freight') . '</b></td>
 				<td colspan="' . $ColSpanNumber . '" class="number">' . $DisplayTotal . '</td>
 			</tr>
 			</table>';
@@ -1501,25 +1501,22 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 // This code needs sorting out, but until then :
 				$ImageSource = _('No Image');
 // Find the quantity in stock at location
-				$QOHSQL = "SELECT sum(locstock.quantity) AS qoh,
-									stockmaster.decimalplaces
-							   FROM locstock INNER JOIN stockmaster
-							   ON locstock.stockid=stockmaster.stockid
-							   WHERE locstock.stockid='" .$myrow['stockid'] . "' AND
-								loccode = '" . $_SESSION['Items'.$identifier]->Location . "'";
+				$QOHSQL = "SELECT sum(locstock.quantity) AS qoh
+							FROM locstock 
+							WHERE stockid='" .$myrow['stockid'] . "' 
+							AND loccode = '" . $_SESSION['Items'.$identifier]->Location . "'";
 				$QOHResult =  DB_query($QOHSQL,$db);
 				$QOHRow = DB_fetch_array($QOHResult);
 				$QOH = $QOHRow['qoh'];
 
 				// Find the quantity on outstanding sales orders
 				$sql = "SELECT SUM(salesorderdetails.quantity-salesorderdetails.qtyinvoiced) AS dem
-							FROM salesorderdetails,
-								 salesorders
-							WHERE salesorders.orderno = salesorderdetails.orderno
-							AND salesorders.fromstkloc='" . $_SESSION['Items'.$identifier]->Location . "'
-							AND salesorderdetails.completed=0
-							AND salesorders.quotation=0
-							AND salesorderdetails.stkcode='" . $myrow['stockid'] . "'";
+						FROM salesorderdetails INNER JOIN salesorders
+						ON salesorders.orderno = salesorderdetails.orderno
+						WHERE salesorders.fromstkloc='" . $_SESSION['Items'.$identifier]->Location . "'
+						AND salesorderdetails.completed=0
+						AND salesorders.quotation=0
+						AND salesorderdetails.stkcode='" . $myrow['stockid'] . "'";
 
 				$ErrMsg = _('The demand for this product from') . ' ' . $_SESSION['Items'.$identifier]->Location . ' ' .
 					 _('cannot be retrieved because');
@@ -1661,7 +1658,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 			echo '<div class="page_help_text">' . _('Select an item by entering the quantity required.  Click Order when ready.') . '</div>';
 			echo '<br />';
 			$j = 1;
-			echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?identifier='.$identifier . '" method=post name="orderform">';
+			echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES,'UTF-8') . '?identifier='.$identifier . '" method=post name="orderform">';
 			echo '<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />';
 			echo '<table class="table1">';
 			echo '<tr><td colspan="1"><input type="hidden" name="previous" value="'.strval($Offset-1).'" /><input tabindex="'.strval($j+8).'" type="submit" name="Prev" value="'._('Prev').'" /></td>';
