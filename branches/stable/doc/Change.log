@@ -1,4 +1,5 @@
 webERP Change Log
+6/3/2012 Add length check of category description to prevent blank description in StockCategories.php Fixed by Exson
 2/3/2012 DeliveryDetails.php  Display Sales Orders information after quotation modification instead of quotation information selection. Reported by rfthomas.Fixed by Exson
 
 28/2/2012 Added DB_escape_string() to narrative in SQL INSERT statements. Fixes a problem posting to database when the string contains quotes. Fixed by Vitaly
