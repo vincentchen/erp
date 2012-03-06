@@ -1,4 +1,5 @@
 webERP Change Log
+6/3/2012 Remove carriage return and feed line from Quotation PDF file in PDFQuotation.php Reported by Thomas_lie fixed by Exson.
 6/3/2012 Add length check of category description to prevent blank description in StockCategories.php Fixed by Exson
 2/3/2012 DeliveryDetails.php  Display Sales Orders information after quotation modification instead of quotation information selection. Reported by rfthomas.Fixed by Exson
 
