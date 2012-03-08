@@ -1,4 +1,5 @@
 webERP Change Log
+8/3/2012 Exson: Upgrade TCPDF folders
 8/3/2012 Vitaly: Fixed the width calculation error in class.pdf 
 6/3/2012 Exson: Fixed bugs which cannot handle serialised items in StockAdjustments.php Reported by Soujiro
 6/3/2012 Remove carriage return and feed line from Quotation PDF file in PDFQuotation.php Reported by Thomas_lie fixed by Exson.
