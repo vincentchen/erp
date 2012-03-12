@@ -1,4 +1,5 @@
 webERP Change Log
+12/3/2012 Exson: Add sql file for new release upgrade4.07-4.08.sql for stable version only
 12/3/2012 Exson: Add Asia/Beijing to timezone.csv and remove Asia/Chongqing
 12/3/2012 Exson: Restore class.pdf.php file to old version due to Chinese characters missing 
 12/3/2012 Exson: Fixed freight cost over 1000 cannot be calculated correctly in ConfirmDispatch_Invoice.php Reported by Craig Craven. 
