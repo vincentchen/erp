@@ -1,4 +1,5 @@
 webERP Change Log
+12/3/2012 Exson Change PDF file to be forced download of ReorderLevel.php 
 12/3/2012 Exson: The Time Zone set does not work. Change it back.
 12/3/2012 Exson: Update the UpgradeDatabase.php to slim the upgrade process.
 12/3/2012 Exson: Add sql file for new release upgrade4.07-4.08.sql for stable version only
