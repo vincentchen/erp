@@ -1,4 +1,6 @@
 webERP Change Log
+12/3/2012 Exson: Fixed freight cost over 1000 cannot be calculated correctly in ConfirmDispatch_Invoice.php Reported by Craig Craven. 
+10/3/2012 Exson: Fixed items on PO quantity not rule out cancelled, rejected or pending PO in BOMExtendedQty.php. Reported by Bill Zhang
 8/3/2012 Exson: Upgrade TCPDF folders
 8/3/2012 Vitaly: Fixed the width calculation error in class.pdf 
 6/3/2012 Exson: Fixed bugs which cannot handle serialised items in StockAdjustments.php Reported by Soujiro
