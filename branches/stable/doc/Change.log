@@ -1,4 +1,5 @@
 webERP Change Log
+13/3/2012 Phil: Decrement $FromTransNo to show the correct invoice number mailed in PrintCustTransPortrait.php 
 13/3/2012 Exson: Fixed type in PrintCustTransPortrait.php
 13/3/2012 Exson: correct mailing invioce or credit note No showing in mail sending messages in PrintCustTransPortrait.php. Reported by Thomas_lie
 12/3/2012 Exson Change PDF file to be forced download of ReorderLevel.php 
