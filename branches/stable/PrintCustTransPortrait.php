@@ -507,9 +507,9 @@ If (isset($PrintPDF)
 			include('includes/header.inc');
 			echo '<p>' . $InvOrCredit . ' '  . _('number') . ' ' . $FirstTrans . ' ' . _('has been emailed to') . ' ' . $_GET['Email'];
 		}else{
-			$title = _('Emailing') . ' ' .$InvOrCredit . ' ' . _('from Number') . ' ' . $FromTransNo.' '._('to Number').' ' . ($FromTransNo-1);
+			$title = _('Emailing') . ' ' .$InvOrCredit . ' ' . _('from Number') . ' ' . $FirstTrans.' '._('to Number').' ' . ($FromTransNo-1);
 			include('includes/header.inc');
-			echo '<p>' . $InvOrCredit . ' '  . _('from number') . ' ' . $FromTransNo . ' '._('to number').' '.($FromTransNo-1) . _('has been emailed to') . ' ' . $_GET['Email'];
+			echo '<p>' . $InvOrCredit . ' '  . _('from Number') . ' ' . $FirstTrans . ' '._('to Number').' '.($FromTransNo-1) . _('has been emailed to') . ' ' . $_GET['Email'];
 		}
 			
 		include('includes/footer.inc');
