@@ -1,4 +1,7 @@
 webERP Change Log
+
+20/03/2012 Exson: Fixed Multi currency payment exchange rate errors in Payments.php. Reported by PakRichard
+20/3/2012 Exson: Fixed bugs that users push Process Credit button in Credit_Invoice.php directly without update will lead to unbalance Journal entry. Reported by Russ
 13/3/2012 Phil: Decrement $FromTransNo to show the correct invoice number mailed in PrintCustTransPortrait.php 
 13/3/2012 Exson: Fixed type in PrintCustTransPortrait.php
 13/3/2012 Exson: correct mailing invioce or credit note No showing in mail sending messages in PrintCustTransPortrait.php. Reported by Thomas_lie
