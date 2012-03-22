@@ -141,14 +141,14 @@ if (isset($_POST['Submit']) OR isset($_POST['EnterMoreItems'])){
 					}
 					// add check to see if accumulated Qty of same StockID is over Quantity on hand
 					if(isset($StockIDAccQty[$_POST['StockID'.$i]])){
-						$StockIDAccQty[$_POST['StockID' . $i]] += $_POST['StockQTY' . $i];
-						if($myrow[0] < filter_number_format($StockIDAccQty[$_POST['StockID'.$i]])){
+						$StockIDAccQty[$_POST['StockID' . $i]] += filter_number_format($_POST['StockQTY' . $i]);
+						if($myrow[0] < $StockIDAccQty[$_POST['StockID'.$i]]){
 							$InputError = True;
 							$ErrorMessage .=_('The part code entered of'). ' ' . $_POST['StockID' . $i]. ' ' ._('does not have enough stock available for transfer due to accumulated quantity is more than quantity on hand.').'.<br/>';
 							$_POST['LinesCounter'] -= 10;
 						}
 					}else{
-						$StockIDAccQty[$_POST['StockID'.$i]] = $_POST['StockQTY'.$i];
+						$StockIDAccQty[$_POST['StockID'.$i]] = filter_number_format($_POST['StockQTY'.$i]);
 					}//end of if accumulated Qty over QOH check 
 					
 					DB_free_result( $result );
