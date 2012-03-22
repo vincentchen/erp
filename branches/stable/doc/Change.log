@@ -1,4 +1,5 @@
 webERP Change Log
+22/3/2012 Exson: Add filter_number_format() to filter $_POST['StockIDQTY'.$i] in StockLocTransfer.php 
 22/3/2012 Exson Replace array_key_exists() with isset() for efficiency in StockLocTransfer.php 
 22/3/2012 Exson: Fixed no negative check for condition where the accumulated quantity of the same stock item is over Quantity on hand but quantity of it on each line is less than Quantity on hand. Reported by Rong
 22/3/2012 Exson: Fixed time displayed incorrectly in footer in Win OS since the strftime() encoding is not UTF-8. Reported by CQZ and KE in webERP Chinese Community QQ group.
