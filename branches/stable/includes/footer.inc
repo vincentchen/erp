@@ -10,12 +10,27 @@
 /*Do the borders */
 
      echo '</table>';
-     
+//To ensure characters display correctly in Win OS
+     function strftimeToUTF8 ($str) {
+ 
+     $encoding = mb_detect_encoding($str,"GB2312,BIG5,UTF-8");
+
+     switch($encoding){
+     		case 'EUC-CN':
+			return iconv('GB2312','UTF-8',$str);
+			break;
+		case 'EUC-TW':
+			return iconv('BIG5','UTF-8',$str);
+			break;
+		default:
+			return $str;
+     }
+     }
      echo '<table width="100%" id="footer">';
      echo '<tr>
 				<td width="29%"> </td>
 				<td class="footer"><a href="http://www.weberp.org" rel="external"><img src="'. $rootpath . '/' . $_SESSION['LogoFile'] . '" width="120" alt="webERP" title="webERP ' . _('Copyright') . ' &copy; weberp.org - ' . date('Y') . '" /></a></td>
-				<td class="footer">'.(strftime('%A')).', '.(date($_SESSION['DefaultDateFormat']).' | '.(strftime(($DefaultClock==12) ? '%I:%M %p' : '%H:%M'))).'</td>
+				<td class="footer">'.strftimeToUTF8((strftime('%A'))).', '.(date($_SESSION['DefaultDateFormat']).' | '.strftimeToUTF8((strftime(($DefaultClock==12) ? '%I:%M %p' : '%H:%M')))).'</td>
 		</tr>';
 
      echo '<tr>
