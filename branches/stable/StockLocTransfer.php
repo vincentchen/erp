@@ -140,7 +140,7 @@ if (isset($_POST['Submit']) OR isset($_POST['EnterMoreItems'])){
 						}
 					}
 					// add check to see if accumulated Qty of same StockID is over Quantity on hand
-					if(array_key_exists($_POST['StockID'.$i],$StockIDAccQty)){
+					if(isset($StockIDAccQty[$_POST['StockID'.$i]])){
 						$StockIDAccQty[$_POST['StockID' . $i]] += $_POST['StockQTY' . $i];
 						if($myrow[0] < filter_number_format($StockIDAccQty[$_POST['StockID'.$i]])){
 							$InputError = True;
