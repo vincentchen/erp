@@ -1,4 +1,6 @@
 webERP Change Log
+23/3/2012 Exson: Fixed accounting period display gabarge for Win OS in simplified Chinese language in DateFunctions.inc. Reported by CQZ from webERP Chinese community QQ group.
+23/3/2012 Ke: Fixed footer time not display correctly in Win OS in simplified Chinese language in footer.inc. Reported and fixed by Ke from webERP Chinese community QQ group.
 22/3/2012 Phil: Fixed ImportStocks.php which does not work.
 22/3/2012 Exson: Add filter_number_format() to filter $_POST['StockIDQTY'.$i] in StockLocTransfer.php 
 22/3/2012 Exson Replace array_key_exists() with isset() for efficiency in StockLocTransfer.php 
