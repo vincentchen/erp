@@ -1504,6 +1504,9 @@ then do the updates and inserts to process the invoice entered */
 
 } /*end of process invoice */
 
+if($InputError==true){ //add a link to return if users make input errors.
+	echo '<div class="centre"><a href="'.$rootpath.'/SupplierInvoice.php" >'._('Back to Invoice Entry').'</a></div>';
+}
 echo '</form>';
 include('includes/footer.inc');
 ?>
