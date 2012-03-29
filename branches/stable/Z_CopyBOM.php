@@ -23,7 +23,30 @@ if(isset($_POST['Submit'])) {
 
   if($type == 'N') {
       /* duplicate rows into stockmaster */
-      $sql = "INSERT INTO stockmaster
+	  $sql = "INSERT INTO stockmaster (stockid,
+		  				categoryid,
+						description,
+						longdescription,
+						units,
+						mbflag,
+						actualcost,
+						lastcost,
+						materialcost,
+						labourcost,
+						overheadcost,
+						lowestlevel,
+						discontinued,
+						controlled,
+						eoq,
+						volume,
+						kgs,
+						barcode,
+						discountcategory,
+						taxcatid,
+						serialised,
+						appendfile,
+						perishable,
+						decimalplaces)
 			              select '" . $newStkID . "' as stockid,
 						categoryid,
 						description,
