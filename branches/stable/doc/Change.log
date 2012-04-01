@@ -1,4 +1,6 @@
 webERP Change Log
+
+2/4/2012  Exson: Change Simplified Chinese translation of string 'Extended Quantity BOM listing for ' to shorter items otherwise stockid will disappear.
 31/3/2012 Exson: Fixed for PcAuthorizeExpenses.php cannot authorized expenses due to no applying gettext function to 'Update'
 31/3/2012: PakRichard:  Fixed problem that on PCAssignCashToTab.php it should be used the decimal places of the currency of the tab, not the decimal places of the functional currency.The same in PcClaimExpensesFromTab.php
 31/3/2012 Kunshan-Ouhai(xjl7896): Fixed bug in PDFStockCheckComparision.php when selecting Report and Close the Inventory Comparison, there will be seriously sql errors. Reported and fixed by Kunshan¡XOuhai from webERP Chinese community QQ group. 
