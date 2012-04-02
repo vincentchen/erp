@@ -1,1 +1,1 @@
-UPDATE config SET confvalue='4.07.5' WHERE confname='VersionNumber';
+UPDATE config SET confvalue='4.07.6' WHERE confname='VersionNumber';
