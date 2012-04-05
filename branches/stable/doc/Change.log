@@ -1,4 +1,5 @@
 webERP Change Log
+5/4/2012 Exson: Adjust Packing Slip header of Comments lines which overlaped with shipper now in PDFSalesOrder_generic.inc and replace 'Sales Order' with 'Packing Slip'. Reported by CQZ from webERP Chinese Community QQ group.
 3/4/2012 Tim: Fixed length of fields in html and dabatase unmatch bugs in PurchData.php Reported by rfthomas
 2/4/2012  Billy Chang, 劉世琪: Add Chinese Traditional TW locale
 2/4/2012  Exson: Change Simplified Chinese translation of string 'Extended Quantity BOM listing for ' to shorter items otherwise stockid will disappear.
