@@ -84,6 +84,9 @@ If (isset($_POST['PrintPDF'])
 
 			if ($Supplier!=''){ /*Then it's NOT the first time round */
 				/* need to print the total of previous supplier */
+               if ($YPos < $Bottom_Margin + $line_height * 5){
+                  include('includes/PDFOstdgGRNsPageHeader.inc');
+               }
 				$YPos -= (2*$line_height);
 				$LeftOvers = $pdf->addTextWrap($Left_Margin,$YPos,260-$Left_Margin,$FontSize,_('Total for') . ' ' . $Supplier . ' - ' . $SupplierName);
 				$DisplaySuppTotVal = locale_number_format($SuppTot_Val,$GRNs['currdecimalplaces']);
@@ -160,9 +163,10 @@ If (isset($_POST['PrintPDF'])
 	echo '<p class="page_title_text"><img src="'.$rootpath.'/css/'.$theme.'/images/magnifier.png" title="' . _('Search') .
 		'" alt="" />' . ' ' . $title . '</p>';
 
-	echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">
-			<table class="selection">';
-	echo '<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />';
+	echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES,'UTF-8') . '" method="post">
+          <div>';
+    echo '<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />';
+	echo '<table class="selection">';
 
 	echo '<tr>
 			<td>' . _('From Supplier Code') . ':</td>
@@ -175,8 +179,10 @@ If (isset($_POST['PrintPDF'])
 		</table>
 		<br />
 		<div class="centre">
-			<input type="submit" Name="PrintPDF" value="' . _('Print PDF') . '" />
-		</div>';
+			<input type="submit" name="PrintPDF" value="' . _('Print PDF') . '" />
+		</div>
+        </div>
+        </form>';
 
 	include('includes/footer.inc');
 
