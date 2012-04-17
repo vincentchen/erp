@@ -1,4 +1,6 @@
 webERP Change Log
+08/04/2012 Vitaly:Fixed page breaks in PDF Balance Sheet and Outstanding GRNs
+04/04/2012 Vitaly: Cleaned up Petty Cash module. Fixed several errors in SQL INSERT statements. 
 14/04/2012 Klaus: Fixed typo in PurchData.php that $NoPurchData value should be compared not assigned and will lead to page not loadable in some browser.
 5/4/2012 Exson:Adjust Packing Slip header of Comments lines which overlaped with shipper now in PDFOrderPageHeader_generic.inc and. Reported by CQZ from webERP Chinese Community QQ group.
 5/4/2012 Exson: Revert back to previous version of PDFSalesOrder_generic.inc 
