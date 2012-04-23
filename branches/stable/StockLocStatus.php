@@ -231,6 +231,7 @@ if (isset($_POST['ShowStatus'])){
 					ON purchorderdetails.orderno=purchorders.orderno
 				WHERE purchorders.intostocklocation='" . $myrow['loccode'] . "'
 				AND purchorderdetails.itemcode='" . $StockID . "'
+				AND purchorderdetails.completed=0
 					AND purchorders.status <> 'Cancelled'
 					AND purchorders.status <> 'Rejected'
 					AND purchorders.status <> 'Pending'";
