@@ -1,8 +1,8 @@
 webERP README
 
 /* $Id$*/
-Version 4.07.6 webERP
-This version fixed bugs reported since webERP4.05 which released on March 26,2012. 
+Version 4.07.7 webERP
+This version fixed bugs reported since webERP4.06 which released on April 2,2012. You can find more details from log files.
 
 Version  4.x of webERP
 
