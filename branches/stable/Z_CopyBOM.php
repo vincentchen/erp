@@ -13,12 +13,18 @@ if(isset($_POST['Submit'])) {
   $StkID = $_POST['StkID'];
   $type = $_POST['type'];
   $newStkID = '';
-
+  $InputError = 0; //assume the best
   if($type == 'N') {
-    $newStkID = $_POST['toStkID'];
+	  $newStkID = $_POST['toStkID'];
+	  if(empty($newStkID)){
+		  $InputError = 1;
+		  prnMsg(_('The new item code cannot be blank. Enter a new code for the item to copy the BOM to'),'error');
+	  }
   } else {
     $newStkID = $_POST['exStkID'];
   }
+
+  if($InputError == 0){
   DB_Txn_Begin($db);
 
   if($type == 'N') {
@@ -122,7 +128,8 @@ if(isset($_POST['Submit'])) {
   UpdateCost($db, $newStkID);
 
   header('Location: BOMs.php?Select='.$newStkID);
- }
+  }
+}
 
  else
    {
@@ -132,7 +139,7 @@ if(isset($_POST['Submit'])) {
      echo '<form method="post" action="Z_CopyBOM.php">';
 	echo '<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />';
 
-     $sql = "SELECT stockid, description FROM stockmaster WHERE stockid IN (SELECT DISTINCT parent FROM bom) AND  mbflag IN ('M', 'A', 'K');";
+     $sql = "SELECT stockid, description FROM stockmaster WHERE stockid IN (SELECT DISTINCT parent FROM bom) AND  mbflag IN ('M', 'A', 'K','G');";
      $result = DB_query($sql, $db);
 
      echo '<br />
@@ -149,7 +156,7 @@ if(isset($_POST['Submit'])) {
 					description 
 			FROM stockmaster 
 			WHERE stockid NOT IN (SELECT DISTINCT parent FROM bom) 
-			AND mbflag IN ('M', 'A', 'K');";
+			AND mbflag IN ('M', 'A', 'K','G');";
 	$result = DB_query($sql, $db);
 	
 	if(DB_num_rows($result) > 0) {
