@@ -1,4 +1,5 @@
 webERP Change Log
+26/4/2012 Exson: Use empty() instead of $_POST[]=='' which is more reasonable in PO_Header.php
 26/4/2012 Exson: Fixed that as adding new PO, the PO header does not display user's default warehouse
 24/4/2012 Phil: fix CopyBOM.php that was insering a blank stockid into stockmaster as reported by Ricard
 23/04/2012 Exson: Fixed balance of completed purchasing order lines are marked as quality on order. Reported by CQZ from webERP Chinese community QQ group. 
