@@ -870,7 +870,7 @@ if ($_SESSION['RequireSupplierSelection'] ==1
 
 	while ($LocnRow=DB_fetch_array($LocnResult)){
 		if (isset($_POST['StkLocation']) AND ($_POST['StkLocation'] == $LocnRow['loccode']) OR
-				($_POST['StkLocation']=='' AND $LocnRow['loccode']==$_SESSION['UserStockLocation'])){
+				(empty($_POST['StkLocation']) AND $LocnRow['loccode']==$_SESSION['UserStockLocation'])){
 			echo '<option selected="selected" value="' . $LocnRow['loccode'] . '">' . $LocnRow['locationname'] . '</option>';
 		} else {
 			echo '<option value="' . $LocnRow['loccode'] . '">' . $LocnRow['locationname'] . '</option>';
