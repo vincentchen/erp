@@ -1,4 +1,5 @@
 webERP Change Log
+28/4/2012 Exson: Fixed bugs in MRPCalendar.php which leads to working days cannot be calculated correctly.  
 26/4/2012 Exson: Use empty() instead of $_POST[]=='' which is more reasonable in PO_Header.php
 26/4/2012 Exson: Fixed that as adding new PO, the PO header does not display user's default warehouse
 24/4/2012 Phil: fix CopyBOM.php that was insering a blank stockid into stockmaster as reported by Ricard
