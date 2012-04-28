@@ -63,7 +63,7 @@ function submit(&$db,&$ChangeDate)  //####SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUB
 
 	$DateGreater = Date1GreaterThanDate2($_POST['ToDate'],$_POST['FromDate']);
 	$DateDiff = DateDiff($ConvertToDate,$ConvertFromDate,'d'); // Date1 minus Date2
-
+	echo 'Date Diff is '.$DateDiff.'<br/>';
 	if ($DateDiff < 1) {
 		$InputError = 1;
 		prnMsg(_('To Date Must Be Greater Than From Date'),'error');
@@ -89,9 +89,9 @@ function submit(&$db,&$ChangeDate)  //####SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUB
 	$i = 0;
 
 	/* $DaysTextArray used so can get text of day based on the value get from DayOfWeekFromSQLDate of
-	 the calendar date. See if that text is in the ExcludeDays array note no gettext here hard coded english days from $_POST 
-	 * $DaysTextArray = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
-	 */
+		the calendar date. See if that text is in the ExcludeDays array note no gettext here hard coded english days from $_POST */
+	  $DaysTextArray = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+	 
 	$ExcludeDays = array($_POST['Sunday'],$_POST['Monday'],$_POST['Tuesday'],$_POST['Wednesday'],
 						 $_POST['Thursday'],$_POST['Friday'],$_POST['Saturday']);
 
@@ -104,6 +104,7 @@ function submit(&$db,&$ChangeDate)  //####SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUBMIT_SUB
 		 $ManuFlag = 1;
 		 foreach ($ExcludeDays as $exday) {
 			 if ($exday == $DaysTextArray[$DayOfWeek]) {
+
 				 $ManuFlag = 0;
 			 }
 		 }
