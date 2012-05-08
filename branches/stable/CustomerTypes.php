@@ -156,13 +156,17 @@ if (isset($_POST['submit'])) {
 		if ($myrow[0]>0) {
 			prnMsg (_('Cannot delete this type because customers are currently set up to use this type') . '<br />' . _('There are') . ' ' . $myrow[0] . ' ' . _('customers with this type code'));
 		} else {
-
-			$sql="DELETE FROM debtortype WHERE typeid='".$SelectedType."'";
-			$ErrMsg = _('The Type record could not be deleted because');
-			$result = DB_query($sql,$db,$ErrMsg);
-			echo '<br />';
-			prnMsg(_('Customer type') . $SelectedType  . ' ' . _('has been deleted') ,'success');
-
+			$result = DB_query("SELECT typename FROM debtortype WHERE typeid='".$SelectedType."'",$db);
+			if (DB_num_rows($result)>0){
+				$TypeRow = DB_fetch_array($result);
+				$TypeName = $TypeRow['typename'];
+			
+				$sql="DELETE FROM debtortype WHERE typeid='".$SelectedType."'";
+				$ErrMsg = _('The Type record could not be deleted because');
+				$result = DB_query($sql,$db,$ErrMsg);
+				echo '<br />';
+				prnMsg(_('Customer type') . ' ' . $TypeName  . ' ' . _('has been deleted') ,'success');
+			}
 			unset ($SelectedType);
 			unset($_GET['delete']);
 
@@ -199,8 +203,8 @@ while ($myrow = DB_fetch_row($result)) {
 
 printf('<td>%s</td>
 		<td>%s</td>
-		<td><a href="%sSelectedType=%s">' . _('Edit') . '</td>
-		<td><a href="%sSelectedType=%s&delete=yes" onclick=\'return confirm("' . _('Are you sure you wish to delete this Customer Type?') . '");\'>' . _('Delete') . '</td>
+		<td><a href="%sSelectedType=%s">' . _('Edit') . '</a></td>
+		<td><a href="%sSelectedType=%s&amp;delete=yes" onclick=\'return confirm("' . _('Are you sure you wish to delete this Customer Type?') . '");\'>' . _('Delete') . '</a></td>
 		</tr>',
 		$myrow[0],
 		$myrow[1],
