@@ -1,4 +1,6 @@
 webERP Change Log
+8/5/2012 MTPubRadion: Fixed add new items failed due to lastcostupdate date problem by alter lastcostupdate field.
+8/5/2012 Phil: Add POS draw open to PaymentMethods.php to support POS add-on.
 8/5/2012 Exson: Fixed typo in SalesCategories.php which leads to the jpg pictures do not appear. 
 8/05/2012 Phil: Show the deleted customer type names instead of typeid in CustomerTypes.php. Reported by Jamedupin
 4/05/2012 Phil: Add L type categories for SelectOrderItems.php to make it be able to handle labor type items.
