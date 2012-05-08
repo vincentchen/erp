@@ -735,7 +735,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 								stockmaster.units
 						FROM stockmaster INNER JOIN stockcategory
 						ON stockmaster.categoryid=stockcategory.categoryid
-						WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D')
+						WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D' OR stockcategory.stocktype='L')
 						AND stockmaster.mbflag <>'G'
 						AND stockmaster.description " . LIKE . " '" . $SearchString . "'
 						AND stockmaster.discontinued=0
@@ -746,7 +746,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 								stockmaster.units
 						FROM stockmaster INNER JOIN stockcategory
 						ON stockmaster.categoryid=stockcategory.categoryid
-						WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D')
+						WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D' OR stockcategory.stocktype='L')
 						AND stockmaster.mbflag <>'G'
 						AND stockmaster.discontinued=0
 						AND stockmaster.description " . LIKE . " '" . $SearchString . "'
@@ -765,7 +765,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 								stockmaster.units
 						FROM stockmaster INNER JOIN stockcategory
 						ON stockmaster.categoryid=stockcategory.categoryid
-						WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D')
+						WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D' OR stockcategory.stocktype='L')
 						AND stockmaster.stockid " . LIKE . " '" . $SearchString . "'
 						AND stockmaster.mbflag <>'G'
 						AND stockmaster.discontinued=0
@@ -776,7 +776,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 								stockmaster.units
 						FROM stockmaster INNER JOIN stockcategory
 						ON stockmaster.categoryid=stockcategory.categoryid
-						WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D')
+						WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D' OR stockcategory.stocktype='L')
 						AND stockmaster.stockid " . LIKE . " '" . $SearchString . "'
 						AND stockmaster.mbflag <>'G'
 						AND stockmaster.discontinued=0
@@ -791,7 +791,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 								stockmaster.units
 						FROM stockmaster INNER JOIN stockcategory
 						ON stockmaster.categoryid=stockcategory.categoryid
-						WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D')
+						WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D' OR stockcategory.stocktype='L')
 						AND stockmaster.mbflag <>'G'
 						AND stockmaster.discontinued=0
 						ORDER BY stockmaster.stockid";
@@ -801,7 +801,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 								stockmaster.units
 						FROM stockmaster INNER JOIN stockcategory
 						ON stockmaster.categoryid=stockcategory.categoryid
-						WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D')
+						WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D' OR stockcategory.stocktype='L')
 						AND stockmaster.mbflag <>'G'
 						AND stockmaster.discontinued=0
 						AND stockmaster.categoryid='" . $_POST['StockCat'] . "'
@@ -1614,7 +1614,7 @@ if ($_SESSION['RequireCustomerSelection'] ==1
 		$SQL="SELECT categoryid,
 						categorydescription
 				FROM stockcategory
-				WHERE stocktype='F' OR stocktype='D'
+				WHERE stocktype='F' OR stocktype='D' OR stocktype='L'
 				ORDER BY categorydescription";
 
 		$result1 = DB_query($SQL,$db);
