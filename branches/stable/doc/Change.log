@@ -1,4 +1,5 @@
 webERP Change Log
+4/05/2012 Phil: Add L type categories for SelectOrderItems.php to make it be able to handle labor type items.
 8/05/2012 Exson: Fixed the bug of Credit_Invoice.php the total will be doubled when use Update button. The bug is introduced for a fix of directly proceed the Credit. Reported by PakRichard. 
 1/5/2012 MTPubRadio: Measurement unit in FormDesigner.php should be points instead of millimeters. 
 1/5/2012 MTPubRadio: Fixed Purch Order PDF file text of Order Total- Excl tax does not align with amount horizontally. 
