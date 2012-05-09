@@ -1,4 +1,5 @@
 webERP Change Log
+9/5/2012 Tim: Fixed the file upload Serial No not work bugs in InputSerialItemsFile.php
 9/5/2012 Ahmed.Fawzy: Fixed bugs in Stocks.php that the properties for new items cannot be saved. Checked status is not kept and numeric values between max and min are not validated.8/5/2012 MTPubRadion: Fixed add new items failed due to lastcostupdate date problem by alter lastcostupdate field.
 8/5/2012 Phil: Add POS draw open to PaymentMethods.php to support POS add-on.
 8/5/2012 Exson: Fixed typo in SalesCategories.php which leads to the jpg pictures do not appear. 
