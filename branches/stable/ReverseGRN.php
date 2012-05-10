@@ -301,7 +301,7 @@ if (isset($_GET['GRNNo']) AND isset($_POST['SupplierID'])){
 									'" . $PeriodNo . "',
 									'" . $GRN['glcode'] . "',
 									'" . _('GRN Reversal for PO') .": " . $GRN['orderno'] . " " . $_POST['SupplierID'] . " - " . $GRN['itemcode'] . "-" . $GRN['itemdescription'] . " x " . $QtyToReverse . " @ " . locale_number_format($GRN['stdcostunit'],$_SESSION['CompanyRecord']['decimalplaces']) . "',
-									'" . -($GRN['stdcostunit'] * $QtyToReverse) . "')";
+									'" . (-($GRN['stdcostunit'] * $QtyToReverse)) . "')";
 					
 		$ErrMsg = _('CRITICAL ERROR') . '! ' . _('NOTE DOWN THIS ERROR AND SEEK ASSISTANCE') . ': ' . _('The purchase GL posting could not be inserted for the reversal of the received item because');
 		$DbgMsg = _('The following SQL to insert the purchase GLTrans record was used');
@@ -360,6 +360,7 @@ if (isset($_GET['GRNNo']) AND isset($_POST['SupplierID'])){
 	if (isset($_POST['ShowGRNS'])){
 
 		$sql = "SELECT grnno,
+						grnbatch,
 						itemcode,
 						itemdescription,
 						deliverydate,
@@ -368,7 +369,8 @@ if (isset($_GET['GRNNo']) AND isset($_POST['SupplierID'])){
 						qtyrecd-quantityinv AS qtytoreverse
 				FROM grns
 				WHERE grns.supplierid = '" . $_POST['SupplierID'] . "'
-				AND (grns.qtyrecd-grns.quantityinv) >0";
+				AND (grns.qtyrecd-grns.quantityinv) >0 
+				AND deliverydate>='" . FormatDateForSQL($_POST['RecdAfterDate']) ."'";
 
 		$ErrMsg = _('An error occurred in the attempt to get the outstanding GRNs for') . ' ' . $_POST['SuppName'] . '. ' . _('The message was') . ':';
   		$DbgMsg = _('The SQL that failed was') . ':';
@@ -381,6 +383,7 @@ if (isset($_GET['GRNNo']) AND isset($_POST['SupplierID'])){
 			echo '<br /><table cellpadding="2" colspan="7" class="selection">';
 			$TableHeader = '<tr>
 								<th>' . _('GRN') . ' #</th>
+								<th>' . _('GRN Batch') . '</th>
 								<th>' . _('Item Code') . '</th>
 								<th>' . _('Description') . '</th>
 								<th>' . _('Date') . '<br />' . _('Received') . '</th>
@@ -413,12 +416,14 @@ if (isset($_GET['GRNNo']) AND isset($_POST['SupplierID'])){
 						<td>%s</td>
 						<td>%s</td>
 						<td>%s</td>
+						<td>%s</td>
 						<td class="number">%s</td>
 						<td class="number">%s</td>
 						<td class="number">%s</td>
 						<td>%s</td>
 						</tr>',
 						$myrow['grnno'],
+						$myrow['grnbatch'],
 						$myrow['itemcode'],
 						$myrow['itemdescription'],
 						$DisplayDateDel,
