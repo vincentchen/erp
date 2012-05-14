@@ -903,7 +903,7 @@ echo '<tr>
 	</tr>
 
         
-		   <td><input type="hidden" name="PreviousCurrency" value="'.$_POST['Currency'].'" /></td>;
+		   <td><input type="hidden" name="PreviousCurrency" value="'.$_POST['Currency'].'" /></td>
 
 
 	<td colspan="3"><div class="centre"><input type="submit" name="UpdateHeader" value="' . _('Update'). '" /></td>
