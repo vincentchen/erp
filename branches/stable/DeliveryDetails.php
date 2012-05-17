@@ -654,12 +654,8 @@ if (isset($OK_to_PROCESS) AND $OK_to_PROCESS == 1 && $_SESSION['ExistingOrder'.$
 													workcentreadded,
 												'" . $_SESSION['Items'.$identifier]->Location ."',
 												'" . Date('Y-m-d') . "',
-<<<<<<< .mine
-												'2037-12-31',
-												quantity
-=======
-												'2099-12-31'
->>>>>>> .r4665
+												'2099-12-31',
+												 quantity
 											FROM contractbom
 											WHERE contractref='" . $ContractRow['contractref'] . "'",$db,$ErrMsg,$DbgMsg);
 
