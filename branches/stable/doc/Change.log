@@ -1,4 +1,5 @@
 webERP Change Log
+17/5/2012 Thumb: Remove version merge info in DeliveryDate.php 
 14/5/2012 Exson: Fixed bug that when users input a Exchang Rate manually, when ones changed minds and select another currency, it'll show the suggested rate correctly. 
 14/5/2012: Exson Fixed bugs that when user change the currency of CustomerReceipt.php, the suggested rate is not changed. Report by Ahmed.Fawzy. 
 14/5/2012: Ahmed.Fawzy fixed bugs that ExchangRateText should be applied number format function in CustomerReceipt.php
