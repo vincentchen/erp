@@ -1,4 +1,6 @@
 webERP Change Log
+18/5/2012 Ahmed: Fixed bug that Offer cannot store more than one items and remove function does not work in SupplierTenders.php and DefineOfferClass.php
+18/5/2012 Ahmed.Fawzy: Fixed Branch code validation rule to rule out '-' in CustomerBranches.php.
 17/5/2012 Thumb: Remove version merge info in DeliveryDate.php 
 14/5/2012 Exson: Fixed bug that when users input a Exchang Rate manually, when ones changed minds and select another currency, it'll show the suggested rate correctly. 
 14/5/2012: Exson Fixed bugs that when user change the currency of CustomerReceipt.php, the suggested rate is not changed. Report by Ahmed.Fawzy. 
