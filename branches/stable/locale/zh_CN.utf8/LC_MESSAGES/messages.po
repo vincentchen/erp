@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WEBERP3.05 VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-19 19:51+0800\n"
-"PO-Revision-Date: 2012-04-01 23:28+0800\n"
-"Last-Translator: exsonqu <exsonqu@minghaohk.com>\n"
+"POT-Creation-Date: 2012-05-14 11:08+0800\n"
+"PO-Revision-Date: 2012-05-21 16:37+0800\n"
+"Last-Translator: 付达林 <11062934@qq.com>\n"
 "Language-Team: WebERP Translation Team <web-erp-translation@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -95,7 +95,7 @@ msgstr "用于更新科目组失败的 SQL 是"
 
 #: AccountGroups.php:139
 #: AccountSections.php:100
-#: PaymentMethods.php:82
+#: PaymentMethods.php:83
 msgid "Record Updated"
 msgstr "记录已更新"
 
@@ -109,7 +109,6 @@ msgstr "用作插入科目组失败的 SQL 是"
 
 #: AccountGroups.php:157
 #: AccountSections.php:110
-#: PaymentMethods.php:103
 msgid "Record inserted"
 msgstr "记录已新增"
 
@@ -155,7 +154,7 @@ msgstr "不能删除，已创建了属于这个科目组的会计科目"
 #: Locations.php:301
 #: Locations.php:309
 #: MRPDemandTypes.php:87
-#: PaymentMethods.php:138
+#: PaymentMethods.php:142
 #: PaymentTerms.php:146
 #: PaymentTerms.php:153
 #: PcExpenses.php:158
@@ -169,12 +168,12 @@ msgstr "不能删除，已创建了属于这个科目组的会计科目"
 #: Shippers.php:81
 #: Shippers.php:93
 #: StockCategories.php:180
-#: Stocks.php:615
-#: Stocks.php:624
-#: Stocks.php:632
-#: Stocks.php:640
-#: Stocks.php:648
-#: Stocks.php:656
+#: Stocks.php:652
+#: Stocks.php:661
+#: Stocks.php:669
+#: Stocks.php:677
+#: Stocks.php:685
+#: Stocks.php:693
 #: Suppliers.php:612
 #: Suppliers.php:621
 #: Suppliers.php:629
@@ -263,7 +262,7 @@ msgstr "不能取得科目组, 由于"
 #: FixedAssetRegister.php:243
 #: FixedAssetTransfer.php:31
 #: FormDesigner.php:129
-#: GLBalanceSheet.php:362
+#: GLBalanceSheet.php:378
 #: GLBudgets.php:29
 #: GLJournal.php:246
 #: InventoryPlanning.php:374
@@ -271,11 +270,11 @@ msgstr "不能取得科目组, 由于"
 #: Labels.php:115
 #: Labels.php:270
 #: MRPReport.php:515
-#: OutstandingGRNs.php:160
+#: OutstandingGRNs.php:163
 #: PcAssignCashToTab.php:56
 #: PcAssignCashToTab.php:130
 #: PcAssignCashToTab.php:146
-#: PcAssignCashToTab.php:187
+#: PcAssignCashToTab.php:190
 #: PDFPickingList.php:28
 #: PDFPrintLabel.php:140
 #: PDFStockLocTransfer.php:16
@@ -399,18 +398,20 @@ msgstr "父组"
 #: DeliveryDetails.php:1128
 #: DeliveryDetails.php:1131
 #: GLTransInquiry.php:69
-#: MRPCalendar.php:224
+#: MRPCalendar.php:225
 #: MRP.php:529
 #: MRP.php:533
 #: MRP.php:537
 #: MRP.php:541
-#: PaymentMethods.php:197
-#: PaymentMethods.php:198
-#: PaymentMethods.php:199
-#: PaymentMethods.php:262
-#: PaymentMethods.php:268
-#: PaymentMethods.php:275
-#: PcAuthorizeExpenses.php:244
+#: PaymentMethods.php:204
+#: PaymentMethods.php:205
+#: PaymentMethods.php:206
+#: PaymentMethods.php:207
+#: PaymentMethods.php:272
+#: PaymentMethods.php:278
+#: PaymentMethods.php:285
+#: PaymentMethods.php:292
+#: PcAuthorizeExpenses.php:243
 #: PDFChequeListing.php:63
 #: PDFDeliveryDifferences.php:75
 #: PDFDIFOT.php:75
@@ -438,10 +439,10 @@ msgstr "父组"
 #: SalesPeople.php:357
 #: SelectProduct.php:385
 #: ShipmentCosting.php:667
-#: Stocks.php:1015
-#: Stocks.php:1017
-#: Stocks.php:1040
-#: Stocks.php:1042
+#: Stocks.php:1054
+#: Stocks.php:1056
+#: Stocks.php:1079
+#: Stocks.php:1081
 #: SuppContractChgs.php:90
 #: SystemParameters.php:396
 #: SystemParameters.php:419
@@ -499,18 +500,20 @@ msgstr "是"
 #: DeliveryDetails.php:1129
 #: DeliveryDetails.php:1132
 #: GLTransInquiry.php:86
-#: MRPCalendar.php:226
+#: MRPCalendar.php:227
 #: MRP.php:527
 #: MRP.php:531
 #: MRP.php:535
 #: MRP.php:539
-#: PaymentMethods.php:197
-#: PaymentMethods.php:198
-#: PaymentMethods.php:199
-#: PaymentMethods.php:263
-#: PaymentMethods.php:269
-#: PaymentMethods.php:276
-#: PcAuthorizeExpenses.php:242
+#: PaymentMethods.php:204
+#: PaymentMethods.php:205
+#: PaymentMethods.php:206
+#: PaymentMethods.php:207
+#: PaymentMethods.php:273
+#: PaymentMethods.php:279
+#: PaymentMethods.php:286
+#: PaymentMethods.php:293
+#: PcAuthorizeExpenses.php:241
 #: PDFChequeListing.php:62
 #: PDFDeliveryDifferences.php:74
 #: PDFDIFOT.php:74
@@ -538,10 +541,10 @@ msgstr "是"
 #: SalesPeople.php:362
 #: SelectProduct.php:387
 #: ShipmentCosting.php:668
-#: Stocks.php:1010
-#: Stocks.php:1012
-#: Stocks.php:1035
-#: Stocks.php:1037
+#: Stocks.php:1049
+#: Stocks.php:1051
+#: Stocks.php:1074
+#: Stocks.php:1076
 #: SuppContractChgs.php:92
 #: SystemParameters.php:397
 #: SystemParameters.php:420
@@ -589,7 +592,7 @@ msgstr "否"
 #: CustomerBranches.php:415
 #: Customers.php:1027
 #: Customers.php:1061
-#: CustomerTypes.php:202
+#: CustomerTypes.php:206
 #: EDIMessageFormat.php:150
 #: Factors.php:329
 #: FixedAssetCategories.php:186
@@ -602,13 +605,13 @@ msgstr "否"
 #: Locations.php:391
 #: MRPDemands.php:306
 #: MRPDemandTypes.php:120
-#: PaymentMethods.php:200
+#: PaymentMethods.php:208
 #: PaymentTerms.php:205
-#: PcAssignCashToTab.php:259
-#: PcClaimExpensesFromTab.php:252
+#: PcAssignCashToTab.php:273
+#: PcClaimExpensesFromTab.php:265
 #: PcExpenses.php:223
 #: PcTabs.php:233
-#: PcTypeTabs.php:172
+#: PcTypeTabs.php:174
 #: PO_AuthorisationLevels.php:151
 #: Prices_Customer.php:278
 #: Prices.php:249
@@ -646,7 +649,6 @@ msgid "Edit"
 msgstr "编辑"
 
 #: AccountGroups.php:264
-#, fuzzy
 msgid "Are you sure you wish to delete this account group?"
 msgstr "确认要删除此客户分公司么"
 
@@ -663,12 +665,12 @@ msgstr "确认要删除此客户分公司么"
 #: ContractBOM.php:266
 #: ContractOtherReqts.php:119
 #: CounterSales.php:822
-#: Credit_Invoice.php:381
+#: Credit_Invoice.php:390
 #: CreditStatus.php:175
 #: Currencies.php:275
-#: CustomerReceipt.php:921
+#: CustomerReceipt.php:925
 #: Customers.php:1062
-#: CustomerTypes.php:203
+#: CustomerTypes.php:207
 #: DiscountCategories.php:219
 #: DiscountMatrix.php:182
 #: EDIMessageFormat.php:151
@@ -682,15 +684,15 @@ msgstr "确认要删除此客户分公司么"
 #: Locations.php:392
 #: MRPDemands.php:307
 #: MRPDemandTypes.php:121
-#: PaymentMethods.php:201
-#: Payments.php:1073
+#: PaymentMethods.php:209
+#: Payments.php:1080
 #: PaymentTerms.php:206
-#: PcAssignCashToTab.php:263
-#: PcClaimExpensesFromTab.php:253
+#: PcAssignCashToTab.php:277
+#: PcClaimExpensesFromTab.php:266
 #: PcExpenses.php:224
-#: PcExpensesTypeTab.php:185
+#: PcExpensesTypeTab.php:187
 #: PcTabs.php:234
-#: PcTypeTabs.php:173
+#: PcTypeTabs.php:175
 #: PO_AuthorisationLevels.php:153
 #: PO_Items.php:710
 #: Prices_Customer.php:279
@@ -717,7 +719,7 @@ msgstr "确认要删除此客户分公司么"
 #: SpecialOrder.php:665
 #: StockCategories.php:242
 #: StockCategories.php:555
-#: StockLocTransfer.php:302
+#: StockLocTransfer.php:317
 #: SuppContractChgs.php:99
 #: SuppCreditGRNs.php:112
 #: SuppFixedAssetChgs.php:87
@@ -760,7 +762,6 @@ msgid "The account group name does not exist in the database"
 msgstr "科目组名称在数据库中不存在。"
 
 #: AccountGroups.php:309
-#, fuzzy
 msgid "Edit Account Group Details"
 msgstr "科目组详细"
 
@@ -772,7 +773,6 @@ msgid "Account Group"
 msgstr "科目组"
 
 #: AccountGroups.php:340
-#, fuzzy
 msgid "New Account Group Details"
 msgstr "科目组详细"
 
@@ -813,7 +813,7 @@ msgstr "会计要素"
 #: MRPDemandTypes.php:187
 #: OffersReceived.php:56
 #: OffersReceived.php:143
-#: PaymentMethods.php:282
+#: PaymentMethods.php:299
 #: PaymentTerms.php:309
 #: PO_AuthorisationLevels.php:262
 #: Prices_Customer.php:360
@@ -844,7 +844,6 @@ msgid "The account section already exists in the database"
 msgstr "会计要素已经存在于数据库"
 
 #: AccountSections.php:70
-#, fuzzy
 msgid "The account section name cannot contain any illegal characters"
 msgstr "会计要素不能包含这个字符"
 
@@ -911,32 +910,26 @@ msgid "Back to Customers"
 msgstr "返回客户"
 
 #: AddCustomerContacts.php:25
-#, fuzzy
 msgid "Contacts for Customer"
 msgstr "客户的联系人"
 
 #: AddCustomerContacts.php:27
-#, fuzzy
 msgid "Edit contact for"
 msgstr "编辑联系人"
 
 #: AddCustomerContacts.php:39
-#, fuzzy
 msgid "The Contact ID must be an integer."
 msgstr "联系人必须是整数"
 
 #: AddCustomerContacts.php:42
-#, fuzzy
 msgid "The contact name must be forty characters or less long"
 msgstr "联系人名称必须不多于50个字符"
 
 #: AddCustomerContacts.php:45
-#, fuzzy
 msgid "The contact name may not be empty"
 msgstr "联系人名称不能留空"
 
 #: AddCustomerContacts.php:48
-#, fuzzy
 msgid "The contact email address is not a valid email address"
 msgstr "电子邮件地址看起来不是有效地址。此交易无法寄出。"
 
@@ -949,7 +942,7 @@ msgstr "电子邮件地址看起来不是有效地址。此交易无法寄出。
 #: DeliveryDetails.php:788
 #: Factors.php:105
 #: FixedAssetItems.php:246
-#: MRPCalendar.php:176
+#: MRPCalendar.php:177
 #: PcAssignCashToTab.php:88
 #: PcClaimExpensesFromTab.php:79
 #: PcExpenses.php:95
@@ -959,7 +952,7 @@ msgstr "电子邮件地址看起来不是有效地址。此交易无法寄出。
 #: SalesAnalReptCols.php:129
 #: SalesPeople.php:97
 #: SalesTypes.php:66
-#: Stocks.php:497
+#: Stocks.php:508
 #: Suppliers.php:513
 #: SupplierTypes.php:67
 msgid "has been updated"
@@ -984,8 +977,8 @@ msgstr "联系人记录已删除"
 #: StockDispatch.php:199
 #: SupplierContacts.php:150
 #: SuppTransGLAnalysis.php:105
-#: includes/InputSerialItemsFile.php:84
-#: includes/InputSerialItemsFile.php:124
+#: includes/InputSerialItemsFile.php:92
+#: includes/InputSerialItemsFile.php:144
 #: includes/PDFTaxPageHeader.inc:37
 msgid "Name"
 msgstr "名称"
@@ -1044,12 +1037,12 @@ msgstr "电子邮件"
 #: AddCustomerContacts.php:246
 #: Customers.php:1018
 #: Customers.php:1026
-#: PcAssignCashToTab.php:224
-#: PcAssignCashToTab.php:353
+#: PcAssignCashToTab.php:238
+#: PcAssignCashToTab.php:369
 #: PcAuthorizeExpenses.php:92
-#: PcClaimExpensesFromTab.php:214
-#: PcClaimExpensesFromTab.php:372
-#: PcReportTab.php:327
+#: PcClaimExpensesFromTab.php:227
+#: PcClaimExpensesFromTab.php:386
+#: PcReportTab.php:331
 #: SelectCustomer.php:616
 #: SystemParameters.php:335
 #: WOSerialNos.php:291
@@ -1143,14 +1136,14 @@ msgstr "客户通知："
 #: GLAccountInquiry.php:152
 #: GLAccountReport.php:340
 #: GLTransInquiry.php:42
-#: MRPCalendar.php:219
+#: MRPCalendar.php:220
 #: PaymentAllocations.php:66
-#: PcAssignCashToTab.php:220
+#: PcAssignCashToTab.php:234
 #: PcAuthorizeExpenses.php:88
 #: PDFRemittanceAdvice.php:300
 #: PrintCustTrans.php:822
 #: PrintCustTransPortrait.php:865
-#: ReverseGRN.php:386
+#: ReverseGRN.php:389
 #: ShipmentCosting.php:538
 #: ShipmentCosting.php:615
 #: Shipments.php:490
@@ -1175,17 +1168,17 @@ msgstr "日期"
 
 #: AddCustomerNotes.php:118
 #: AddCustomerTypeNotes.php:112
-#: PcReportTab.php:173
-#: Stocks.php:1019
-#: UpgradeDatabase.php:192
-#: UpgradeDatabase.php:195
-#: UpgradeDatabase.php:198
-#: UpgradeDatabase.php:201
-#: UpgradeDatabase.php:204
-#: UpgradeDatabase.php:207
-#: UpgradeDatabase.php:210
-#: UpgradeDatabase.php:213
-#: UpgradeDatabase.php:216
+#: PcReportTab.php:176
+#: Stocks.php:1058
+#: UpgradeDatabase.php:196
+#: UpgradeDatabase.php:199
+#: UpgradeDatabase.php:202
+#: UpgradeDatabase.php:205
+#: UpgradeDatabase.php:208
+#: UpgradeDatabase.php:211
+#: UpgradeDatabase.php:214
+#: UpgradeDatabase.php:217
+#: UpgradeDatabase.php:220
 #: Z_Upgrade_3.10-3.11.php:62
 #: Z_Upgrade_3.10-3.11.php:66
 #: Z_Upgrade_3.10-3.11.php:70
@@ -1212,7 +1205,7 @@ msgid "Priority"
 msgstr "优先级"
 
 #: AddCustomerNotes.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this customer note?"
 msgstr "你确定要删除这个顾客类型?"
 
@@ -1239,12 +1232,10 @@ msgid "The Contact priority must be an integer."
 msgstr "联络人优先级必须是整数"
 
 #: AddCustomerTypeNotes.php:34
-#, fuzzy
 msgid "The contacts notes must be two hundred characters or less long"
 msgstr "联系人备注必须不多于200个字符"
 
 #: AddCustomerTypeNotes.php:37
-#, fuzzy
 msgid "The contacts notes may not be empty"
 msgstr "联系人备注不能留空"
 
@@ -1306,8 +1297,8 @@ msgstr "客户欠款分析"
 #: BOMListing.php:52
 #: DebtorsAtPeriodEnd.php:57
 #: DebtorsAtPeriodEnd.php:69
-#: GLBalanceSheet.php:100
-#: GLBalanceSheet.php:139
+#: GLBalanceSheet.php:101
+#: GLBalanceSheet.php:140
 #: GLProfit_Loss.php:177
 #: GLTagProfit_Loss.php:191
 #: GLTrialBalance.php:159
@@ -1377,9 +1368,9 @@ msgstr "客户明细资料无法从SQL取得, 因为"
 #: DebtorsAtPeriodEnd.php:72
 #: FTP_RadioBeacon.php:187
 #: GetStockImage.php:150
-#: GLBalanceSheet.php:104
-#: GLBalanceSheet.php:142
-#: GLBalanceSheet.php:305
+#: GLBalanceSheet.php:105
+#: GLBalanceSheet.php:143
+#: GLBalanceSheet.php:320
 #: GLProfit_Loss.php:180
 #: GLProfit_Loss.php:192
 #: GLTagProfit_Loss.php:195
@@ -1433,7 +1424,7 @@ msgstr "客户明细资料无法从SQL取得, 因为"
 #: PO_PDFPurchOrder.php:31
 #: PO_PDFPurchOrder.php:154
 #: PrintCustOrder_generic.php:243
-#: PrintCustOrder.php:220
+#: PrintCustOrder.php:231
 #: ReorderLevel.php:63
 #: ReorderLevel.php:152
 #: SalesAnalysis_UserDefined.php:28
@@ -1506,8 +1497,8 @@ msgstr "不能取得, 因为"
 #: Contracts.php:580
 #: CounterSales.php:1360
 #: CounterSales.php:1374
-#: Credit_Invoice.php:697
-#: Credit_Invoice.php:718
+#: Credit_Invoice.php:706
+#: Credit_Invoice.php:727
 #: CustomerReceipt.php:545
 #: CustomerReceipt.php:684
 #: CustomerReceipt.php:712
@@ -1523,7 +1514,7 @@ msgstr "不能取得, 因为"
 #: RecurringSalesOrders.php:256
 #: ReverseGRN.php:191
 #: ReverseGRN.php:205
-#: ReverseGRN.php:374
+#: ReverseGRN.php:376
 #: SelectCreditItems.php:1409
 #: SelectSalesOrder.php:189
 #: SelectSalesOrder.php:353
@@ -1534,7 +1525,7 @@ msgstr "不能取得, 因为"
 #: StockMovements.php:87
 #: StockQuantityByDate.php:95
 #: StockReorderLevel.php:40
-#: StockStatus.php:263
+#: StockStatus.php:265
 #: StockTransfers.php:201
 #: StockUsageGraph.php:53
 #: StockUsage.php:139
@@ -1564,7 +1555,6 @@ msgid "The SQL that failed was"
 msgstr "运行失败的 SQL 是"
 
 #: AgedDebtors.php:432
-#, fuzzy
 msgid "There are no customers with balances meeting the criteria specified to list"
 msgstr "没有符合条件的客户"
 
@@ -1605,7 +1595,6 @@ msgid "Only Show Customers Of"
 msgstr "负责客户的销售员："
 
 #: AgedDebtors.php:479
-#, fuzzy
 msgid "All Sales people"
 msgstr "全部销售员"
 
@@ -1644,7 +1633,7 @@ msgstr "明细报表"
 #: MRPPlannedWorkOrders.php:337
 #: MRPReschedules.php:152
 #: MRPShortages.php:302
-#: OutstandingGRNs.php:178
+#: OutstandingGRNs.php:182
 #: PDFCustomerList.php:417
 #: PDFLowGP.php:146
 #: PDFPriceList.php:309
@@ -1691,12 +1680,11 @@ msgid "Aged Supplier Analysis"
 msgstr "应付账款帐龄分析"
 
 #: AgedSuppliers.php:266
-#, fuzzy
 msgid "There are no results so the PDF is empty"
 msgstr "这部件没有价目设定"
 
 #: AgedSuppliers.php:288
-#: OutstandingGRNs.php:168
+#: OutstandingGRNs.php:172
 #: PDFRemittanceAdvice.php:149
 #: SupplierBalsAtPeriodEnd.php:131
 #: SuppPaymentRun.php:264
@@ -1704,7 +1692,7 @@ msgid "From Supplier Code"
 msgstr "从供应商编号"
 
 #: AgedSuppliers.php:292
-#: OutstandingGRNs.php:172
+#: OutstandingGRNs.php:176
 #: PDFRemittanceAdvice.php:153
 #: SupplierBalsAtPeriodEnd.php:135
 #: SuppPaymentRun.php:268
@@ -1788,18 +1776,18 @@ msgid "Area Code"
 msgstr "区域编号"
 
 #: Areas.php:132
-#: CustomerTypes.php:164
+#: CustomerTypes.php:168
 #: Factors.php:140
 #: FixedAssetCategories.php:138
 #: GLAccounts.php:197
 #: Locations.php:337
 #: MRPDemands.php:248
 #: PcAssignCashToTab.php:135
-#: PcClaimExpensesFromTab.php:126
+#: PcClaimExpensesFromTab.php:127
 #: PcExpenses.php:166
 #: PcExpensesTypeTab.php:101
 #: PcTabs.php:165
-#: PcTypeTabs.php:135
+#: PcTypeTabs.php:137
 #: SalesAnalReptCols.php:215
 #: SalesCategories.php:136
 #: SalesTypes.php:156
@@ -1816,7 +1804,6 @@ msgid "Area Name"
 msgstr "区域名称"
 
 #: Areas.php:165
-#, fuzzy
 msgid "Are you sure you wish to delete this sales area?"
 msgstr "确认要删除这个供应商么？"
 
@@ -1839,14 +1826,14 @@ msgstr "输入的日期无效, 请输入有效日期格式"
 #: AuditTrail.php:41
 #: BOMIndented.php:316
 #: BOMIndentedReverse.php:296
-#: MRPCalendar.php:263
+#: MRPCalendar.php:264
 msgid "From Date"
 msgstr "从 日期"
 
 #: AuditTrail.php:43
 #: BOMIndented.php:317
 #: BOMIndentedReverse.php:297
-#: MRPCalendar.php:265
+#: MRPCalendar.php:266
 msgid "To Date"
 msgstr "到 日期"
 
@@ -1930,7 +1917,6 @@ msgid "Table "
 msgstr "表 "
 
 #: AuditTrail.php:76
-#, fuzzy
 msgid "Containing text"
 msgstr "常数"
 
@@ -1947,7 +1933,7 @@ msgid "Date/Time"
 msgstr "日期/时间"
 
 #: AuditTrail.php:164
-#: PcReportTab.php:259
+#: PcReportTab.php:263
 #: includes/header.inc:55
 msgid "User"
 msgstr "用户"
@@ -1981,8 +1967,8 @@ msgstr "用户"
 #: Z_CheckAllocationsFrom.php:57
 #: Z_CheckAllocs.php:62
 #: Z_CheckGLTransBalance.php:11
-#: includes/InputSerialItemsFile.php:86
-#: includes/InputSerialItemsFile.php:126
+#: includes/InputSerialItemsFile.php:94
+#: includes/InputSerialItemsFile.php:152
 #: includes/PDFTaxPageHeader.inc:34
 msgid "Type"
 msgstr "凭证类型"
@@ -2005,27 +1991,22 @@ msgid "Value"
 msgstr "价值"
 
 #: BackupDatabase.php:7
-#, fuzzy
 msgid "Backup webERP Database"
 msgstr "升级webERP到数据库"
 
 #: BackupDatabase.php:20
-#, fuzzy
 msgid "Deleted"
 msgstr "删除"
 
 #: BackupDatabase.php:23
-#, fuzzy
 msgid "Unable to delete"
 msgstr "找不到物料编号"
 
 #: BackupDatabase.php:28
-#, fuzzy
 msgid "All backup files on the server have been deleted"
 msgstr "销售收入科目配置已删除"
 
 #: BackupDatabase.php:30
-#, fuzzy
 msgid "No backup files on the server were deleted"
 msgstr "上传文件到服务器"
 
@@ -2046,7 +2027,6 @@ msgid "Once you have downloaded the database backup file to your local machine y
 msgstr ""
 
 #: BackupDatabase.php:47
-#, fuzzy
 msgid "Delete the backup file off the server"
 msgstr "上传文件到服务器"
 
@@ -2064,7 +2044,6 @@ msgid "Bank"
 msgstr "纳税专户银行"
 
 #: BankAccounts.php:12
-#, fuzzy
 msgid "Update Bank Account details.  Account Code is for SWIFT or BSB type Bank Codes.  Set Default for Invoices to \"Currency Default\"  of \"Fallback Default\" to print Account details on Invoices (only one account should be set to \"Fall Back Default\")."
 msgstr "更新银行账户细节。账户代码是SWIFT或者BSB类型的银行代码。将发票默认项设置为\"是\"来在发票上打印账户的细节 （仅一个账户可以被设置为\"是\")"
 
@@ -2162,7 +2141,7 @@ msgstr "银行地址"
 #: CustomerReceipt.php:791
 #: CustomerTransInquiry.php:108
 #: OffersReceived.php:109
-#: PcReportTab.php:267
+#: PcReportTab.php:271
 #: PcTabs.php:205
 #: PcTabs.php:348
 #: PDFPrintLabel.php:97
@@ -2211,12 +2190,11 @@ msgstr ""
 #: BankAccounts.php:374
 #: BankAccounts.php:378
 #: BankAccounts.php:384
-#, fuzzy
 msgid "Currency Default"
 msgstr "货币 "
 
 #: BankAccounts.php:224
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this bank account?"
 msgstr "确认要删除此客户分公司么"
 
@@ -2326,7 +2304,7 @@ msgstr "来自"
 #: GLAccountCSV.php:171
 #: GLAccountReport.php:103
 #: Payments.php:738
-#: PcReportTab.php:102
+#: PcReportTab.php:105
 #: PDFChequeListing.php:115
 #: PDFChequeListing.php:125
 #: PDFChequeListing.php:200
@@ -2356,8 +2334,8 @@ msgstr "来自"
 #: StockLocTransferReceive.php:423
 #: Stocks.php:266
 #: Stocks.php:271
-#: StockStatus.php:304
-#: StockStatus.php:345
+#: StockStatus.php:306
+#: StockStatus.php:347
 #: StockTransfers.php:446
 #: includes/PDFAgedDebtorsPageHeader.inc:18
 #: includes/PDFAgedSuppliersPageHeader.inc:17
@@ -2478,20 +2456,20 @@ msgstr "摘要"
 #: ConfirmDispatch_Invoice.php:288
 #: Credit_Invoice.php:279
 #: CustomerAllocations.php:364
-#: CustomerReceipt.php:900
+#: CustomerReceipt.php:904
 #: CustomerTransInquiry.php:107
 #: CustWhereAlloc.php:108
 #: PaymentAllocations.php:67
-#: Payments.php:1030
-#: Payments.php:1034
-#: Payments.php:1050
-#: PcAssignCashToTab.php:222
-#: PcAssignCashToTab.php:345
+#: Payments.php:1037
+#: Payments.php:1041
+#: Payments.php:1057
+#: PcAssignCashToTab.php:236
+#: PcAssignCashToTab.php:361
 #: PcAuthorizeExpenses.php:90
-#: PcClaimExpensesFromTab.php:212
-#: PcClaimExpensesFromTab.php:365
-#: PcReportTab.php:172
-#: PcReportTab.php:326
+#: PcClaimExpensesFromTab.php:225
+#: PcClaimExpensesFromTab.php:379
+#: PcReportTab.php:175
+#: PcReportTab.php:330
 #: PrintCheque.php:83
 #: PrintCheque.php:97
 #: SelectCreditItems.php:682
@@ -2743,7 +2721,7 @@ msgstr "这将在账户的当前余额产生一个总帐日记账来核销汇兑
 #: CounterSales.php:822
 #: Customers.php:1091
 #: SelectOrderItems.php:1411
-#: Stocks.php:1204
+#: Stocks.php:1246
 #: WorkOrderCosting.php:540
 #: WorkOrderEntry.php:568
 msgid "Are You Sure?"
@@ -2858,8 +2836,8 @@ msgstr "部件"
 #: PrintCustTransPortrait.php:1062
 #: RecurringSalesOrders.php:320
 #: ReorderLevel.php:268
-#: ReverseGRN.php:387
-#: ReverseGRN.php:388
+#: ReverseGRN.php:390
+#: ReverseGRN.php:391
 #: SalesAnalReptCols.php:16
 #: SalesAnalReptCols.php:18
 #: SalesGraph.php:188
@@ -2882,9 +2860,9 @@ msgstr "部件"
 #: SpecialOrder.php:626
 #: StockCounts.php:98
 #: StockLocMovements.php:92
-#: StockLocTransfer.php:277
+#: StockLocTransfer.php:292
 #: StockMovements.php:97
-#: StockStatus.php:308
+#: StockStatus.php:310
 #: StockUsageGraph.php:12
 #: SuppCreditGRNs.php:278
 #: SuppCreditGRNs.php:279
@@ -2898,6 +2876,7 @@ msgstr "部件"
 #: SupplierTenders.php:691
 #: WOSerialNos.php:256
 #: WOSerialNos.php:296
+#: includes/InputSerialItemsFile.php:200
 #: includes/InputSerialItems.php:111
 #: includes/InputSerialItems.php:117
 #: includes/OutputSerialItems.php:38
@@ -3037,6 +3016,7 @@ msgstr "打印日期"
 #: PDFPriceList.php:339
 #: PDFReceipt.php:31
 #: PDFRemittanceAdvice.php:210
+#: PrintCustOrder.php:168
 #: PrintCustTrans.php:737
 #: PrintCustTrans.php:946
 #: PrintCustTrans.php:995
@@ -3178,8 +3158,8 @@ msgstr "M/B"
 #: POReport.php:1313
 #: POReport.php:1364
 #: POReport.php:1418
-#: Stocks.php:806
-#: Stocks.php:816
+#: Stocks.php:845
+#: Stocks.php:855
 msgid "Part Description"
 msgstr "物料描述"
 
@@ -3256,10 +3236,10 @@ msgstr "一层"
 #: MRPShortages.php:347
 #: PaymentTerms.php:182
 #: PcExpenses.php:187
-#: PcExpenses.php:292
-#: PcExpensesTypeTab.php:169
-#: PcReportTab.php:171
-#: PcTypeTabs.php:156
+#: PcExpenses.php:293
+#: PcExpensesTypeTab.php:171
+#: PcReportTab.php:174
+#: PcTypeTabs.php:158
 #: PDFOrdersInvoiced.php:348
 #: PDFOrderStatus.php:319
 #: PDFPrintLabel.php:248
@@ -3270,7 +3250,7 @@ msgstr "一层"
 #: PricesByCost.php:152
 #: ReorderLevelLocation.php:63
 #: ReorderLevel.php:266
-#: ReverseGRN.php:385
+#: ReverseGRN.php:388
 #: SalesCategories.php:422
 #: SecurityTokens.php:94
 #: SecurityTokens.php:103
@@ -3427,8 +3407,8 @@ msgstr "物料描述"
 #: Contracts.php:756
 #: Contracts.php:759
 #: CounterSales.php:2177
-#: CustomerReceipt.php:1109
-#: CustomerReceipt.php:1112
+#: CustomerReceipt.php:1113
+#: CustomerReceipt.php:1116
 #: DiscountCategories.php:104
 #: DiscountCategories.php:106
 #: DiscountCategories.php:110
@@ -3524,7 +3504,7 @@ msgstr "物料号"
 #: ContractBOM.php:335
 #: Contracts.php:764
 #: CounterSales.php:2181
-#: CustomerReceipt.php:1119
+#: CustomerReceipt.php:1123
 #: FixedAssetTransfer.php:72
 #: MRPDemands.php:338
 #: MRPReport.php:554
@@ -3578,7 +3558,7 @@ msgstr "请输入物料描述或物料编号用于查找物料BOM"
 
 #: BOMInquiry.php:97
 #: BOMs.php:824
-#: MRPCalendar.php:213
+#: MRPCalendar.php:214
 #: MRPDemands.php:80
 #: MRPDemands.php:286
 #: POReport.php:481
@@ -3594,7 +3574,7 @@ msgstr "查找物料的SQL运行失败，数据库消息"
 #: CounterSales.php:2024
 #: CounterSales.php:2209
 #: CustomerBranches.php:367
-#: CustomerReceipt.php:1130
+#: CustomerReceipt.php:1134
 #: GLCodesInquiry.php:26
 #: MRPDemands.php:90
 #: MRPPlannedWorkOrders.php:256
@@ -3825,17 +3805,15 @@ msgid "N/A"
 msgstr "无"
 
 #: BOMs.php:151
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this component from the bill of material?"
 msgstr "确认要删除这个红字发票行么？"
 
 #: BOMs.php:224
-#, fuzzy
 msgid "The effective after date field must be a date in the format"
 msgstr "有效的日期格式为"
 
 #: BOMs.php:230
-#, fuzzy
 msgid "The effective to date field must be a date in the format"
 msgstr "有效的日期格式为"
 
@@ -3966,11 +3944,11 @@ msgstr "用于查找父物料描述的SQL是"
 #: BOMs.php:405
 #: ConfirmDispatch_Invoice.php:1022
 #: CounterSales.php:1408
-#: Credit_Invoice.php:753
-#: Credit_Invoice.php:781
+#: Credit_Invoice.php:762
+#: Credit_Invoice.php:790
 #: SelectCreditItems.php:1454
-#: Stocks.php:940
-#: Stocks.php:942
+#: Stocks.php:979
+#: Stocks.php:981
 #: api/api_debtortransactions.php:753
 #: api/api_salesorders.php:923
 msgid "Assembly"
@@ -3978,14 +3956,14 @@ msgstr "装配物料"
 
 #: BOMs.php:408
 #: FixedAssetRegister.php:374
-#: Stocks.php:960
-#: Stocks.php:962
+#: Stocks.php:999
+#: Stocks.php:1001
 msgid "Purchased"
 msgstr "采购物料"
 
 #: BOMs.php:411
-#: Stocks.php:950
-#: Stocks.php:952
+#: Stocks.php:989
+#: Stocks.php:991
 msgid "Manufactured"
 msgstr "生产物料"
 
@@ -3995,8 +3973,8 @@ msgstr "套装物料"
 
 #: BOMs.php:417
 #: BOMs.php:504
-#: Stocks.php:955
-#: Stocks.php:957
+#: Stocks.php:994
+#: Stocks.php:996
 msgid "Phantom"
 msgstr "虚拟"
 
@@ -4208,16 +4186,16 @@ msgstr "销售成本科目"
 
 #: COGSGLPostings.php:109
 #: COGSGLPostings.php:207
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this COGS GL posting record?"
 msgstr "你确定要删除这价目?"
 
 #: COGSGLPostings.php:190
-#: CustomerReceipt.php:1025
+#: CustomerReceipt.php:1029
 #: GLJournal.php:383
 #: GLTransInquiry.php:44
 #: index.php:1298
-#: Payments.php:1051
+#: Payments.php:1058
 #: SupplierTransInquiry.php:170
 #: TaxAuthorities.php:148
 #: TaxAuthorities.php:149
@@ -4466,7 +4444,7 @@ msgstr "为库存账生成总帐凭证"
 #: CompanyPreferences.php:519
 #: ConfirmDispatch_Invoice.php:633
 #: ConfirmDispatch_Invoice.php:1661
-#: Credit_Invoice.php:1512
+#: Credit_Invoice.php:1521
 #: FixedAssetItems.php:123
 #: FixedAssetItems.php:625
 #: GLBudgets.php:234
@@ -4476,9 +4454,10 @@ msgstr "为库存账生成总帐凭证"
 #: GoodsReceived.php:262
 #: GoodsReceived.php:742
 #: Labels.php:259
-#: MRPCalendar.php:314
-#: Payments.php:902
-#: PcAuthorizeExpenses.php:288
+#: MRPCalendar.php:315
+#: Payments.php:909
+#: PcAuthorizeExpenses.php:103
+#: PcAuthorizeExpenses.php:285
 #: PO_AuthoriseMyOrders.php:141
 #: PricesByCost.php:221
 #: PurchData.php:522
@@ -4488,7 +4467,7 @@ msgstr "为库存账生成总帐凭证"
 #: SMTPServer.php:108
 #: StockCostUpdate.php:185
 #: StockReorderLevel.php:107
-#: Stocks.php:1198
+#: Stocks.php:1240
 #: SystemParameters.php:1046
 #: TaxAuthorityRates.php:83
 #: WorkOrderEntry.php:565
@@ -4617,9 +4596,9 @@ msgstr "确认发运及开发票"
 #: CustomerBranches.php:539
 #: CustomerBranches.php:586
 #: CustomerInquiry.php:126
-#: CustomerReceipt.php:902
-#: CustomerReceipt.php:956
-#: CustomerReceipt.php:1104
+#: CustomerReceipt.php:906
+#: CustomerReceipt.php:960
+#: CustomerReceipt.php:1108
 #: Customers.php:14
 #: Customers.php:325
 #: CustomerTransInquiry.php:101
@@ -4674,7 +4653,7 @@ msgstr "客户编号"
 #: ConfirmDispatch_Invoice.php:261
 #: CustEDISetup.php:96
 #: CustomerReceipt.php:252
-#: CustomerReceipt.php:1131
+#: CustomerReceipt.php:1135
 #: Customers.php:443
 #: Customers.php:700
 #: Customers.php:730
@@ -4723,19 +4702,19 @@ msgstr "货币"
 #: RecurringSalesOrders.php:318
 #: ReorderLevelLocation.php:183
 #: ReprintGRN.php:81
-#: ReverseGRN.php:384
+#: ReverseGRN.php:387
 #: SalesGraph.php:181
 #: SelectCreditItems.php:672
 #: SelectOrderItems.php:1332
 #: StockCostUpdate.php:124
 #: StockLocMovements.php:87
-#: StockLocTransfer.php:276
+#: StockLocTransfer.php:291
 #: StockLocTransferReceive.php:427
 #: StockQuantityByDate.php:105
-#: Stocks.php:729
-#: Stocks.php:732
-#: Stocks.php:787
-#: Stocks.php:794
+#: Stocks.php:768
+#: Stocks.php:771
+#: Stocks.php:826
+#: Stocks.php:833
 #: SuppCreditGRNs.php:91
 #: SuppCreditGRNs.php:185
 #: SuppInvGRNs.php:125
@@ -4854,7 +4833,7 @@ msgstr "本次发出"
 #: Shipments.php:404
 #: StockLocMovements.php:94
 #: StockMovements.php:99
-#: StockStatus.php:309
+#: StockStatus.php:311
 #: SuppCreditGRNs.php:191
 #: SuppCreditGRNs.php:280
 #: SuppCreditGRNs.php:281
@@ -4875,7 +4854,7 @@ msgstr "价格"
 #: ConfirmDispatch_Invoice.php:284
 #: CounterSales.php:746
 #: Credit_Invoice.php:275
-#: CustomerReceipt.php:901
+#: CustomerReceipt.php:905
 #: DeliveryDetails.php:844
 #: OrderDetails.php:167
 #: PrintCustTrans.php:865
@@ -4891,7 +4870,7 @@ msgstr "价格"
 #: SelectOrderItems.php:1340
 #: StockLocMovements.php:95
 #: StockMovements.php:100
-#: StockStatus.php:310
+#: StockStatus.php:312
 #: includes/PDFQuotationPageHeader.inc:106
 #: includes/PDFQuotationPortraitPageHeader.inc:106
 #: includes/PDFTransPageHeader.inc:211
@@ -4909,10 +4888,10 @@ msgstr "折扣"
 #: CustomerInquiry.php:203
 #: DeliveryDetails.php:845
 #: DeliveryDetails.php:914
-#: GLBalanceSheet.php:183
-#: GLBalanceSheet.php:192
-#: GLBalanceSheet.php:269
-#: GLBalanceSheet.php:278
+#: GLBalanceSheet.php:184
+#: GLBalanceSheet.php:196
+#: GLBalanceSheet.php:284
+#: GLBalanceSheet.php:293
 #: GLBudgets.php:207
 #: GLJournal.php:430
 #: GLTransInquiry.php:182
@@ -5102,13 +5081,13 @@ msgid "Please remedy this"
 msgstr "请修正"
 
 #: ConfirmDispatch_Invoice.php:660
-#: Credit_Invoice.php:479
+#: Credit_Invoice.php:488
 #: GoodsReceived.php:272
 msgid "The company information and preferences could not be retrieved"
 msgstr "无法取得公司信息"
 
 #: ConfirmDispatch_Invoice.php:660
-#: Credit_Invoice.php:479
+#: Credit_Invoice.php:488
 #: GoodsReceived.php:272
 msgid "see your system administrator"
 msgstr "请联系系统管理员"
@@ -5233,30 +5212,30 @@ msgstr "用作更新客户分公司默认承运人的SQL是"
 #: CounterSales.php:1783
 #: CounterSales.php:1806
 #: Credit_Invoice.php:191
-#: Credit_Invoice.php:538
-#: Credit_Invoice.php:579
-#: Credit_Invoice.php:596
-#: Credit_Invoice.php:612
-#: Credit_Invoice.php:662
-#: Credit_Invoice.php:675
-#: Credit_Invoice.php:787
-#: Credit_Invoice.php:797
-#: Credit_Invoice.php:872
-#: Credit_Invoice.php:887
-#: Credit_Invoice.php:902
-#: Credit_Invoice.php:912
-#: Credit_Invoice.php:927
-#: Credit_Invoice.php:970
-#: Credit_Invoice.php:1008
-#: Credit_Invoice.php:1048
-#: Credit_Invoice.php:1071
-#: Credit_Invoice.php:1243
-#: Credit_Invoice.php:1283
-#: Credit_Invoice.php:1310
-#: Credit_Invoice.php:1331
-#: Credit_Invoice.php:1360
-#: Credit_Invoice.php:1386
-#: Credit_Invoice.php:1412
+#: Credit_Invoice.php:547
+#: Credit_Invoice.php:588
+#: Credit_Invoice.php:605
+#: Credit_Invoice.php:621
+#: Credit_Invoice.php:671
+#: Credit_Invoice.php:684
+#: Credit_Invoice.php:796
+#: Credit_Invoice.php:806
+#: Credit_Invoice.php:881
+#: Credit_Invoice.php:896
+#: Credit_Invoice.php:911
+#: Credit_Invoice.php:921
+#: Credit_Invoice.php:936
+#: Credit_Invoice.php:979
+#: Credit_Invoice.php:1017
+#: Credit_Invoice.php:1057
+#: Credit_Invoice.php:1080
+#: Credit_Invoice.php:1252
+#: Credit_Invoice.php:1292
+#: Credit_Invoice.php:1319
+#: Credit_Invoice.php:1340
+#: Credit_Invoice.php:1369
+#: Credit_Invoice.php:1395
+#: Credit_Invoice.php:1421
 #: GoodsReceived.php:291
 #: GoodsReceived.php:386
 #: GoodsReceived.php:427
@@ -5334,9 +5313,9 @@ msgstr "用作更新客户分公司默认承运人的SQL是"
 #: StockAdjustments.php:309
 #: StockAdjustments.php:331
 #: StockDispatch.php:179
-#: StockLocTransfer.php:160
-#: StockLocTransfer.php:184
-#: StockLocTransfer.php:188
+#: StockLocTransfer.php:175
+#: StockLocTransfer.php:199
+#: StockLocTransfer.php:203
 #: StockLocTransferReceive.php:102
 #: StockLocTransferReceive.php:136
 #: StockLocTransferReceive.php:150
@@ -5511,30 +5490,30 @@ msgstr "严重错误"
 #: CounterSales.php:1757
 #: CounterSales.php:1783
 #: CounterSales.php:1806
-#: Credit_Invoice.php:538
-#: Credit_Invoice.php:579
-#: Credit_Invoice.php:596
-#: Credit_Invoice.php:612
-#: Credit_Invoice.php:662
-#: Credit_Invoice.php:675
-#: Credit_Invoice.php:787
-#: Credit_Invoice.php:797
-#: Credit_Invoice.php:872
-#: Credit_Invoice.php:887
-#: Credit_Invoice.php:902
-#: Credit_Invoice.php:912
-#: Credit_Invoice.php:927
-#: Credit_Invoice.php:970
-#: Credit_Invoice.php:1008
-#: Credit_Invoice.php:1048
-#: Credit_Invoice.php:1071
-#: Credit_Invoice.php:1243
-#: Credit_Invoice.php:1283
-#: Credit_Invoice.php:1310
-#: Credit_Invoice.php:1331
-#: Credit_Invoice.php:1360
-#: Credit_Invoice.php:1386
-#: Credit_Invoice.php:1412
+#: Credit_Invoice.php:547
+#: Credit_Invoice.php:588
+#: Credit_Invoice.php:605
+#: Credit_Invoice.php:621
+#: Credit_Invoice.php:671
+#: Credit_Invoice.php:684
+#: Credit_Invoice.php:796
+#: Credit_Invoice.php:806
+#: Credit_Invoice.php:881
+#: Credit_Invoice.php:896
+#: Credit_Invoice.php:911
+#: Credit_Invoice.php:921
+#: Credit_Invoice.php:936
+#: Credit_Invoice.php:979
+#: Credit_Invoice.php:1017
+#: Credit_Invoice.php:1057
+#: Credit_Invoice.php:1080
+#: Credit_Invoice.php:1252
+#: Credit_Invoice.php:1292
+#: Credit_Invoice.php:1319
+#: Credit_Invoice.php:1340
+#: Credit_Invoice.php:1369
+#: Credit_Invoice.php:1395
+#: Credit_Invoice.php:1421
 #: GoodsReceived.php:291
 #: GoodsReceived.php:386
 #: GoodsReceived.php:427
@@ -5756,7 +5735,7 @@ msgstr "用于插入应收交易记录的SQL是"
 
 #: ConfirmDispatch_Invoice.php:809
 #: CounterSales.php:1303
-#: Credit_Invoice.php:596
+#: Credit_Invoice.php:605
 #: RecurringSalesOrdersProcess.php:692
 #: SelectCreditItems.php:1144
 msgid "The debtor transaction taxes records could not be inserted because"
@@ -5764,7 +5743,7 @@ msgstr "应收交易的税务记录未能插入,因为"
 
 #: ConfirmDispatch_Invoice.php:810
 #: CounterSales.php:1304
-#: Credit_Invoice.php:597
+#: Credit_Invoice.php:606
 #: RecurringSalesOrdersProcess.php:693
 #: SelectCreditItems.php:1145
 msgid "The following SQL to insert the debtor transaction taxes record was used"
@@ -5782,7 +5761,7 @@ msgstr "销售订单行信息未能更新, 因为"
 
 #: ConfirmDispatch_Invoice.php:842
 #: ConfirmDispatch_Invoice.php:919
-#: Credit_Invoice.php:663
+#: Credit_Invoice.php:672
 #: RecurringSalesOrdersProcess.php:322
 msgid "The following SQL to update the sales order detail record was used"
 msgstr "用于更新销售订单行信息的SQL是"
@@ -5805,7 +5784,7 @@ msgstr "查不到制造还是购买的标志"
 #: CounterSales.php:1324
 #: FixedAssetItems.php:627
 #: SalesAnalReptCols.php:328
-#: Stocks.php:1201
+#: Stocks.php:1243
 #: Suppliers.php:965
 #: includes/MiscFunctions.php:36
 msgid "WARNING"
@@ -5818,7 +5797,7 @@ msgstr "找不到物料库存"
 
 #: ConfirmDispatch_Invoice.php:956
 #: CounterSales.php:1340
-#: Credit_Invoice.php:675
+#: Credit_Invoice.php:684
 #: SelectCreditItems.php:1387
 msgid "Location stock record could not be updated because"
 msgstr "更新物料库存失败,因为"
@@ -5826,7 +5805,7 @@ msgstr "更新物料库存失败,因为"
 #: ConfirmDispatch_Invoice.php:957
 #: ContractCosting.php:331
 #: CounterSales.php:1341
-#: Credit_Invoice.php:676
+#: Credit_Invoice.php:685
 #: GoodsReceived.php:486
 #: ReverseGRN.php:220
 #: SelectCreditItems.php:1388
@@ -5840,14 +5819,14 @@ msgstr "用于更新物料库存的SQL是"
 
 #: ConfirmDispatch_Invoice.php:974
 #: CounterSales.php:1359
-#: Credit_Invoice.php:696
+#: Credit_Invoice.php:705
 #: SelectCreditItems.php:1408
 msgid "Could not retrieve assembly components from the database for"
 msgstr "找不到BOM组件信息"
 
 #: ConfirmDispatch_Invoice.php:974
 #: CounterSales.php:1359
-#: Credit_Invoice.php:696
+#: Credit_Invoice.php:705
 #: EDIMessageFormat.php:43
 #: EDISendInvoices.php:105
 #: FixedAssetCategories.php:90
@@ -5898,14 +5877,14 @@ msgstr "加入订单"
 
 #: ConfirmDispatch_Invoice.php:1028
 #: CounterSales.php:1414
-#: Credit_Invoice.php:787
+#: Credit_Invoice.php:796
 #: SelectCreditItems.php:1461
 msgid "Stock movement records for the assembly components of"
 msgstr "BOM组件的物料移动记录"
 
 #: ConfirmDispatch_Invoice.php:1028
 #: CounterSales.php:1414
-#: Credit_Invoice.php:787
+#: Credit_Invoice.php:796
 #: SelectCreditItems.php:1461
 #: ShipmentCosting.php:397
 #: SupplierAllocations.php:139
@@ -5920,14 +5899,14 @@ msgstr "未能插入,因为"
 
 #: ConfirmDispatch_Invoice.php:1029
 #: CounterSales.php:1415
-#: Credit_Invoice.php:788
+#: Credit_Invoice.php:797
 #: SelectCreditItems.php:1462
 msgid "The following SQL to insert the assembly components stock movement records was used"
 msgstr "用于插入BOM组件物料移动记录的SQL是"
 
 #: ConfirmDispatch_Invoice.php:1038
 #: CounterSales.php:1424
-#: Credit_Invoice.php:797
+#: Credit_Invoice.php:806
 #: SelectCreditItems.php:1471
 msgid "Location stock record could not be updated for an assembly component because"
 msgstr "BOM组件的存货记录未能更新,因为"
@@ -5939,10 +5918,10 @@ msgstr "用于更新BOM组件存货记录的SQL是"
 
 #: ConfirmDispatch_Invoice.php:1121
 #: CounterSales.php:1506
-#: Credit_Invoice.php:872
-#: Credit_Invoice.php:970
-#: Credit_Invoice.php:1008
-#: Credit_Invoice.php:1048
+#: Credit_Invoice.php:881
+#: Credit_Invoice.php:979
+#: Credit_Invoice.php:1017
+#: Credit_Invoice.php:1057
 #: RecurringSalesOrdersProcess.php:361
 #: ReverseGRN.php:248
 #: SelectCreditItems.php:1212
@@ -5953,9 +5932,9 @@ msgstr "物料移动记录未能插入,因为"
 #: ConfirmDispatch_Invoice.php:1122
 #: ContractCosting.php:360
 #: CounterSales.php:1507
-#: Credit_Invoice.php:873
-#: Credit_Invoice.php:971
-#: Credit_Invoice.php:1009
+#: Credit_Invoice.php:882
+#: Credit_Invoice.php:980
+#: Credit_Invoice.php:1018
 #: GoodsReceived.php:517
 #: RecurringSalesOrdersProcess.php:362
 #: ReverseGRN.php:249
@@ -5974,15 +5953,15 @@ msgstr "发票行的税务信息未能插入,因为"
 
 #: ConfirmDispatch_Invoice.php:1143
 #: CounterSales.php:1528
-#: Credit_Invoice.php:1072
+#: Credit_Invoice.php:1081
 #: RecurringSalesOrdersProcess.php:383
 #: SelectCreditItems.php:1307
 msgid "The following SQL to insert the stock movement tax detail records was used"
 msgstr "用于插入发票行税务信息的SQL是"
 
 #: ConfirmDispatch_Invoice.php:1159
-#: Credit_Invoice.php:902
-#: Credit_Invoice.php:912
+#: Credit_Invoice.php:911
+#: Credit_Invoice.php:921
 #: SelectCreditItems.php:1351
 #: StockAdjustments.php:234
 #: StockAdjustments.php:252
@@ -5993,8 +5972,8 @@ msgid "The serial stock item record could not be updated because"
 msgstr "物料序列号未能更新,因为"
 
 #: ConfirmDispatch_Invoice.php:1160
-#: Credit_Invoice.php:903
-#: Credit_Invoice.php:913
+#: Credit_Invoice.php:912
+#: Credit_Invoice.php:922
 #: SelectCreditItems.php:1352
 #: SelectCreditItems.php:1576
 #: StockAdjustments.php:235
@@ -6009,7 +5988,7 @@ msgid "The following SQL to update the serial stock item record was used"
 msgstr "用于更新物料序列号的SQL是"
 
 #: ConfirmDispatch_Invoice.php:1174
-#: Credit_Invoice.php:927
+#: Credit_Invoice.php:936
 #: GoodsReceived.php:580
 #: SelectCreditItems.php:1366
 #: StockAdjustments.php:268
@@ -6025,7 +6004,7 @@ msgid "The serial stock movement record could not be inserted because"
 msgstr "带序列号的物料移动记录未能插入,因为"
 
 #: ConfirmDispatch_Invoice.php:1175
-#: Credit_Invoice.php:928
+#: Credit_Invoice.php:937
 #: GoodsReceived.php:581
 #: StockAdjustments.php:269
 #: StockLocTransferReceive.php:170
@@ -6048,7 +6027,7 @@ msgstr "无法取得现有销售分析记录条数,因为"
 
 #: ConfirmDispatch_Invoice.php:1216
 #: CounterSales.php:1607
-#: Credit_Invoice.php:1101
+#: Credit_Invoice.php:1110
 #: RecurringSalesOrdersProcess.php:422
 #: SelectCreditItems.php:1630
 #: api/api_salesorders.php:1030
@@ -6063,7 +6042,7 @@ msgstr "销售分析记录未能插入或更新,因为"
 
 #: ConfirmDispatch_Invoice.php:1273
 #: CounterSales.php:1665
-#: Credit_Invoice.php:1213
+#: Credit_Invoice.php:1222
 #: RecurringSalesOrdersProcess.php:481
 #: SelectCreditItems.php:1740
 msgid "The following SQL to insert the sales analysis record was used"
@@ -6071,7 +6050,7 @@ msgstr "用于插入销售分析记录的SQL是"
 
 #: ConfirmDispatch_Invoice.php:1298
 #: CounterSales.php:1689
-#: Credit_Invoice.php:1243
+#: Credit_Invoice.php:1252
 msgid "The cost of sales GL posting could not be inserted because"
 msgstr "未能插入总账凭证销售成本行,因为"
 
@@ -6092,13 +6071,13 @@ msgstr "未能插入总账凭证销售成本行,因为"
 #: CounterSales.php:1737
 #: CounterSales.php:1758
 #: CounterSales.php:1807
-#: Credit_Invoice.php:1244
-#: Credit_Invoice.php:1284
-#: Credit_Invoice.php:1311
-#: Credit_Invoice.php:1332
-#: Credit_Invoice.php:1361
-#: Credit_Invoice.php:1387
-#: Credit_Invoice.php:1413
+#: Credit_Invoice.php:1253
+#: Credit_Invoice.php:1293
+#: Credit_Invoice.php:1320
+#: Credit_Invoice.php:1341
+#: Credit_Invoice.php:1370
+#: Credit_Invoice.php:1396
+#: Credit_Invoice.php:1422
 #: RecurringSalesOrdersProcess.php:509
 #: RecurringSalesOrdersProcess.php:536
 #: RecurringSalesOrdersProcess.php:629
@@ -6215,7 +6194,7 @@ msgstr "未能插入总账凭证的运费行,因为"
 
 #: ConfirmDispatch_Invoice.php:1595
 #: CounterSales.php:1806
-#: Credit_Invoice.php:1412
+#: Credit_Invoice.php:1421
 #: RecurringSalesOrdersProcess.php:575
 #: SelectCreditItems.php:1945
 msgid "The tax GL posting could not be inserted because"
@@ -6477,7 +6456,6 @@ msgid "Sub-total"
 msgstr "小计"
 
 #: ContractBOM.php:266
-#, fuzzy
 msgid "Are you sure you wish to delete this item from the contract BOM?"
 msgstr "确认要删除这个红字发票行么？"
 
@@ -6530,7 +6508,7 @@ msgstr "创建新的库存物料"
 
 #: ContractBOM.php:349
 #: FixedAssetItems.php:490
-#: Stocks.php:840
+#: Stocks.php:879
 #: SupplierTenderCreate.php:811
 #: SupplierTenders.php:690
 msgid "Image"
@@ -6545,8 +6523,8 @@ msgstr "图像"
 #: SelectCreditItems.php:1018
 #: SelectOrderItems.php:1502
 #: SelectOrderItems.php:1678
-#: Stocks.php:834
-#: Stocks.php:838
+#: Stocks.php:873
+#: Stocks.php:877
 #: SupplierTenderCreate.php:834
 #: SupplierTenders.php:715
 #: WorkOrderEntry.php:642
@@ -6828,7 +6806,6 @@ msgid "The cost per unit of the new requirement is expected to be numeric"
 msgstr "单位成本需要是数字"
 
 #: ContractOtherReqts.php:119
-#, fuzzy
 msgid "Are you sure you wish to delete this contract requirement?"
 msgstr "确认要删除此联系人？"
 
@@ -7002,7 +6979,6 @@ msgid "The contract could not be deleted because"
 msgstr "无法删除合同"
 
 #: Contracts.php:181
-#, fuzzy
 msgid "The quotation lines for the contract could not be deleted because"
 msgstr "无法删除合同报价行"
 
@@ -7113,14 +7089,14 @@ msgid "The SQL that was used to insert the contract item failed was"
 msgstr "插入合同商品失败的SQL是"
 
 #: Contracts.php:490
-#: Stocks.php:560
+#: Stocks.php:597
 #: Z_ImportStocks.php:245
 msgid "The locations for the item"
 msgstr "这物料的库存地点"
 
 #: Contracts.php:490
 #: Factors.php:80
-#: Stocks.php:560
+#: Stocks.php:597
 #: SupplierCredit.php:754
 #: SupplierCredit.php:813
 #: SupplierCredit.php:1201
@@ -7137,13 +7113,13 @@ msgid "could not be added because"
 msgstr "未能新增,因为"
 
 #: Contracts.php:491
-#: Stocks.php:561
+#: Stocks.php:598
 #: Z_ImportStocks.php:246
 msgid "NB Locations records can be added by opening the utility page"
 msgstr "在工具页面可以添加全部库存地点"
 
 #: Contracts.php:491
-#: Stocks.php:561
+#: Stocks.php:598
 #: Z_ImportStocks.php:246
 msgid "The SQL that was used to add the location records that failed was"
 msgstr "用作新增仓库记录失败的 SQL 是"
@@ -7215,7 +7191,6 @@ msgstr "注意：顾客分公司的名称可能与顾客名称不同"
 #: SelectCreditItems.php:134
 #: SelectCustomer.php:189
 #: SelectOrderItems.php:350
-#, fuzzy
 msgid "Unable to identify the selected customer"
 msgstr "无法认证片断标签"
 
@@ -7243,12 +7218,12 @@ msgstr "所选的顾客记录"
 #: StockCheck.php:220
 #: StockLocStatus.php:182
 #: StockLocStatus.php:205
-#: StockLocStatus.php:238
+#: StockLocStatus.php:239
 #: StockStatus.php:115
 #: StockStatus.php:139
 #: StockStatus.php:159
-#: StockStatus.php:179
-#: StockStatus.php:196
+#: StockStatus.php:181
+#: StockStatus.php:198
 #: SupplierCredit.php:91
 #: SupplierInvoice.php:71
 msgid "cannot be retrieved because"
@@ -7386,7 +7361,7 @@ msgstr "传真"
 
 #: Contracts.php:824
 #: CustomerInquiry.php:126
-#: CustomerReceipt.php:956
+#: CustomerReceipt.php:960
 #: PDFRemittanceAdvice.php:267
 #: PO_Header.php:604
 #: PrintCustTrans.php:847
@@ -7419,7 +7394,7 @@ msgstr "合同编号"
 #: SalesTopItemsInquiry.php:218
 #: SpecialOrder.php:695
 #: StockDispatch.php:363
-#: Stocks.php:845
+#: Stocks.php:884
 #: SuppPriceList.php:229
 #: SuppPriceList.php:289
 #: includes/PDFInventoryValnPageHeader.inc:32
@@ -7430,7 +7405,7 @@ msgstr "物料组"
 #: Contracts.php:849
 #: PricesBasedOnMarkUp.php:107
 #: SpecialOrder.php:699
-#: Stocks.php:849
+#: Stocks.php:888
 msgid "The stock categories could not be retrieved because"
 msgstr "找不到物料组, 因为"
 
@@ -7438,7 +7413,7 @@ msgstr "找不到物料组, 因为"
 #: FixedAssetItems.php:504
 #: PricesBasedOnMarkUp.php:108
 #: SpecialOrder.php:700
-#: Stocks.php:850
+#: Stocks.php:889
 msgid "The SQL used to retrieve stock categories and failed was"
 msgstr "用于查找物料组失败的SQL是"
 
@@ -7717,7 +7692,6 @@ msgid "Counter Sale"
 msgstr "柜台销售"
 
 #: CounterSales.php:222
-#, fuzzy
 msgid "inventory"
 msgstr "库存"
 
@@ -7853,14 +7827,14 @@ msgid "Net"
 msgstr "净额"
 
 #: CounterSales.php:826
-#: CustomerReceipt.php:877
-#: CustomerReceipt.php:904
-#: CustomerReceipt.php:1087
+#: CustomerReceipt.php:879
+#: CustomerReceipt.php:908
+#: CustomerReceipt.php:1091
 #: GLAccountInquiry.php:155
 #: GLAccountReport.php:343
 #: GLJournal.php:362
 #: GLJournal.php:386
-#: Payments.php:1052
+#: Payments.php:1059
 #: SelectOrderItems.php:1415
 #: SuppContractChgs.php:80
 #: SuppContractChgs.php:167
@@ -7908,6 +7882,7 @@ msgstr "电子邮件"
 #: Z_ImportGLAccountGroups.php:26
 #: Z_ImportGLAccountSections.php:29
 #: Z_ImportPartCodes.php:31
+#: includes/PDFOrderPageHeader_generic.inc:58
 #: includes/PO_PDFOrderPageHeader.inc:67
 msgid "Comments"
 msgstr "摘要"
@@ -8389,7 +8364,7 @@ msgstr "货币"
 #: Credit_Invoice.php:271
 #: PDFOrdersInvoiced.php:350
 #: PDFOrderStatus.php:321
-#: ReverseGRN.php:388
+#: ReverseGRN.php:391
 #: SalesInquiry.php:836
 #: ShipmentCosting.php:149
 #: ShipmentCosting.php:151
@@ -8407,151 +8382,150 @@ msgstr "已开发票"
 msgid "Credit"
 msgstr "贷方"
 
-#: Credit_Invoice.php:381
-#, fuzzy
+#: Credit_Invoice.php:390
 msgid "Are you sure you wish to delete this item from the credit?"
 msgstr "确认要删除这个红字发票行么？"
 
-#: Credit_Invoice.php:394
+#: Credit_Invoice.php:403
 msgid "Freight cost charged on invoice"
 msgstr "发票含运费"
 
-#: Credit_Invoice.php:397
+#: Credit_Invoice.php:406
 msgid "Credit Freight Cost"
 msgstr "冲销运费"
 
-#: Credit_Invoice.php:445
+#: Credit_Invoice.php:454
 #: SelectCreditItems.php:830
 msgid "Credit Totals"
 msgstr "冲销金额总计"
 
-#: Credit_Invoice.php:457
+#: Credit_Invoice.php:466
 #: SelectCreditItems.php:920
 msgid "The GL code to write off the credit value to must be specified. Please select the appropriate GL code for the selection box"
 msgstr "发票冲销对应总账科目必输，请选择一个科目"
 
-#: Credit_Invoice.php:538
+#: Credit_Invoice.php:547
 msgid "The alteration to the invoice record to reflect the allocation of the credit note to the invoice could not be done because"
 msgstr "试图修改发票记录中被冲销的金额失败,因为"
 
-#: Credit_Invoice.php:539
+#: Credit_Invoice.php:548
 msgid "The following SQL to update the invoice allocation was used"
 msgstr "用于修改发票记录的SQL是"
 
-#: Credit_Invoice.php:579
+#: Credit_Invoice.php:588
 #: SelectCreditItems.php:1127
 msgid "The customer credit note transaction could not be added to the database because"
 msgstr "客户红字发票未能插入数据库,因为"
 
-#: Credit_Invoice.php:580
+#: Credit_Invoice.php:589
 #: SelectCreditItems.php:1067
 #: SelectCreditItems.php:1128
 msgid "The following SQL to insert the customer credit note was used"
 msgstr "用于插入客户红字发票的SQL是"
 
-#: Credit_Invoice.php:612
+#: Credit_Invoice.php:621
 msgid "The allocation record for the credit note could not be added to the database because"
 msgstr "冲销发票记录未能加入数据库,因为"
 
-#: Credit_Invoice.php:613
+#: Credit_Invoice.php:622
 msgid "The following SQL to insert the allocation record for the credit note was used"
 msgstr "用于插入冲销发票记录的SQL是"
 
-#: Credit_Invoice.php:629
+#: Credit_Invoice.php:638
 msgid "Could not determine if the item"
 msgstr "不能判定物料是否"
 
-#: Credit_Invoice.php:629
+#: Credit_Invoice.php:638
 msgid "is purchased or manufactured"
 msgstr "为采购物料或生产物料"
 
-#: Credit_Invoice.php:630
+#: Credit_Invoice.php:639
 msgid "The SQL used that failed was"
 msgstr "执行失败的SQL是"
 
-#: Credit_Invoice.php:662
+#: Credit_Invoice.php:671
 msgid "The sales order detail record could not be updated for the reduced quantity invoiced because"
 msgstr "销售订单记录未能减少已开出发票的数量,因为"
 
-#: Credit_Invoice.php:718
+#: Credit_Invoice.php:727
 msgid "Could not get the current location stock of the assembly component"
 msgstr "未能取得组合物料的当前地点库存"
 
-#: Credit_Invoice.php:753
-#: Credit_Invoice.php:781
-#: Credit_Invoice.php:834
-#: Credit_Invoice.php:865
-#: Credit_Invoice.php:963
-#: Credit_Invoice.php:1039
+#: Credit_Invoice.php:762
+#: Credit_Invoice.php:790
+#: Credit_Invoice.php:843
+#: Credit_Invoice.php:874
+#: Credit_Invoice.php:972
+#: Credit_Invoice.php:1048
 msgid "Ex Inv"
 msgstr "原发票"
 
-#: Credit_Invoice.php:798
+#: Credit_Invoice.php:807
 msgid "The following SQL to update the components location stock record was used"
 msgstr "用于更新BOM组件库存的SQL是"
 
-#: Credit_Invoice.php:887
+#: Credit_Invoice.php:896
 msgid "The serial stock item record could not be selected because"
 msgstr "未能找到物料序列号记录,因为"
 
-#: Credit_Invoice.php:888
+#: Credit_Invoice.php:897
 msgid "The following SQL to select the serial stock item record was used"
 msgstr "用于查找物料序列号记录的SQL是"
 
-#: Credit_Invoice.php:1000
+#: Credit_Invoice.php:1009
 msgid "Written off ex Inv"
 msgstr "冲销原发票"
 
-#: Credit_Invoice.php:1049
+#: Credit_Invoice.php:1058
 #: SelectCreditItems.php:1213
 msgid "The following SQL to insert the stock movement records for the purpose of display on the credit note was used"
 msgstr "用于插入红字发票对应的物料移动记录的SQL是"
 
-#: Credit_Invoice.php:1071
+#: Credit_Invoice.php:1080
 #: SelectCreditItems.php:1306
 msgid "Taxes and rates applicable to this credit note line item could not be inserted because"
 msgstr "红字发票税务信息未能插入,因为"
 
-#: Credit_Invoice.php:1100
+#: Credit_Invoice.php:1109
 #: SelectCreditItems.php:1629
 msgid "The count to check for existing Sales analysis records could not run because"
 msgstr "查找销售分析记录条数失败,因为"
 
-#: Credit_Invoice.php:1212
+#: Credit_Invoice.php:1221
 #: SelectCreditItems.php:1739
 msgid "The sales analysis record for this credit note could not be added because"
 msgstr "此红字发票的销售分析记录未能插入,因为"
 
-#: Credit_Invoice.php:1283
+#: Credit_Invoice.php:1292
 msgid "The stock side or write off of the cost of sales GL posting could not be inserted because"
 msgstr "总账凭证的存货或销售成本行未能插入,因为"
 
-#: Credit_Invoice.php:1310
+#: Credit_Invoice.php:1319
 #: SelectCreditItems.php:1853
 msgid "The credit note GL posting could not be inserted because"
 msgstr "总账凭证的销售收入行未能插入, 因为"
 
-#: Credit_Invoice.php:1331
+#: Credit_Invoice.php:1340
 #: SelectCreditItems.php:1876
 msgid "The credit note discount GL posting could not be inserted because"
 msgstr "总账凭证的折扣行未能插入,因为"
 
-#: Credit_Invoice.php:1360
+#: Credit_Invoice.php:1369
 #: SelectCreditItems.php:1904
 msgid "The total debtor GL posting for the credit note could not be inserted because"
 msgstr "总账凭证的应收账款行未能插入,因为"
 
-#: Credit_Invoice.php:1386
+#: Credit_Invoice.php:1395
 #: SelectCreditItems.php:1924
 msgid "The freight GL posting for this credit note could not be inserted because"
 msgstr "总账凭证的运费行未能插入,因为"
 
-#: Credit_Invoice.php:1428
+#: Credit_Invoice.php:1437
 #: SelectCreditItems.php:1960
 msgid "Credit Note number"
 msgstr "红字发票编号"
 
-#: Credit_Invoice.php:1428
+#: Credit_Invoice.php:1437
 #: GoodsReceived.php:722
 #: SupplierCredit.php:1328
 #: SupplierInvoice.php:1493
@@ -8561,52 +8535,52 @@ msgstr "红字发票编号"
 msgid "has been processed"
 msgstr "已生成"
 
-#: Credit_Invoice.php:1430
-#: Credit_Invoice.php:1432
+#: Credit_Invoice.php:1439
+#: Credit_Invoice.php:1441
 msgid "Print this credit note"
 msgstr "打印此红字发票"
 
-#: Credit_Invoice.php:1442
+#: Credit_Invoice.php:1451
 #: SelectCreditItems.php:843
 msgid "Credit Note Type"
 msgstr "冲销类型"
 
-#: Credit_Invoice.php:1446
-#: Credit_Invoice.php:1451
 #: Credit_Invoice.php:1455
+#: Credit_Invoice.php:1460
+#: Credit_Invoice.php:1464
 #: SelectCreditItems.php:847
 #: SelectCreditItems.php:852
 msgid "Goods returned to store"
 msgstr "销售退回"
 
-#: Credit_Invoice.php:1447
-#: Credit_Invoice.php:1450
-#: Credit_Invoice.php:1454
+#: Credit_Invoice.php:1456
+#: Credit_Invoice.php:1459
+#: Credit_Invoice.php:1463
 #: SelectCreditItems.php:848
 #: SelectCreditItems.php:851
 msgid "Goods written off"
 msgstr "销售折让"
 
-#: Credit_Invoice.php:1448
-#: Credit_Invoice.php:1452
-#: Credit_Invoice.php:1456
+#: Credit_Invoice.php:1457
+#: Credit_Invoice.php:1461
+#: Credit_Invoice.php:1465
 msgid "Reverse overcharge"
 msgstr "现金折扣"
 
-#: Credit_Invoice.php:1465
+#: Credit_Invoice.php:1474
 msgid "Goods returned to location"
 msgstr "物料退回到仓库"
 
-#: Credit_Invoice.php:1486
+#: Credit_Invoice.php:1495
 #: SelectCreditItems.php:888
 msgid "Write off the cost of the goods to"
 msgstr "冲销销售成本"
 
-#: Credit_Invoice.php:1511
+#: Credit_Invoice.php:1520
 msgid "Credit note text"
 msgstr "红字发票备注"
 
-#: Credit_Invoice.php:1514
+#: Credit_Invoice.php:1524
 msgid "Process Credit"
 msgstr "开发票"
 
@@ -8711,7 +8685,7 @@ msgid "NO INVOICING"
 msgstr "不允许"
 
 #: CreditStatus.php:175
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this credit status record?"
 msgstr "确认要删除此联系人？"
 
@@ -8736,7 +8710,6 @@ msgid "The exchange rate must be numeric"
 msgstr "汇率必须是数字"
 
 #: Currencies.php:69
-#, fuzzy
 msgid "The number of decimal places to display for amounts in this currency must be numeric"
 msgstr "天数必须是数字"
 
@@ -8745,7 +8718,6 @@ msgid "The number of decimal places to display for amounts in this currency must
 msgstr ""
 
 #: Currencies.php:79
-#, fuzzy
 msgid "The number of decimal places to display for amounts in this currency is expected to be 4 or less"
 msgstr "天数必须是数字"
 
@@ -8843,7 +8815,6 @@ msgid "Hundredths Name"
 msgstr "百分位数名"
 
 #: Currencies.php:219
-#, fuzzy
 msgid "Decimal Places"
 msgstr "无效的小数点位数"
 
@@ -8852,7 +8823,7 @@ msgid "Ex Rate - ECB"
 msgstr "汇率 -欧洲央行"
 
 #: Currencies.php:259
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this currency?"
 msgstr "确认要删除此客户分公司么"
 
@@ -8884,7 +8855,6 @@ msgid "Currency Abbreviation"
 msgstr "货币编号"
 
 #: Currencies.php:382
-#, fuzzy
 msgid "Decimal Places to Display"
 msgstr "显示数量的小数位"
 
@@ -8995,12 +8965,10 @@ msgid "Customer Login Configuration"
 msgstr "客户登录配置"
 
 #: CustLoginSetup.php:15
-#, fuzzy
 msgid "A customer must first be selected before logins can be defined for it"
 msgstr "必须先选取物料才能叫出这页"
 
 #: CustLoginSetup.php:15
-#, fuzzy
 msgid "Select A Customer"
 msgstr "选择客户"
 
@@ -9058,18 +9026,15 @@ msgstr "该客户没有此分公司"
 
 #: CustLoginSetup.php:115
 #: SuppLoginSetup.php:102
-#, fuzzy
 msgid "The user could not be added because"
 msgstr "无法新增资产"
 
 #: CustLoginSetup.php:116
 #: SuppLoginSetup.php:103
-#, fuzzy
 msgid "The SQL that was used to insert the new user and failed was"
 msgstr "用于更新用户失败的SQL是"
 
 #: CustLoginSetup.php:118
-#, fuzzy
 msgid "A new customer login has been created"
 msgstr "新的工作单已经创建"
 
@@ -9401,19 +9366,19 @@ msgid "Process Allocations"
 msgstr "执行清算"
 
 #: CustomerAllocations.php:434
-#: CustomerReceipt.php:1094
+#: CustomerReceipt.php:1098
 #: Labels.php:265
-#: Payments.php:1042
-#: PcAssignCashToTab.php:177
-#: PcAssignCashToTab.php:373
-#: PcAuthorizeExpenses.php:323
-#: PcClaimExpensesFromTab.php:167
-#: PcClaimExpensesFromTab.php:385
-#: PcExpenses.php:347
+#: Payments.php:1049
+#: PcAssignCashToTab.php:179
+#: PcAssignCashToTab.php:389
+#: PcAuthorizeExpenses.php:322
+#: PcClaimExpensesFromTab.php:169
+#: PcClaimExpensesFromTab.php:400
+#: PcExpenses.php:348
 #: PcExpensesTypeTab.php:140
-#: PcExpensesTypeTab.php:228
-#: PcTabs.php:465
-#: PcTypeTabs.php:247
+#: PcExpensesTypeTab.php:230
+#: PcTabs.php:467
+#: PcTypeTabs.php:248
 #: SalesTypes.php:273
 #: SelectCreditItems.php:925
 #: Z_CheckDebtorsControl.php:69
@@ -9495,7 +9460,6 @@ msgid "Warning - Geocode Integration is enabled, but no hosts are setup.  Go to 
 msgstr "警告 - 地理编码整合被激活，但是没有设置服务器。 请到地理编码设置页设置"
 
 #: CustomerBranches.php:128
-#, fuzzy
 msgid "Geocode Notice"
 msgstr "地理编码代码"
 
@@ -9524,13 +9488,11 @@ msgstr "地址"
 
 #: CustomerBranches.php:128
 #: Suppliers.php:439
-#, fuzzy
 msgid "failed to geocode"
 msgstr "做geocode失败"
 
 #: CustomerBranches.php:129
 #: Suppliers.php:440
-#, fuzzy
 msgid "Received status"
 msgstr "接收到"
 
@@ -9539,12 +9501,10 @@ msgid "branch has been updated."
 msgstr "客户分公司已更新"
 
 #: CustomerBranches.php:236
-#, fuzzy
 msgid "Customer branch"
 msgstr "客户分公司"
 
 #: CustomerBranches.php:236
-#, fuzzy
 msgid "has been added, add another branch, or return to the"
 msgstr "</b>已增加，增加另外的分公司，或者返回<a href=index.php>Main Menu</a>"
 
@@ -9826,7 +9786,6 @@ msgid "There are no tax groups defined - these must be set up first before any b
 msgstr ""
 
 #: CustomerBranches.php:793
-#, fuzzy
 msgid "Define Tax Groups"
 msgstr "税收组"
 
@@ -9839,7 +9798,6 @@ msgid "There are no shippers defined - these must be set up first before any bra
 msgstr ""
 
 #: CustomerBranches.php:832
-#, fuzzy
 msgid "Define Shippers"
 msgstr "默认承运人"
 
@@ -9902,7 +9860,7 @@ msgid "The config value NumberOfMonthMustBeShown cannot be retrieved"
 msgstr "未能提取NumberOfMonthMustBeShow的配置值"
 
 #: CustomerInquiry.php:128
-#: CustomerReceipt.php:956
+#: CustomerReceipt.php:960
 #: SelectOrderItems.php:714
 #: SupplierCredit.php:264
 #: SupplierInquiry.php:120
@@ -9911,7 +9869,7 @@ msgid "Terms"
 msgstr "付款方式"
 
 #: CustomerInquiry.php:129
-#: CustomerReceipt.php:956
+#: CustomerReceipt.php:960
 #: Customers.php:518
 #: Customers.php:822
 #: Customers.php:852
@@ -9919,7 +9877,7 @@ msgid "Credit Limit"
 msgstr "信用限额"
 
 #: CustomerInquiry.php:129
-#: CustomerReceipt.php:956
+#: CustomerReceipt.php:960
 #: Customers.php:544
 #: Customers.php:889
 #: Customers.php:895
@@ -9931,24 +9889,24 @@ msgid "Credit Status"
 msgstr "信用等级"
 
 #: CustomerInquiry.php:133
-#: CustomerReceipt.php:960
+#: CustomerReceipt.php:964
 msgid "ACCOUNT ON HOLD"
 msgstr "客户已冻结"
 
 #: CustomerInquiry.php:138
-#: CustomerReceipt.php:966
+#: CustomerReceipt.php:970
 #: PrintCustStatements.php:362
 #: SupplierInquiry.php:142
 msgid "Total Balance"
 msgstr "余额总计"
 
 #: CustomerInquiry.php:139
-#: CustomerReceipt.php:967
+#: CustomerReceipt.php:971
 #: PrintCustStatements.php:358
 #: SalesPeople.php:206
 #: Shipments.php:405
-#: Stocks.php:979
-#: Stocks.php:981
+#: Stocks.php:1018
+#: Stocks.php:1020
 #: SupplierInquiry.php:143
 #: includes/PDFAgedDebtorsPageHeader.inc:50
 #: includes/PDFAgedSuppliersPageHeader.inc:36
@@ -9956,22 +9914,22 @@ msgid "Current"
 msgstr "当前"
 
 #: CustomerInquiry.php:140
-#: CustomerReceipt.php:968
+#: CustomerReceipt.php:972
 #: SupplierInquiry.php:144
 msgid "Now Due"
 msgstr "已到期"
 
 #: CustomerInquiry.php:141
 #: CustomerInquiry.php:142
-#: CustomerReceipt.php:969
-#: CustomerReceipt.php:970
+#: CustomerReceipt.php:973
+#: CustomerReceipt.php:974
 #: SupplierInquiry.php:145
 #: SupplierInquiry.php:146
 msgid "Days Overdue"
 msgstr "天"
 
 #: CustomerInquiry.php:142
-#: CustomerReceipt.php:970
+#: CustomerReceipt.php:974
 #: PrintCustStatements.php:361
 #: SupplierInquiry.php:146
 msgid "Over"
@@ -10149,6 +10107,7 @@ msgid "Summary of Receipt Batch"
 msgstr "批量收款小结"
 
 #: CustomerReceipt.php:250
+#: includes/InputSerialItemsFile.php:199
 msgid "Batch Number"
 msgstr "批次号码"
 
@@ -10158,12 +10117,12 @@ msgid "Date Banked"
 msgstr "到账日期"
 
 #: CustomerReceipt.php:253
-#: CustomerReceipt.php:903
+#: CustomerReceipt.php:907
 msgid "GL Code"
 msgstr "会计科目"
 
 #: CustomerReceipt.php:254
-#: CustomerReceipt.php:1069
+#: CustomerReceipt.php:1073
 msgid "Amount of Receipt"
 msgstr "收款金额"
 
@@ -10274,7 +10233,7 @@ msgid "Enter Receipt"
 msgstr "输入收款凭证"
 
 #: CustomerReceipt.php:749
-#: CustomerReceipt.php:997
+#: CustomerReceipt.php:1001
 msgid "General Ledger Receipt Entry"
 msgstr "总账科目贷方输入"
 
@@ -10295,68 +10254,68 @@ msgid "Receipts cannot be entered until a currency is defined"
 msgstr "没有设定货币, 无法输入收款"
 
 #: CustomerReceipt.php:826
-#: CustomerReceipt.php:843
+#: CustomerReceipt.php:845
 #: Payments.php:835
-#: Payments.php:852
+#: Payments.php:855
 msgid "Suggested rate:"
 msgstr "建议的比率："
 
-#: CustomerReceipt.php:834
+#: CustomerReceipt.php:836
 msgid "Receipt Exchange Rate"
 msgstr "收款汇率"
 
-#: CustomerReceipt.php:836
+#: CustomerReceipt.php:838
 msgid "The exchange rate between the currency of the bank account currency and the currency of the receipt"
 msgstr "银行账户货币和收款货币之间的汇率"
 
-#: CustomerReceipt.php:851
-#: Payments.php:860
+#: CustomerReceipt.php:853
+#: Payments.php:863
 msgid "Functional Exchange Rate"
 msgstr "本位货币汇率"
 
-#: CustomerReceipt.php:853
-#: Payments.php:862
+#: CustomerReceipt.php:855
+#: Payments.php:865
 msgid "The exchange rate between the currency of the business (the functional currency) and the currency of the bank account"
 msgstr "操作货币（本位币）和银行账户货币的汇率"
 
-#: CustomerReceipt.php:858
+#: CustomerReceipt.php:860
 msgid "Receipt Type"
 msgstr "收款方式"
 
-#: CustomerReceipt.php:883
-#: CustomerReceipt.php:1093
-#: CustomerTypes.php:264
+#: CustomerReceipt.php:887
+#: CustomerReceipt.php:1097
+#: CustomerTypes.php:268
 #: ExchangeRateTrend.php:51
 #: FreightCosts.php:59
 #: GLJournal.php:136
 #: GLJournal.php:372
 #: OffersReceived.php:111
-#: Payments.php:1041
-#: PcAssignCashToTab.php:176
-#: PcAssignCashToTab.php:372
-#: PcAuthorizeExpenses.php:322
-#: PcClaimExpensesFromTab.php:167
-#: PcClaimExpensesFromTab.php:385
-#: PcExpenses.php:346
+#: Payments.php:1048
+#: PcAssignCashToTab.php:178
+#: PcAssignCashToTab.php:388
+#: PcAuthorizeExpenses.php:321
+#: PcClaimExpensesFromTab.php:169
+#: PcClaimExpensesFromTab.php:400
+#: PcExpenses.php:347
 #: PcExpensesTypeTab.php:139
-#: PcExpensesTypeTab.php:227
-#: PcTabs.php:465
-#: PcTypeTabs.php:246
+#: PcExpensesTypeTab.php:229
+#: PcTabs.php:467
+#: PcTypeTabs.php:247
 #: SalesTypes.php:273
 #: SupplierTypes.php:254
 #: Z_CheckDebtorsControl.php:68
 msgid "Accept"
 msgstr "保存"
 
-#: CustomerReceipt.php:893
+#: CustomerReceipt.php:897
 msgid "Banked"
 msgstr "存入"
 
-#: CustomerReceipt.php:894
+#: CustomerReceipt.php:898
 msgid "Banked into the"
 msgstr "账号"
 
-#: CustomerReceipt.php:895
+#: CustomerReceipt.php:899
 #: Payments.php:745
 #: PO_Items.php:232
 #: SelectSalesOrder.php:211
@@ -10365,14 +10324,14 @@ msgstr "账号"
 msgid "on"
 msgstr "日期"
 
-#: CustomerReceipt.php:900
+#: CustomerReceipt.php:904
 #: GoodsReceived.php:102
 #: GoodsReceived.php:106
 #: GoodsReceived.php:112
 #: POReport.php:629
 #: POReport.php:1358
-#: ReverseGRN.php:386
-#: ReverseGRN.php:387
+#: ReverseGRN.php:389
+#: ReverseGRN.php:390
 #: ShipmentCosting.php:150
 #: Shipments.php:402
 #: Shipments.php:489
@@ -10382,71 +10341,71 @@ msgstr "日期"
 msgid "Received"
 msgstr "已接收"
 
-#: CustomerReceipt.php:945
+#: CustomerReceipt.php:949
 msgid "The selected customer does not trade in the currency of the receipt being entered - either the currency of the receipt needs to be changed or a different customer selected"
 msgstr "所选的顾客并不用正输入的收款货币交易-或者是收款的货币需要更改，或者需要另选顾客"
 
-#: CustomerReceipt.php:1002
+#: CustomerReceipt.php:1006
 #: GLAccountCSV.php:62
 #: GLAccountInquiry.php:46
 #: GLAccountReport.php:266
-#: Payments.php:917
+#: Payments.php:924
 #: StockAdjustments.php:463
 msgid "Select Tag"
 msgstr "选择标签"
 
-#: CustomerReceipt.php:1031
+#: CustomerReceipt.php:1035
 #: GLBudgets.php:49
-#: Payments.php:998
+#: Payments.php:1005
 msgid "No General ledger accounts have been set up yet"
 msgstr "还没有设置总账会计科目"
 
-#: CustomerReceipt.php:1031
+#: CustomerReceipt.php:1035
 msgid "receipts cannot be entered against GL accounts until the GL accounts are set up"
 msgstr "总账科目行没有设置不能收款"
 
-#: CustomerReceipt.php:1075
-#: Payments.php:1101
+#: CustomerReceipt.php:1079
+#: Payments.php:1108
 msgid "Amount of Discount"
 msgstr "折扣金额"
 
-#: CustomerReceipt.php:1076
+#: CustomerReceipt.php:1080
 msgid "agreed prompt payment discount is"
 msgstr "承诺的付款折扣是"
 
-#: CustomerReceipt.php:1082
+#: CustomerReceipt.php:1086
 msgid "Payee Bank Details"
 msgstr "付款银行资料"
 
-#: CustomerReceipt.php:1104
+#: CustomerReceipt.php:1108
 msgid "Select a Customer"
 msgstr "选择客户"
 
-#: CustomerReceipt.php:1107
+#: CustomerReceipt.php:1111
 msgid "Text in the Customer"
 msgstr "顾客的文字"
 
-#: CustomerReceipt.php:1107
+#: CustomerReceipt.php:1111
 msgid "name"
 msgstr "名称包含"
 
-#: CustomerReceipt.php:1110
+#: CustomerReceipt.php:1114
 msgid "Text extract in the Customer"
 msgstr "顾客名称中摘取的文字"
 
-#: CustomerReceipt.php:1110
+#: CustomerReceipt.php:1114
 msgid "code"
 msgstr "包含"
 
-#: CustomerReceipt.php:1113
+#: CustomerReceipt.php:1117
 msgid "Customer invoice number"
 msgstr "顾客发票编号"
 
-#: CustomerReceipt.php:1122
+#: CustomerReceipt.php:1126
 msgid "Enter A GL Receipt"
 msgstr "输入总账科目收款"
 
-#: CustomerReceipt.php:1170
+#: CustomerReceipt.php:1174
 msgid "Accept and Process Batch"
 msgstr "接受和执行收款"
 
@@ -10676,7 +10635,6 @@ msgstr "没有定义价格表"
 #: Customers.php:486
 #: SelectCustomer.php:309
 #: SelectCustomer.php:331
-#, fuzzy
 msgid "Setup Types"
 msgstr "供应类型"
 
@@ -10796,17 +10754,15 @@ msgid "Require Customer PO Line on SO"
 msgstr "要求在SO上顾客的订单行"
 
 #: Customers.php:996
-#, fuzzy
 msgid "Contact Deleted"
 msgstr "联络人备注"
 
 #: Customers.php:1028
-#, fuzzy
 msgid "Add Contact"
 msgstr "增加新联系人"
 
 #: Customers.php:1062
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this customer contact?"
 msgstr "确认要删除此联系人？"
 
@@ -10833,8 +10789,8 @@ msgstr "选择报告那种交易类型"
 #: CustomerTransInquiry.php:51
 #: FixedAssetRegister.php:78
 #: FixedAssetRegister.php:349
-#: PcReportTab.php:136
-#: PcReportTab.php:256
+#: PcReportTab.php:139
+#: PcReportTab.php:260
 #: SalesAnalRepts.php:430
 #: SalesAnalRepts.php:458
 #: SalesAnalRepts.php:487
@@ -10868,7 +10824,7 @@ msgstr "从"
 
 #: CustomerTransInquiry.php:53
 #: FixedAssetRegister.php:350
-#: PcReportTab.php:262
+#: PcReportTab.php:266
 #: POReport.php:517
 #: POReport.php:1516
 #: SalesAnalRepts.php:431
@@ -10956,13 +10912,13 @@ msgid " already exist."
 msgstr " 已存在"
 
 #: CustomerTypes.php:93
-#: CustomerTypes.php:164
+#: CustomerTypes.php:168
 msgid "Customer type"
 msgstr "顾客类型"
 
 #: CustomerTypes.php:93
 #: PcAssignCashToTab.php:112
-#: PcClaimExpensesFromTab.php:105
+#: PcClaimExpensesFromTab.php:106
 #: PcExpenses.php:124
 #: PcExpensesTypeTab.php:79
 #: PcTabs.php:139
@@ -11000,32 +10956,32 @@ msgstr "不能删除这个方式，因为已有客户使用此方式"
 msgid "customers with this type code"
 msgstr "家使用此销售方式的客户"
 
-#: CustomerTypes.php:161
+#: CustomerTypes.php:165
 #: SupplierTypes.php:149
 msgid "The Type record could not be deleted because"
 msgstr "未能删除价格表记录, 因为"
 
-#: CustomerTypes.php:185
-#: CustomerTypes.php:248
+#: CustomerTypes.php:189
+#: CustomerTypes.php:252
 #: SupplierTypes.php:172
 #: SupplierTypes.php:238
 msgid "Type ID"
 msgstr "类型ID"
 
-#: CustomerTypes.php:186
-#: CustomerTypes.php:258
+#: CustomerTypes.php:190
+#: CustomerTypes.php:262
 #: SalesTypes.php:190
 #: SupplierTypes.php:173
 #: SupplierTypes.php:247
 msgid "Type Name"
 msgstr "价格表名称"
 
-#: CustomerTypes.php:203
+#: CustomerTypes.php:207
 #, php-format
 msgid "Are you sure you wish to delete this Customer Type?"
 msgstr "你确定要删除这个顾客类型?"
 
-#: CustomerTypes.php:219
+#: CustomerTypes.php:223
 #: SupplierTypes.php:208
 msgid "Show All Types Defined"
 msgstr "显示所有已定义的类型"
@@ -11082,13 +11038,13 @@ msgid "Credit Note"
 msgstr "红字发票"
 
 #: CustWhereAlloc.php:129
-#: PcAssignCashToTab.php:225
-#: PcAssignCashToTab.php:361
+#: PcAssignCashToTab.php:239
+#: PcAssignCashToTab.php:377
 #: PcAuthorizeExpenses.php:93
-#: PcClaimExpensesFromTab.php:215
-#: PcClaimExpensesFromTab.php:379
-#: PcReportTab.php:174
-#: PcReportTab.php:328
+#: PcClaimExpensesFromTab.php:228
+#: PcClaimExpensesFromTab.php:393
+#: PcReportTab.php:177
+#: PcReportTab.php:332
 #: Z_CheckAllocs.php:87
 #: Z_SalesIntegrityCheck.php:90
 #: Z_SalesIntegrityCheck.php:105
@@ -11096,7 +11052,6 @@ msgid "Receipt"
 msgstr "收款"
 
 #: DailyBankTransactions.php:6
-#, fuzzy
 msgid "Bank Transactions Inquiry"
 msgstr "交易查询"
 
@@ -11107,12 +11062,10 @@ msgid "Bank Accounts have not yet been defined. You must first"
 msgstr "未定义银行账户, 请先"
 
 #: DailyBankTransactions.php:56
-#, fuzzy
 msgid "Transactions Dated From"
 msgstr "交易日期"
 
 #: DailyBankTransactions.php:61
-#, fuzzy
 msgid "Transactions Dated To"
 msgstr "交易日期"
 
@@ -11121,12 +11074,10 @@ msgid "Show transactions"
 msgstr "显示交易"
 
 #: DailyBankTransactions.php:78
-#, fuzzy
 msgid "Could not retrieve the bank account details"
 msgstr "用于查找银行账户的SQL是"
 
 #: DailyBankTransactions.php:102
-#, fuzzy
 msgid "There are no transactions for this account in the date range selected"
 msgstr "输入的条件范围内找不到发票或红字发票"
 
@@ -11154,7 +11105,8 @@ msgstr ""
 #: SelectSalesOrder.php:411
 #: SelectWorkOrder.php:113
 #: Shipt_Select.php:47
-#: Stocks.php:1155
+#: Stocks.php:349
+#: Stocks.php:1197
 #: includes/PDFBOMListingPageHeader.inc:21
 #: includes/PDFCustomerListPageHeader.inc:31
 #: includes/PDFCustomerListPageHeader.inc:53
@@ -11220,37 +11172,37 @@ msgid "The sales data could not be retrieved because"
 msgstr "未能提取销售数据, 因为"
 
 #: DailySalesInquiry.php:103
-#: MRPCalendar.php:276
+#: MRPCalendar.php:277
 msgid "Sunday"
 msgstr "星期天"
 
 #: DailySalesInquiry.php:104
-#: MRPCalendar.php:280
+#: MRPCalendar.php:281
 msgid "Monday"
 msgstr "星期一"
 
 #: DailySalesInquiry.php:105
-#: MRPCalendar.php:284
+#: MRPCalendar.php:285
 msgid "Tuesday"
 msgstr "周二"
 
 #: DailySalesInquiry.php:106
-#: MRPCalendar.php:288
+#: MRPCalendar.php:289
 msgid "Wednesday"
 msgstr "周三"
 
 #: DailySalesInquiry.php:107
-#: MRPCalendar.php:292
+#: MRPCalendar.php:293
 msgid "Thursday"
 msgstr "周四"
 
 #: DailySalesInquiry.php:108
-#: MRPCalendar.php:296
+#: MRPCalendar.php:297
 msgid "Friday"
 msgstr "星期五"
 
 #: DailySalesInquiry.php:109
-#: MRPCalendar.php:272
+#: MRPCalendar.php:273
 msgid "Saturday"
 msgstr "周六"
 
@@ -11454,12 +11406,10 @@ msgid "Confirm Dispatch and Produce Invoice"
 msgstr "对销售订单发运及开发票"
 
 #: DeliveryDetails.php:594
-#, fuzzy
 msgid "Print Quotation (Landscape)"
 msgstr "列印報價單"
 
 #: DeliveryDetails.php:600
-#, fuzzy
 msgid "Print Quotation (Portrait)"
 msgstr "列印报价单错误"
 
@@ -11500,7 +11450,6 @@ msgid "The updated order line cannot be modified because"
 msgstr "更新的订单行未能修改,因为"
 
 #: DeliveryDetails.php:783
-#, fuzzy
 msgid "Print Quotation"
 msgstr "列印报价单错误"
 
@@ -11775,7 +11724,7 @@ msgstr "更新物料"
 
 #: DiscountCategories.php:202
 #: DiscountMatrix.php:161
-#: Stocks.php:1067
+#: Stocks.php:1106
 msgid "Discount Category"
 msgstr "折扣类别"
 
@@ -11808,7 +11757,7 @@ msgid "Item"
 msgstr "物料"
 
 #: DiscountCategories.php:219
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this discount category?"
 msgstr "确认要删除此联系人？"
 
@@ -11887,7 +11836,7 @@ msgid "Discount Rate"
 msgstr "折扣率"
 
 #: DiscountMatrix.php:182
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this discount matrix record?"
 msgstr "确认要删除此联系人？"
 
@@ -11949,7 +11898,7 @@ msgstr "明细行"
 
 #: EDIMessageFormat.php:224
 #: EDIMessageFormat.php:226
-#: GLBalanceSheet.php:53
+#: GLBalanceSheet.php:54
 #: GLProfit_Loss.php:103
 #: GLTagProfit_Loss.php:117
 #: POReport.php:1505
@@ -12516,7 +12465,7 @@ msgstr "从数据库"
 #: PrintCustOrder_generic.php:238
 #: PrintCustOrder.php:77
 #: PrintCustOrder.php:93
-#: PrintCustOrder.php:216
+#: PrintCustOrder.php:227
 msgid "Print Packing Slip Error"
 msgstr "打印装箱单错误"
 
@@ -12587,17 +12536,14 @@ msgid "Or select another Order Number to Print"
 msgstr "或选取其他要打印装箱单的订单编号"
 
 #: EmailConfirmation.php:141
-#, fuzzy
 msgid "Order Confirmation-Sales Order"
 msgstr "确认订单"
 
 #: EmailConfirmation.php:141
-#, fuzzy
 msgid "Your PO"
 msgstr "贵公司订单号"
 
 #: EmailConfirmation.php:150
-#, fuzzy
 msgid "Email Confirmation"
 msgstr "系统设置"
 
@@ -12644,7 +12590,6 @@ msgid "Due Date"
 msgstr "到期日"
 
 #: EmailConfirmation.php:247
-#, fuzzy
 msgid "The following E-Mail was sent to"
 msgstr "用于更新工作单的 SQL 是"
 
@@ -12690,7 +12635,6 @@ msgid "View Currency Trend"
 msgstr "查看货币趋势"
 
 #: ExchangeRateTrend.php:64
-#, fuzzy
 msgid "Trend Currently Unavailable"
 msgstr "未有效的"
 
@@ -12707,12 +12651,10 @@ msgid "The factoring company name must be entered and be forty characters or les
 msgstr "代理公司名称必输且最长40字"
 
 #: Factors.php:41
-#, fuzzy
 msgid "The email address entered does not appear to be a valid email address format"
 msgstr "电子邮件地址看起来不是有效地址。此交易无法寄出。"
 
 #: Factors.php:46
-#, fuzzy
 msgid "Validation failed no insert or update took place"
 msgstr "验证失败, 更新或删除失败"
 
@@ -12730,7 +12672,7 @@ msgstr "新的代理商"
 
 #: Factors.php:85
 #: SalesAnalReptCols.php:186
-#: Stocks.php:565
+#: Stocks.php:602
 #: Suppliers.php:567
 msgid "has been added to the database"
 msgstr "已新增到数据库"
@@ -12968,7 +12910,6 @@ msgid "Depreciation Journal Entry"
 msgstr "折旧日记账分录"
 
 #: FixedAssetDepreciation.php:30
-#, fuzzy
 msgid "The date is expected to be in the format"
 msgstr "日期必须是日期格式"
 
@@ -13033,8 +12974,8 @@ msgstr "新折旧"
 #: InventoryValuation.php:168
 #: MailInventoryValuation.php:140
 #: MailInventoryValuation.php:186
-#: OutstandingGRNs.php:88
-#: OutstandingGRNs.php:135
+#: OutstandingGRNs.php:91
+#: OutstandingGRNs.php:138
 #: PDFStockCheckComparison.php:296
 msgid "Total for"
 msgstr "小计"
@@ -13145,7 +13086,6 @@ msgid "There are no asset categories defined. All assets must belong to a valid 
 msgstr "没有定义资产种类。所有资产必须属于有效的种类"
 
 #: FixedAssetItems.php:103
-#, fuzzy
 msgid "There are no asset locations defined. All assets must belong to a valid location,"
 msgstr "没有定义资产种类。所有资产必须属于有效的种类"
 
@@ -13209,7 +13149,7 @@ msgid "The new asset has been added to the database with an asset code of:"
 msgstr "新资产已经增加到数据库资产编号是"
 
 #: FixedAssetItems.php:282
-#: Stocks.php:599
+#: Stocks.php:636
 msgid "Validation failed, no updates or deletes took place"
 msgstr "验证失败, 更新或删除失败"
 
@@ -13259,18 +13199,18 @@ msgid "Asset Description"
 msgstr "资产描述"
 
 #: FixedAssetItems.php:454
-#: Stocks.php:806
+#: Stocks.php:845
 msgid "short"
 msgstr "短"
 
 #: FixedAssetItems.php:464
-#: Stocks.php:816
+#: Stocks.php:855
 msgid "long"
 msgstr "长"
 
 #: FixedAssetItems.php:471
 #: SalesCategories.php:324
-#: Stocks.php:820
+#: Stocks.php:859
 msgid "Image File (.jpg)"
 msgstr "图像文件 (.JPG)"
 
@@ -13303,12 +13243,11 @@ msgid "Asset Location"
 msgstr "资产地点"
 
 #: FixedAssetItems.php:544
-#, fuzzy
 msgid "Add Asset Location"
 msgstr "资产地点"
 
 #: FixedAssetItems.php:547
-#: Stocks.php:1057
+#: Stocks.php:1096
 #: includes/DefineLabelClass.php:50
 msgid "Bar Code"
 msgstr "条形码"
@@ -13649,7 +13588,7 @@ msgid "Enter the changes that you want in the form layout below."
 msgstr "在下面输入您需要变更的表单"
 
 #: FormDesigner.php:157
-msgid "All measurements are in millimetres"
+msgid "All measurements are in points"
 msgstr "所有的单位均为毫米"
 
 #: FormDesigner.php:163
@@ -13782,7 +13721,7 @@ msgid "Minimum Charge"
 msgstr "最低收费"
 
 #: FreightCosts.php:241
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this freight cost"
 msgstr "你确定要删除这价目?"
 
@@ -14293,7 +14232,7 @@ msgstr "使用键盘的Shift键来选择多个期间。"
 
 #: GLAccountInquiry.php:33
 #: GLAccounts.php:197
-#: GLBalanceSheet.php:376
+#: GLBalanceSheet.php:392
 #: GLProfit_Loss.php:607
 #: GLTagProfit_Loss.php:532
 #: GLTrialBalance.php:442
@@ -14324,7 +14263,7 @@ msgstr "借方"
 
 #: GLAccountInquiry.php:157
 #: GLAccountReport.php:344
-#: Payments.php:1053
+#: Payments.php:1060
 #: PcExpenses.php:190
 #: PcExpenses.php:322
 msgid "Tag"
@@ -14502,7 +14441,7 @@ msgstr "删除会计科目失败, 原因是：已作为银行科目"
 #: GLAccounts.php:232
 #: GLAccounts.php:290
 #: PcExpenses.php:188
-#: PcExpenses.php:297
+#: PcExpenses.php:298
 #: SelectGLAccount.php:19
 #: SuppTransGLAnalysis.php:161
 #: Z_CreateCompanyTemplateFile.php:230
@@ -14513,7 +14452,7 @@ msgstr "科目编号"
 
 #: GLAccounts.php:238
 #: GLAccounts.php:291
-#: GLBalanceSheet.php:377
+#: GLBalanceSheet.php:393
 #: GLCodesInquiry.php:27
 #: GLProfit_Loss.php:608
 #: GLTagProfit_Loss.php:533
@@ -14531,10 +14470,10 @@ msgstr "科目名称"
 #: GLAccounts.php:278
 #: GLBalanceSheet.php:9
 #: GLBalanceSheet.php:18
-#: GLBalanceSheet.php:76
 #: GLBalanceSheet.php:77
-#: GLBalanceSheet.php:100
-#: GLBalanceSheet.php:139
+#: GLBalanceSheet.php:78
+#: GLBalanceSheet.php:101
+#: GLBalanceSheet.php:140
 #: index.php:1274
 #: SelectGLAccount.php:48
 #: SelectGLAccount.php:61
@@ -14575,39 +14514,39 @@ msgstr "资产负债表有三部分：资产，负债和所有者权益。资产
 msgid "webERP is an \"accrual\" based system (not a \"cash based\" system).  Accrual systems include items when they are invoiced to the customer, and when expenses are owed based on the supplier invoice date."
 msgstr "webERP是一个\"权责发生制\"为基础的系统（不是一个\"现金为基础\"的系统).权责发生制包括商品当他们被开发票给顾客，依据根据供应商发票日期确定的应付费用。"
 
-#: GLBalanceSheet.php:28
+#: GLBalanceSheet.php:29
 msgid "Select the balance date"
 msgstr "选择报表日期"
 
-#: GLBalanceSheet.php:51
+#: GLBalanceSheet.php:52
 #: GLProfit_Loss.php:101
 #: GLTagProfit_Loss.php:115
 msgid "Detail Or Summary"
 msgstr "显示级别"
 
-#: GLBalanceSheet.php:54
+#: GLBalanceSheet.php:55
 #: GLProfit_Loss.php:104
 #: GLTagProfit_Loss.php:118
 msgid "All Accounts"
 msgstr "显示会计科目和科目组"
 
-#: GLBalanceSheet.php:62
+#: GLBalanceSheet.php:63
 #: GLProfit_Loss.php:111
 msgid "Show on Screen (HTML)"
 msgstr "显示在屏幕上（HTML）"
 
-#: GLBalanceSheet.php:66
+#: GLBalanceSheet.php:67
 #: GLProfit_Loss.php:115
 msgid "Produce PDF Report"
 msgstr "打印PDF 报表"
 
-#: GLBalanceSheet.php:102
-#: GLBalanceSheet.php:335
+#: GLBalanceSheet.php:103
+#: GLBalanceSheet.php:351
 msgid "The accumulated profits brought forward could not be calculated by the SQL because"
 msgstr "未能结转本年利润，原因是："
 
-#: GLBalanceSheet.php:141
-#: GLBalanceSheet.php:361
+#: GLBalanceSheet.php:142
+#: GLBalanceSheet.php:377
 #: GLCodesInquiry.php:18
 #: GLProfit_Loss.php:179
 #: GLProfit_Loss.php:596
@@ -14618,34 +14557,34 @@ msgstr "未能结转本年利润，原因是："
 msgid "No general ledger accounts were returned by the SQL because"
 msgstr "找不到会计科目"
 
-#: GLBalanceSheet.php:297
-#: GLBalanceSheet.php:657
+#: GLBalanceSheet.php:312
+#: GLBalanceSheet.php:677
 #, php-format
 msgid "Check Total"
 msgstr "差额"
 
-#: GLBalanceSheet.php:302
+#: GLBalanceSheet.php:317
 msgid "Print Balance Sheet Error"
 msgstr "打印资产负责表错误"
 
-#: GLBalanceSheet.php:304
+#: GLBalanceSheet.php:319
 #: GLProfit_Loss.php:191
 #: GLTagProfit_Loss.php:206
 #: GLTrialBalance.php:173
 msgid "There were no entries to print out for the selections specified"
 msgstr "没有符合条件的记录"
 
-#: GLBalanceSheet.php:362
+#: GLBalanceSheet.php:378
 msgid "HTML View"
 msgstr "HTML查看"
 
-#: GLBalanceSheet.php:369
+#: GLBalanceSheet.php:385
 #: includes/PDFBalanceSheetPageHeader.inc:20
 msgid "Balance Sheet as at"
 msgstr "资 产 负 债 表"
 
-#: GLBalanceSheet.php:379
-#: GLBalanceSheet.php:385
+#: GLBalanceSheet.php:395
+#: GLBalanceSheet.php:401
 #: GLProfit_Loss.php:611
 #: GLProfit_Loss.php:618
 #: includes/PDFBalanceSheetPageHeader.inc:30
@@ -14654,7 +14593,7 @@ msgstr "资 产 负 债 表"
 msgid "Last Year"
 msgstr "上年同期"
 
-#: GLBalanceSheet.php:673
+#: GLBalanceSheet.php:694
 msgid "Select A Different Balance Date"
 msgstr "选择其他报表日期"
 
@@ -14663,13 +14602,12 @@ msgid "Create GL Budgets"
 msgstr "创建总帐预算"
 
 #: GLBudgets.php:24
-#, fuzzy
 msgid "Budget updated successfully"
 msgstr "全部税率更新完成"
 
 #: GLBudgets.php:37
 #: GLJournal.php:292
-#: Payments.php:992
+#: Payments.php:999
 msgid "Select GL Account"
 msgstr "在列表中选择科目"
 
@@ -14737,7 +14675,6 @@ msgid "Annual Budget"
 msgstr "年度预算"
 
 #: GLBudgets.php:225
-#, fuzzy
 msgid "Apportion Budget"
 msgstr "累计预算"
 
@@ -14852,8 +14789,8 @@ msgid "Select a general ledger account code"
 msgstr "选择一个总帐科目编号"
 
 #: GLJournal.php:366
-#: Payments.php:1018
-#: Payments.php:1023
+#: Payments.php:1025
+#: Payments.php:1030
 msgid "GL Narrative"
 msgstr "摘要"
 
@@ -14862,7 +14799,6 @@ msgid "Journal Summary"
 msgstr "凭证汇总"
 
 #: GLJournal.php:435
-#, fuzzy
 msgid "Required to balance"
 msgstr "目前结余"
 
@@ -15050,7 +14986,7 @@ msgstr "显示损益表"
 
 #: GLTagProfit_Loss.php:128
 #: GLTrialBalance.php:105
-#: PcReportTab.php:71
+#: PcReportTab.php:72
 msgid "PrintPDF"
 msgstr "打印到PDF"
 
@@ -15092,12 +15028,10 @@ msgid "Maintain General Ledger Tags"
 msgstr "维护总账标签"
 
 #: GLTags.php:17
-#, fuzzy
 msgid "This tag cannot be deleted since there are already general ledger transactions created using it."
 msgstr "这客户不能删除, 因为已有交易"
 
 #: GLTags.php:20
-#, fuzzy
 msgid "The selected tag has been deleted"
 msgstr "选取的价目已删除"
 
@@ -15111,7 +15045,6 @@ msgid "Tag ID"
 msgstr "标签 ID"
 
 #: GLTags.php:92
-#, fuzzy
 msgid "Are you sure you wish to delete this GL tag?"
 msgstr "确认要删除此联系人？"
 
@@ -15185,9 +15118,9 @@ msgid "Check Totals"
 msgstr "差额"
 
 #: GLTrialBalance.php:430
-#: PcReportTab.php:115
-#: PcReportTab.php:247
-#: PcReportTab.php:320
+#: PcReportTab.php:118
+#: PcReportTab.php:251
+#: PcReportTab.php:324
 #: includes/ConnectDB_postgres.inc:50
 msgid "The SQL that failed was:"
 msgstr "失败的SQL是:"
@@ -15310,24 +15243,20 @@ msgstr "收货日期"
 
 #: GoodsReceived.php:94
 #: PO_Items.php:665
-#, fuzzy
 msgid "Supplier Units"
 msgstr "供应商计量单位"
 
 #: GoodsReceived.php:96
-#, fuzzy
 msgid "Our Receiving Units"
 msgstr "接收中"
 
 #: GoodsReceived.php:103
 #: PO_Items.php:1074
-#, fuzzy
 msgid "Conversion"
 msgstr "转化"
 
 #: GoodsReceived.php:103
 #: PO_Items.php:1074
-#, fuzzy
 msgid "Factor"
 msgstr "是为"
 
@@ -15490,7 +15419,6 @@ msgstr "用于插入序列号存货物料记录的SQL是"
 
 #: GoodsReceived.php:616
 #: SupplierInvoice.php:1469
-#, fuzzy
 msgid "cost"
 msgstr "成本"
 
@@ -15538,7 +15466,6 @@ msgid "The following SQL to insert the GRN Suspense GLTrans record was used"
 msgstr "用于插入总账凭证材料采购行的SQL是"
 
 #: GoodsReceived.php:702
-#, fuzzy
 msgid "Order Completed on entry of GRN"
 msgstr "完成"
 
@@ -15713,17 +15640,14 @@ msgid "Orders Invoiced Reports"
 msgstr "打印已开发票销售订单"
 
 #: index.php:191
-#, fuzzy
 msgid "Sales By Sales Type Inquiry"
 msgstr "销售日报查询"
 
 #: index.php:196
-#, fuzzy
 msgid "Sales By Category Inquiry"
 msgstr "销售分析表"
 
 #: index.php:201
-#, fuzzy
 msgid "Top Sellers Inquiry"
 msgstr "销售查询"
 
@@ -15862,7 +15786,7 @@ msgstr "汇款通知"
 
 #: index.php:439
 #: OutstandingGRNs.php:14
-#: OutstandingGRNs.php:157
+#: OutstandingGRNs.php:160
 msgid "Outstanding GRNs Report"
 msgstr "已收货未开发票暂估"
 
@@ -15899,12 +15823,10 @@ msgid "Add Purchase Order"
 msgstr "新建采购订单"
 
 #: index.php:511
-#, fuzzy
 msgid "Create a New Tender"
 msgstr "创建日历"
 
 #: index.php:516
-#, fuzzy
 msgid "Edit Existing Tenders"
 msgstr "查看现有用户"
 
@@ -15950,7 +15872,7 @@ msgstr "批量移库"
 
 #: index.php:600
 #: StockAdjustments.php:93
-#: StockLocTransfer.php:215
+#: StockLocTransfer.php:230
 #: StockLocTransferReceive.php:411
 #: StockLocTransferReceive.php:503
 #: StockTransfers.php:27
@@ -16059,17 +15981,14 @@ msgid "List Negative Stocks"
 msgstr "负数库存查询"
 
 #: index.php:724
-#, fuzzy
 msgid "Period Stock Transaction Listing"
 msgstr "库存交易列表"
 
 #: index.php:729
-#, fuzzy
 msgid "Stock Transfer Note"
 msgstr "存货转移自"
 
 #: index.php:734
-#, fuzzy
 msgid "Reprint GRN"
 msgstr "现在重新打印"
 
@@ -16087,7 +16006,6 @@ msgid "Sales Category Maintenance"
 msgstr "商品分类"
 
 #: index.php:763
-#, fuzzy
 msgid "Add or Update Prices Based On Costs Or Other Price List"
 msgstr "根据成本查看或者更新价格"
 
@@ -16206,7 +16124,6 @@ msgid "Page Security Settings"
 msgstr "页面安全设置"
 
 #: index.php:1000
-#, fuzzy
 msgid "Define Security Tokens"
 msgstr "已经分配的职责"
 
@@ -16329,7 +16246,7 @@ msgid "Discount Category Maintenance"
 msgstr "折扣类别"
 
 #: index.php:1165
-#: Stocks.php:916
+#: Stocks.php:955
 #: SupplierTenders.php:125
 #: SupplierTenders.php:534
 #: SupplierTenders.php:537
@@ -16848,7 +16765,7 @@ msgstr "指定的物料组范围和仓库没有物料"
 
 #: InventoryValuation.php:188
 #: MailInventoryValuation.php:201
-#: OutstandingGRNs.php:147
+#: OutstandingGRNs.php:150
 msgid "Grand Total Value"
 msgstr "总计金额："
 
@@ -16890,7 +16807,6 @@ msgid "Id required"
 msgstr "要求Id"
 
 #: Labels.php:144
-#, fuzzy
 msgid "This id exists in previous list"
 msgstr "此ID出现在上个列表里"
 
@@ -17119,12 +17035,10 @@ msgid "branches set up to use this location by default"
 msgstr "个客户分公司把该仓库作为默认发货点"
 
 #: Locations.php:308
-#, fuzzy
 msgid "Cannot delete this location because it is used by some purchase order records as the location to receive stock into"
 msgstr "不能删除仓库, 因为已有客户分公司记录设它为默认发货点"
 
 #: Locations.php:309
-#, fuzzy
 msgid "purchase orders set up to use this location as the receiving location"
 msgstr "个把该仓库作为默认仓库的用户"
 
@@ -17151,7 +17065,7 @@ msgid "Tax Province"
 msgstr "纳税区域"
 
 #: Locations.php:392
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this inventory location?"
 msgstr "你确定要删除这价目?"
 
@@ -17178,12 +17092,10 @@ msgid "Facsimile No"
 msgstr "传真号码"
 
 #: Locations.php:591
-#, fuzzy
 msgid "Default Counter Sales Customer Code"
 msgstr "更改客户编号"
 
 #: Locations.php:595
-#, fuzzy
 msgid "Counter Sales Branch Code"
 msgstr "客户分公司代码"
 
@@ -17256,40 +17168,39 @@ msgstr "无效 到日期"
 msgid "To Date Must Be Greater Than From Date"
 msgstr "截止日期必须大于起始日期"
 
-#: MRPCalendar.php:137
+#: MRPCalendar.php:138
 msgid "The MRP Calendar has been created"
 msgstr "物料需求计划（MRP）日历已经创建"
 
-#: MRPCalendar.php:157
+#: MRPCalendar.php:158
 msgid "Invalid Change Date"
 msgstr "无效的变更日期"
 
-#: MRPCalendar.php:174
+#: MRPCalendar.php:175
 msgid "Cannot update the MRP Calendar"
 msgstr "无法更新MRP日历"
 
-#: MRPCalendar.php:176
-#, fuzzy
+#: MRPCalendar.php:177
 msgid "The MRP calendar record for"
 msgstr "以下库存MRP需求记录已更新"
 
-#: MRPCalendar.php:220
+#: MRPCalendar.php:221
 msgid "Manufacturing Date"
 msgstr "生产日期"
 
-#: MRPCalendar.php:270
+#: MRPCalendar.php:271
 msgid "Exclude The Following Days"
 msgstr "不包含下列日期"
 
-#: MRPCalendar.php:301
+#: MRPCalendar.php:302
 msgid "Create Calendar"
 msgstr "创建日历"
 
-#: MRPCalendar.php:302
+#: MRPCalendar.php:303
 msgid "List Date Range"
 msgstr "列出日期范围"
 
-#: MRPCalendar.php:312
+#: MRPCalendar.php:313
 msgid "Change Date Status"
 msgstr "变更日期状态"
 
@@ -17325,12 +17236,10 @@ msgid "The distribution start date must be specified in the format"
 msgstr "配送起始日期必须以指定格式输入"
 
 #: MRPCreateDemands.php:37
-#, fuzzy
 msgid "The quantity below which no demand will be created must be numeric"
 msgstr "订单行数量必须是数值"
 
 #: MRPCreateDemands.php:41
-#, fuzzy
 msgid "The multiplier is expected to be a positive number"
 msgstr "成本必须是正数"
 
@@ -17430,7 +17339,7 @@ msgstr "乘数"
 #: MRPCreateDemands.php:278
 #: PricesByCost.php:286
 #: ReorderLevelLocation.php:190
-#: Z_CopyBOM.php:143
+#: Z_CopyBOM.php:173
 msgid "Submit"
 msgstr "提交"
 
@@ -17492,7 +17401,6 @@ msgstr "已经被删除"
 
 #: MRPDemands.php:307
 #: MRPDemands.php:424
-#, fuzzy
 msgid "Are you sure you wish to delete this demand?"
 msgstr "确认要删除此客户分公司么"
 
@@ -17708,7 +17616,6 @@ msgstr "运行MRP"
 #: MRPPlannedPurchaseOrders.php:14
 #: MRPPlannedWorkOrders.php:13
 #: MRPShortages.php:13
-#, fuzzy
 msgid "MRP error"
 msgstr "MRP 报告"
 
@@ -17840,7 +17747,6 @@ msgid "Consolidation Count"
 msgstr "Consolidation Count"
 
 #: MRPPlannedWorkOrders.php:28
-#, fuzzy
 msgid "Through"
 msgstr " 从  "
 
@@ -17873,7 +17779,6 @@ msgid "Review/Convert MRP Planned Work Orders"
 msgstr "查看/转化MRP计划的工单"
 
 #: MRPPlannedWorkOrders.php:253
-#, fuzzy
 msgid "Cutoff Date"
 msgstr "截止日期"
 
@@ -17886,12 +17791,10 @@ msgid "Convert"
 msgstr "转化"
 
 #: MRPPlannedWorkOrders.php:303
-#, fuzzy
 msgid "Number of Work Orders"
 msgstr "工作单号： "
 
 #: MRPPlannedWorkOrders.php:304
-#, fuzzy
 msgid "Total Extended Cost"
 msgstr "总成本："
 
@@ -18058,7 +17961,7 @@ msgstr "找不到物料, 请输入其他条件再试"
 #: SupplierTenderCreate.php:556
 #: WorkOrderIssue.php:352
 #: WorkOrderReceive.php:676
-#: includes/Add_SerialItemsOut.php:23
+#: includes/Add_SerialItemsOut.php:28
 #: includes/Add_SerialItems.php:33
 #: includes/Add_SerialItems.php:184
 #: includes/Add_SerialItems.php:281
@@ -18091,9 +17994,9 @@ msgid "Go to Page"
 msgstr "转到页"
 
 #: MRPReport.php:736
-#: PcAssignCashToTab.php:217
-#: PcAuthorizeExpenses.php:60
-#: PcClaimExpensesFromTab.php:191
+#: PcAssignCashToTab.php:231
+#: PcAuthorizeExpenses.php:61
+#: PcClaimExpensesFromTab.php:204
 #: SelectAsset.php:243
 #: SelectCustomer.php:406
 #: SelectCustomer.php:490
@@ -18174,12 +18077,10 @@ msgstr "MRP 缺料报告"
 
 #: MRPShortages.php:29
 #: MRPShortages.php:328
-#, fuzzy
 msgid "MRP Excess Report"
 msgstr "MRP 报告"
 
 #: MRPShortages.php:30
-#, fuzzy
 msgid "MRP Excess"
 msgstr "费用种类"
 
@@ -18193,17 +18094,14 @@ msgstr "创建总供应（supplytotal)失败, 因为"
 
 #: MRPShortages.php:155
 #: MRPShortages.php:167
-#, fuzzy
 msgid "MRP Shortages and Excesses"
 msgstr "MRP的缺料情况"
 
 #: MRPShortages.php:157
-#, fuzzy
 msgid "The MRP shortages and excesses could not be retrieved by the SQL because"
 msgstr "SQL无法查到物料需求计划(MRP)缺料, 因为"
 
 #: MRPShortages.php:169
-#, fuzzy
 msgid "No MRP shortages - Excess retrieved"
 msgstr "无法取得物料需求计划（MRP）缺料"
 
@@ -18216,12 +18114,10 @@ msgid "Total Extended Shortage:"
 msgstr "总计缺少量"
 
 #: MRPShortages.php:244
-#, fuzzy
 msgid "Total Extended Excess:"
 msgstr "总成本："
 
 #: MRPShortages.php:257
-#, fuzzy
 msgid "MRP Shortages - Excess Reporting"
 msgstr "物料需求计划（MRP）缺料报告"
 
@@ -18234,12 +18130,10 @@ msgid "Extended Shortage Dollars"
 msgstr "总计缺少美元金额"
 
 #: MRPShortages.php:284
-#, fuzzy
 msgid "Shortage-Excess Option"
 msgstr "物料需求计划（MRP）缺料报告"
 
 #: MRPShortages.php:286
-#, fuzzy
 msgid "Report MRP Shortages"
 msgstr "MRP的缺料情况"
 
@@ -18263,12 +18157,10 @@ msgid "Ext. Shortage"
 msgstr "总计缺少"
 
 #: MRPShortages.php:356
-#, fuzzy
 msgid "Excess"
 msgstr "成功"
 
 #: MRPShortages.php:357
-#, fuzzy
 msgid "Ext. Excess"
 msgstr "延伸成本"
 
@@ -18287,7 +18179,7 @@ msgstr "报盘 ID"
 
 #: OffersReceived.php:104
 #: PurchData.php:340
-#: Stocks.php:497
+#: Stocks.php:508
 #: includes/PDFPeriodStockTransListingPageHeader.inc:47
 msgid "Stock Item"
 msgstr "物料"
@@ -18538,7 +18430,6 @@ msgid "Total Payment"
 msgstr "付款总额"
 
 #: PaymentMethods.php:39
-#, fuzzy
 msgid "The payment method cannot contain illegal characters"
 msgstr "付款方式不能包含这个字符"
 
@@ -18550,99 +18441,107 @@ msgstr "付款方式不能为空"
 msgid "The payment method can not be renamed because another with the same name already exists."
 msgstr "付款方式不能重命名, 因为已有相同的名称存在"
 
-#: PaymentMethods.php:79
+#: PaymentMethods.php:80
 msgid "The payment method no longer exists."
 msgstr "付款方式已不存在"
 
-#: PaymentMethods.php:83
+#: PaymentMethods.php:84
 msgid "Could not update payment method"
 msgstr "未能更新付款方式"
 
-#: PaymentMethods.php:92
+#: PaymentMethods.php:93
 msgid "The payment method can not be created because another with the same name already exists."
 msgstr "新建付款方式失败, 因为已有相同名称存在"
 
-#: PaymentMethods.php:104
-msgid "Could not insert payment method"
+#: PaymentMethods.php:106
+msgid "New payment method added"
+msgstr "付款方式"
+
+#: PaymentMethods.php:107
+msgid "Could not insert the new payment method"
 msgstr "未能插入付款方式"
 
-#: PaymentMethods.php:128
+#: PaymentMethods.php:132
 msgid "Cannot delete this payment method because it no longer exist"
 msgstr "未能删除付款方式, 因为不存在"
 
-#: PaymentMethods.php:137
+#: PaymentMethods.php:141
 msgid "Cannot delete this payment method because bank transactions have been created using this payment method"
 msgstr "未能删除付款方式, 因为已有银行交易使用这个付款方式"
 
-#: PaymentMethods.php:138
+#: PaymentMethods.php:142
 msgid "bank transactions that refer to this payment method"
 msgstr "条使用此付款方式的银行交易"
 
-#: PaymentMethods.php:142
+#: PaymentMethods.php:146
 msgid "payment method has been deleted"
 msgstr "付款方式已被删除"
 
-#: PaymentMethods.php:174
+#: PaymentMethods.php:180
 msgid "Could not get payment methods because"
 msgstr "未能取得付款方式，因为"
 
-#: PaymentMethods.php:179
-#: PaymentMethods.php:256
+#: PaymentMethods.php:185
+#: PaymentMethods.php:266
 msgid "Payment Method"
 msgstr "付款方式"
 
-#: PaymentMethods.php:180
+#: PaymentMethods.php:186
 msgid "For Payments"
 msgstr "可用于付款"
 
-#: PaymentMethods.php:181
+#: PaymentMethods.php:187
 msgid "For Receipts"
 msgstr "可用于收款"
 
-#: PaymentMethods.php:182
-#, fuzzy
+#: PaymentMethods.php:188
 msgid "Use Pre-printed"
 msgstr "空白纸"
 
-#: PaymentMethods.php:182
-#, fuzzy
+#: PaymentMethods.php:188
 msgid "Stationery"
 msgstr "套打"
 
-#: PaymentMethods.php:201
-#, fuzzy
+#: PaymentMethods.php:189
+msgid "Open Cash Drawer"
+msgstr "未完成订单"
+
+#: PaymentMethods.php:209
 msgid "Are you sure you wish to delete this payment method?"
 msgstr "确认要删除此客户分公司么"
 
-#: PaymentMethods.php:210
+#: PaymentMethods.php:218
 msgid "Review Payment Methods"
 msgstr "查看付款方式"
 
-#: PaymentMethods.php:233
+#: PaymentMethods.php:241
 msgid "Could not retrieve the requested payment method, please try again."
 msgstr "找不到付款方式，请重试"
 
-#: PaymentMethods.php:260
+#: PaymentMethods.php:270
 msgid "Use For Payments"
 msgstr "可用于付款"
 
-#: PaymentMethods.php:266
+#: PaymentMethods.php:276
 msgid "Use For Receipts"
 msgstr "可用于收款"
 
-#: PaymentMethods.php:273
-#, fuzzy
+#: PaymentMethods.php:283
 msgid "Use Pre-printed Stationery"
 msgstr "套打"
+
+#: PaymentMethods.php:290
+msgid "Open POS Cash Drawer for Sale"
+msgstr ""
 
 #: Payments.php:8
 #: Payments.php:47
 #: Payments.php:48
-#: PcClaimExpensesFromTab.php:138
+#: PcClaimExpensesFromTab.php:139
 #: PcExpenses.php:9
 #: PcExpensesTypeTab.php:9
 #: PcReportTab.php:20
-#: PcReportTab.php:230
+#: PcReportTab.php:233
 #: PcTabs.php:8
 #: PcTypeTabs.php:8
 msgid "Payment Entry"
@@ -18657,7 +18556,6 @@ msgid "A bank account must be selected to make this payment from"
 msgstr "必须选择此付款使用的银行账户"
 
 #: Payments.php:50
-#, fuzzy
 msgid "Use this screen to enter payments FROM your bank account.  <br />Note: To enter a payment FROM a supplier, first select the Supplier, click Enter a Payment to, or Receipt from the Supplier, and use a negative Payment amount on this form."
 msgstr "使用此界面输入付款：从您的银行户口。<br />注意： 输入付款给供应商，首先选择供应商，点击输入付款给，或者供应商收款凭证，在此表中使用负数的付款金额。"
 
@@ -18670,7 +18568,6 @@ msgid "If this page is called from the selectSupplier page then this assures tha
 msgstr "如果是从选择供应商页面转过来的, 这将确保选择了一个有效的供应商"
 
 #: Payments.php:107
-#, fuzzy
 msgid "care of"
 msgstr " 小心 "
 
@@ -18713,12 +18610,12 @@ msgstr "账户转移自 "
 #: Payments.php:419
 #: Payments.php:568
 #: Payments.php:594
-#: PcAuthorizeExpenses.php:220
+#: PcAuthorizeExpenses.php:219
 msgid "Cannot insert a bank transaction because"
 msgstr "未能插入银行交易, 因为"
 
 #: Payments.php:420
-#: PcAuthorizeExpenses.php:221
+#: PcAuthorizeExpenses.php:220
 msgid "Cannot insert a bank transaction with the SQL"
 msgstr "未能插入银行交易。SQL："
 
@@ -18817,77 +18714,74 @@ msgstr "交易货币不必与银行户口货币一样。"
 msgid "Supplier Currency"
 msgstr "供应商货币"
 
-#: Payments.php:843
+#: Payments.php:846
 msgid "Payment Exchange Rate"
 msgstr "付款汇率"
 
-#: Payments.php:845
+#: Payments.php:848
 msgid "The exchange rate between the currency of the bank account currency and the currency of the payment"
 msgstr "银行账户货币和付款货币之间的汇率"
 
-#: Payments.php:866
+#: Payments.php:869
 msgid "Payment type"
 msgstr "付款方式"
 
-#: Payments.php:889
+#: Payments.php:892
 msgid "Cheque Number"
 msgstr "支票号码"
 
-#: Payments.php:890
+#: Payments.php:893
 msgid "(if using pre-printed stationery)"
 msgstr "(如果使用预制的表单）"
 
-#: Payments.php:898
+#: Payments.php:901
 msgid "Reference / Narrative"
 msgstr "参考/摘要"
 
-#: Payments.php:899
+#: Payments.php:902
 msgid "(Max. length 80 characters)"
 msgstr "（最长80个字符）"
 
-#: Payments.php:913
+#: Payments.php:920
 msgid "General Ledger Payment Analysis Entry"
 msgstr "输入总帐科目借方"
 
-#: Payments.php:941
-#: Payments.php:946
+#: Payments.php:948
+#: Payments.php:953
 msgid "Enter GL Account Manually"
 msgstr "手工输入科目编号"
 
-#: Payments.php:951
-#, fuzzy
+#: Payments.php:958
 msgid "Select GL Group"
 msgstr "在列表中选择科目"
 
-#: Payments.php:962
-#, fuzzy
+#: Payments.php:969
 msgid "No General ledger account groups have been set up yet"
 msgstr "还没有设置总账会计科目"
 
-#: Payments.php:962
-#: Payments.php:998
+#: Payments.php:969
+#: Payments.php:1005
 msgid "payments cannot be analysed against GL accounts until the GL accounts are set up"
 msgstr "会计科目设置未完成不能输入总账的付款"
 
-#: Payments.php:1012
+#: Payments.php:1019
 msgid "Cheque/Voucher Number"
 msgstr "支票/代金券号码"
 
-#: Payments.php:1049
+#: Payments.php:1056
 msgid "Cheque No"
 msgstr "支票编号"
 
-#: Payments.php:1073
-#, fuzzy
+#: Payments.php:1080
 msgid "Are you sure you wish to delete this payment analysis item?"
 msgstr "确认要删除此客户分公司么"
 
-#: Payments.php:1086
-#: Payments.php:1109
+#: Payments.php:1093
+#: Payments.php:1116
 msgid "Accept and Process Payment"
 msgstr "保存付款"
 
-#: Payments.php:1095
+#: Payments.php:1102
 msgid "Amount of Payment"
 msgstr "付款金额"
 
@@ -18992,7 +18886,7 @@ msgid "days"
 msgstr "天"
 
 #: PaymentTerms.php:206
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this payment term?"
 msgstr "确认要删除此客户分公司么"
 
@@ -19025,19 +18919,16 @@ msgid "Assignment of Cash to Petty Cash Tab"
 msgstr "安排预付款"
 
 #: PcAssignCashToTab.php:37
-#, fuzzy
 msgid "You Must First Select a Petty Cash Tab To Assign Cash"
 msgstr "安排付款的小额现金标签"
 
 #: PcAssignCashToTab.php:46
 #: PcAuthorizeExpenses.php:36
 #: PcClaimExpensesFromTab.php:48
-#, fuzzy
 msgid "The number of days must be a positive number"
 msgstr "合理订单数量必须是正数"
 
 #: PcAssignCashToTab.php:65
-#, fuzzy
 msgid "The Amount must be input"
 msgstr "必须输入金额"
 
@@ -19055,33 +18946,33 @@ msgstr "小额现金安排 "
 msgid "The assignment of cash record could not be deleted because"
 msgstr "预支现金记录未能删除"
 
-#: PcAssignCashToTab.php:152
+#: PcAssignCashToTab.php:161
 msgid "Petty Cash Tab To Assign Cash"
 msgstr "安排付款的小额现金标签"
 
-#: PcAssignCashToTab.php:189
-msgid "Details Of Petty Cash Tab "
-msgstr "小额现金标签细节 "
+#: PcAssignCashToTab.php:192
+#: PcClaimExpensesFromTab.php:178
+msgid "Select another tab"
+msgstr "选择其他日期"
 
-#: PcAssignCashToTab.php:214
-#, fuzzy
+#: PcAssignCashToTab.php:228
 msgid "Detail Of PC Tab Movements For Last"
 msgstr "最近小额现金标签变化细节 "
 
-#: PcAssignCashToTab.php:216
-#: PcAuthorizeExpenses.php:59
-#: PcClaimExpensesFromTab.php:190
+#: PcAssignCashToTab.php:230
+#: PcAuthorizeExpenses.php:60
+#: PcClaimExpensesFromTab.php:203
 #: includes/PDFDIFOTPageHeader.inc:46
 msgid "Days"
 msgstr "日数"
 
-#: PcAssignCashToTab.php:221
+#: PcAssignCashToTab.php:235
 #: PcAuthorizeExpenses.php:89
-#: PcExpensesTypeTab.php:168
+#: PcExpensesTypeTab.php:170
 msgid "Expense Code"
 msgstr "费用代码"
 
-#: PcAssignCashToTab.php:223
+#: PcAssignCashToTab.php:237
 #: PcAuthorizeExpenses.php:94
 #: PO_AuthoriseMyOrders.php:92
 #: PO_Header.php:809
@@ -19095,30 +18986,29 @@ msgstr "费用代码"
 msgid "Authorised"
 msgstr "授权"
 
-#: PcAssignCashToTab.php:262
+#: PcAssignCashToTab.php:276
 msgid "Are you sure you wish to delete this code and the expense it may have set up?"
 msgstr "确认要删除此代码以及可能已设置的与其相关的费用吗？"
 
-#: PcAssignCashToTab.php:289
-#: PcAuthorizeExpenses.php:283
-#: PcClaimExpensesFromTab.php:294
+#: PcAssignCashToTab.php:303
+#: PcAuthorizeExpenses.php:280
+#: PcClaimExpensesFromTab.php:307
 msgid "Current balance"
 msgstr "目前结余"
 
-#: PcAssignCashToTab.php:306
+#: PcAssignCashToTab.php:347
 msgid "Update Cash Assignment"
 msgstr "更新现金预付"
 
-#: PcAssignCashToTab.php:308
+#: PcAssignCashToTab.php:349
 msgid "New Cash Assignment"
 msgstr "新预付现金"
 
-#: PcAssignCashToTab.php:335
+#: PcAssignCashToTab.php:351
 msgid "Cash Assignation Date"
 msgstr "预支款日期"
 
 #: PcAuthorizeExpenses.php:5
-#, fuzzy
 msgid "Authorisation of Petty Cash Expenses"
 msgstr "小额现金费用授权"
 
@@ -19128,25 +19018,18 @@ msgstr ""
 
 #: PcAuthorizeExpenses.php:43
 #: PcAuthorizeExpenses.php:46
-#, fuzzy
 msgid "Authorisation Of Petty Cash Expenses "
 msgstr "报销批准 "
 
-#: PcAuthorizeExpenses.php:58
+#: PcAuthorizeExpenses.php:59
 msgid "Detail Of Movement For Last "
 msgstr "最近变动 "
 
-#: PcAuthorizeExpenses.php:98
-msgid "update"
-msgstr "更新"
-
-#: PcAuthorizeExpenses.php:138
-#, fuzzy
+#: PcAuthorizeExpenses.php:137
 msgid "PettyCash"
 msgstr "小额现金"
 
-#: PcAuthorizeExpenses.php:298
-#, fuzzy
+#: PcAuthorizeExpenses.php:304
 msgid "Authorise expenses to Petty Cash Tab"
 msgstr "报销审批"
 
@@ -19167,80 +19050,71 @@ msgid "The Amount must be greater than 0"
 msgstr "金额必须大于0"
 
 #: PcClaimExpensesFromTab.php:79
-#: PcClaimExpensesFromTab.php:105
+#: PcClaimExpensesFromTab.php:106
 msgid "The Expense Claim on Tab"
 msgstr "报销申请单"
 
-#: PcClaimExpensesFromTab.php:124
+#: PcClaimExpensesFromTab.php:125
 msgid "Petty Cash Expense record could not be deleted because"
 msgstr "未能删除小额现金费用记录, 因为"
 
-#: PcClaimExpensesFromTab.php:126
+#: PcClaimExpensesFromTab.php:127
 msgid "Petty cash Expense record"
 msgstr "小额现金费用记录"
 
-#: PcClaimExpensesFromTab.php:144
+#: PcClaimExpensesFromTab.php:146
 msgid "Petty Cash Tabs for User "
 msgstr "小额现金标签的用户 "
 
-#: PcClaimExpensesFromTab.php:153
-#: PcClaimExpensesFromTab.php:348
-#: PcExpenses.php:306
+#: PcClaimExpensesFromTab.php:154
+#: PcClaimExpensesFromTab.php:362
+#: PcExpenses.php:307
 #: PcExpensesTypeTab.php:123
-#: PcExpensesTypeTab.php:211
-#, fuzzy
+#: PcExpensesTypeTab.php:212
 msgid "Not Yet Selected"
 msgstr "没有范围被选取"
 
-#: PcClaimExpensesFromTab.php:173
-#, fuzzy
+#: PcClaimExpensesFromTab.php:175
 msgid "Petty Cash Claim Entry"
 msgstr "小额现金标签 "
 
-#: PcClaimExpensesFromTab.php:176
-#, fuzzy
-msgid "Select another tab"
-msgstr "选择其他日期"
-
-#: PcClaimExpensesFromTab.php:182
-#, fuzzy
+#: PcClaimExpensesFromTab.php:185
 msgid "Petty Cash Tab"
 msgstr "小额现金标签 "
 
-#: PcClaimExpensesFromTab.php:183
+#: PcClaimExpensesFromTab.php:186
 msgid "Detail Of Movements For Last "
 msgstr "最近变化细节 "
 
-#: PcClaimExpensesFromTab.php:210
-#: PcClaimExpensesFromTab.php:333
-#: PcReportTab.php:170
-#: PcReportTab.php:324
+#: PcClaimExpensesFromTab.php:223
+#: PcClaimExpensesFromTab.php:347
+#: PcReportTab.php:173
+#: PcReportTab.php:328
 msgid "Date Of Expense"
 msgstr "费用发生日期"
 
-#: PcClaimExpensesFromTab.php:211
-#: PcReportTab.php:325
+#: PcClaimExpensesFromTab.php:224
+#: PcReportTab.php:329
 msgid "Expense Description"
 msgstr "费用描述"
 
-#: PcClaimExpensesFromTab.php:213
+#: PcClaimExpensesFromTab.php:226
 msgid "Authorized"
 msgstr "已批准"
 
-#: PcClaimExpensesFromTab.php:240
-#, fuzzy
+#: PcClaimExpensesFromTab.php:253
 msgid "Unauthorised"
 msgstr "授权"
 
-#: PcClaimExpensesFromTab.php:253
-#, fuzzy, php-format
+#: PcClaimExpensesFromTab.php:266
+#, php-format
 msgid "Are you sure you wish to delete this code and the expenses it may have set up?"
 msgstr "确认要删除此代码以及可能已设置的与其相关的费用吗？"
 
-#: PcClaimExpensesFromTab.php:335
+#: PcClaimExpensesFromTab.php:349
 #: PcExpenses.php:186
-#: PcExpenses.php:272
-#: PcExpenses.php:282
+#: PcExpenses.php:273
+#: PcExpenses.php:283
 msgid "Code Of Expense"
 msgstr "费用代码"
 
@@ -19257,13 +19131,11 @@ msgid "The Expense code must be twenty characters or less long"
 msgstr "费用代码必须是20个字符以下"
 
 #: PcExpenses.php:58
-#, fuzzy
-msgid "The Expense code cannot contain any of the following characters \" ' - &"
+msgid "The Expense code cannot contain any of the following characters \" ' - &amp;"
 msgstr "货币编号不能包含下列字符"
 
 #: PcExpenses.php:64
-#, fuzzy
-msgid "The Expense description cannot contain any of the following characters \" ' - &"
+msgid "The Expense description cannot contain any of the following characters \" ' - &amp;"
 msgstr "货币编号不能包含下列字符"
 
 #: PcExpenses.php:70
@@ -19272,12 +19144,10 @@ msgid "The tab code must be Fifty characters or less long"
 msgstr "标签代码必须是50个字符以下"
 
 #: PcExpenses.php:77
-#, fuzzy
 msgid "The tab code description must be entered"
 msgstr "信用状况的描述必须输入"
 
 #: PcExpenses.php:83
-#, fuzzy
 msgid "A general ledger code must be selected for this expense"
 msgstr "必须为此收款选择一个银行账户"
 
@@ -19290,7 +19160,6 @@ msgid "The Expense type "
 msgstr "费用类型 "
 
 #: PcExpenses.php:109
-#, fuzzy
 msgid " already exists."
 msgstr " 已存在"
 
@@ -19336,8 +19205,7 @@ msgid "Maintenance Of Petty Cash Expenses For a Type Tab"
 msgstr "维护费用与员工组别的对应"
 
 #: PcExpensesTypeTab.php:22
-#, fuzzy
-msgid "The petty cash tab type contain any of the following characters \" ' - & or a space"
+msgid "The petty cash tab type contain any of the following characters \" ' - &amp; or a space"
 msgstr "货币编号不能包含下列字符"
 
 #: PcExpensesTypeTab.php:39
@@ -19349,12 +19217,10 @@ msgid "You have not selected an expense to add to this tab"
 msgstr ""
 
 #: PcExpensesTypeTab.php:71
-#, fuzzy
 msgid "The Expense"
 msgstr "此费用种类 "
 
 #: PcExpensesTypeTab.php:71
-#, fuzzy
 msgid "already exists in this Type of Tab"
 msgstr " 此类的标签类型已经存在"
 
@@ -19367,7 +19233,7 @@ msgid "for Type of Tab:"
 msgstr "为此员工组别"
 
 #: PcExpensesTypeTab.php:99
-#: PcTypeTabs.php:133
+#: PcTypeTabs.php:135
 msgid "The Tab Type record could not be deleted because"
 msgstr "无法删除此标签类型的记录"
 
@@ -19379,21 +19245,21 @@ msgstr "费用代码"
 msgid "for type of tab"
 msgstr "为此员工组别"
 
-#: PcExpensesTypeTab.php:115
+#: PcExpensesTypeTab.php:116
 msgid "Select Type of Tab"
 msgstr "选择标签类型"
 
-#: PcExpensesTypeTab.php:149
-#: PcExpensesTypeTab.php:166
+#: PcExpensesTypeTab.php:150
+#: PcExpensesTypeTab.php:168
 msgid "Expense Codes for Type of Tab "
 msgstr "此员工组别的费用代码 "
 
-#: PcExpensesTypeTab.php:185
-#, fuzzy, php-format
+#: PcExpensesTypeTab.php:187
+#, php-format
 msgid "Are you sure you wish to delete this expense code?"
 msgstr "确认要删除此联系人？"
 
-#: PcExpensesTypeTab.php:202
+#: PcExpensesTypeTab.php:204
 msgid "Select Expense Code"
 msgstr "选择费用代码"
 
@@ -19401,36 +19267,36 @@ msgstr "选择费用代码"
 msgid "Petty Cash Management Report"
 msgstr "小额现金管理报告"
 
-#: PcReportTab.php:36
+#: PcReportTab.php:37
 msgid "Code Of Petty Cash Tab"
 msgstr "小额现金标签代码"
 
-#: PcReportTab.php:64
+#: PcReportTab.php:65
 msgid "From Date :"
 msgstr "自日期"
 
-#: PcReportTab.php:67
+#: PcReportTab.php:68
 msgid "To Date:"
 msgstr "至日期"
 
-#: PcReportTab.php:70
+#: PcReportTab.php:71
 msgid "Show HTML"
 msgstr "显示 HTML"
 
-#: PcReportTab.php:78
-#: PcReportTab.php:79
+#: PcReportTab.php:81
+#: PcReportTab.php:82
 msgid "Petty Cash Report Of Tab"
 msgstr "小额现金标签报告"
 
-#: PcReportTab.php:94
+#: PcReportTab.php:97
 #: PDFOrdersInvoiced.php:266
 #: PDFOrderStatus.php:247
 msgid "An error occurred getting the orders details"
 msgstr "取得订单信息时发生错误"
 
-#: PcReportTab.php:94
-#: PcReportTab.php:96
-#: PcReportTab.php:104
+#: PcReportTab.php:97
+#: PcReportTab.php:99
+#: PcReportTab.php:107
 #: PDFOrdersInvoiced.php:266
 #: PDFOrdersInvoiced.php:268
 #: PDFOrdersInvoiced.php:276
@@ -19439,17 +19305,17 @@ msgstr "取得订单信息时发生错误"
 msgid "Database Error"
 msgstr "数据库错误"
 
-#: PcReportTab.php:96
+#: PcReportTab.php:99
 #: PDFOrdersInvoiced.php:268
 #: PDFOrderStatus.php:249
 msgid "The SQL used to get the orders that failed was"
 msgstr "取得订单失败的SQL 是"
 
-#: PcReportTab.php:102
+#: PcReportTab.php:105
 msgid "There were no expenses found in the database within the period from"
 msgstr "找不到此期间内的费用"
 
-#: PcReportTab.php:102
+#: PcReportTab.php:105
 #: PDFDeliveryDifferences.php:187
 #: PDFDIFOT.php:190
 #: PDFOrdersInvoiced.php:274
@@ -19457,103 +19323,98 @@ msgstr "找不到此期间内的费用"
 msgid "Please try again selecting a different date range"
 msgstr "请选取其他的日期范围"
 
-#: PcReportTab.php:104
+#: PcReportTab.php:107
 #: PDFDeliveryDifferences.php:189
 #: PDFDIFOT.php:192
 #: PDFOrdersInvoiced.php:276
 msgid "The SQL that returned no rows was"
 msgstr "执行失败的SQL是"
 
-#: PcReportTab.php:115
+#: PcReportTab.php:118
 msgid "No Petty Cash tabs were returned by the SQL because"
 msgstr "SQL无法找到小额现金标签"
 
-#: PcReportTab.php:133
+#: PcReportTab.php:136
 msgid "Tab Code :"
 msgstr "标签代码："
 
-#: PcReportTab.php:134
 #: PcReportTab.php:137
-#: PcReportTab.php:142
+#: PcReportTab.php:140
 #: PcReportTab.php:145
-#: PcReportTab.php:150
-#: PcReportTab.php:155
-#: PcReportTab.php:161
-#: PcReportTab.php:218
+#: PcReportTab.php:148
+#: PcReportTab.php:153
+#: PcReportTab.php:158
+#: PcReportTab.php:164
+#: PcReportTab.php:221
 #: SuppPriceList.php:286
 #: SuppPriceList.php:291
 #: SuppPriceList.php:294
 msgid ": "
 msgstr "： "
 
-#: PcReportTab.php:141
+#: PcReportTab.php:144
 msgid "User "
 msgstr "用户 "
 
-#: PcReportTab.php:144
+#: PcReportTab.php:147
 msgid "To "
 msgstr "至 "
 
-#: PcReportTab.php:149
-#, fuzzy
+#: PcReportTab.php:152
 msgid "Authoriser "
 msgstr "授权"
 
-#: PcReportTab.php:154
+#: PcReportTab.php:157
 msgid "Currency "
 msgstr "货币 "
 
-#: PcReportTab.php:159
-#: PcReportTab.php:283
+#: PcReportTab.php:162
+#: PcReportTab.php:287
 msgid "Balance before "
 msgstr "余额发生在此日期前 "
 
-#: PcReportTab.php:175
-#, fuzzy
+#: PcReportTab.php:178
 msgid "Date Authoriser"
 msgstr "批准日期"
 
-#: PcReportTab.php:216
+#: PcReportTab.php:219
 msgid "Balance at"
 msgstr "余额截止日期"
 
-#: PcReportTab.php:246
+#: PcReportTab.php:250
 msgid "No Petty Cash Tabs were returned by the SQL because"
 msgstr "SQL无法返回小额现金标签"
 
-#: PcReportTab.php:253
+#: PcReportTab.php:257
 #: PcTabs.php:202
 #: PcTabs.php:288
 #: PcTabs.php:294
 msgid "Tab Code"
 msgstr "标签代码"
 
-#: PcReportTab.php:265
+#: PcReportTab.php:269
 #: PcTabs.php:208
-#: PcTabs.php:396
-#, fuzzy
+#: PcTabs.php:398
 msgid "Authoriser"
 msgstr "授权"
 
-#: PcReportTab.php:302
-#, fuzzy
+#: PcReportTab.php:306
 msgid "Total not authorised before "
 msgstr "未批准总计 截止于 "
 
-#: PcReportTab.php:319
+#: PcReportTab.php:323
 msgid "No Petty Cash movements for this tab were returned by the SQL because"
 msgstr "无法找到此标签的小额现金变化"
 
-#: PcReportTab.php:329
-#, fuzzy
+#: PcReportTab.php:333
 msgid "Date Authorised"
 msgstr "授权日期"
 
-#: PcReportTab.php:399
+#: PcReportTab.php:403
 msgid "Balance At"
 msgstr "余额 截止于"
 
-#: PcReportTab.php:403
+#: PcReportTab.php:407
 msgid "Select A Different Date"
 msgstr "选择其他日期"
 
@@ -19570,39 +19431,32 @@ msgid "The Tab code must be twenty characters or less long"
 msgstr "标签代码必须小于20个字符"
 
 #: PcTabs.php:59
-#, fuzzy
 msgid "You must select a User for this tab"
 msgstr "您必须从下列列表中选择一个总帐代码"
 
 #: PcTabs.php:64
-#, fuzzy
 msgid "You must select a type of tab from the list"
 msgstr "请选择要打印的装箱单类型"
 
 #: PcTabs.php:69
-#, fuzzy
 msgid "You must select a User to assign cash to this tab"
 msgstr "你可以设置授权 "
 
 #: PcTabs.php:74
-#, fuzzy
 msgid "You must select a User to authorise this tab"
 msgstr "你可以设置授权 "
 
 #: PcTabs.php:79
-#, fuzzy
 msgid "You must select a General ledger code for the cash to be assigned from"
 msgstr "您必须从下列列表中选择一个总帐代码"
 
 #: PcTabs.php:84
-#, fuzzy
 msgid "You must select a General ledger code for this petty cash tab"
 msgstr "您必须从下列列表中选择一个总帐代码"
 
 #: PcTabs.php:101
 #: PcTabs.php:139
 #: PcTabs.php:165
-#, fuzzy
 msgid "The Petty Cash Tab"
 msgstr "小额现金标签 "
 
@@ -19611,7 +19465,6 @@ msgid "The Tab "
 msgstr "标签 "
 
 #: PcTabs.php:115
-#, fuzzy
 msgid " already exists"
 msgstr " 已存在"
 
@@ -19629,7 +19482,7 @@ msgstr "用户名称"
 
 #: PcTabs.php:204
 #: PcTabs.php:325
-#: PcTypeTabs.php:155
+#: PcTypeTabs.php:157
 msgid "Type Of Tab"
 msgstr "标签种类"
 
@@ -19639,7 +19492,6 @@ msgstr "限额"
 
 #: PcTabs.php:207
 #: PcTabs.php:375
-#, fuzzy
 msgid "Assigner"
 msgstr "设计"
 
@@ -19648,12 +19500,12 @@ msgid "GL Account For Cash Assignment"
 msgstr "现金预支总帐账户"
 
 #: PcTabs.php:210
-#: PcTabs.php:442
+#: PcTabs.php:444
 msgid "GL Account Petty Cash Tab"
 msgstr "此标签所属总帐账户"
 
 #: PcTabs.php:234
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this tab code?"
 msgstr "确认要删除此联系人？"
 
@@ -19665,7 +19517,7 @@ msgstr "显示所有已定义的标签"
 msgid "Limit Of Tab"
 msgstr "标签限额"
 
-#: PcTabs.php:418
+#: PcTabs.php:420
 msgid "GL Account Cash Assignment"
 msgstr "现在支出总帐账户"
 
@@ -19674,7 +19526,6 @@ msgid "Maintenance Of Petty Cash Type of Tabs"
 msgstr "小额现金种类维护"
 
 #: PcTypeTabs.php:36
-#, fuzzy
 msgid "The Tabs type code cannot be an empty string"
 msgstr "标签类型代码不可用是空字符串或者空白"
 
@@ -19683,7 +19534,6 @@ msgid "The tab code must be twenty characters or less long"
 msgstr "标签代码必须小于20个字符"
 
 #: PcTypeTabs.php:46
-#, fuzzy
 msgid "The petty cash tab type code cannot contain any of the illegal characters"
 msgstr "物料编码不能包含以下字符"
 
@@ -19708,29 +19558,29 @@ msgstr "找不到对于此编码的使用此标签类型的标签"
 msgid "Cannot delete this tab type because tabs have been created using this tab type"
 msgstr "无法删除此标签类型因为已被使用"
 
-#: PcTypeTabs.php:126
+#: PcTypeTabs.php:127
 msgid "Return to list of tab types"
 msgstr "返回种类标签列表"
 
-#: PcTypeTabs.php:135
+#: PcTypeTabs.php:137
 msgid "Tab type"
 msgstr "标签类型"
 
-#: PcTypeTabs.php:173
+#: PcTypeTabs.php:175
 #, php-format
 msgid "Are you sure you wish to delete this code and all the description it may have set up?"
 msgstr "确认要删除此代码已经所有其已经设置的描述吗？"
 
-#: PcTypeTabs.php:187
+#: PcTypeTabs.php:189
 msgid "Show All Types Tabs Defined"
 msgstr "显示所有已定义的标签类型"
 
-#: PcTypeTabs.php:212
-#: PcTypeTabs.php:226
+#: PcTypeTabs.php:215
+#: PcTypeTabs.php:229
 msgid "Code Of Type Of Tab"
 msgstr "标签种类代码"
 
-#: PcTypeTabs.php:236
+#: PcTypeTabs.php:239
 msgid "Description Of Type of Tab"
 msgstr "标签类型描述"
 
@@ -20143,7 +19993,6 @@ msgid "Goods Received Note"
 msgstr "收货单"
 
 #: PDFGrn.php:73
-#, fuzzy
 msgid "Could not get the supplier of the selected GRN"
 msgstr "无法取得此物料的基准价"
 
@@ -20162,7 +20011,6 @@ msgid "GRN Error"
 msgstr "GRN 错误"
 
 #: PDFGrn.php:122
-#, fuzzy
 msgid "There were no GRNs to print"
 msgstr "没有对账单可打印"
 
@@ -20206,7 +20054,6 @@ msgid "Sales Made To"
 msgstr "销售到"
 
 #: PDFLowGP.php:139
-#, fuzzy
 msgid "Show sales with GP"
 msgstr "Show sales with GP % below"
 
@@ -20285,7 +20132,7 @@ msgstr "订单状态报告-无数据"
 #: SelectWorkOrder.php:344
 #: WorkOrderCosting.php:92
 #: WorkOrderCosting.php:106
-#: includes/InputSerialItemsFile.php:128
+#: includes/InputSerialItemsFile.php:160
 #, php-format
 msgid "Status"
 msgstr "状况"
@@ -20303,12 +20150,10 @@ msgid "Stock Transaction Listing"
 msgstr "库存交易列表"
 
 #: PDFPeriodStockTransListing.php:31
-#, fuzzy
 msgid "Enter the date from which the transactions are to be listed"
 msgstr "输入要查询的交易发生日期"
 
 #: PDFPeriodStockTransListing.php:35
-#, fuzzy
 msgid "Enter the date to which the transactions are to be listed"
 msgstr "输入要查询的交易发生日期"
 
@@ -20356,7 +20201,6 @@ msgid "Transaction Listing"
 msgstr "交易列表"
 
 #: PDFPeriodStockTransListing.php:143
-#, fuzzy
 msgid "There were no transactions found in the database between the dates"
 msgstr "没有此日期内的交易"
 
@@ -20401,7 +20245,6 @@ msgid "Picking Lists Not Enabled"
 msgstr "装箱单还未启用"
 
 #: PDFPickingList.php:15
-#, fuzzy
 msgid "The system is not configured for picking lists. A configuration parameter is required where picking slips are required. Please consult your system administrator."
 msgstr "系统尚未配置装箱单，请联络您的系统管理员。"
 
@@ -20624,7 +20467,6 @@ msgid "Price list"
 msgstr "价目表"
 
 #: PDFPrintLabel.php:99
-#, fuzzy
 msgid "Effective Date"
 msgstr "生效起始日期"
 
@@ -20975,7 +20817,6 @@ msgstr "调整账面数为0"
 
 #: PDFStockCheckComparison.php:352
 #: PDFStockCheckComparison.php:355
-#, fuzzy
 msgid "Do not Adjust System stock to Nil"
 msgstr "不调整账面数"
 
@@ -21039,29 +20880,24 @@ msgid "There are no negative stocks to list"
 msgstr "没有可列出的负数存货"
 
 #: PDFStockNegatives.php:71
-#, fuzzy
 msgid "Negative Stock Listing Problem"
 msgstr "负数存货列出错误"
 
 #: PDFStockTransfer.php:14
-#, fuzzy
 msgid "The entered transfer reference is expected to be numeric"
 msgstr "请输入要转移数量的数值"
 
 #: PDFStockTransfer.php:20
-#, fuzzy
 msgid "Print Stock Transfer"
 msgstr "输入物料转移"
 
 #: PDFStockTransfer.php:22
 #: PDFStockTransfer.php:33
 #: StockTransfers.php:447
-#, fuzzy
 msgid "Print Transfer Note"
 msgstr "列印转移单"
 
 #: PDFStockTransfer.php:27
-#, fuzzy
 msgid "Print Stock Transfer Note"
 msgstr "列印转移单"
 
@@ -21070,17 +20906,14 @@ msgid "Stock Transfer Form"
 msgstr "存货转移自"
 
 #: PDFStockTransfer.php:70
-#, fuzzy
 msgid "Print Stock Transfer - Error"
 msgstr "存货转移自"
 
 #: PDFStockTransfer.php:72
-#, fuzzy
 msgid "There was no transfer found with number"
 msgstr "转移编号资料"
 
 #: PDFStockTransfer.php:73
-#, fuzzy
 msgid "Try Again"
 msgstr "重新开始"
 
@@ -21157,7 +20990,6 @@ msgid "Authority Level"
 msgstr "授权水平"
 
 #: PO_AuthorisationLevels.php:153
-#, fuzzy
 msgid "Are you sure you wish to delete this authorisation level?"
 msgstr "你确定要删除这价目?"
 
@@ -21322,12 +21154,10 @@ msgid "and quantities cannot be reduced below the quantity already received"
 msgstr "数量无法减少至少于已接收数量"
 
 #: PO_Header.php:112
-#, fuzzy
 msgid "This order cannot be cancelled or rejected because there is at least one line that is allocated to a shipment"
 msgstr "订单不能删除或者拒绝,因为已收货"
 
 #: PO_Header.php:112
-#, fuzzy
 msgid "See shipment number"
 msgstr "运单号"
 
@@ -21610,17 +21440,14 @@ msgid "The conversion factor is expected to be numeric - the figure which conver
 msgstr ""
 
 #: PO_Items.php:41
-#, fuzzy
 msgid "The quantity in the supplier units is expected to be numeric. Please re-enter as a number"
 msgstr "需要输入数量"
 
 #: PO_Items.php:46
-#, fuzzy
 msgid "The supplier price is expected to be numeric. Please re-enter as a number"
 msgstr "累计折旧必须是0或者正数"
 
 #: PO_Items.php:62
-#, fuzzy
 msgid "The purchase order cannot be committed to the database because there is no delivery street address specified"
 msgstr "采购订单未能提交到数据库, 因为没有输入订单行"
 
@@ -21637,7 +21464,6 @@ msgstr "采购订单未能提交到数据库, 因为没有输入订单行"
 #: SelectSalesOrder.php:187
 #: SelectSalesOrder.php:351
 #: SpecialOrder.php:313
-#, fuzzy
 msgid "Order Created and Authorised by"
 msgstr "订单创建于"
 
@@ -21645,7 +21471,6 @@ msgstr "订单创建于"
 #: SelectSalesOrder.php:197
 #: SelectSalesOrder.php:361
 #: SpecialOrder.php:318
-#, fuzzy
 msgid "Your authority to approve purchase orders in"
 msgstr "您没有授权创建采购订单发往"
 
@@ -21653,7 +21478,6 @@ msgstr "您没有授权创建采购订单发往"
 #: SelectSalesOrder.php:197
 #: SelectSalesOrder.php:361
 #: SpecialOrder.php:318
-#, fuzzy
 msgid "has not yet been set up"
 msgstr "公司记录还没有设定"
 
@@ -21695,12 +21519,10 @@ msgid "The SQL statement used to insert the purchase order detail record and fai
 msgstr "用作插入采购订单行记录失败的 SQL是"
 
 #: PO_Items.php:245
-#, fuzzy
 msgid "Order completed by"
 msgstr "完成"
 
 #: PO_Items.php:247
-#, fuzzy
 msgid "Order modified by"
 msgstr "完成"
 
@@ -21713,12 +21535,10 @@ msgid "The SQL statement used to update the purchase order header record, that f
 msgstr "用作更新采购订单抬头失败的 SQL 是"
 
 #: PO_Items.php:293
-#, fuzzy
 msgid "The purchase order detail line could not be deleted because"
 msgstr "未能删除订单行，因为"
 
 #: PO_Items.php:294
-#, fuzzy
 msgid "The SQL statement used to delete the purchase order detail record, that failed was"
 msgstr "用作更新采购订单行失败的 SQL 是"
 
@@ -21832,17 +21652,14 @@ msgid "However you can change the quantity ordered of the existing line if neces
 msgstr "但你可以按需要更改现有订单行数量"
 
 #: PO_Items.php:557
-#, fuzzy
 msgid "The item details for"
 msgstr "明细资料"
 
 #: PO_Items.php:582
-#, fuzzy
 msgid "The purchasing data for"
 msgstr "采购数据"
 
 #: PO_Items.php:583
-#, fuzzy
 msgid "The SQL used to retrieve the purchasing data but failed was"
 msgstr "用于查找供应商供货信息失败的 SQL 是"
 
@@ -21855,22 +21672,18 @@ msgid " Order Summary"
 msgstr " 订单总览"
 
 #: PO_Items.php:661
-#, fuzzy
 msgid "Quantity Our Units"
 msgstr "在手数量"
 
 #: PO_Items.php:662
-#, fuzzy
 msgid "Our Unit"
 msgstr "单位"
 
 #: PO_Items.php:663
-#, fuzzy
 msgid "Price Our Units"
 msgstr "每种物料价格"
 
 #: PO_Items.php:664
-#, fuzzy
 msgid "Unit Conversion Factor"
 msgstr "不正确的转换因子"
 
@@ -21889,12 +21702,10 @@ msgid "Order Price"
 msgstr "订单价目"
 
 #: PO_Items.php:667
-#, fuzzy
 msgid "Supp Units"
 msgstr "供应商计量单位"
 
 #: PO_Items.php:668
-#, fuzzy
 msgid "Sub-Total"
 msgstr "小计"
 
@@ -21936,18 +21747,16 @@ msgid "Price per item"
 msgstr "每种物料价格"
 
 #: PO_Items.php:767
-#: Stocks.php:923
+#: Stocks.php:962
 #: includes/PO_ReadInOrder.inc:177
 msgid "each"
 msgstr "每件"
 
 #: PO_Items.php:1020
-#, fuzzy
 msgid "Item Category"
 msgstr "物料组"
 
 #: PO_Items.php:1046
-#, fuzzy
 msgid "Only items defined as from this Supplier"
 msgstr "订单的供应商没有联系人"
 
@@ -21956,12 +21765,10 @@ msgid "Order a non stock item"
 msgstr "订购一个非库存物料"
 
 #: PO_Items.php:1073
-#, fuzzy
 msgid "Our Units"
 msgstr "单位"
 
 #: PO_Items.php:1075
-#, fuzzy
 msgid "Supplier/Order"
 msgstr "供应商订单"
 
@@ -21970,7 +21777,6 @@ msgid "Go to end of list"
 msgstr "到列表尾"
 
 #: PO_Items.php:1106
-#, fuzzy
 msgid "Could not retrieve the purchasing data for the item"
 msgstr "未能删除供应商供货信息, 因为"
 
@@ -22116,7 +21922,6 @@ msgid "Print Purchase Order Number"
 msgstr "打印采购订单"
 
 #: PO_PDFPurchOrder.php:44
-#, fuzzy
 msgid "The email address entered does not appear to be valid. No emails have been sent."
 msgstr "电子邮件地址看起来不是有效地址。此交易无法寄出。"
 
@@ -22181,7 +21986,6 @@ msgstr "请查收我公司采购订单"
 
 #: PO_PDFPurchOrder.php:325
 #: PO_PDFPurchOrder.php:331
-#, fuzzy
 msgid "Email a Purchase Order"
 msgstr "正在发送采购订单邮件"
 
@@ -22205,7 +22009,6 @@ msgid "failed"
 msgstr "已失败"
 
 #: PO_PDFPurchOrder.php:338
-#, fuzzy
 msgid "Printed by"
 msgstr "打印日期"
 
@@ -22313,7 +22116,7 @@ msgstr "日期类型"
 #: POReport.php:1515
 #: SalesInquiry.php:780
 #: SalesInquiry.php:1087
-#: StockStatus.php:307
+#: StockStatus.php:309
 msgid "Date Range"
 msgstr "日期范围"
 
@@ -22493,7 +22296,7 @@ msgstr "运行查询"
 
 #: PO_SelectOSPurchOrder.php:9
 #: SelectProduct.php:412
-#: StockStatus.php:355
+#: StockStatus.php:357
 #: StockUsage.php:200
 msgid "Search Outstanding Purchase Orders"
 msgstr "查找未完成采购订单"
@@ -22606,7 +22409,6 @@ msgid "Initiated by"
 msgstr "起草人"
 
 #: PO_SelectOSPurchOrder.php:522
-#, fuzzy
 msgid "Print Copy"
 msgstr "打印副本"
 
@@ -22617,7 +22419,6 @@ msgstr "物料"
 
 #: PO_SelectPurchOrder.php:135
 #: PO_SelectPurchOrder.php:137
-#, fuzzy
 msgid "Pending/Authorised/Completed"
 msgstr "待审批和已授权"
 
@@ -22744,7 +22545,6 @@ msgid "The stock category from must be before the stock category to - there woul
 msgstr "库存种类起始编码必须在库存种类截止编码的前面-此范围中无物料可更新"
 
 #: PricesBasedOnMarkUp.php:200
-#, fuzzy
 msgid "Base price list selected"
 msgstr "没有价目清单被选取"
 
@@ -22827,7 +22627,6 @@ msgid "Error updating prices for"
 msgstr "更新价目错误"
 
 #: PricesBasedOnMarkUp.php:350
-#, fuzzy
 msgid "Error inserting new price for"
 msgstr "插入新价格"
 
@@ -22836,7 +22635,6 @@ msgid "Inserting new price for"
 msgstr "插入新价格"
 
 #: PricesByCost.php:5
-#, fuzzy
 msgid "Update of Prices By A Multiple Of Cost"
 msgstr "根据成本更新价格"
 
@@ -23056,7 +22854,6 @@ msgstr "你确定要删除这价目?"
 
 #: Prices_Customer.php:331
 #: Prices_Customer.php:333
-#, fuzzy
 msgid "All branches"
 msgstr "所有客户分公司"
 
@@ -23166,17 +22963,14 @@ msgid "Number is out of the range of numbers that can be expressed in words"
 msgstr ""
 
 #: PrintCheque.php:114
-#, fuzzy
 msgid "error"
 msgstr "MRP 报告"
 
 #: PrintCheque.php:129
-#, fuzzy
 msgid "million"
 msgstr "发送电子邮件"
 
 #: PrintCheque.php:133
-#, fuzzy
 msgid "thousand"
 msgstr "未处理"
 
@@ -23185,27 +22979,22 @@ msgid "hundred"
 msgstr ""
 
 #: PrintCheque.php:141
-#, fuzzy
 msgid "one"
 msgstr "无"
 
 #: PrintCheque.php:142
-#, fuzzy
 msgid "two"
 msgstr "到"
 
 #: PrintCheque.php:143
-#, fuzzy
 msgid "three"
 msgstr "-"
 
 #: PrintCheque.php:144
-#, fuzzy
 msgid "four"
 msgstr "："
 
 #: PrintCheque.php:145
-#, fuzzy
 msgid "five"
 msgstr "已失败"
 
@@ -23214,27 +23003,22 @@ msgid "six"
 msgstr ""
 
 #: PrintCheque.php:147
-#, fuzzy
 msgid "seven"
 msgstr "层"
 
 #: PrintCheque.php:148
-#, fuzzy
 msgid "eight"
 msgstr "告"
 
 #: PrintCheque.php:149
-#, fuzzy
 msgid "nine"
 msgstr "无"
 
 #: PrintCheque.php:150
-#, fuzzy
 msgid "ten"
 msgstr "-"
 
 #: PrintCheque.php:151
-#, fuzzy
 msgid "eleven"
 msgstr "删除"
 
@@ -23243,12 +23027,10 @@ msgid "twelve"
 msgstr ""
 
 #: PrintCheque.php:153
-#, fuzzy
 msgid "thirteen"
 msgstr "白色"
 
 #: PrintCheque.php:154
-#, fuzzy
 msgid "fourteen"
 msgstr "物料"
 
@@ -23265,7 +23047,6 @@ msgid "seventeen"
 msgstr ""
 
 #: PrintCheque.php:158
-#, fuzzy
 msgid "eighteen"
 msgstr "告"
 
@@ -23274,47 +23055,38 @@ msgid "nineteen"
 msgstr ""
 
 #: PrintCheque.php:163
-#, fuzzy
 msgid "twenty"
 msgstr "发出"
 
 #: PrintCheque.php:164
-#, fuzzy
 msgid "thirty"
 msgstr "城市"
 
 #: PrintCheque.php:165
-#, fuzzy
 msgid "forty"
 msgstr "："
 
 #: PrintCheque.php:166
-#, fuzzy
 msgid "fifty"
 msgstr "城市"
 
 #: PrintCheque.php:167
-#, fuzzy
 msgid "sixty"
 msgstr "城市"
 
 #: PrintCheque.php:168
-#, fuzzy
 msgid "seventy"
 msgstr "库存"
 
 #: PrintCheque.php:169
-#, fuzzy
 msgid "eighty"
 msgstr "告"
 
 #: PrintCheque.php:170
-#, fuzzy
 msgid "ninety"
 msgstr "库存"
 
 #: PrintCheque.php:190
-#, fuzzy
 msgid "zero"
 msgstr "期间"
 
@@ -23327,17 +23099,14 @@ msgid "Laser Packing slip for order"
 msgstr "装箱单（订单联）"
 
 #: PrintCustOrder_generic.php:156
-#, fuzzy
 msgid "There was a problem retrieving the order details for Order Number"
 msgstr "取得此订单编号的订单抬头时发生错误"
 
 #: PrintCustOrder_generic.php:208
-#, fuzzy
 msgid "Could not retrieve the components of the ordered assembly item"
 msgstr "未能重计组装物料的现有成本"
 
 #: PrintCustOrder_generic.php:210
-#, fuzzy
 msgid "Assembly Components:-"
 msgstr "自动发部品"
 
@@ -23350,7 +23119,7 @@ msgid "A packing slip cannot be printed"
 msgstr "装箱单无法打印"
 
 #: PrintCustOrder_generic.php:241
-#: PrintCustOrder.php:219
+#: PrintCustOrder.php:230
 msgid "Print Another Packing Slip/Order"
 msgstr "打印其他销售订单的装箱单"
 
@@ -23358,15 +23127,15 @@ msgstr "打印其他销售订单的装箱单"
 msgid "There was a problem retrieving the details for Order Number"
 msgstr "提取订单编号资料时发生问题"
 
-#: PrintCustOrder.php:165
+#: PrintCustOrder.php:176
 msgid "Customer Packing Slip"
 msgstr "客户包装纸"
 
-#: PrintCustOrder.php:166
+#: PrintCustOrder.php:177
 msgid "Packing slip for order"
 msgstr "订单的包装纸"
 
-#: PrintCustOrder.php:218
+#: PrintCustOrder.php:229
 msgid "There were no outstanding items on the order to deliver. A dispatch note cannot be printed"
 msgstr "没有订单未完成物料要交货, 送货单未能列印"
 
@@ -23529,7 +23298,6 @@ msgid "TOTAL INVOICE"
 msgstr "发票总计"
 
 #: PrintCustTrans.php:441
-#, fuzzy
 msgid "Account No:"
 msgstr "账户："
 
@@ -23831,12 +23599,10 @@ msgid "There is no purchasing data set up for the part selected"
 msgstr "物料没有供应商供货信息"
 
 #: PurchData.php:167
-#, fuzzy
 msgid "Conversion Factor"
 msgstr "换算参数(转成我公司的计量单位)"
 
 #: PurchData.php:168
-#, fuzzy
 msgid "Cost Per Our Unit"
 msgstr "单位成本"
 
@@ -24030,7 +23796,7 @@ msgstr "显示物料移动"
 #: StockCostUpdate.php:193
 #: StockMovements.php:203
 #: StockReorderLevel.php:113
-#: StockStatus.php:352
+#: StockStatus.php:354
 #: StockTransfers.php:574
 #: StockUsage.php:196
 msgid "Search Outstanding Sales Orders"
@@ -24042,7 +23808,7 @@ msgstr "搜索未完成销售订单"
 #: StockCostUpdate.php:194
 #: StockMovements.php:204
 #: StockReorderLevel.php:114
-#: StockStatus.php:353
+#: StockStatus.php:355
 #: StockTransfers.php:576
 #: StockUsage.php:198
 msgid "Search Completed Sales Orders"
@@ -24355,7 +24121,7 @@ msgstr "库存再订购水平报告"
 #: StockDispatch.php:248
 #: StockLocMovements.php:18
 #: StockLocStatus.php:31
-#: StockLocTransfer.php:229
+#: StockLocTransfer.php:244
 #: StockMovements.php:34
 #: StockTransfers.php:493
 #: StockUsage.php:66
@@ -24367,52 +24133,42 @@ msgid "Needed"
 msgstr "需要"
 
 #: ReprintGRN.php:5
-#, fuzzy
 msgid "Reprint a GRN"
 msgstr "现在重新打印"
 
 #: ReprintGRN.php:18
-#, fuzzy
 msgid "Select a purchase order"
 msgstr "选取采购订单"
 
 #: ReprintGRN.php:21
-#, fuzzy
 msgid "Enter a Purchase Order Number"
 msgstr "打印采购订单"
 
 #: ReprintGRN.php:25
-#, fuzzy
 msgid "Show GRNs"
 msgstr "显示全部"
 
 #: ReprintGRN.php:33
-#, fuzzy
 msgid "You must enter a purchase order number in the box above"
 msgstr "您必须在地点ID中输入至少一个字符"
 
 #: ReprintGRN.php:44
-#, fuzzy
 msgid "This purchase order does not exist on the system. Please try again."
 msgstr "输入的部件编码不存在于数据库"
 
 #: ReprintGRN.php:67
-#, fuzzy
 msgid "There are no GRNs for this purchase order that can be reprinted."
 msgstr "找不到采购订单行"
 
 #: ReprintGRN.php:75
-#, fuzzy
 msgid "GRNs for Purchase Order No"
 msgstr "新采购订单"
 
 #: ReprintGRN.php:79
-#, fuzzy
 msgid "PO Order line"
 msgstr "已采购"
 
 #: ReprintGRN.php:80
-#, fuzzy
 msgid "GRN Number"
 msgstr "收货单编号"
 
@@ -24578,23 +24334,23 @@ msgstr "显示所有此日期之后接收的物料"
 msgid "Show Outstanding Goods Received"
 msgstr "显示未完成的收货单"
 
-#: ReverseGRN.php:373
+#: ReverseGRN.php:375
 msgid "An error occurred in the attempt to get the outstanding GRNs for"
 msgstr "取得未完成收货单发生错误"
 
-#: ReverseGRN.php:373
+#: ReverseGRN.php:375
 msgid "The message was"
 msgstr "信息是"
 
-#: ReverseGRN.php:378
+#: ReverseGRN.php:380
 msgid "There are no outstanding goods received yet to be invoiced for"
 msgstr "还没有未开发票的未完成收货单"
 
-#: ReverseGRN.php:378
+#: ReverseGRN.php:380
 msgid "To reverse a GRN that has been invoiced first it must be credited"
 msgstr "要撤销已开出发票的收货单, 请先取得红字发票"
 
-#: ReverseGRN.php:383
+#: ReverseGRN.php:385
 #: SuppCreditGRNs.php:90
 #: SuppCreditGRNs.php:183
 #: SuppCreditGRNs.php:276
@@ -24611,12 +24367,16 @@ msgstr "要撤销已开出发票的收货单, 请先取得红字发票"
 msgid "GRN"
 msgstr "收货单"
 
-#: ReverseGRN.php:389
+#: ReverseGRN.php:386
+msgid "GRN Batch"
+msgstr "收款"
+
+#: ReverseGRN.php:392
 msgid "Quantity To"
 msgstr "数量到"
 
-#: ReverseGRN.php:389
-#: ReverseGRN.php:410
+#: ReverseGRN.php:392
+#: ReverseGRN.php:413
 msgid "Reverse"
 msgstr "撤销"
 
@@ -24996,12 +24756,10 @@ msgid "report has been added to the database"
 msgstr "报表已新增到数据库"
 
 #: SalesAnalRepts.php:253
-#, fuzzy
 msgid "The deletion of the report column failed because"
 msgstr "报表列删除失败, 因为"
 
 #: SalesAnalRepts.php:254
-#, fuzzy
 msgid "The SQL used to delete the report column was"
 msgstr "用于删除报表列的 SQL 是"
 
@@ -25126,28 +24884,24 @@ msgstr "当 CSV 销售报表文件产生后会自动打开"
 #: SalesByTypePeriodInquiry.php:6
 #: SalesByTypePeriodInquiry.php:10
 #: SalesCategoryPeriodInquiry.php:9
-#, fuzzy
 msgid "Sales Report"
 msgstr "储存报告"
 
 #: SalesByTypePeriodInquiry.php:11
 #: SalesCategoryPeriodInquiry.php:10
 #: SalesTopItemsInquiry.php:10
-#, fuzzy
 msgid "Select the parameters for the report"
 msgstr "输入报告名称"
 
 #: SalesByTypePeriodInquiry.php:29
 #: SalesCategoryPeriodInquiry.php:22
 #: SalesTopItemsInquiry.php:25
-#, fuzzy
 msgid "Date Selection"
 msgstr "选择图片"
 
 #: SalesByTypePeriodInquiry.php:32
 #: SalesCategoryPeriodInquiry.php:25
 #: SalesTopItemsInquiry.php:28
-#, fuzzy
 msgid "Custom Range"
 msgstr "客户订单号"
 
@@ -25173,19 +24927,16 @@ msgstr "本季度"
 #: SalesCategoryPeriodInquiry.php:63
 #: SalesTopItemsInquiry.php:66
 #: SuppPriceList.php:302
-#, fuzzy
 msgid "Date From"
 msgstr "收货方"
 
 #: SalesByTypePeriodInquiry.php:73
 #: SalesCategoryPeriodInquiry.php:67
 #: SalesTopItemsInquiry.php:70
-#, fuzzy
 msgid "Date To"
 msgstr "日期类型"
 
 #: SalesByTypePeriodInquiry.php:81
-#, fuzzy
 msgid "Display Data"
 msgstr "显示"
 
@@ -25198,59 +24949,50 @@ msgstr "每天"
 #: SalesByTypePeriodInquiry.php:122
 #: SalesCategoryPeriodInquiry.php:74
 #: SalesTopItemsInquiry.php:112
-#, fuzzy
 msgid "Show Sales"
 msgstr "显示全部"
 
 #: SalesByTypePeriodInquiry.php:137
 #: SalesCategoryPeriodInquiry.php:84
 #: SalesTopItemsInquiry.php:121
-#, fuzzy
 msgid "The date entered for the from date is not in the appropriate format. Dates must be entered in the format"
 msgstr "新价格生效日期的格式必须是"
 
 #: SalesByTypePeriodInquiry.php:141
 #: SalesCategoryPeriodInquiry.php:88
 #: SalesTopItemsInquiry.php:125
-#, fuzzy
 msgid "The date entered for the to date is not in the appropriate format. Dates must be entered in the format"
 msgstr "输入的发运日期必须是日期格式"
 
 #: SalesByTypePeriodInquiry.php:145
 #: SalesCategoryPeriodInquiry.php:92
 #: SalesTopItemsInquiry.php:129
-#, fuzzy
 msgid "The from date is expected to be a date prior to the to date. Please review the selected date range"
 msgstr "结束日期需要晚于开始日期，请为此定价在开始日期之后输入一个结束日期"
 
 #: SalesByTypePeriodInquiry.php:335
-#, fuzzy
 msgid "No Orders"
 msgstr "订单"
 
 #: SalesByTypePeriodInquiry.php:336
 #: SalesCategoryPeriodInquiry.php:162
-#, fuzzy
 msgid "Total Sales"
 msgstr "总价"
 
 #: SalesByTypePeriodInquiry.php:337
 #: SalesCategoryPeriodInquiry.php:163
 #: SalesTopItemsInquiry.php:220
-#, fuzzy
 msgid "Refunds"
 msgstr "摘要"
 
 #: SalesByTypePeriodInquiry.php:338
 #: SalesCategoryPeriodInquiry.php:164
 #: SalesTopItemsInquiry.php:221
-#, fuzzy
 msgid "Net Sales"
 msgstr "净价"
 
 #: SalesByTypePeriodInquiry.php:339
 #: SalesCategoryPeriodInquiry.php:165
-#, fuzzy
 msgid "Cost of Sales"
 msgstr "门店销售"
 
@@ -25263,12 +25005,10 @@ msgstr ""
 #: SalesByTypePeriodInquiry.php:475
 #: SalesByTypePeriodInquiry.php:502
 #: SalesByTypePeriodInquiry.php:503
-#, fuzzy
 msgid "Qtr"
 msgstr "数量"
 
 #: SalesCategories.php:63
-#, fuzzy
 msgid "Somthing is wrong with uploading a file"
 msgstr "上传文件时发生错误"
 
@@ -25362,7 +25102,6 @@ msgid "Add Inventory Item"
 msgstr "新增物料"
 
 #: SalesCategories.php:398
-#, fuzzy
 msgid "No more Inventory items to add"
 msgstr "没有物料可新增"
 
@@ -25380,13 +25119,11 @@ msgid "Remove"
 msgstr "移除"
 
 #: SalesCategories.php:441
-#, fuzzy
 msgid "No Inventory items in this category"
 msgstr "此分类没有物料"
 
 #: SalesCategoryPeriodInquiry.php:6
 #: SalesCategoryPeriodInquiry.php:9
-#, fuzzy
 msgid "Sales Category Report"
 msgstr "储存报告"
 
@@ -25426,7 +25163,7 @@ msgstr "销售折扣科目"
 
 #: SalesGLPostings.php:133
 #: SalesGLPostings.php:246
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this sales GL posting record?"
 msgstr "确认要删除此供应商供货信息么？"
 
@@ -25647,7 +25384,6 @@ msgid "Only Applies To Invoice Date Type"
 msgstr "仅仅适用于发票日期种类"
 
 #: SalesInquiry.php:1161
-#, fuzzy
 msgid "For Sales Person"
 msgstr "销售员:"
 
@@ -25664,12 +25400,10 @@ msgid "Transaction Number summary only valid for Invoice Date Type"
 msgstr "交易编号摘要只对发票日期类型有效"
 
 #: SalesInquiry.php:1242
-#, fuzzy
 msgid "The SQL to to the create temp stock moves table failed with the message"
 msgstr "SQL创建tempstockmoves时失败，内容如下："
 
 #: SalesInquiry.php:1250
-#, fuzzy
 msgid "The SQL to insert temporary stockmoves records failed with the message"
 msgstr "SQL创建临时库存变化(stockmoves)失败，信息是"
 
@@ -25743,17 +25477,14 @@ msgid "sales analysis records that refer to this salesperson"
 msgstr "条这个销售员的销售分析记录"
 
 #: SalesPeople.php:163
-#, fuzzy
 msgid "Cannot delete this salesperson because"
 msgstr "不能删除BOM, 因为"
 
 #: SalesPeople.php:163
-#, fuzzy
 msgid "user records that refer to this salesperson"
 msgstr "条这个销售员的销售分析记录"
 
 #: SalesPeople.php:163
-#, fuzzy
 msgid "First delete any users that refer to this sales person"
 msgstr "条这个销售员的销售分析记录"
 
@@ -25778,7 +25509,7 @@ msgid "Comm Rate 2"
 msgstr "提成比率2"
 
 #: SalesPeople.php:233
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this sales person?"
 msgstr "确认要删除这个供应商么？"
 
@@ -25808,17 +25539,14 @@ msgid "Commission Rate 2"
 msgstr "提成比率2"
 
 #: SalesPeople.php:352
-#, fuzzy
 msgid "Current?"
 msgstr "当前"
 
 #: SalesTopItemsInquiry.php:6
-#, fuzzy
 msgid "Top Sales Inquiry"
 msgstr "销售查询"
 
 #: SalesTopItemsInquiry.php:9
-#, fuzzy
 msgid "Top Sales Items Inquiry"
 msgstr "热销商品列表（Top Sales）"
 
@@ -25828,22 +25556,18 @@ msgid "Display"
 msgstr "显示"
 
 #: SalesTopItemsInquiry.php:85
-#, fuzzy
 msgid "Order By Net Sales"
 msgstr "订单细节"
 
 #: SalesTopItemsInquiry.php:93
-#, fuzzy
 msgid "Order By Quantity"
 msgstr "订单数量"
 
 #: SalesTopItemsInquiry.php:104
-#, fuzzy
 msgid "Number to Display"
 msgstr "显示名称"
 
 #: SalesTopItemsInquiry.php:216
-#, fuzzy
 msgid "Rank"
 msgstr "纳税专户银行"
 
@@ -25860,7 +25584,6 @@ msgid "The sales type (price list) code cannot be an empty string or spaces"
 msgstr "销售方式（价格表）编号不能为空"
 
 #: SalesTypes.php:45
-#, fuzzy
 msgid "The sales type (price list) description cannot be empty"
 msgstr "税种描述不可为空"
 
@@ -25953,7 +25676,6 @@ msgid "Sales Type Name"
 msgstr "价格表描述"
 
 #: SecurityTokens.php:6
-#, fuzzy
 msgid "Maintain Security Tokens"
 msgstr "可供分配的职责"
 
@@ -25962,28 +25684,23 @@ msgid "This secuirty token is currently used by the following scripts and cannot
 msgstr ""
 
 #: SecurityTokens.php:51
-#, fuzzy
 msgid "The token ID is expected to be a number. Please enter a number for the token ID"
 msgstr "累计折旧必须是0或者正数"
 
 #: SecurityTokens.php:55
-#, fuzzy
 msgid "A token description must be entered"
 msgstr "信用状况的描述必须输入"
 
 #: SecurityTokens.php:65
-#, fuzzy
 msgid "This token ID has already been used. Please use a new one"
 msgstr "您输入的名称已经在使用.请输入新的报告名称!"
 
 #: SecurityTokens.php:99
 #: SecurityTokens.php:117
-#, fuzzy
 msgid "Token ID"
 msgstr "Note ID"
 
 #: SecurityTokens.php:129
-#, fuzzy
 msgid "Are you sure you wish to delete this security token?"
 msgstr "确认要删除此客户分公司么"
 
@@ -26041,7 +25758,6 @@ msgid "For customer"
 msgstr "客户"
 
 #: SelectCompletedOrder.php:72
-#, fuzzy
 msgid "and for customer"
 msgstr "和于客户"
 
@@ -26395,7 +26111,6 @@ msgid "Modify Outstanding Sales Orders"
 msgstr "修改未完成销售订单"
 
 #: SelectCustomer.php:231
-#, fuzzy
 msgid "Create a Counter Sale for this Customer"
 msgstr "查看此顾客的所有通知"
 
@@ -26460,7 +26175,6 @@ msgid "Choose an Area"
 msgstr "选择区域"
 
 #: SelectCustomer.php:352
-#, fuzzy
 msgid "Setup Areas"
 msgstr "供应类型"
 
@@ -26758,7 +26472,6 @@ msgid "Quantity (required) - Enter the number of units ordered.  Price (required
 msgstr "数量（必须）-输入订购的单位数。价格（必须）-输入单价。折扣（可选）-输入一个折扣百分比。GP%（可选）-输入毛利百分比，加到单位成本。到期日（可选）-输入交付日期。"
 
 #: SelectOrderItems.php:1381
-#, fuzzy
 msgid "invoiced"
 msgstr "开发票"
 
@@ -26828,8 +26541,8 @@ msgstr "库存商品"
 
 #: SelectProduct.php:74
 #: SelectProduct.php:763
-#: Stocks.php:984
-#: Stocks.php:986
+#: Stocks.php:1023
+#: Stocks.php:1025
 msgid "Obsolete"
 msgstr "淘汰"
 
@@ -27047,30 +26760,25 @@ msgstr ""
 
 #: SelectSalesOrder.php:62
 #: SelectSalesOrder.php:114
-#, fuzzy
 msgid "Unable to retrieve the items on the selected orders for creating purchase orders for"
 msgstr "未能删除这物料, 因为已有采购订单"
 
 #: SelectSalesOrder.php:141
-#, fuzzy
 msgid "There might be no supplier purchasing data set up for any items on the selected sales order(s). No purchase orders have been created"
 msgstr "未能找到所选物料的供应商供货信息, 因为"
 
 #: SelectSalesOrder.php:155
-#, fuzzy
 msgid "The delivery address for the order could not be obtained from the user default stock location"
 msgstr "找不到特殊订单客户的交货资料和价格表"
 
 #: SelectSalesOrder.php:187
 #: SelectSalesOrder.php:241
 #: SelectSalesOrder.php:351
-#, fuzzy
 msgid "Auto created from sales orders"
 msgstr "自动创建工作单"
 
 #: SelectSalesOrder.php:188
 #: SelectSalesOrder.php:352
-#, fuzzy
 msgid "Could not update purchase order status to Authorised"
 msgstr "无法完成此运单装载的采购订单行"
 
@@ -27080,7 +26788,6 @@ msgid "The order has been created with a status of pending and will require auth
 msgstr ""
 
 #: SelectSalesOrder.php:237
-#, fuzzy
 msgid "Could not get the supplier information for the order"
 msgstr "无法取得此物料的基准价"
 
@@ -27116,7 +26823,6 @@ msgid "Dispatch Note"
 msgstr "发运通知"
 
 #: SelectSalesOrder.php:841
-#, fuzzy
 msgid "Place PO"
 msgstr "确认订单"
 
@@ -27133,7 +26839,6 @@ msgid "Quote Total"
 msgstr "报价单总额"
 
 #: SelectSalesOrder.php:985
-#, fuzzy
 msgid "Place"
 msgstr "页"
 
@@ -27142,12 +26847,10 @@ msgid "This will create purchase orders for all the items on the checked sales o
 msgstr ""
 
 #: SelectSalesOrder.php:989
-#, fuzzy
 msgid "Total Order(s) Value in"
 msgstr "不含税订单总价"
 
 #: SelectSalesOrder.php:991
-#, fuzzy
 msgid "Total Quotation(s) Value in"
 msgstr "在手上的总数量"
 
@@ -27779,7 +27482,7 @@ msgid "Shipper Name"
 msgstr "承运人"
 
 #: Shippers.php:145
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this shipper?"
 msgstr "确认要删除这个供应商么？"
 
@@ -27878,12 +27581,10 @@ msgid "SMTP Server Settings"
 msgstr "SMTP服务器设"
 
 #: SMTPServer.php:21
-#, fuzzy
 msgid "The email setting information is failed to update"
 msgstr "用于取得这些信息失败的 SQL 是"
 
 #: SMTPServer.php:22
-#, fuzzy
 msgid "The SQL failed to update is "
 msgstr "更新报价失败的SQL是"
 
@@ -27892,27 +27593,22 @@ msgid "The settings for the SMTP server have been successfully updated"
 msgstr "SMTP服务器设置已经成功更新"
 
 #: SMTPServer.php:43
-#, fuzzy
 msgid "The email settings are failed to be inserted"
 msgstr "新的销售收入科目配置已插入"
 
 #: SMTPServer.php:44
-#, fuzzy
 msgid "The SQL failed to insert the email information is"
 msgstr "插入银行交易失败的 SQL是"
 
 #: SMTPServer.php:48
-#, fuzzy
 msgid "The settings for the SMTP server have been sucessfully inserted"
 msgstr "SMTP服务器设置已经成功更新"
 
 #: SMTPServer.php:63
-#, fuzzy
 msgid "The email settings information cannot be retrieved"
 msgstr "找不到库存信息，因为"
 
 #: SMTPServer.php:64
-#, fuzzy
 msgid "The SQL that faild was"
 msgstr "运行失败的 SQL 是"
 
@@ -28253,7 +27949,6 @@ msgid "for a quantity of"
 msgstr "数量"
 
 #: StockAdjustments.php:344
-#, fuzzy
 msgid "by user"
 msgstr "给用家"
 
@@ -28263,7 +27958,6 @@ msgid "at"
 msgstr "在"
 
 #: StockAdjustments.php:345
-#, fuzzy
 msgid "Stock adjustment for"
 msgstr "存货调整"
 
@@ -28309,7 +28003,7 @@ msgid "Enter Stock Adjustment"
 msgstr "输入存货调整"
 
 #: StockAdjustments.php:496
-#: StockStatus.php:350
+#: StockStatus.php:352
 #: StockTransfers.php:570
 msgid "Show Movements"
 msgstr "显示物料移动"
@@ -28335,7 +28029,6 @@ msgid "The Inventory category code must be at least 1 character but less than si
 msgstr "物料组编号必须是1 - 6个字符"
 
 #: StockCategories.php:50
-#, fuzzy
 msgid "The Sales category description must be twenty characters or less long and cannot be zero"
 msgstr "商品分类名称必须不多于 20 个字"
 
@@ -28669,7 +28362,6 @@ msgid "Total Quantity On Hand"
 msgstr "在手上的总数量"
 
 #: StockCostUpdate.php:128
-#, fuzzy
 msgid "Last Cost update on"
 msgstr "存货成本更新"
 
@@ -28734,7 +28426,7 @@ msgid "The quantity entered for line"
 msgstr "这行输入的数量"
 
 #: StockCounts.php:51
-#: StockLocTransfer.php:116
+#: StockLocTransfer.php:119
 #: StockLocTransferReceive.php:34
 msgid "is not numeric"
 msgstr "不是数值"
@@ -28827,7 +28519,7 @@ msgid "The stock dispatch did not have any items to list"
 msgstr "发出的库存没有包含任何物料"
 
 #: StockDispatch.php:179
-#: StockLocTransfer.php:184
+#: StockLocTransfer.php:199
 msgid "Unable to enter Location Transfer record for"
 msgstr "未能输入地点的转移记录"
 
@@ -28870,7 +28562,7 @@ msgid "Dispatch Percent"
 msgstr "发货百分比"
 
 #: StockDispatch.php:264
-#: StockLocTransfer.php:249
+#: StockLocTransfer.php:264
 #: StockTransfers.php:517
 msgid "To Stock Location"
 msgstr "到仓库"
@@ -28946,7 +28638,7 @@ msgstr "显示该日期后的物料移动"
 
 #: StockLocMovements.php:82
 #: StockMovements.php:86
-#: StockStatus.php:262
+#: StockStatus.php:264
 msgid "The stock movements for the selected criteria could not be retrieved because"
 msgstr "没有符合输入条件的无聊移动"
 
@@ -28998,20 +28690,20 @@ msgstr "物料号"
 msgid "Re-Order Level"
 msgstr "再订货点"
 
-#: StockLocStatus.php:238
-#: StockStatus.php:179
+#: StockLocStatus.php:239
+#: StockStatus.php:181
 msgid "The quantity on order for this product to be received into"
 msgstr "采购订单可收货数量"
 
-#: StockLocStatus.php:280
-#: StockLocStatus.php:310
-#: StockStatus.php:220
+#: StockLocStatus.php:281
+#: StockLocStatus.php:311
+#: StockStatus.php:222
 msgid "Serial Numbers"
 msgstr "序列号"
 
-#: StockLocStatus.php:282
-#: StockLocStatus.php:312
-#: StockStatus.php:222
+#: StockLocStatus.php:283
+#: StockLocStatus.php:313
+#: StockStatus.php:224
 #: WorkOrderEntry.php:540
 msgid "Batches"
 msgstr "批次"
@@ -29038,110 +28730,111 @@ msgid "columns, but only 2 columns are expected. The comma separated file should
 msgstr ""
 
 #: StockLocTransfer.php:54
-#: StockLocTransfer.php:110
-#: StockLocTransfer.php:135
+#: StockLocTransfer.php:113
+#: StockLocTransfer.php:138
+#: StockLocTransfer.php:147
 msgid "The part code entered of"
 msgstr "输入的部件编码:"
 
 #: StockLocTransfer.php:54
-#: StockLocTransfer.php:110
+#: StockLocTransfer.php:113
 msgid "is not set up in the database"
 msgstr "是未在数据库设定"
 
 #: StockLocTransfer.php:54
-#: StockLocTransfer.php:110
+#: StockLocTransfer.php:113
 msgid "Only valid parts can be entered for transfers"
 msgstr "只能输入要转移的有效部件"
 
 #: StockLocTransfer.php:61
-#: StockLocTransfer.php:121
+#: StockLocTransfer.php:124
 #: StockLocTransferReceive.php:34
 #: StockLocTransferReceive.php:38
 msgid "The quantity entered for"
 msgstr "输入的数量"
 
 #: StockLocTransfer.php:61
-#, fuzzy
 msgid "is not numeric."
 msgstr "不是数值"
 
 #: StockLocTransfer.php:61
-#: StockLocTransfer.php:116
+#: StockLocTransfer.php:119
 msgid "The quantity entered for transfers is expected to be numeric"
 msgstr "请输入要转移数量的数值"
 
 #: StockLocTransfer.php:75
-#, fuzzy
 msgid "does not have enough stock available ("
 msgstr "没有库存可以用来转移"
 
 #: StockLocTransfer.php:75
-#, fuzzy
 msgid "The quantity required to transfer was"
 msgstr "要提取转移的 SQL 是"
 
-#: StockLocTransfer.php:116
+#: StockLocTransfer.php:119
 msgid "The quantity entered of"
 msgstr "输入的数量"
 
-#: StockLocTransfer.php:116
+#: StockLocTransfer.php:119
 msgid "for part code"
 msgstr "的部件编号"
 
-#: StockLocTransfer.php:121
+#: StockLocTransfer.php:124
 msgid "is less than or equal to 0"
 msgstr "是少于或等于 0"
 
-#: StockLocTransfer.php:121
+#: StockLocTransfer.php:124
 msgid "Please correct this or remove the item"
 msgstr "请更正或移除这物料"
 
-#: StockLocTransfer.php:135
+#: StockLocTransfer.php:138
 msgid "does not have enough stock available for transfer."
 msgstr "没有库存可以用来转移"
 
 #: StockLocTransfer.php:147
+msgid "does not have enough stock available for transfer due to accumulated quantity is more than quantity on hand."
+msgstr "没有库存可以用来转移"
+
+#: StockLocTransfer.php:162
 msgid "You must enter at least 1 Stock Item to transfer"
 msgstr "你必须输入最少 1 个存货物料来转移"
 
-#: StockLocTransfer.php:153
+#: StockLocTransfer.php:168
 msgid "The transfer must have a different location to receive into and location sent from"
 msgstr "转移的来源及接收地点必须是不同的"
 
-#: StockLocTransfer.php:160
+#: StockLocTransfer.php:175
 msgid "Unable to BEGIN Location Transfer transaction"
 msgstr "未开启地点转移交易"
 
-#: StockLocTransfer.php:188
+#: StockLocTransfer.php:203
 msgid "Unable to COMMIT Location Transfer transaction"
 msgstr "未能提交地点转移记录"
 
-#: StockLocTransfer.php:191
+#: StockLocTransfer.php:206
 msgid "The inventory transfer records have been created successfully"
 msgstr "仓存转移记录已产生"
 
-#: StockLocTransfer.php:192
+#: StockLocTransfer.php:207
 msgid "Print the Transfer Docket"
 msgstr "列印转移单"
 
-#: StockLocTransfer.php:222
+#: StockLocTransfer.php:237
 msgid "Inventory Location Transfer Shipment Reference"
 msgstr "仓库转移运输参考"
 
-#: StockLocTransfer.php:268
+#: StockLocTransfer.php:283
 msgid "Upload CSV file of Transfer Items and Quantites"
 msgstr ""
 
-#: StockLocTransfer.php:278
-#, fuzzy
+#: StockLocTransfer.php:293
 msgid "Clear All"
 msgstr "清算"
 
-#: StockLocTransfer.php:330
+#: StockLocTransfer.php:345
 msgid "Add More Items"
 msgstr "新增更多物料"
 
-#: StockLocTransfer.php:331
+#: StockLocTransfer.php:346
 msgid "Create Transfer Shipment"
 msgstr "产生转移运输"
 
@@ -29355,8 +29048,8 @@ msgid "The stock held as at"
 msgstr "物料的历史库存 - 日期"
 
 #: StockQuantityByDate.php:169
-#: includes/InputSerialItemsFile.php:57
-#: includes/InputSerialItemsFile.php:60
+#: includes/InputSerialItemsFile.php:58
+#: includes/InputSerialItemsFile.php:65
 #: includes/InputSerialItemsKeyed.php:67
 #: includes/InputSerialItemsKeyed.php:70
 #: includes/OutputSerialItems.php:107
@@ -29699,283 +29392,284 @@ msgstr "当这物料还有在手数量时, 不能把不受控物料更改为受�
 msgid "You can not change a Serialised Item to Non-Serialised (or vice-versa) when there is a quantity on hand for the item"
 msgstr "当这物料还有在手有数量时, 不能把序列号物料更改为非序列号 (或相反)"
 
-#: Stocks.php:371
+#: Stocks.php:349
+msgid "The property value should between"
+msgstr "位置的垂直距离应该是正数"
+
+#: Stocks.php:382
 msgid "The stock item could not be updated because"
 msgstr "未能更新物料, 因为"
 
-#: Stocks.php:372
+#: Stocks.php:383
 #: StockStatus.php:72
 msgid "The SQL that was used to update the stock item and failed was"
 msgstr "用作更新物料失败的 SQL 是"
 
-#: Stocks.php:419
-#: Stocks.php:436
-#: Stocks.php:474
-#: Stocks.php:491
-#, fuzzy
+#: Stocks.php:430
+#: Stocks.php:447
+#: Stocks.php:485
+#: Stocks.php:502
 msgid "Change stock category"
 msgstr "物料组"
 
-#: Stocks.php:421
-#, fuzzy
+#: Stocks.php:432
 msgid "The stock cost journal could not be inserted because"
 msgstr "未能插入总账凭证的销售税行, 因为"
 
-#: Stocks.php:422
-#, fuzzy
+#: Stocks.php:433
 msgid "The SQL that was used to create the stock cost journal and failed was"
 msgstr "用作更新物料失败的 SQL 是"
 
-#: Stocks.php:455
+#: Stocks.php:466
 msgid "Error retrieving value of finished goods received and cost issued against work orders for this item"
 msgstr ""
 
-#: Stocks.php:476
-#, fuzzy
+#: Stocks.php:487
 msgid "The WIP cost journal could not be inserted because"
 msgstr "未能插入总账凭证的销售税行, 因为"
 
-#: Stocks.php:477
-#, fuzzy
+#: Stocks.php:488
 msgid "The SQL that was used to create the WIP cost journal and failed was"
 msgstr "用于更新用户失败的SQL是"
 
-#: Stocks.php:507
+#: Stocks.php:518
 msgid "The stock code entered is actually already in the database - duplicate stock codes are prohibited by the system. Try choosing an alternative stock code"
 msgstr "输入的存货编码已在数据库 - 系统禁止重覆的存货编码.  请选择其他编码"
 
-#: Stocks.php:549
+#: Stocks.php:560
 #: Z_ImportStocks.php:233
 msgid "The item could not be added because"
 msgstr "未能新增物料, 因为"
 
-#: Stocks.php:550
+#: Stocks.php:561
 #: Z_ImportStocks.php:234
 msgid "The SQL that was used to add the item failed was"
 msgstr "用作新增物料失败的 SQL 是"
 
-#: Stocks.php:565
+#: Stocks.php:602
 #: Z_ImportStocks.php:250
 msgid "New Item"
 msgstr "新建物料"
 
-#: Stocks.php:566
+#: Stocks.php:603
 msgid "NB: The item cost and pricing must also be setup"
 msgstr ""
 
-#: Stocks.php:567
-#, fuzzy
+#: Stocks.php:604
 msgid "Enter Item Cost"
 msgstr "输入物料编码"
 
-#: Stocks.php:568
-#, fuzzy
+#: Stocks.php:605
 msgid "Enter Item Prices"
 msgstr "物料价目"
 
-#: Stocks.php:614
+#: Stocks.php:651
 msgid "Cannot delete this stock item because there are stock movements that refer to this item"
 msgstr "未能删除这个物料, 因为已有物料移动记录"
 
-#: Stocks.php:615
+#: Stocks.php:652
 msgid "stock movements that refer to this item"
 msgstr "条这个物料的物料移动记录"
 
-#: Stocks.php:623
+#: Stocks.php:660
 msgid "Cannot delete this item record because there are bills of material that require this part as a component"
 msgstr "未能删除这物料记录, 因为已有物料清单使用此物料作为部件"
 
-#: Stocks.php:624
+#: Stocks.php:661
 msgid "bills of material that require this part as a component"
 msgstr "个以这个物料为部件的物料清单"
 
-#: Stocks.php:631
+#: Stocks.php:668
 msgid "Cannot delete this item record because there are existing sales orders for this part"
 msgstr "未能删除这物料记录, 因为已有销售订单"
 
-#: Stocks.php:632
+#: Stocks.php:669
 msgid "sales order items against this part"
 msgstr "条物料的销售订单"
 
-#: Stocks.php:639
+#: Stocks.php:676
 msgid "Cannot delete this item because sales analysis records exist for it"
 msgstr "未能删除这物料, 因为已有销售分析记录"
 
-#: Stocks.php:640
+#: Stocks.php:677
 msgid "sales analysis records against this part"
 msgstr "条物料的销售分析记录"
 
-#: Stocks.php:647
+#: Stocks.php:684
 msgid "Cannot delete this item because there are existing purchase order items for it"
 msgstr "未能删除这物料, 因为已有采购订单"
 
-#: Stocks.php:648
+#: Stocks.php:685
 msgid "purchase order item record relating to this part"
 msgstr "这个物料的采购订单"
 
-#: Stocks.php:655
+#: Stocks.php:692
 msgid "Cannot delete this item because there is currently some stock on hand"
 msgstr "未能删除这物料, 因为仍有在手数量"
 
-#: Stocks.php:656
+#: Stocks.php:693
 msgid "on hand for this part"
 msgstr "个该物料"
 
-#: Stocks.php:669
+#: Stocks.php:706
 msgid "Could not delete the location stock records because"
 msgstr "未能删除仓库库存记录, 因为"
 
-#: Stocks.php:672
+#: Stocks.php:709
 msgid "Could not delete the prices for this stock record because"
 msgstr "未能删除此存货价格记录, 因为"
 
-#: Stocks.php:675
+#: Stocks.php:712
 msgid "Could not delete the purchasing data because"
 msgstr "未能删除供应商供货信息, 因为"
 
-#: Stocks.php:678
+#: Stocks.php:715
 msgid "Could not delete the bill of material because"
 msgstr "未能删除物料清单, 因为"
 
-#: Stocks.php:680
+#: Stocks.php:717
 msgid "Could not delete the item record"
 msgstr "未能删除物料"
 
-#: Stocks.php:684
+#: Stocks.php:720
+msgid "Could not delete the item properties"
+msgstr "未能删除此属性"
+
+#: Stocks.php:723
 msgid "Deleted the stock master record for"
 msgstr "已删除的主存货记录"
 
-#: Stocks.php:685
+#: Stocks.php:724
 msgid "and all the location stock records set up for the part"
 msgstr "及物料在所有仓库的存货记录"
 
-#: Stocks.php:686
+#: Stocks.php:725
 msgid "and any bill of material that may have been set up for the part"
 msgstr "及使用物料的物料清单"
 
-#: Stocks.php:687
+#: Stocks.php:726
 msgid "and any purchasing data that may have been set up for the part"
 msgstr "及物料的供应商供货信息"
 
-#: Stocks.php:688
+#: Stocks.php:727
 msgid "and any prices that may have been set up for the part"
 msgstr "及为此物料设置的任何价格"
 
-#: Stocks.php:866
+#: Stocks.php:905
 msgid "Add or Modify Stock Categories"
 msgstr "新增或修改物料组"
 
-#: Stocks.php:903
+#: Stocks.php:942
 msgid "Economic Order Quantity"
 msgstr "合理订单数量"
 
-#: Stocks.php:907
+#: Stocks.php:946
 msgid "Packaged Volume (metres cubed)"
 msgstr "包装体积 (立方米)"
 
-#: Stocks.php:912
+#: Stocks.php:951
 msgid "Packaged Weight (KGs)"
 msgstr "包装重量 (公斤)"
 
-#: Stocks.php:937
+#: Stocks.php:976
 msgid "Assembly, Kit, Manufactured or Service/Labour"
 msgstr "组合，套装，制造或者服务/劳务"
 
-#: Stocks.php:945
-#: Stocks.php:947
+#: Stocks.php:984
+#: Stocks.php:986
 msgid "Kit"
 msgstr "套装物料"
 
-#: Stocks.php:966
-#: Stocks.php:968
+#: Stocks.php:1005
+#: Stocks.php:1007
 msgid "Service/Labour"
 msgstr "服务/劳务"
 
-#: Stocks.php:975
+#: Stocks.php:1014
 msgid "Current or Obsolete"
 msgstr "可用 或 淘汰"
 
-#: Stocks.php:992
+#: Stocks.php:1031
 msgid "Batch, Serial or Lot Control"
 msgstr "是否受控物料"
 
-#: Stocks.php:996
-#: Stocks.php:998
+#: Stocks.php:1035
+#: Stocks.php:1037
 msgid "No Control"
 msgstr "否"
 
-#: Stocks.php:1001
-#: Stocks.php:1003
+#: Stocks.php:1040
+#: Stocks.php:1042
 msgid "Controlled"
 msgstr "是"
 
-#: Stocks.php:1007
+#: Stocks.php:1046
 msgid "Serialised"
 msgstr "序列号管理"
 
-#: Stocks.php:1019
+#: Stocks.php:1058
 msgid "this has no effect if the item is not Controlled"
 msgstr "对非受控物料，此参数会被忽略"
 
-#: Stocks.php:1024
+#: Stocks.php:1063
 msgid "Next Serial No (>0 for auto numbering)"
 msgstr "下一个序列号 （>0Y以自动编号）"
 
-#: Stocks.php:1031
+#: Stocks.php:1070
 msgid "Perishable"
 msgstr "易变质的"
 
-#: Stocks.php:1047
+#: Stocks.php:1086
 msgid "Decimal Places for display Quantity"
 msgstr "显示数量的小数位"
 
-#: Stocks.php:1072
+#: Stocks.php:1111
 #: TaxAuthorityRates.php:87
 msgid "Tax Category"
 msgstr "税目"
 
-#: Stocks.php:1093
+#: Stocks.php:1132
 msgid "Pan Size"
 msgstr "批量"
 
-#: Stocks.php:1097
+#: Stocks.php:1136
 msgid "Shrinkage Factor"
 msgstr "报废率"
 
-#: Stocks.php:1128
+#: Stocks.php:1167
 msgid "Item Category Properties"
 msgstr "物料种类属性"
 
-#: Stocks.php:1155
+#: Stocks.php:1197
 msgid "A number between"
 msgstr "数字在"
 
-#: Stocks.php:1155
+#: Stocks.php:1197
 msgid "is expected"
 msgstr "之间"
 
-#: Stocks.php:1191
+#: Stocks.php:1233
 msgid "Insert New Item"
 msgstr "插入新物料"
 
-#: Stocks.php:1192
-#: Stocks.php:1199
+#: Stocks.php:1234
+#: Stocks.php:1241
 msgid "Categories"
 msgstr "种类"
 
-#: Stocks.php:1201
+#: Stocks.php:1243
 msgid "Only click the Delete button if you are sure you wish to delete the item!"
 msgstr "如确定要删除这物料, 请按删除按钮"
 
-#: Stocks.php:1201
+#: Stocks.php:1243
 msgid "Checks will be made to ensure that there are no stock movements, sales analysis records, sales order items or purchase order items for the item"
 msgstr "会检查有没有物料的物料移动, 销售分析, 销售订单或采购订单"
 
-#: Stocks.php:1201
+#: Stocks.php:1243
 msgid "No deletions will be allowed if they exist"
 msgstr "如有的话, 不能删除"
 
-#: Stocks.php:1204
+#: Stocks.php:1246
 msgid "Delete This Item"
 msgstr "删除这个物料"
 
@@ -30009,19 +29703,19 @@ msgstr "样品无库存数"
 msgid "The workorder component demand for this product from"
 msgstr "此产品工作单的物料需求来自"
 
-#: StockStatus.php:196
+#: StockStatus.php:198
 msgid "The quantity on work orders for this product to be received into"
 msgstr "此产品工作单上的数量会被收货进"
 
-#: StockStatus.php:304
+#: StockStatus.php:306
 msgid "Pricing history for sales of"
 msgstr "销售 定价历史"
 
-#: StockStatus.php:345
+#: StockStatus.php:347
 msgid "No history of sales of"
 msgstr "没有销售历史记录"
 
-#: StockStatus.php:351
+#: StockStatus.php:353
 msgid "Show Usage"
 msgstr "显示用量"
 
@@ -30215,6 +29909,7 @@ msgstr "红字发票付费合同"
 #: SuppContractChgs.php:114
 #: SuppFixedAssetChgs.php:100
 #: SuppInvGRNs.php:166
+#: SupplierInvoice.php:1508
 #: SuppShiptChgs.php:21
 #: SuppTransGLAnalysis.php:142
 msgid "Back to Invoice Entry"
@@ -30261,12 +29956,10 @@ msgid "Select A Supplier to Enter a Transaction For"
 msgstr "选取供应商来输入交货"
 
 #: SuppCreditGRNs.php:43
-#, fuzzy
 msgid "The credit quantity is not numeric or the quantity to credit is more that quantity invoiced"
 msgstr "当收货数量大于发票数量是不能结算运单"
 
 #: SuppCreditGRNs.php:43
-#, fuzzy
 msgid "The goods received cannot be credited by this quantity"
 msgstr "接收的货品不能用这价目贷账"
 
@@ -30306,7 +29999,6 @@ msgid "There are no goods received records for"
 msgstr "没有接收记录的货品"
 
 #: SuppCreditGRNs.php:162
-#, fuzzy
 msgid "since"
 msgstr "签字"
 
@@ -30328,7 +30020,6 @@ msgid "Show Goods Received Since"
 msgstr "显示货品接收自从"
 
 #: SuppCreditGRNs.php:177
-#, fuzzy
 msgid "Display GRNs"
 msgstr "显示"
 
@@ -30346,7 +30037,6 @@ msgid "Qty Yet"
 msgstr "未交数量"
 
 #: SuppCreditGRNs.php:190
-#, fuzzy
 msgid "invoice"
 msgstr "开发票"
 
@@ -30402,7 +30092,6 @@ msgid "then the link to enter a supplier invoice or credit note must be clicked 
 msgstr "然后用适当链接输入供应商发票或红字发票"
 
 #: SuppFixedAssetChgs.php:32
-#, fuzzy
 msgid "A valid asset must be either selected from the list or entered"
 msgstr "必须在选择客户页面中选取一个客户"
 
@@ -30427,12 +30116,10 @@ msgid "If you know the code enter it in the Asset ID input box, otherwise select
 msgstr "如果您知道代码，在资产ID输入方框中输入，否则从下列列表选择资产。仅仅不附带成本的资产才会显示在列表里"
 
 #: SuppFixedAssetChgs.php:118
-#, fuzzy
 msgid "Enter Asset ID"
 msgstr "资产 ID"
 
 #: SuppFixedAssetChgs.php:122
-#, fuzzy
 msgid "Select from list"
 msgstr "选择要编辑的表单"
 
@@ -30449,7 +30136,6 @@ msgid "then the link to enter a supplier invoice must be clicked on"
 msgstr "再点新建供应商发票"
 
 #: SuppInvGRNs.php:77
-#, fuzzy
 msgid "The quantity being invoiced is more than the outstanding quantity that was delivered. It is not possible to enter an invoice for a quantity more than was received into stock"
 msgstr "要开发票的数量超出未开的数量"
 
@@ -30715,7 +30401,6 @@ msgid "The contact name must be at least one character long"
 msgstr "联系人名称必须不少于 1 个字"
 
 #: SupplierContacts.php:54
-#, fuzzy
 msgid "The email address entered does not appear to be a valid email address"
 msgstr "电子邮件地址看起来不是有效地址。此交易无法寄出。"
 
@@ -30754,7 +30439,6 @@ msgid "Position"
 msgstr "职位"
 
 #: SupplierContacts.php:179
-#, fuzzy
 msgid "There are no contacts defined for this supplier"
 msgstr "订单的供应商没有联系人"
 
@@ -30860,7 +30544,6 @@ msgid "Contract Charges"
 msgstr "合同费用"
 
 #: SupplierCredit.php:443
-#, fuzzy
 msgid "Total Credited against Contracts"
 msgstr "运输的总贷账"
 
@@ -30871,7 +30554,6 @@ msgstr "总帐分析"
 
 #: SupplierCredit.php:485
 #: SupplierInvoice.php:476
-#, fuzzy
 msgid "Total GL Analysis"
 msgstr "销售分析表"
 
@@ -31295,7 +30977,6 @@ msgid "Shipment Charges"
 msgstr "运单费用"
 
 #: SupplierInvoice.php:356
-#, fuzzy
 msgid "Total shipment charges"
 msgstr "运单合计"
 
@@ -31304,12 +30985,10 @@ msgid "Fixed Asset Additions"
 msgstr "固定资产追加"
 
 #: SupplierInvoice.php:396
-#, fuzzy
 msgid "Total asset additions"
 msgstr "资产增加"
 
 #: SupplierInvoice.php:438
-#, fuzzy
 msgid "Total contract charges"
 msgstr "合同费用"
 
@@ -31342,12 +31021,10 @@ msgid "Invoices are expected to have a positive charge"
 msgstr "发票费用需要是正数"
 
 #: SupplierInvoice.php:622
-#, fuzzy
 msgid "The tax total is"
 msgstr "检查收款总数"
 
 #: SupplierInvoice.php:623
-#, fuzzy
 msgid "The ovamount is"
 msgstr "物料"
 
@@ -31392,7 +31069,6 @@ msgid "The sql to check for the previous entry of the same invoice failed"
 msgstr "检查之前输入的发票行失败"
 
 #: SupplierInvoice.php:662
-#, fuzzy
 msgid "The following SQL to test for a previous invoice with the same reference from the same supplier was used"
 msgstr "用于测试受控但未编序列号的库存物料的SQL是"
 
@@ -31450,12 +31126,10 @@ msgid "The following SQL to update the GRN quantity invoiced was used"
 msgstr "用于更新收货记录的以开发票数量的 SQL 是"
 
 #: SupplierInvoice.php:1213
-#, fuzzy
 msgid "The stock movement record for the delivery could not have the cost updated to the actual cost"
 msgstr "未能插入冲销的序列号物料移动记录, 因为"
 
 #: SupplierInvoice.php:1255
-#, fuzzy
 msgid "The sales analysis records could not be updated for the cost variances on this purchase invoice"
 msgstr "销售订单记录未能减少已开出发票的数量,因为"
 
@@ -31589,7 +31263,6 @@ msgid "The Supplier Code cannot be empty"
 msgstr "供应商编码不能留空"
 
 #: Suppliers.php:344
-#, fuzzy
 msgid "The supplier code cannot contain any of the illegal characters"
 msgstr "供应商编码不能包含以下的字符"
 
@@ -31737,61 +31410,50 @@ msgstr "查看联系人"
 
 #: SupplierTenderCreate.php:20
 #: SupplierTenderCreate.php:30
-#, fuzzy
 msgid "Authorisation Problem"
 msgstr "授权"
 
 #: SupplierTenderCreate.php:23
-#, fuzzy
 msgid "You do not have authority to create supplier tenders for this company."
 msgstr "您没有权力去提高采购订单 "
 
 #: SupplierTenderCreate.php:24
 #: SupplierTenderCreate.php:34
-#, fuzzy
 msgid "Please see your system administrator"
 msgstr "请联系系统管理员"
 
 #: SupplierTenderCreate.php:33
-#, fuzzy
 msgid "You do not have authority to amend supplier tenders for this company."
 msgstr "您没有权力去提高采购订单 "
 
 #: SupplierTenderCreate.php:107
 #: SupplierTenderCreate.php:152
-#, fuzzy
 msgid "Edit an Existing Supplier Tender Request"
 msgstr "供应商在数据库内不存在"
 
 #: SupplierTenderCreate.php:109
 #: SupplierTenderCreate.php:154
 #: SupplierTenderCreate.php:158
-#, fuzzy
 msgid "Purchase Order Tendering"
 msgstr "采购订单冲销"
 
 #: SupplierTenderCreate.php:124
-#, fuzzy
 msgid "Tender ID"
 msgstr "投标人"
 
 #: SupplierTenderCreate.php:156
-#, fuzzy
 msgid "Create a New Supplier Tender Request"
 msgstr "供应商报价"
 
 #: SupplierTenderCreate.php:165
-#, fuzzy
 msgid "The tender has been successfully saved"
 msgstr "输入成功"
 
 #: SupplierTenderCreate.php:192
-#, fuzzy
 msgid "The supplier must have an email set up or they cannot be part of a tender"
 msgstr "输入的部件编码不存在于webERP的数据库"
 
 #: SupplierTenderCreate.php:232
-#, fuzzy
 msgid "Tender header details"
 msgstr "订单表头信息"
 
@@ -31800,12 +31462,10 @@ msgid "Delivery Must Be Made Before"
 msgstr ""
 
 #: SupplierTenderCreate.php:388
-#, fuzzy
 msgid "Suppliers To Send Tender"
 msgstr "供应商报价"
 
 #: SupplierTenderCreate.php:407
-#, fuzzy
 msgid "Items in Tender"
 msgstr "商品属于"
 
@@ -31828,17 +31488,14 @@ msgid "Stock ID"
 msgstr "存货ID"
 
 #: SupplierTenderCreate.php:436
-#, fuzzy
 msgid "Select Suppliers"
 msgstr "供应商"
 
 #: SupplierTenderCreate.php:437
-#, fuzzy
 msgid "Select Item Details"
 msgstr "库存商品细节"
 
 #: SupplierTenderCreate.php:444
-#, fuzzy
 msgid "Save Tender"
 msgstr "供应商报价"
 
@@ -31851,12 +31508,10 @@ msgid "Tenders"
 msgstr "投标人"
 
 #: SupplierTenderCreate.php:684
-#, fuzzy
 msgid "Select items required on this tender"
 msgstr "选取投标选项"
 
 #: SupplierTenderCreate.php:855
-#, fuzzy
 msgid "Add to Tender"
 msgstr "增至销售订单"
 
@@ -31869,19 +31524,16 @@ msgid "This functionality can only be accessed via a supplier login."
 msgstr "此功能你仅仅供供应商登陆使用"
 
 #: SupplierTenders.php:86
-#, fuzzy
 msgid "Confirm the Response For Tender"
 msgstr "确认订单"
 
 #: SupplierTenders.php:119
 #: SupplierTenders.php:506
-#, fuzzy
 msgid "Tender Number"
 msgstr "订单编号"
 
 #: SupplierTenders.php:124
 #: SupplierTenders.php:536
-#, fuzzy
 msgid "Offered"
 msgstr "订单数量"
 
@@ -31890,7 +31542,6 @@ msgid "Confirm and Send Email"
 msgstr ""
 
 #: SupplierTenders.php:148
-#, fuzzy
 msgid "Cancel Offer"
 msgstr "取消销售"
 
@@ -31911,7 +31562,6 @@ msgid "Create a new offer from"
 msgstr "创建新报盘自"
 
 #: SupplierTenders.php:171
-#, fuzzy
 msgid "View any open tenders without an offer from"
 msgstr "查看或者修改报盘，它们来自"
 
@@ -31920,12 +31570,10 @@ msgid "Items to offer from"
 msgstr "商品报盘来自"
 
 #: SupplierTenders.php:460
-#, fuzzy
 msgid "Tenders Waiting For Offers"
 msgstr "处理投标和报盘"
 
 #: SupplierTenders.php:475
-#, fuzzy
 msgid "Outstanding Tenders Waiting For Offer"
 msgstr "未清算的交易"
 
@@ -31939,7 +31587,6 @@ msgid "Process"
 msgstr "执行"
 
 #: SupplierTenders.php:508
-#, fuzzy
 msgid "Tender"
 msgstr "投标人"
 
@@ -32031,7 +31678,6 @@ msgid "Are you sure you wish to delete this Supplier Type?"
 msgstr "确认要删除这个供应商类型么？"
 
 #: SuppLoginSetup.php:15
-#, fuzzy
 msgid "A supplier must first be selected before logins can be defined for it"
 msgstr "必须先选取物料才能叫出这页"
 
@@ -32041,7 +31687,6 @@ msgid "Purchasing"
 msgstr "采购"
 
 #: SuppLoginSetup.php:105
-#, fuzzy
 msgid "A new supplier login has been created"
 msgstr "新的工作单已经创建"
 
@@ -32157,7 +31802,6 @@ msgid "Report"
 msgstr "报告"
 
 #: SuppPriceList.php:146
-#, fuzzy
 msgid "There are no result so the PDF is empty"
 msgstr "这部件没有价目设定"
 
@@ -32178,7 +31822,6 @@ msgid "Supplier Price List for"
 msgstr "供应商价格表为"
 
 #: SuppPriceList.php:300
-#, fuzzy
 msgid "Conv Factor"
 msgstr "换算参数(转成我公司的计量单位)"
 
@@ -32318,7 +31961,6 @@ msgid "Freight Charge Applies If Less Than must be a number"
 msgstr "订单最低运费额"
 
 #: SystemParameters.php:49
-#, fuzzy
 msgid "Standard Cost Decimal Places must be a number between 0 and 4"
 msgstr "每年的财务期间必须是1和12之间的数"
 
@@ -32367,7 +32009,6 @@ msgid "The Purchasing Manager Email address does not appear to be valid"
 msgstr "采购经理的电邮地址看起来为无效地址"
 
 #: SystemParameters.php:93
-#, fuzzy
 msgid "The Inventory Manager Email address does not appear to be valid"
 msgstr "工厂经理的电邮地址看起来为无效地址"
 
@@ -32571,7 +32212,6 @@ msgid "working days"
 msgstr ""
 
 #: SystemParameters.php:484
-#, fuzzy
 msgid "Number of working days on a week"
 msgstr "工作单号： "
 
@@ -32667,7 +32307,6 @@ msgid "This is the tax category used for entry of supplier invoices and the cate
 msgstr "这个默认税目应用于采购发票或运费"
 
 #: SystemParameters.php:589
-#, fuzzy
 msgid "Tax Authority Reference Name"
 msgstr "税号名称"
 
@@ -32688,7 +32327,6 @@ msgid "This parameter is only effective if Do Freight Calculation is set to Yes.
 msgstr "这个参数只在计算运费参数设置为是时生效，国家名称是从货币表来的"
 
 #: SystemParameters.php:610
-#, fuzzy
 msgid "Standard Cost Decimal Places"
 msgstr "无效的小数点位数"
 
@@ -32897,7 +32535,6 @@ msgstr "MediaWiki"
 
 #: SystemParameters.php:832
 #: includes/MiscFunctions.php:234
-#, fuzzy
 msgid "DokuWiki"
 msgstr "维基 "
 
@@ -33127,7 +32764,6 @@ msgid "The email address for the purchasing manager, used to receive notificatio
 msgstr "采购经理的邮件地址，用于接收投标系统的通知"
 
 #: SystemParameters.php:1040
-#, fuzzy
 msgid "Inventory Manager Email Address"
 msgstr "工厂经理电邮地址"
 
@@ -33193,7 +32829,7 @@ msgid "Bank Swift"
 msgstr "银行单"
 
 #: TaxAuthorities.php:175
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this tax authority?"
 msgstr "确认要删除此联系人？"
 
@@ -33343,7 +32979,6 @@ msgid "Could not get tax categories because"
 msgstr "找不到税目, 因为"
 
 #: TaxCategories.php:183
-#, fuzzy
 msgid "Are you sure you wish to delete this tax category?"
 msgstr "确认要删除此联系人？"
 
@@ -33441,7 +33076,7 @@ msgid "Group No"
 msgstr "编号"
 
 #: TaxGroups.php:189
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this tax group?"
 msgstr "确认要删除此客户分公司么"
 
@@ -33497,7 +33132,7 @@ msgid "There are no tax authorities defined to allocate to this tax group"
 msgstr "没有可分配给该税收组的税种"
 
 #: TaxGroups.php:375
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to remove this tax authority from the group?"
 msgstr "确认要删除这个红字发票行么？"
 
@@ -33613,7 +33248,6 @@ msgid "Summary Only"
 msgstr "只要撮要"
 
 #: TaxProvinces.php:32
-#, fuzzy
 msgid "The tax province name cannot contain any of the illegal characters"
 msgstr "纳税区域不能包含以下字符"
 
@@ -33761,7 +33395,6 @@ msgid "Units Of Measure"
 msgstr "计量单位"
 
 #: UnitsOfMeasure.php:30
-#, fuzzy
 msgid "The unit of measure cannot contain any of the illegal characters"
 msgstr "会计要素不能包含这个字符"
 
@@ -33818,7 +33451,6 @@ msgid "Could not get unit of measures because"
 msgstr "找不到计量单位, 因为"
 
 #: UnitsOfMeasure.php:186
-#, fuzzy
 msgid "Are you sure you wish to delete this unit of measure?"
 msgstr "你确定要删除这个顾客类型?"
 
@@ -33900,13 +33532,11 @@ msgid "Version 3.10"
 msgstr "版本 3.10"
 
 #: UpgradeDatabase.php:33
-#, fuzzy
 msgid "Version 3.11 or 4.01 - 4.02"
 msgstr "版本 3.00"
 
 #: UpgradeDatabase.php:37
 #: UpgradeDatabase.php:48
-#, fuzzy
 msgid "This script will perform any modifications to the database required to allow the additional functionality in later scripts."
 msgstr "脚本会进行数据库要求的修改是新增的功能可以使用"
 
@@ -33936,15 +33566,15 @@ msgstr "由于您选用了手动升级。因此没有更新任何数据库 - 更
 msgid "If there are any failures then please check with your system administrator. Please read all notes carefully to ensure they are expected"
 msgstr "如果有任何失败，请与您的系统管理员联系。请仔细阅读所有备注保证他们按需要"
 
-#: UpgradeDatabase.php:147
+#: UpgradeDatabase.php:151
 msgid "Only mysql upgrades are performed seamlessly at this time. Your database will need to be manually updated"
 msgstr "目前为止仅有mysql是无缝更新。您的数据库需要手动更新"
 
-#: UpgradeDatabase.php:161
+#: UpgradeDatabase.php:165
 msgid "Applying"
 msgstr "运行"
 
-#: UpgradeDatabase.php:189
+#: UpgradeDatabase.php:193
 #: Z_Upgrade_3.10-3.11.php:59
 #: Z_Upgrade3.10.php:29
 #: Z_Upgrade3.10.php:34
@@ -33958,60 +33588,59 @@ msgstr "运行"
 msgid "Success"
 msgstr "成功"
 
-#: UpgradeDatabase.php:192
+#: UpgradeDatabase.php:196
 msgid "Foreign Key already removed"
 msgstr ""
 
-#: UpgradeDatabase.php:195
+#: UpgradeDatabase.php:199
 #: Z_Upgrade_3.10-3.11.php:63
 #: Z_Upgrade_3.11-4.00.php:63
 msgid "Table has already been created"
 msgstr "表已经创建"
 
-#: UpgradeDatabase.php:198
-#, fuzzy
+#: UpgradeDatabase.php:202
 msgid "Column has already been changed"
 msgstr "列已经被创建"
 
-#: UpgradeDatabase.php:201
+#: UpgradeDatabase.php:205
 #: Z_Upgrade_3.10-3.11.php:67
 #: Z_Upgrade_3.11-4.00.php:67
 msgid "Column has already been created"
 msgstr "列已经被创建"
 
-#: UpgradeDatabase.php:204
+#: UpgradeDatabase.php:208
 #: Z_Upgrade_3.10-3.11.php:71
 #: Z_Upgrade_3.11-4.00.php:71
 msgid "Index already exists"
 msgstr "索引已经存在"
 
-#: UpgradeDatabase.php:207
+#: UpgradeDatabase.php:211
 #: Z_Upgrade_3.10-3.11.php:75
 #: Z_Upgrade_3.11-4.00.php:75
 msgid "Entry has already been done"
 msgstr "分录已经完成"
 
-#: UpgradeDatabase.php:210
+#: UpgradeDatabase.php:214
 msgid "SQL syntax error. The SQL error message is"
 msgstr "SQL语法错误。SQL错误信息是"
 
-#: UpgradeDatabase.php:213
+#: UpgradeDatabase.php:217
 #: Z_Upgrade_3.10-3.11.php:79
 #: Z_Upgrade_3.11-4.00.php:79
 msgid "Primary key already exists"
 msgstr "主键（Primary Key)已存在"
 
-#: UpgradeDatabase.php:216
+#: UpgradeDatabase.php:220
 msgid "Index already dropped previously"
 msgstr "索引已经删除"
 
-#: UpgradeDatabase.php:219
+#: UpgradeDatabase.php:223
 #: Z_Upgrade_3.10-3.11.php:82
 #: Z_Upgrade_3.11-4.00.php:82
 msgid "Failure"
 msgstr "失败"
 
-#: UpgradeDatabase.php:219
+#: UpgradeDatabase.php:223
 #: Z_Upgrade_3.10-3.11.php:83
 #: Z_Upgrade_3.11-4.00.php:83
 msgid "Error number"
@@ -34193,7 +33822,7 @@ msgid "Overhead Per Hour"
 msgstr "每小时制造费用"
 
 #: WorkCentres.php:142
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this work centre?"
 msgstr "你确定要删除这价目?"
 
@@ -34425,12 +34054,10 @@ msgid "This work order cannot be deleted because it has issues or receipts relat
 msgstr "未能删除这工作单, 因为已发料或收货"
 
 #: WorkOrderEntry.php:366
-#, fuzzy
 msgid "Unable to delete the work order because"
 msgstr "无法更新合同状态和订单号码"
 
 #: WorkOrderEntry.php:367
-#, fuzzy
 msgid "The SQL that failed to delete the work order was"
 msgstr "取得订单台头失败的 SQL 是"
 
@@ -34524,7 +34151,6 @@ msgid "The work order is closed - no more materials or components can be issued 
 msgstr "工作单已经关闭-无法再向其发料"
 
 #: WorkOrderIssue.php:107
-#, fuzzy
 msgid "The item being issued has a zero cost. The issue will still be processed "
 msgstr "正发的物料为0成本。0成本的物料不可以发给工作单。"
 
@@ -35006,7 +34632,7 @@ msgid "security role has been deleted"
 msgstr "职位已删除"
 
 #: WWW_Access.php:124
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this role?"
 msgstr "你确定要删除这价目?"
 
@@ -35031,22 +34657,19 @@ msgid "Available Security Tokens"
 msgstr "可供分配的职责"
 
 #: WWW_Access.php:218
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this security token from this role?"
 msgstr "确认要删除这个红字发票行么？"
 
 #: WWW_Users.php:24
-#, fuzzy
 msgid "Eastern European Russian Japanese Korean Vietnamese Hebrew Arabic Thai"
 msgstr "中东 欧洲 俄罗斯 日本 朝鲜 希伯来 阿拉伯 泰国"
 
 #: WWW_Users.php:94
-#, fuzzy
 msgid "The user ID"
 msgstr "用户 ID"
 
 #: WWW_Users.php:94
-#, fuzzy
 msgid "already exists and cannot be used again"
 msgstr " 此类的标签类型已经存在"
 
@@ -35084,7 +34707,7 @@ msgid "Report Size"
 msgstr "默认报表纸型"
 
 #: WWW_Users.php:324
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you wish to delete this user?"
 msgstr "确认要删除这个供应商么？"
 
@@ -35097,7 +34720,6 @@ msgid "User code"
 msgstr "用户名"
 
 #: WWW_Users.php:477
-#, fuzzy
 msgid "User Can Create Tenders"
 msgstr "用户可以创建订单"
 
@@ -35137,12 +34759,10 @@ msgid "The SQL that was used to select bottom level components and failed in the
 msgstr "在此过程中用于选择底层部品失败的SQL是"
 
 #: Z_BottomUpCosts.php:40
-#, fuzzy
 msgid "Failed on item"
 msgstr "失败于商品 "
 
 #: Z_BottomUpCosts.php:40
-#, fuzzy
 msgid "Cost update has been rolled back"
 msgstr "没有更新"
 
@@ -35721,12 +35341,10 @@ msgid "The SQL to update the woitem records failed"
 msgstr "更新工作单物料(woitem)记录失败"
 
 #: Z_ChangeStockCode.php:288
-#, fuzzy
 msgid "Changing sales category information"
 msgstr "序号化物料资讯更改中"
 
 #: Z_ChangeStockCode.php:290
-#, fuzzy
 msgid "The SQL to update the sales category records failed"
 msgstr "更新用户记录失败"
 
@@ -35840,20 +35458,23 @@ msgstr "差异"
 msgid "Check Period Sales Ledger Control Account"
 msgstr "检查期间销售账控制账目"
 
-#: Z_CopyBOM.php:106
+#: Z_CopyBOM.php:21
+msgid "The new item code cannot be blank. Enter a new code for the item to copy the BOM to"
+msgstr ""
+
+#: Z_CopyBOM.php:136
 msgid "UTILITY PAGE To Copy a BOM"
 msgstr "应用工具页复制一张BOM"
 
-#: Z_CopyBOM.php:116
+#: Z_CopyBOM.php:146
 msgid "From Stock ID"
 msgstr "自库存 ID"
 
-#: Z_CopyBOM.php:122
-#, fuzzy
+#: Z_CopyBOM.php:152
 msgid "To New Stock ID"
 msgstr " 到新库存 ID"
 
-#: Z_CopyBOM.php:134
+#: Z_CopyBOM.php:164
 msgid "To Existing Stock ID"
 msgstr "到现有库存 ID"
 
@@ -36569,7 +36190,6 @@ msgid "has been completed. All assets in the file have been committed to the dat
 msgstr "已经完成。文件中的所有资产都已提交到数据库。"
 
 #: Z_ImportFixedAssets.php:287
-#, fuzzy
 msgid "Get Import Template"
 msgstr "报表已删除"
 
@@ -36582,7 +36202,7 @@ msgid "Fixed Assets Upload file:"
 msgstr "固定资产上传文件："
 
 #: Z_ImportFixedAssets.php:304
-#: Z_ImportStocks.php:298
+#: Z_ImportStocks.php:297
 #: Z_UploadForm.php:17
 msgid "Send File"
 msgstr "传送档案"
@@ -36660,7 +36280,7 @@ msgstr "已新增至交易"
 msgid "has been completed. All transactions committed to the database."
 msgstr "已经完成。所有交易提交到数据库。"
 
-#: Z_ImportStocks.php:297
+#: Z_ImportStocks.php:296
 msgid "Upload file"
 msgstr "上传文件"
 
@@ -36697,7 +36317,6 @@ msgid "Change An Inventory Item Code"
 msgstr "更改物料编号"
 
 #: Z_index.php:15
-#, fuzzy
 msgid "Change A Supplier Code"
 msgstr "更改客户编号"
 
@@ -37198,7 +36817,6 @@ msgid "Do the Recalculation"
 msgstr "进行重计"
 
 #: Z_RePostGLFromPeriod.php:33
-#, fuzzy
 msgid "Are you sure you wish to re-post all general ledger transactions since the selected period this can take some time?"
 msgstr ""
 "您确认您想重新过账所选期间\n"
@@ -37565,33 +37183,32 @@ msgstr "此档案"
 msgid "was uploaded to the server in the /tmp directory and has been renamed temp"
 msgstr "已被上载到伺服器的 /tmp 目录, 已被改名为 temp"
 
-#: includes/Add_SerialItemsOut.php:17
+#: includes/Add_SerialItemsOut.php:22
 #: includes/Add_SerialItems.php:23
 #: includes/Add_SerialItems.php:178
 #: includes/Add_SerialItems.php:275
 msgid "has already been sold"
 msgstr "经已出售"
 
-#: includes/Add_SerialItemsOut.php:20
+#: includes/Add_SerialItemsOut.php:25
 #: includes/Add_SerialItems.php:27
 #: includes/Add_SerialItems.php:181
 #: includes/Add_SerialItems.php:278
 msgid "There is none of"
 msgstr "这是没有"
 
-#: includes/Add_SerialItemsOut.php:20
-#, fuzzy
+#: includes/Add_SerialItemsOut.php:25
 msgid "left"
 msgstr "左"
 
-#: includes/Add_SerialItemsOut.php:23
+#: includes/Add_SerialItemsOut.php:28
 #: includes/Add_SerialItems.php:32
 #: includes/Add_SerialItems.php:184
 #: includes/Add_SerialItems.php:281
 msgid "There is only"
 msgstr "这只是"
 
-#: includes/Add_SerialItemsOut.php:23
+#: includes/Add_SerialItemsOut.php:28
 #: includes/Add_SerialItems.php:28
 #: includes/Add_SerialItems.php:33
 #: includes/Add_SerialItems.php:181
@@ -37601,7 +37218,7 @@ msgstr "这只是"
 msgid "remaining"
 msgstr "改名中"
 
-#: includes/Add_SerialItemsOut.php:23
+#: includes/Add_SerialItemsOut.php:28
 #: includes/Add_SerialItems.php:34
 #: includes/Add_SerialItems.php:186
 #: includes/Add_SerialItems.php:283
@@ -37806,7 +37423,6 @@ msgid "Report this problem"
 msgstr "报告此问题"
 
 #: includes/DefineLabelClass.php:168
-#, fuzzy
 msgid "No label templates exist"
 msgstr "标签模板维护"
 
@@ -37879,22 +37495,18 @@ msgid "This shipment line has a quantity invoiced and already charged to the shi
 msgstr "这运输列含有已开发票数量, 和已收费的运输 - 不能移除"
 
 #: includes/DefineTenderClass.php:42
-#, fuzzy
 msgid "This email has been automatically generated by webERP"
 msgstr "此电子邮件有webERP自动产生"
 
 #: includes/DefineTenderClass.php:43
-#, fuzzy
 msgid "You are invited to Tender for the following products to be delivered to"
 msgstr "采购订单可收货数量"
 
 #: includes/DefineTenderClass.php:44
-#, fuzzy
 msgid "Tender number"
 msgstr "订单编号"
 
 #: includes/DefineTenderClass.php:48
-#, fuzzy
 msgid "Tender received from"
 msgstr "收到的报盘来自"
 
@@ -37942,72 +37554,64 @@ msgstr "没有显示的"
 msgid "left in"
 msgstr "余下"
 
-#: includes/InputSerialItemsFile.php:75
+#: includes/InputSerialItemsFile.php:83
 msgid "Please Choose a file and then click Set Entry Type to upload a file for import"
 msgstr "请选取档案, 之后按 订定输入种类 来上载要汇入的档案"
 
-#: includes/InputSerialItemsFile.php:83
+#: includes/InputSerialItemsFile.php:91
 msgid "There was a problem with the uploaded file"
 msgstr "上载档案时发生问题"
 
-#: includes/InputSerialItemsFile.php:83
+#: includes/InputSerialItemsFile.php:91
 msgid "We received"
 msgstr "我们已接收"
 
-#: includes/InputSerialItemsFile.php:85
-#: includes/InputSerialItemsFile.php:125
+#: includes/InputSerialItemsFile.php:93
+#: includes/InputSerialItemsFile.php:148
 msgid "Size"
 msgstr "大小"
 
-#: includes/InputSerialItemsFile.php:87
+#: includes/InputSerialItemsFile.php:95
 msgid "Error was"
 msgstr "错误是"
 
-#: includes/InputSerialItemsFile.php:101
+#: includes/InputSerialItemsFile.php:109
 msgid "Error moving temporary file"
 msgstr "移动临时档案时错误"
 
-#: includes/InputSerialItemsFile.php:101
+#: includes/InputSerialItemsFile.php:109
 msgid "Please check your configuration"
 msgstr "请检查设定"
 
-#: includes/InputSerialItemsFile.php:109
+#: includes/InputSerialItemsFile.php:117
 msgid "Successfully received"
 msgstr "完成接收"
 
-#: includes/InputSerialItemsFile.php:114
-msgid "Working with"
-msgstr "工作与"
-
-#: includes/InputSerialItemsFile.php:127
+#: includes/InputSerialItemsFile.php:156
 msgid "TempName"
 msgstr "临时名称"
 
-#: includes/InputSerialItemsFile.php:128
+#: includes/InputSerialItemsFile.php:161
 msgid "Valid"
 msgstr "有效"
 
-#: includes/InputSerialItemsFile.php:128
+#: includes/InputSerialItemsFile.php:161
 msgid "Invalid"
 msgstr "无效"
 
-#: includes/InputSerialItemsFile.php:129
-msgid "out of"
-msgstr "超出"
-
-#: includes/InputSerialItemsFile.php:129
-msgid "records are invalid"
-msgstr "记录是有效"
-
-#: includes/InputSerialItemsFile.php:146
+#: includes/InputSerialItemsFile.php:172
 msgid "Validate File"
 msgstr "有效档案"
 
-#: includes/InputSerialItemsFile.php:152
+#: includes/InputSerialItemsFile.php:177
 msgid "1st 10 Lines of File"
 msgstr "首 10 行列的档案"
 
-#: includes/InputSerialItemsFile.php:162
+#: includes/InputSerialItemsFile.php:188
+msgid "Update Batches"
+msgstr "更新税率"
+
+#: includes/InputSerialItemsFile.php:196
 msgid "Below are the 1st 100 records as parsed"
 msgstr "以下为首 100 个按以上分析的记录"
 
@@ -38057,121 +37661,115 @@ msgid "English India"
 msgstr ""
 
 #: includes/LanguagesArray.php:19
-#, fuzzy
+msgid "Arabic Eygptian"
+msgstr ""
+
+#: includes/LanguagesArray.php:24
 msgid "Czech"
 msgstr "每件"
 
-#: includes/LanguagesArray.php:24
-#, fuzzy
+#: includes/LanguagesArray.php:29
 msgid "German"
 msgstr "需求"
 
-#: includes/LanguagesArray.php:29
-#, fuzzy
+#: includes/LanguagesArray.php:34
 msgid "Greek"
 msgstr "绿色"
 
-#: includes/LanguagesArray.php:34
-#, fuzzy
+#: includes/LanguagesArray.php:39
 msgid "Spanish"
 msgstr "完成"
 
-#: includes/LanguagesArray.php:39
+#: includes/LanguagesArray.php:44
 msgid "Estonian"
 msgstr ""
 
-#: includes/LanguagesArray.php:44
-#, fuzzy
+#: includes/LanguagesArray.php:49
 msgid "Persian"
 msgstr "版本"
 
-#: includes/LanguagesArray.php:49
-#, fuzzy
+#: includes/LanguagesArray.php:54
 msgid "French"
 msgstr "客户分公司"
 
-#: includes/LanguagesArray.php:54
+#: includes/LanguagesArray.php:59
 msgid "Hindi"
 msgstr ""
 
-#: includes/LanguagesArray.php:59
+#: includes/LanguagesArray.php:64
 msgid "Hungarian"
 msgstr ""
 
-#: includes/LanguagesArray.php:64
-#, fuzzy
+#: includes/LanguagesArray.php:69
 msgid "Indonesian"
 msgstr "转化"
 
-#: includes/LanguagesArray.php:69
+#: includes/LanguagesArray.php:74
 msgid "Italian"
 msgstr ""
 
-#: includes/LanguagesArray.php:74
-#, fuzzy
+#: includes/LanguagesArray.php:79
 msgid "Japanese"
 msgstr "页数"
 
-#: includes/LanguagesArray.php:79
-#, fuzzy
+#: includes/LanguagesArray.php:84
 msgid "Latvian"
 msgstr "仓库"
 
-#: includes/LanguagesArray.php:84
-#, fuzzy
+#: includes/LanguagesArray.php:89
 msgid "Dutch"
 msgstr "发货"
 
-#: includes/LanguagesArray.php:89
+#: includes/LanguagesArray.php:94
 msgid "Polish"
 msgstr ""
 
-#: includes/LanguagesArray.php:94
+#: includes/LanguagesArray.php:99
 msgid "Brazilian Portuguese"
 msgstr ""
 
-#: includes/LanguagesArray.php:99
-#, fuzzy
+#: includes/LanguagesArray.php:104
 msgid "Portuguese"
 msgstr "MRP的缺料情况"
 
-#: includes/LanguagesArray.php:104
-#, fuzzy
+#: includes/LanguagesArray.php:109
 msgid "Romanian"
 msgstr "运行中"
 
-#: includes/LanguagesArray.php:109
-#, fuzzy
+#: includes/LanguagesArray.php:114
 msgid "Russian"
 msgstr "使用中"
 
-#: includes/LanguagesArray.php:114
-#, fuzzy
+#: includes/LanguagesArray.php:119
 msgid "Albanian"
 msgstr "对齐"
 
-#: includes/LanguagesArray.php:119
+#: includes/LanguagesArray.php:124
 msgid "Swedish"
 msgstr ""
 
-#: includes/LanguagesArray.php:124
+#: includes/LanguagesArray.php:129
 msgid "Kiswahili"
 msgstr ""
 
-#: includes/LanguagesArray.php:129
+#: includes/LanguagesArray.php:134
 msgid "Turkish"
 msgstr ""
 
-#: includes/LanguagesArray.php:134
+#: includes/LanguagesArray.php:139
 msgid "Vietnamese"
 msgstr "越南"
 
-#: includes/LanguagesArray.php:139
+#: includes/LanguagesArray.php:144
 msgid "Chinese - Simplified"
 msgstr ""
 
-#: includes/LanguagesArray.php:144
-msgid "Chinese - Traditional"
+#: includes/LanguagesArray.php:149
+msgid "Chinese - Traditional Hongkong"
+msgstr ""
+
+#: includes/LanguagesArray.php:154
+msgid "Chinese - Traditional Taiwan"
 msgstr ""
 
 #: includes/Login.php:8
@@ -38365,7 +37963,6 @@ msgid "Could not retrieve user details on login because"
 msgstr "登录时未能取得用户资料, 因为"
 
 #: includes/ConnectDB.inc:14
-#, fuzzy
 msgid "The company database being logged into cannot contain any of the illegal characters"
 msgstr "物料编码不能包含以下字符"
 
@@ -38527,26 +38124,26 @@ msgstr "其他检视的指定条件"
 msgid "Nothing To Report"
 msgstr "没有什么可报告"
 
-#: includes/DateFunctions.inc:164
+#: includes/DateFunctions.inc:173
 msgid "The date does not appear to be in a valid format. The date being converted from SQL format was:"
 msgstr ""
 
-#: includes/DateFunctions.inc:821
+#: includes/DateFunctions.inc:830
 msgid "An error occurred in adding a new period number"
 msgstr "新增一个期间编号时发生错误"
 
-#: includes/DateFunctions.inc:833
-#: includes/DateFunctions.inc:946
+#: includes/DateFunctions.inc:842
+#: includes/DateFunctions.inc:955
 #: api/api_salesorders.php:1368
 msgid "An error occurred in retrieving the period number"
 msgstr "提取期间数目时发生错误"
 
-#: includes/DateFunctions.inc:879
+#: includes/DateFunctions.inc:888
 #: includes/GLPostings.inc:36
 msgid "Could not insert first period"
 msgstr "未能插入首个期间"
 
-#: includes/DateFunctions.inc:880
+#: includes/DateFunctions.inc:889
 #: includes/GLPostings.inc:37
 msgid "Could not insert second period"
 msgstr "无法插入第二个期间"
@@ -38559,8 +38156,8 @@ msgstr "变量"
 msgid "is set to"
 msgstr "是设定到"
 
-#: includes/footer.inc:17
-#: includes/footer.inc:23
+#: includes/footer.inc:35
+#: includes/footer.inc:41
 msgid "Copyright"
 msgstr "版权"
 
@@ -38966,7 +38563,6 @@ msgid "Ex Diff"
 msgstr "汇率差"
 
 #: includes/PDFPeriodStockTransListingPageHeader.inc:20
-#, fuzzy
 msgid "dated from"
 msgstr "日期"
 
@@ -39310,7 +38906,6 @@ msgid "The value of outstanding orders for the customer could not be retrieved b
 msgstr "未能提取客户的未完成订单价值,因为"
 
 #: includes/SQL_CommonFunctions.inc:344
-#, fuzzy
 msgid "The general ledger entries created do not balance. See your system administrator"
 msgstr "无法查找到公司信息和设置。请联络您的系统管理员"
 
@@ -39318,7 +38913,6 @@ msgstr "无法查找到公司信息和设置。请联络您的系统管理员"
 #: api/api_debtortransactions.php:1282
 #: api/api_debtortransactions.php:1493
 #: api/api_debtortransactions.php:1505
-#, fuzzy
 msgid "Invoice for"
 msgstr "开发票 "
 
@@ -39952,17 +39546,14 @@ msgid "No such salesman"
 msgstr "不存在此销售员"
 
 #: api/api_errorcodes.php:333
-#, fuzzy
 msgid "Unable to read company record"
 msgstr "代理公司记录"
 
 #: api/api_errorcodes.php:334
-#, fuzzy
 msgid "Unable to read sales order"
 msgstr "无法增加销售订单行"
 
 #: api/api_errorcodes.php:335
-#, fuzzy
 msgid "Unable to read sales order lines"
 msgstr "无法增加销售订单行"
 
@@ -39971,27 +39562,22 @@ msgid "Unable to get tax province of location"
 msgstr ""
 
 #: api/api_errorcodes.php:337
-#, fuzzy
 msgid "Unable to read tax rates for this item and tax group"
 msgstr "无法找到符合此条件的订单 "
 
 #: api/api_errorcodes.php:338
-#, fuzzy
 msgid "Unable to read customer and branch details"
 msgstr "替代客户分公司编号"
 
 #: api/api_errorcodes.php:339
-#, fuzzy
 msgid "Unable to read credit note item details"
 msgstr "未能判定序列号是否存在"
 
 #: api/api_errorcodes.php:340
-#, fuzzy
 msgid "Can only allocate receipts or a credit notes"
 msgstr "收款清算"
 
 #: api/api_errorcodes.php:341
-#, fuzzy
 msgid "No transaction found to allocate"
 msgstr "次交易采用这种销售方式"
 
@@ -40733,27 +40319,22 @@ msgid "This function returns an array of payment terms details."
 msgstr "此函数返回一个付款条件细节数组。"
 
 #: api/api_xml-rpc.php:621
-#, fuzzy
 msgid "This function returns a list of payment method codes."
 msgstr "此函数返回一个销售区域代码列表。"
 
 #: api/api_xml-rpc.php:626
-#, fuzzy
 msgid "This function returns an array of payment method codes."
 msgstr "此函数返回一个付款条件细节数组。"
 
 #: api/api_xml-rpc.php:647
-#, fuzzy
 msgid "This function takes a payment method code and returns details of that payment method."
 msgstr "此函数接收一个付款条件缩写并且返回付款条件细节"
 
 #: api/api_xml-rpc.php:648
-#, fuzzy
 msgid "Payment method code"
 msgstr "付款方式"
 
 #: api/api_xml-rpc.php:649
-#, fuzzy
 msgid "A payment method code as returned by the GetPaymentMethodsList function."
 msgstr "GetPaymentTermList函数返回付款条件缩写"
 
@@ -40929,7 +40510,6 @@ msgid "Creates a customer receipt from the details passed to the method as an as
 msgstr ""
 
 #: api/api_xml-rpc.php:1060
-#, fuzzy
 msgid "Receipt Details"
 msgstr "贷方详细"
 
@@ -40938,7 +40518,6 @@ msgid "An associative array describing the customer receipt with the following f
 msgstr ""
 
 #: api/api_xml-rpc.php:1067
-#, fuzzy
 msgid "If the first element is zero then the function was successful, and the second element is the receipt number. "
 msgstr "如果第一个元素是0，那么函数就成功了，第二个元素是发票号。 "
 
@@ -40947,7 +40526,6 @@ msgid "Allocates a debtor receipt or credit to a debtor invoice. Using the custo
 msgstr ""
 
 #: api/api_xml-rpc.php:1090
-#, fuzzy
 msgid "Allocation Details"
 msgstr "修改仓库细节"
 
@@ -40960,7 +40538,6 @@ msgid "Creates a credit note from header details associative array and line item
 msgstr ""
 
 #: api/api_xml-rpc.php:1120
-#, fuzzy
 msgid "Credit Note Header Details"
 msgstr "订单表头信息"
 
@@ -40969,7 +40546,6 @@ msgid "An associative array describing the credit note header with the fields de
 msgstr ""
 
 #: api/api_xml-rpc.php:1122
-#, fuzzy
 msgid "Credit note line items"
 msgstr "红字发票备注"
 
@@ -40978,7 +40554,6 @@ msgid "The lines of stock being returned on this credit note. Only stock returns
 msgstr ""
 
 #: api/api_xml-rpc.php:1129
-#, fuzzy
 msgid "If the first element is zero then the function was successful, and the second element is the credit note number. "
 msgstr "如果第一个元素是0，那么函数就成功了，第二个元素是发票号。 "
 
@@ -41020,7 +40595,6 @@ msgstr "如果第一个元素是0，那么函数就成功了，第二个元素�
 #: api/api_xml-rpc.php:2096
 #: api/api_xml-rpc.php:2186
 #: api/api_xml-rpc.php:2222
-#, fuzzy
 msgid "Return Value Descriptions go here"
 msgstr "报告筛选器描述"
 
@@ -41049,7 +40623,6 @@ msgid "If successful this function returns a two element array; the first elemen
 msgstr "如果成功，此函数返回两个元素数组；第一个元素是0代表成功或者一个错误代码，第二个元素是订单号"
 
 #: api/api_xml-rpc.php:1255
-#, fuzzy
 msgid "Sales Order to invoice"
 msgstr "新建发票"
 
@@ -41058,7 +40631,6 @@ msgid "An integer representing the webERP sales order number"
 msgstr ""
 
 #: api/api_xml-rpc.php:1261
-#, fuzzy
 msgid "If successful this function returns a two element array; the first element is 0 for success or an error code, while the second element is the invoice number."
 msgstr "如果成功，此函数返回两个元素数组；第一个元素是0代表成功或者一个错误代码，第二个元素是订单号"
 
@@ -41100,7 +40672,6 @@ msgstr "orderno和stkcode键必须是这些值中的一个 "
 #: api/api_xml-rpc.php:2097
 #: api/api_xml-rpc.php:2187
 #: api/api_xml-rpc.php:2223
-#, fuzzy
 msgid "Function Description go here"
 msgstr "会计要素名称"
 
@@ -41288,44 +40859,36 @@ msgid "This function returns an array of tax group details."
 msgstr "此函数返回一个税收组细节数组。"
 
 #: api/api_xml-rpc.php:1895
-#, fuzzy
 msgid "This function returns a list of tax authority IDs."
 msgstr "此函数返回一个税收组ID列表。"
 
 #: api/api_xml-rpc.php:1921
-#, fuzzy
 msgid "This function takes a tax authority ID and returns details of that tax authority."
 msgstr "此函数接受一个税收组ID并返回税收组细节"
 
 #: api/api_xml-rpc.php:1922
 #: api/api_xml-rpc.php:1950
-#, fuzzy
 msgid "Tax Authority ID"
 msgstr "税种"
 
 #: api/api_xml-rpc.php:1923
 #: api/api_xml-rpc.php:1951
-#, fuzzy
 msgid "A tax Authority ID as returned by the GetTaxAuthorityList function."
 msgstr "GetTaxgroupList函数返回一个税收组ID"
 
 #: api/api_xml-rpc.php:1928
-#, fuzzy
 msgid "This function returns an array of tax authority details."
 msgstr "此函数返回一个税收组细节数组。"
 
 #: api/api_xml-rpc.php:1949
-#, fuzzy
 msgid "This function takes a tax authority ID and returns the rates of tax for the authority."
 msgstr "此函数接收一个顾客类型ID并返回此顾客的细节信息。"
 
 #: api/api_xml-rpc.php:1956
-#, fuzzy
 msgid "This function returns an array of tax authority tax rates."
 msgstr "此函数返回一个顾客类型数组。"
 
 #: api/api_xml-rpc.php:1979
-#, fuzzy
 msgid "This function takes a tax group ID and returns the taxes that belong to that tax group."
 msgstr "此函数接受一个税收组ID并返回税收组细节"
 
@@ -41601,12 +41164,10 @@ msgid "If successful this function returns a string contain the default date for
 msgstr "如果成功，此函数会返回一个包含默认日期格式的字符串。 "
 
 #: api/api_xml-rpc.php:2847
-#, fuzzy
 msgid "Returns the webERP default shipper"
 msgstr "返回webERP默认的价格表"
 
 #: api/api_xml-rpc.php:2852
-#, fuzzy
 msgid "If successful this function returns an array of two elements the first should contain an integer of zero for successful and the second an associative arrat containing the key of confvalue the value of which is the Default_Shipper."
 msgstr "如果成功，此函数返回两个元素数组；第一个元素是0代表成功或者一个错误代码，第二个元素是订单号"
 
@@ -41677,6 +41238,21 @@ msgstr "参数"
 #: api/api_xml-rpc.php:3402
 msgid "Return Value"
 msgstr "返回值"
+
+#~ msgid "Details Of Petty Cash Tab "
+#~ msgstr "小额现金标签细节 "
+
+#~ msgid "update"
+#~ msgstr "更新"
+
+#~ msgid "Working with"
+#~ msgstr "工作与"
+
+#~ msgid "out of"
+#~ msgstr "超出"
+
+#~ msgid "records are invalid"
+#~ msgstr "记录是有效"
 
 #, fuzzy
 #~ msgid ""
