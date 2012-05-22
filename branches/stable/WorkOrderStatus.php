@@ -44,7 +44,7 @@ include('includes/header.inc');
 
 	echo '<table cellpadding="2" class="selection">
 		<tr>
-			<td class="label">' . _('Issue to work order') . ':</td>
+			<td class="label">' . _('Work order Number') . ':</td>
 			<td>' . $_REQUEST['WO'] .'</td>
 			<td class="label">' . _('Item') . ':</td>
 			<td>' . $_REQUEST['StockID'] . ' - ' . $WORow['description'] . '</td>
@@ -65,31 +65,17 @@ include('includes/header.inc');
 			<td class="number">' . locale_number_format($WORow['qtyrecd'],$WORow['decimalplaces']) . '</td>
 			<td colspan="2">' . $WORow['units'] . '</td>
 		</tr>
-	 	<tr>
-			<td class="label">' . _('Date Material Issued') . ':</td>
-			<td>' . Date($_SESSION['DefaultDateFormat']) . '</td>
-			<td class="label">' . _('Issued From') . ':</td>
-			<td>';
-
-		if (!isset($_POST['FromLocation'])){
-			$_POST['FromLocation']=$WORow['loccode'];
-		}
-		$LocResult = DB_query("SELECT loccode, locationname
-								FROM locations
-								WHERE loccode='" . $_POST['FromLocation'] . "'",
-							$db);
-		$LocRow = DB_fetch_array($LocResult);
-		echo $LocRow['locationname'];
-		echo '<tr><td colspan="4"></td></tr>';
-		echo '</td>
-			</tr>
-			</table>
-			<br />';
+		<tr>
+			<td class="label">' . _('Start Date') . ':</td>
+			<td>' . ConvertSQLDate($WORow['startdate']) . '</td>
+		</tr>
+		</table>
+		<br />';
 
 		//set up options for selection of the item to be issued to the WO
 		echo '<table class="selection">
 				<tr>
-					<th colspan="5"><font size="2" color="navy">' . _('Material Requirements For this Work Order') . '</font></th>
+					<th colspan="5"><h3>' . _('Material Requirements For this Work Order') . '</h3></th>
 				</tr>';
 		echo '<tr>
 				<th colspan="2">' . _('Item') . '</th>
