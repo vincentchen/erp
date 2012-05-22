@@ -1,4 +1,5 @@
 webERP Change Log
+22/5/2012 Fu02: Add translated Chinese string in zh_CN.utf8 locale 
 18/5/2012 Ahmed: Fixed bug that Offer cannot store more than one items and remove function does not work in SupplierTenders.php and DefineOfferClass.php
 18/5/2012 Ahmed.Fawzy: Fixed Branch code validation rule to rule out '-' in CustomerBranches.php.
 17/5/2012 Thumb: Remove version merge info in DeliveryDate.php 
