@@ -12,14 +12,27 @@ echo '<p class="page_title_text">
 	</p>';
 
 if (isset($_GET['ReqDate'])){
-	$ReqDate = $_GET['ReqDate'];
+	$ReqDate = ConvertSQLDate($_GET['ReqDate']);
 } else {
 	$ReqDate=Date('Y-m-d');
 }
+
+if (isset($_GET['StartDate'])){
+	$StartDate = ConvertSQLDate($_GET['StartDate']);
+} else {
+	$StartDate=Date('Y-m-d');
+}
+
 if (isset($_GET['loccode'])){
 	$LocCode = $_GET['loccode'];
 } else {
 	$LocCode=$_SESSION['UserStockLocation'];
+}
+
+foreach ($_POST as $key=>$value) {
+	if (substr($key, 0, 9)=='OutputQty' or substr($key, 0, 7)=='RecdQty') {
+		$_POST[$key] = filter_number_format($value);
+	}
 }
 
 // check for new or modify condition
@@ -37,7 +50,7 @@ if (isset($_REQUEST['WO']) and $_REQUEST['WO']!=''){
 			 VALUES ('" . $_POST['WO'] . "',
 					'" . $LocCode . "',
 					'" . $ReqDate . "',
-					'" . Date('Y-m-d'). "')";
+					'" . $StartDate. "')";
 	$InsWOResult = DB_query($sql,$db);
 }
 
@@ -248,7 +261,7 @@ if (isset($NewItem) AND isset($_POST['WO'])){
 } //adding a new item to the work order
 
 
-if (isset($_POST['submit'])) { //The update button has been clicked
+if (isset($_POST['submit']) or isset($_POST['Search'])) { //The update button has been clicked
 
 	echo '<div class="centre">
 			<a href="' . htmlspecialchars($_SERVER['PHP_SELF']) .'">' . _('Enter a new work order') . '</a>
