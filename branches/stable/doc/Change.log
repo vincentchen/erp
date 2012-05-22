@@ -1,8 +1,8 @@
 webERP Change Log
+22/5/2012: Phil fixed typo in session.inc.
 22/5/2012: Phil Fixed that the material issue date material issued not fixed according to the actual issue date in WorkOrderStatus.php. Reported by Klaus.
 22/5/2012 Exson: Change accountcode to varchar(20) to meet different countries accounting system requirements
 22/5/2012 Tim: Fixed the WorkOrderEntry.php lost input date while do item searching. Report by Klaus. 
-22/5/2012 Fu02: Add translated Chinese string in zh_CN.utf8 locale 
 22/5/2012 Fu02: Add translated Chinese string in zh_CN.utf8 locale 
 18/5/2012 Ahmed: Fixed bug that Offer cannot store more than one items and remove function does not work in SupplierTenders.php and DefineOfferClass.php
 18/5/2012 Ahmed.Fawzy: Fixed Branch code validation rule to rule out '-' in CustomerBranches.php.
