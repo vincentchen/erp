@@ -1,4 +1,5 @@
 webERP Change Log
+23/5/2012 Exson: Revised GLAccounts.php to make it can input more than 10 digits. 
 22/5/2012: Phil fixed typo in session.inc.
 22/5/2012: Phil Fixed that the material issue date material issued not fixed according to the actual issue date in WorkOrderStatus.php. Reported by Klaus.
 22/5/2012 Exson: Change accountcode to varchar(20) to meet different countries accounting system requirements
