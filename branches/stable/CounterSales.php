@@ -241,7 +241,7 @@ if (isset($_POST['Search']) or isset($_POST['Next']) or isset($_POST['Prev'])){
 			$SQL = "SELECT stockmaster.stockid,
 						stockmaster.description,
 						stockmaster.units,
-						stockmaster.decmimalplaces   
+						stockmaster.decimalplaces   
 					FROM stockmaster INNER JOIN stockcategory
 					ON stockmaster.categoryid=stockcategory.categoryid
 					WHERE (stockcategory.stocktype='F' OR stockcategory.stocktype='D')
