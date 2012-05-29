@@ -1,4 +1,5 @@
 webERP Change Log
+30/5/2012: asperatus: Fixed typo of decimalplaces in CounterSales.php
 23/5/2012 Exson: Revised GLAccounts.php to make it can input more than 10 digits. 
 22/5/2012: Phil fixed typo in session.inc.
 22/5/2012: Phil Fixed that the material issue date material issued not fixed according to the actual issue date in WorkOrderStatus.php. Reported by Klaus.
