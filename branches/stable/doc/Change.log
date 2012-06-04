@@ -1,4 +1,5 @@
 webERP Change Log
+4/6/2012 fu02(From webERP Chinese Community QQ group) fixed some translation mistakes. 
 04/06/2012 Phil: Countersales and receipts should be set. Phil fixed it in CounterSales.php.
 04/06/2012 Exson: Fixed div by zero error in SelectOrderItems.php. Reported by rfthomas.
 30/5/2012: asperatus: Fixed typo of decimalplaces in CounterSales.php
