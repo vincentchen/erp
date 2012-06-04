@@ -29,4 +29,5 @@ ALTER TABLE pctabs MODIFY column glaccountpcash varchar(20) NOT NULL DEFAULT '0'
 ALTER TABLE taxauthorities ADD CONSTRAINT taxauthorities_ibfk_1 FOREIGN KEY (taxglcode) REFERENCES chartmaster(accountcode);
 ALTER TABLE taxauthorities ADD CONSTRAINT taxauthorities_ibfk_2 FOREIGN KEY (purchtaxglaccount) REFERENCES chartmaster(accountcode);
 INSERT INTO scripts VALUES('Z_AccountCodeTo20Digits.php',15,'Update account code to 20 digits to meet requirements for long account code in some countris');
+UPDATE systypes SET typeno=41 WHERE typeid=30;
 UPDATE config SET confvalue='4.07.10' WHERE confname='VersionNumber';
