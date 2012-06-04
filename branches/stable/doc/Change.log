@@ -1,4 +1,5 @@
 webERP Change Log
+04/06/2012 Exson: Fixed div by zero error in SelectOrderItems.php. Reported by rfthomas.
 30/5/2012: asperatus: Fixed typo of decimalplaces in CounterSales.php
 23/5/2012 Exson: Revised GLAccounts.php to make it can input more than 10 digits. 
 22/5/2012: Phil fixed typo in session.inc.
