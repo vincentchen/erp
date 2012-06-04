@@ -1,8 +1,9 @@
 webERP README
 
 /* $Id$*/
-Version 4.07.9 webERP
-This version fixed bugs reported since webERP4.07.8 which released on April 30,2012. You can find more details from log files.
+Version 4.07.10 webERP
+This version fixed bugs reported since webERP4.07.9 which released on May 14,2012. You can find more details from log files.
+A Z_AccountCodeTo20Digits.php script is added to modify accountcode field to varchar(20) to meet long accountcode requirements for some countries. 
 
 Version  4.x of webERP
 
