@@ -59,8 +59,8 @@ function change_os(type) {
 }
 function change_data(type) {
 	if(type == 'demo') {
-		document.getElementById('db_file_demo').checked = true;
-		document.getElementById('db_file_new').checked = false;
+		document.getElementById('db_file_demo').checked = false;
+		document.getElementById('db_file_new').checked = true;
 
 	} else if(type == 'new') {
 		document.getElementById('db_file_demo').checked = false;
@@ -284,9 +284,9 @@ function change_data(type) {
 			</td>
 
 			<td>
-                <p style="cursor: pointer;" onclick="javascript: change_data('demo');">
+                
 				<input type="checkbox" tabindex="51" name="DemoData" id="db_file_demo" value="demo"<?php if(!isset($_SESSION['db_file']) OR $_SESSION['db_file'] == 'demo') { echo ' checked="checked"'; } ?> />
-				weberpdemo company</p>
+			<div style="cursor: pointer;" onclick="javascript: change_data('demo');">	weberpdemo company</div>
 			</td>
 		</tr>
 		<tr>
