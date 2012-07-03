@@ -1,5 +1,5 @@
 webERP Change Log
-
+03/07/2012: Exson fixed that only weberpdemo can be installed in install/index.php reported by Li xiao from webERP Chinese Community QQ group.
 24/6/2012 Release 4.08.1
 
 22/06/2012 Icedlava: Fixed bug preventing insert of new account section
