@@ -1,4 +1,5 @@
 webERP Change Log
+05/07/2012: Exson fixed that lower version cannot upgrade to version 4.08 in Upgrade.php
 03/07/2012: Exson fixed that only weberpdemo can be installed in install/index.php reported by Li xiao from webERP Chinese Community QQ group.
 24/6/2012 Release 4.08.1
 
