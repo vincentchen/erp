@@ -91,4 +91,35 @@
 		return $ReturnValue;
 	}
 
+	/* This function creates a POS zipped update file */
+
+
+	function CreatePOSDataFull($POSDebtorNo, $POSBranchCode, $User, $Password) {
+		$Errors = array();
+		$db = db($User, $Password);
+		if (gettype($db)=='integer') {
+			 return NoAuthorisation;
+		}
+		$Result = Create_POS_Data_Full($POSDebtorNo,$POSBranchCode,dirname(__FILE__).'/../',$db);
+		if ($Result==1) {
+			$ReturnValue=0;
+		} else {
+			$ReturnValue=$Result;
+		}
+		return $ReturnValue;
+	}
+	function DeletePOSData($User, $Password) {
+		$Errors = array();
+		$db = db($User, $Password);
+		if (gettype($db)=='integer') {
+			return NoAuthorisation;
+		}
+		$Result = Delete_POS_Data(dirname(__FILE__).'/../',$db);
+		if ($Result==1){
+			return 0;
+		} else {
+			return $Result;
+		}
+	}
+
 ?>
