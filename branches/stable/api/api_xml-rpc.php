@@ -789,7 +789,7 @@
 	$SearchStockItems_doc = apiBuildDocHTML( $Description,$Parameter,$ReturnValue );
 
 	function  xmlrpc_SearchStockItems($xmlrpcmsg){
-		ob_start('ob_file_callback');
+		//ob_start('ob_file_callback');
 /*x*/		if ($xmlrpcmsg->getNumParams() == 4)
 /*x*/		{
 /*x*/		 $rtn = new xmlrpcresp( php_xmlrpc_encode(SearchStockItems($xmlrpcmsg->getParam( 0 )->scalarval(  ),
@@ -800,7 +800,7 @@
 		 $rtn = new xmlrpcresp( php_xmlrpc_encode(SearchStockItems($xmlrpcmsg->getParam( 0 )->scalarval(  ),
 /*e*/			$xmlrpcmsg->getParam( 1 )->scalarval(  ), '', '')));
 /*x*/		}
-		ob_end_flush();
+		//ob_end_flush();
 		return $rtn;
 	}
 
@@ -1140,7 +1140,7 @@
 		ob_end_flush();
 		return $rtn;
 	}
-	
+
 	unset($Description);
 	unset($Parameter);
 	unset($ReturnValue);
@@ -1475,7 +1475,7 @@
 	unset($Description);
 	unset($Parameter);
 	unset($ReturnValue);
-	
+
 	$Description = _('This function returns a list of stock location ids.');
 	$Parameter[0]['name'] = _('User name');
 	$Parameter[0]['description'] = _('A valid weberp username. This user should have security access  to this data.');
@@ -2931,12 +2931,12 @@
 	unset($Parameter);
 	unset($ReturnValue);
 
-	$Description = _('Returns the webERP currency code');
+	$Description = _('Returns the webERP default inventory location');
 	$Parameter[0]['name'] = _('User name');
 	$Parameter[0]['description'] = _('A valid weberp username. This user should have security access  to this data.');
 	$Parameter[1]['name'] = _('User password');
 	$Parameter[1]['description'] = _('The weberp password associated with this user name. ');
-	$ReturnValue[0] = _('If successful this function returns a string contain the default currency code. ')
+	$ReturnValue[0] = _('If successful this function returns a string contain the default inventory location. ')
 			._('Otherwise an array of error codes is returned. ');
 
 /*E*/	$GetDefaultLocation_sig = array(array($xmlrpcStruct),
@@ -2955,6 +2955,69 @@
 		ob_end_flush();
 		return $rtn;
 	}
+
+	unset($Description);
+	unset($Parameter);
+	unset($ReturnValue);
+
+	$Description = _('This function creates a POS data file on the webERP server for download by the POS');
+	$Parameter[0]['name'] = _('POS Customer Code - a valid webERP customer that sales from the POS are made against.');
+	$Parameter[0]['description'] = _('POS Customer Branch Code - a valid branch code of the webERP customer that the POS sales are made against');
+	$Parameter[1]['name'] = _('User name');
+	$Parameter[1]['description'] = _('A valid weberp username. This user should have security access  to this data.');
+	$Parameter[2]['name'] = _('User name');
+	$Parameter[2]['description'] = _('A valid weberp username. This user should have security access  to this data.');
+	$Parameter[3]['name'] = _('User password');
+	$Parameter[3]['description'] = _('The weberp password associated with this user name. ');
+	$ReturnValue[0] = _('If successful this function returns 0 for success and 1 for error. ');
+
+	$CreatePOSDataFull_sig = array(array($xmlrpcStruct,$xmlrpcString,$xmlrpcString,$xmlrpcString,$xmlrpcString));
+	$CreatePOSDataFull_doc = apiBuildDocHTML( $Description,$Parameter,$ReturnValue );
+
+	function  xmlrpc_CreatePOSDataFull($xmlrpcmsg){
+		ob_start('ob_file_callback');
+/*x*/		if ($xmlrpcmsg->getNumParams() == 4) {
+/*x*/			$rtn = new xmlrpcresp( php_xmlrpc_encode(CreatePOSDataFull($xmlrpcmsg->getParam( 0 )->scalarval(  ),
+/*x*/																		$xmlrpcmsg->getParam( 1 )->scalarval(  ),
+																			$xmlrpcmsg->getParam( 2 )->scalarval(  ),
+																			$xmlrpcmsg->getParam( 3 )->scalarval(  ))) );
+/*x*/		} else {
+/*e*/ 			$rtn = new xmlrpcresp( php_xmlrpc_encode(CreatePOSDataFull( $xmlrpcmsg->getParam( 0 )->scalarval(  ),
+/*x*/																		$xmlrpcmsg->getParam( 1 )->scalarval(  ),
+																			'',
+																			'')));
+/*x*/		}
+		ob_end_flush();
+		return $rtn;
+	}
+
+	unset($Description);
+	unset($Parameter);
+	unset($ReturnValue);
+
+	$Description = _('This function deletes a POS data file on the webERP server');
+	$Parameter[0]['name'] = _('User name');
+	$Parameter[0]['description'] = _('A valid weberp username. This user should have security access  to this data.');
+	$Parameter[1]['name'] = _('User password');
+	$Parameter[1]['description'] = _('The weberp password associated with this user name. ');
+	$ReturnValue[0] = _('Returns 0 if the delete POS Data was successfull');
+
+/*E*/$DeletePOSData_sig = array(array($xmlrpcStruct,$xmlrpcString,$xmlrpcString));
+	$DeletePOSData_doc = apiBuildDocHTML( $Description,$Parameter,$ReturnValue );
+
+
+	function  xmlrpc_DeletePOSData($xmlrpcmsg){
+		ob_start('ob_file_callback');
+		if ($xmlrpcmsg->getNumParams() == 2) {
+			$rtn = new xmlrpcresp( php_xmlrpc_encode(DeletePOSData($xmlrpcmsg->getParam( 0 )->scalarval(  ),
+																	$xmlrpcmsg->getParam( 1 )->scalarval(  ) )) );
+		} else {
+			$rtn = new xmlrpcresp( php_xmlrpc_encode(DeletePOSData( '','')));
+		}
+		ob_end_flush();
+		return $rtn;
+	}
+
 
 	unset($Description);
 	unset($Parameter);
@@ -3012,380 +3075,389 @@
 
 
 	$s = new xmlrpc_server( array(
-		"weberp.xmlrpc_Login" => array(
-			"function" => "xmlrpc_Login",
-			"signature" => $Login_sig,
-			"docstring" => $Login_doc),
-		"weberp.xmlrpc_Logout" => array(
-			"function" => "xmlrpc_Logout",
-			"signature" => $Logout_sig,
-			"docstring" => $Logout_doc),
-		"weberp.xmlrpc_InsertCustomer" => array(
-			"function" => "xmlrpc_InsertCustomer",
-			"signature" => $InsertCustomer_sig,
-			"docstring" => $InsertCustomer_doc),
-		"weberp.xmlrpc_ModifyCustomer" => array(
-			"function" => "xmlrpc_ModifyCustomer",
-			"signature" => $ModifyCustomer_sig,
-			"docstring" => $ModifyCustomer_doc),
-		"weberp.xmlrpc_GetCustomer" => array(
-			"function" => "xmlrpc_GetCustomer",
-			"signature" => $GetCustomer_sig,
-			"docstring" => $GetCustomer_doc),
-		"weberp.xmlrpc_SearchCustomers" => array(
-			"function" => "xmlrpc_SearchCustomers",
-			"signature" => $SearchCustomers_sig,
-			"docstring" => $SearchCustomers_doc),
-		"weberp.xmlrpc_GetCurrencyList" => array(
-			"function" => "xmlrpc_GetCurrencyList",
-			"signature" => $GetCurrencyList_sig,
-			"docstring" => $GetCurrencyList_doc),
-		"weberp.xmlrpc_GetCurrencyDetails" => array(
-			"function" => "xmlrpc_GetCurrencyDetails",
-			"signature" => $GetCurrencyDetails_sig,
-			"docstring" => $GetCurrencyDetails_doc),
-		"weberp.xmlrpc_GetSalesTypeList" => array(
-			"function" => "xmlrpc_GetSalesTypeList",
-			"signature" => $GetSalesTypeList_sig,
-			"docstring" => $GetSalesTypeList_doc),
-		"weberp.xmlrpc_GetSalesTypeDetails" => array(
-			"function" => "xmlrpc_GetSalesTypeDetails",
-			"signature" => $GetSalesTypeDetails_sig,
-			"docstring" => $GetSalesTypeDetails_doc),
-		"weberp.xmlrpc_InsertSalesType" => array(
-			"function" => "xmlrpc_InsertSalesType",
-			"signature" => $InsertSalesType_sig,
-			"docstring" => $InsertSalesType_doc),
-		"weberp.xmlrpc_GetHoldReasonList" => array(
-			"function" => "xmlrpc_GetHoldReasonList",
-			"signature" => $GetHoldReasonList_sig,
-			"docstring" => $GetHoldReasonList_doc),
-		"weberp.xmlrpc_GetHoldReasonDetails" => array(
-			"function" => "xmlrpc_GetHoldReasonDetails",
-			"signature" => $GetHoldReasonDetails_sig,
-			"docstring" => $GetHoldReasonDetails_doc),
-		"weberp.xmlrpc_GetPaymentTermsList" => array(
-			"function" => "xmlrpc_GetPaymentTermsList",
-			"signature" => $GetPaymentTermsList_sig,
-			"docstring" => $GetPaymentTermsList_doc),
-		"weberp.xmlrpc_GetPaymentTermsDetails" => array(
-			"function" => "xmlrpc_GetPaymentTermsDetails",
-			"signature" => $GetPaymentTermsDetails_sig,
-			"docstring" => $GetPaymentTermsDetails_doc),
-		"weberp.xmlrpc_GetPaymentMethodsList" => array(
-			"function" => "xmlrpc_GetPaymentMethodsList",
-			"signature" => $GetPaymentMethodsList_sig,
-			"docstring" => $GetPaymentMethodsList_doc),
-		"weberp.xmlrpc_GetPaymentMethodDetails" => array(
-			"function" => "xmlrpc_GetPaymentMethodDetails",
-			"signature" => $GetPaymentMethodDetails_sig,
-			"docstring" => $GetPaymentMethodDetails_doc),
-		"weberp.xmlrpc_InsertStockItem" => array(
-			"function" => "xmlrpc_InsertStockItem",
-			"signature" => $InsertStockItem_sig,
-			"docstring" => $InsertStockItem_doc),
-		"weberp.xmlrpc_ModifyStockItem" => array(
-			"function" => "xmlrpc_ModifyStockItem",
-			"signature" => $ModifyStockItem_sig,
-			"docstring" => $ModifyStockItem_doc),
-		"weberp.xmlrpc_GetStockItem" => array(
-			"function" => "xmlrpc_GetStockItem",
-			"signature" => $GetStockItem_sig,
-			"docstring" => $GetStockItem_doc),
-		"weberp.xmlrpc_SearchStockItems" => array(
-			"function" => "xmlrpc_SearchStockItems",
-			"signature" => $SearchStockItems_sig,
-			"docstring" => $SearchStockItems_doc),
-		"weberp.xmlrpc_GetStockBalance" => array(
-			"function" => "xmlrpc_GetStockBalance",
-			"signature" => $GetStockBalance_sig,
-			"docstring" => $GetStockBalance_doc),
-		"weberp.xmlrpc_GetStockReorderLevel" => array(
-			"function" => "xmlrpc_GetStockReorderLevel",
-			"signature" => $GetStockReorderLevel_sig,
-			"docstring" => $GetStockReorderLevel_doc),
-		"weberp.xmlrpc_SetStockReorderLevel" => array(
-			"function" => "xmlrpc_SetStockReorderLevel",
-			"signature" => $SetStockReorderLevel_sig,
-			"docstring" => $SetStockReorderLevel_doc),
-		"weberp.xmlrpc_GetAllocatedStock" => array(
-			"function" => "xmlrpc_GetAllocatedStock",
-			"signature" => $GetAllocatedStock_sig,
-			"docstring" => $GetAllocatedStock_doc),
-		"weberp.xmlrpc_GetOrderedStock" => array(
-			"function" => "xmlrpc_GetOrderedStock",
-			"signature" => $GetOrderedStock_sig,
-			"docstring" => $GetOrderedStock_doc),
-		"weberp.xmlrpc_SetStockPrice" => array(
-			"function" => "xmlrpc_SetStockPrice",
-			"signature" => $SetStockPrice_sig,
-			"docstring" => $SetStockPrice_doc),
-		"weberp.xmlrpc_GetStockPrice" => array(
-			"function" => "xmlrpc_GetStockPrice",
-			"signature" => $GetStockPrice_sig,
-			"docstring" => $GetStockPrice_doc),
-		"weberp.xmlrpc_InsertSalesInvoice" => array(
-			"function" => "xmlrpc_InsertSalesInvoice",
-			"signature" => $InsertSalesInvoice_sig,
-			"docstring" => $InsertSalesInvoice_doc),
-		"weberp.xmlrpc_AllocateTrans" => array(
-			"function" => "xmlrpc_AllocateTrans",
-			"signature" => $AllocateTrans_sig,
-			"docstring" => $AllocateTrans_doc),
-		"weberp.xmlrpc_InsertDebtorReceipt" => array(
-			"function" => "xmlrpc_InsertDebtorReceipt",
-			"signature" => $InsertDebtorReceipt_sig,
-			"docstring" => $InsertDebtorReceipt_doc),
-		"weberp.xmlrpc_CreateCreditNote" => array(
-			"function" => "xmlrpc_CreateCreditNote",
-			"signature" => $CreateCreditNote_sig,
-			"docstring" => $CreateCreditNote_doc),
-		"weberp.xmlrpc_InsertSalesCredit" => array(
-			"function" => "xmlrpc_InsertSalesCredit",
-			"signature" => $InsertSalesCredit_sig,
-			"docstring" => $InsertSalesCredit_doc),
-		"weberp.xmlrpc_InsertBranch" => array(
-			"function" => "xmlrpc_InsertBranch",
-			"signature" => $InsertBranch_sig,
-			"docstring" => $InsertBranch_doc),
-		"weberp.xmlrpc_ModifyBranch" => array(
-			"function" => "xmlrpc_ModifyBranch",
-			"signature" => $ModifyBranch_sig,
-			"docstring" => $ModifyBranch_doc),
-		"weberp.xmlrpc_GetCustomerBranchCodes" => array(
-			"function" => "xmlrpc_GetCustomerBranchCodes",
-			"signature" => $GetCustomerBranchCodes_sig,
-			"docstring" => $GetCustomerBranchCodes_doc),
-		"weberp.xmlrpc_GetCustomerBranch" => array(
-			"function" => "xmlrpc_GetCustomerBranch",
-			"signature" => $GetCustomerBranch_sig,
-			"docstring" => $GetCustomerBranch_doc),
-		"weberp.xmlrpc_InsertSalesOrderHeader" => array(
-			"function" => "xmlrpc_InsertSalesOrderHeader",
-			"signature" => $InsertSalesOrderHeader_sig,
-			"docstring" => $InsertSalesOrderHeader_doc),
-		"weberp.xmlrpc_ModifySalesOrderHeader" => array(
-			"function" => "xmlrpc_ModifySalesOrderHeader",
-			"signature" => $ModifySalesOrderHeader_sig,
-			"docstring" => $ModifySalesOrderHeader_doc),
-		"weberp.xmlrpc_InsertSalesOrderLine" => array(
-			"function" => "xmlrpc_InsertSalesOrderLine",
-			"signature" => $InsertSalesOrderLine_sig,
-			"docstring" => $InsertSalesOrderLine_doc),
-		"weberp.xmlrpc_ModifySalesOrderLine" => array(
-			"function" => "xmlrpc_ModifySalesOrderLine",
-			"signature" => $ModifySalesOrderLine_sig,
-			"docstring" => $ModifySalesOrderLine_doc),
-		"weberp.xmlrpc_InvoiceSalesOrder" => array(
-			"function" => "xmlrpc_InvoiceSalesOrder",
-			"signature" => $InvoiceSalesOrder_sig,
-			"docstring" => $InvoiceSalesOrder_doc),
-		"weberp.xmlrpc_InsertGLAccount" => array(
-			"function" => "xmlrpc_InsertGLAccount",
-			"signature" => $InsertGLAccount_sig,
-			"docstring" => $InsertGLAccount_doc),
-		"weberp.xmlrpc_InsertGLAccountSection" => array(
-			"function" => "xmlrpc_InsertGLAccountSection",
-			"signature" => $InsertGLAccountSection_sig,
-			"docstring" => $InsertGLAccountSection_doc),
-		"weberp.xmlrpc_InsertGLAccountGroup" => array(
-			"function" => "xmlrpc_InsertGLAccountGroup",
-			"signature" => $InsertGLAccountGroup_sig,
-			"docstring" => $InsertGLAccountGroup_doc),
-		"weberp.xmlrpc_GetLocationList" => array(
-			"function" => "xmlrpc_GetLocationList",
-			"signature" => $GetLocationList_sig,
-			"docstring" => $GetLocationList_doc),
-		"weberp.xmlrpc_GetLocationDetails" => array(
-			"function" => "xmlrpc_GetLocationDetails",
-			"signature" => $GetLocationDetails_sig,
-			"docstring" => $GetLocationDetails_doc),
-		"weberp.xmlrpc_GetShipperList" => array(
-			"function" => "xmlrpc_GetShipperList",
-			"signature" => $GetShipperList_sig,
-			"docstring" => $GetShipperList_doc),
-		"weberp.xmlrpc_GetShipperDetails" => array(
-			"function" => "xmlrpc_GetShipperDetails",
-			"signature" => $GetShipperDetails_sig,
-			"docstring" => $GetShipperDetails_doc),
-		"weberp.xmlrpc_GetSalesAreasList" => array(
-			"function" => "xmlrpc_GetSalesAreasList",
-			"signature" => $GetSalesAreasList_sig,
-			"docstring" => $GetSalesAreasList_doc),
-		"weberp.xmlrpc_InsertSalesArea" => array(
-			"function" => "xmlrpc_InsertSalesArea",
-			"signature" => $InsertSalesArea_sig,
-			"docstring" => $InsertSalesArea_doc),
-		"weberp.xmlrpc_GetSalesAreaDetails" => array(
-			"function" => "xmlrpc_GetSalesAreaDetails",
-			"signature" => $GetSalesAreaDetails_sig,
-			"docstring" => $GetSalesAreaDetails_doc),
-		"weberp.xmlrpc_GetSalesAreaDetailsFromName" => array(
-			"function" => "xmlrpc_GetSalesAreaDetailsFromName",
-			"signature" => $GetSalesAreaDetailsFromName_sig,
-			"docstring" => $GetSalesAreaDetailsFromName_doc),
-		"weberp.xmlrpc_GetSalesmanList" => array(
-			"function" => "xmlrpc_GetSalesmanList",
-			"signature" => $GetSalesmanList_sig,
-			"docstring" => $GetSalesmanList_doc),
-		"weberp.xmlrpc_GetSalesmanDetails" => array(
-			"function" => "xmlrpc_GetSalesmanDetails",
-			"signature" => $GetSalesmanDetails_sig,
-			"docstring" => $GetSalesmanDetails_doc),
-		"weberp.xmlrpc_GetSalesmanDetailsFromName" => array(
-			"function" => "xmlrpc_GetSalesmanDetailsFromName",
-			"signature" => $GetSalesmanDetailsFromName_sig,
-			"docstring" => $GetSalesmanDetailsFromName_doc),
-		"weberp.xmlrpc_InsertSalesman" => array(
-			"function" => "xmlrpc_InsertSalesman",
-			"signature" => $InsertSalesman_sig,
-			"docstring" => $InsertSalesman_doc),
-		"weberp.xmlrpc_GetTaxGroupList" => array(
-			"function" => "xmlrpc_GetTaxGroupList",
-			"signature" => $GetTaxGroupList_sig,
-			"docstring" => $GetTaxGroupList_doc),
-		"weberp.xmlrpc_GetTaxGroupDetails" => array(
-			"function" => "xmlrpc_GetTaxGroupDetails",
-			"signature" => $GetTaxGroupDetails_sig,
-			"docstring" => $GetTaxGroupDetails_doc),
-		"weberp.xmlrpc_GetTaxGroupTaxes" => array(
-			"function" => "xmlrpc_GetTaxGroupTaxes",
-			"signature" => $GetTaxGroupTaxes_sig,
-			"docstring" => $GetTaxGroupTaxes_doc),
-		"weberp.xmlrpc_GetTaxAuthorityList" => array(
-			"function" => "xmlrpc_GetTaxAuthorityList",
-			"signature" => $GetTaxAuthorityList_sig,
-			"docstring" => $GetTaxAuthorityList_doc),
-		"weberp.xmlrpc_GetTaxAuthorityDetails" => array(
-			"function" => "xmlrpc_GetTaxAuthorityDetails",
-			"signature" => $GetTaxAuthorityDetails_sig,
-			"docstring" => $GetTaxAuthorityDetails_doc),
-		"weberp.xmlrpc_GetTaxAuthorityRates" => array(
-			"function" => "xmlrpc_GetTaxAuthorityRates",
-			"signature" => $GetTaxAuthorityRates_sig,
-			"docstring" => $GetTaxAuthorityRates_doc),
-		"weberp.xmlrpc_GetCustomerTypeList" => array(
-			"function" => "xmlrpc_GetCustomerTypeList",
-			"signature" => $GetCustomerTypeList_sig,
-			"docstring" => $GetCustomerTypeList_doc),
-		"weberp.xmlrpc_GetCustomerTypeDetails" => array(
-			"function" => "xmlrpc_GetCustomerTypeDetails",
-			"signature" => $GetCustomerTypeDetails_sig,
-			"docstring" => $GetCustomerTypeDetails_doc),
-		"weberp.xmlrpc_InsertStockCategory" => array(
-			"function" => "xmlrpc_InsertStockCategory",
-			"signature" => $InsertStockCategory_sig,
-			"docstring" => $InsertStockCategory_doc),
-		"weberp.xmlrpc_ModifyStockCategory" => array(
-			"function" => "xmlrpc_ModifyStockCategory",
-			"signature" => $ModifyStockCategory_sig,
-			"docstring" => $ModifyStockCategory_doc),
-		"weberp.xmlrpc_GetStockCategory" => array(
-			"function" => "xmlrpc_GetStockCategory",
-			"signature" => $GetStockCategory_sig,
-			"docstring" => $GetStockCategory_doc),
-		"weberp.xmlrpc_SearchStockCategories" => array(
-			"function" => "xmlrpc_SearchStockCategories",
-			"signature" => $SearchStockCategories_sig,
-			"docstring" => $SearchStockCategories_doc),
-		"weberp.xmlrpc_StockCatPropertyList" => array(
-			"function" => "xmlrpc_StockCatPropertyList",
-			"signature" => $StockCatPropertyList_sig,
-			"docstring" => $StockCatPropertyList_doc),
-		"weberp.xmlrpc_GetStockCategoryList" => array(
-			"function" => "xmlrpc_GetStockCategoryList",
-			"signature" => $GetStockCategoryList_sig,
-			"docstring" => $GetStockCategoryList_doc),
-		"weberp.xmlrpc_GetGLAccountList" => array(
-			"function" => "xmlrpc_GetGLAccountList",
-			"signature" => $GetGLAccountList_sig,
-			"docstring" => $GetGLAccountList_doc),
-		"weberp.xmlrpc_GetGLAccountDetails" => array(
-			"function" => "xmlrpc_GetGLAccountDetails",
-			"signature" => $GetGLAccountDetails_sig,
-			"docstring" => $GetGLAccountDetails_doc),
-		"weberp.xmlrpc_GetStockTaxRate" => array(
-			"function" => "xmlrpc_GetStockTaxRate",
-			"signature" => $GetStockTaxRate_sig,
-			"docstring" => $GetStockTaxRate_doc),
-		"weberp.xmlrpc_InsertSupplier" => array(
-			"function" => "xmlrpc_InsertSupplier",
-			"signature" => $InsertSupplier_sig,
-			"docstring" => $InsertSupplier_doc),
-		"weberp.xmlrpc_ModifySupplier" => array(
-			"function" => "xmlrpc_ModifySupplier",
-			"signature" => $ModifySupplier_sig,
-			"docstring" => $ModifySupplier_doc),
-		"weberp.xmlrpc_GetSupplier" => array(
-			"function" => "xmlrpc_GetSupplier",
-			"signature" => $GetSupplier_sig,
-			"docstring" => $GetSupplier_doc),
-		"weberp.xmlrpc_SearchSuppliers" => array(
-			"function" => "xmlrpc_SearchSuppliers",
-			"signature" => $SearchSuppliers_sig,
-			"docstring" => $SearchSuppliers_doc),
-		"weberp.xmlrpc_StockAdjustment" => array(
-			"function" => "xmlrpc_StockAdjustment",
-			"signature" => $StockAdjustment_sig,
-			"docstring" => $StockAdjustment_doc),
-		"weberp.xmlrpc_WorkOrderIssue" => array(
-			"function" => "xmlrpc_WorkOrderIssue",
-			"signature" => $WorkOrderIssue_sig,
-			"docstring" => $WorkOrderIssue_doc),
-		"weberp.xmlrpc_InsertPurchData" => array(
-			"function" => "xmlrpc_InsertPurchData",
-			"signature" => $InsertPurchData_sig,
-			"docstring" => $InsertPurchData_doc),
-		"weberp.xmlrpc_ModifyPurchData" => array(
-			"function" => "xmlrpc_ModifyPurchData",
-			"signature" => $ModifyPurchData_sig,
-			"docstring" => $ModifyPurchData_doc),
-		"weberp.xmlrpc_InsertWorkOrder" => array(
-			"function" => "xmlrpc_InsertWorkOrder",
-			"signature" => $InsertWorkOrder_sig,
-			"docstring" => $InsertWorkOrder_doc),
-		"weberp.xmlrpc_WorkOrderReceive" => array(
-			"function" => "xmlrpc_WorkOrderReceive",
-			"signature" => $WorkOrderReceive_sig,
-			"docstring" => $WorkOrderReceive_doc),
-		"weberp.xmlrpc_SearchWorkOrders" => array(
-			"function" => "xmlrpc_SearchWorkOrders",
-			"signature" => $SearchWorkOrders_sig,
-			"docstring" => $SearchWorkOrders_doc),
-		"weberp.xmlrpc_GetBatches" => array(
-			"function" => "xmlrpc_GetBatches",
-			"signature" => $GetBatches_sig,
-			"docstring" => $GetBatches_doc),
-		"weberp.xmlrpc_GetDefaultDateFormat" => array(
-			"function" => "xmlrpc_GetDefaultDateFormat",
-			"signature" => $GetDefaultDateFormat_sig,
-			"docstring" => $GetDefaultDateFormat_doc),
-		"weberp.xmlrpc_GetDefaultShipper" => array(
-			"function" => "xmlrpc_GetDefaultShipper",
-			"signature" => $GetDefaultShipper_sig,
-			"docstring" => $GetDefaultShipper_doc),
-		"weberp.xmlrpc_GetDefaultCurrency" => array(
-			"function" => "xmlrpc_GetDefaultCurrency",
-			"signature" => $GetDefaultCurrency_sig,
-			"docstring" => $GetDefaultCurrency_doc),
-		"weberp.xmlrpc_GetDefaultPriceList" => array(
-			"function" => "xmlrpc_GetDefaultPriceList",
-			"signature" => $GetDefaultPriceList_sig,
-			"docstring" => $GetDefaultPriceList_doc),
-		"weberp.xmlrpc_GetDefaultLocation" => array(
-			"function" => "xmlrpc_GetDefaultLocation",
-			"signature" => $GetDefaultLocation_sig,
-			"docstring" => $GetDefaultLocation_doc),
-		"weberp.xmlrpc_GetStockCatProperty" => array(
-			"function" => "xmlrpc_GetStockCatProperty",
-			"signature" => $GetStockCatProperty_sig,
-			"docstring" => $GetStockCatProperty_doc),
-		"weberp.xmlrpc_GetErrorMessages" => array(
-			"function" => "xmlrpc_GetErrorMessages",
-			"signature" => $GetErrorMessages_sig,
-			"docstring" => $GetErrorMessages_doc),
-	)
+			"weberp.xmlrpc_Login" => array(
+				"function" => "xmlrpc_Login",
+				"signature" => $Login_sig,
+				"docstring" => $Login_doc),
+			"weberp.xmlrpc_Logout" => array(
+				"function" => "xmlrpc_Logout",
+				"signature" => $Logout_sig,
+				"docstring" => $Logout_doc),
+			"weberp.xmlrpc_InsertCustomer" => array(
+				"function" => "xmlrpc_InsertCustomer",
+				"signature" => $InsertCustomer_sig,
+				"docstring" => $InsertCustomer_doc),
+			"weberp.xmlrpc_ModifyCustomer" => array(
+				"function" => "xmlrpc_ModifyCustomer",
+				"signature" => $ModifyCustomer_sig,
+				"docstring" => $ModifyCustomer_doc),
+			"weberp.xmlrpc_GetCustomer" => array(
+				"function" => "xmlrpc_GetCustomer",
+				"signature" => $GetCustomer_sig,
+				"docstring" => $GetCustomer_doc),
+			"weberp.xmlrpc_SearchCustomers" => array(
+				"function" => "xmlrpc_SearchCustomers",
+				"signature" => $SearchCustomers_sig,
+				"docstring" => $SearchCustomers_doc),
+			"weberp.xmlrpc_GetCurrencyList" => array(
+				"function" => "xmlrpc_GetCurrencyList",
+				"signature" => $GetCurrencyList_sig,
+				"docstring" => $GetCurrencyList_doc),
+			"weberp.xmlrpc_GetCurrencyDetails" => array(
+				"function" => "xmlrpc_GetCurrencyDetails",
+				"signature" => $GetCurrencyDetails_sig,
+				"docstring" => $GetCurrencyDetails_doc),
+			"weberp.xmlrpc_GetSalesTypeList" => array(
+				"function" => "xmlrpc_GetSalesTypeList",
+				"signature" => $GetSalesTypeList_sig,
+				"docstring" => $GetSalesTypeList_doc),
+			"weberp.xmlrpc_GetSalesTypeDetails" => array(
+				"function" => "xmlrpc_GetSalesTypeDetails",
+				"signature" => $GetSalesTypeDetails_sig,
+				"docstring" => $GetSalesTypeDetails_doc),
+			"weberp.xmlrpc_InsertSalesType" => array(
+				"function" => "xmlrpc_InsertSalesType",
+				"signature" => $InsertSalesType_sig,
+				"docstring" => $InsertSalesType_doc),
+			"weberp.xmlrpc_GetHoldReasonList" => array(
+				"function" => "xmlrpc_GetHoldReasonList",
+				"signature" => $GetHoldReasonList_sig,
+				"docstring" => $GetHoldReasonList_doc),
+			"weberp.xmlrpc_GetHoldReasonDetails" => array(
+				"function" => "xmlrpc_GetHoldReasonDetails",
+				"signature" => $GetHoldReasonDetails_sig,
+				"docstring" => $GetHoldReasonDetails_doc),
+			"weberp.xmlrpc_GetPaymentTermsList" => array(
+				"function" => "xmlrpc_GetPaymentTermsList",
+				"signature" => $GetPaymentTermsList_sig,
+				"docstring" => $GetPaymentTermsList_doc),
+			"weberp.xmlrpc_GetPaymentTermsDetails" => array(
+				"function" => "xmlrpc_GetPaymentTermsDetails",
+				"signature" => $GetPaymentTermsDetails_sig,
+				"docstring" => $GetPaymentTermsDetails_doc),
+			"weberp.xmlrpc_GetPaymentMethodsList" => array(
+				"function" => "xmlrpc_GetPaymentMethodsList",
+				"signature" => $GetPaymentMethodsList_sig,
+				"docstring" => $GetPaymentMethodsList_doc),
+			"weberp.xmlrpc_GetPaymentMethodDetails" => array(
+				"function" => "xmlrpc_GetPaymentMethodDetails",
+				"signature" => $GetPaymentMethodDetails_sig,
+				"docstring" => $GetPaymentMethodDetails_doc),
+			"weberp.xmlrpc_InsertStockItem" => array(
+				"function" => "xmlrpc_InsertStockItem",
+				"signature" => $InsertStockItem_sig,
+				"docstring" => $InsertStockItem_doc),
+			"weberp.xmlrpc_ModifyStockItem" => array(
+				"function" => "xmlrpc_ModifyStockItem",
+				"signature" => $ModifyStockItem_sig,
+				"docstring" => $ModifyStockItem_doc),
+			"weberp.xmlrpc_GetStockItem" => array(
+				"function" => "xmlrpc_GetStockItem",
+				"signature" => $GetStockItem_sig,
+				"docstring" => $GetStockItem_doc),
+			"weberp.xmlrpc_SearchStockItems" => array(
+				"function" => "xmlrpc_SearchStockItems",
+				"signature" => $SearchStockItems_sig,
+				"docstring" => $SearchStockItems_doc),
+			"weberp.xmlrpc_GetStockBalance" => array(
+				"function" => "xmlrpc_GetStockBalance",
+				"signature" => $GetStockBalance_sig,
+				"docstring" => $GetStockBalance_doc),
+			"weberp.xmlrpc_GetStockReorderLevel" => array(
+				"function" => "xmlrpc_GetStockReorderLevel",
+				"signature" => $GetStockReorderLevel_sig,
+				"docstring" => $GetStockReorderLevel_doc),
+			"weberp.xmlrpc_SetStockReorderLevel" => array(
+				"function" => "xmlrpc_SetStockReorderLevel",
+				"signature" => $SetStockReorderLevel_sig,
+				"docstring" => $SetStockReorderLevel_doc),
+			"weberp.xmlrpc_GetAllocatedStock" => array(
+				"function" => "xmlrpc_GetAllocatedStock",
+				"signature" => $GetAllocatedStock_sig,
+				"docstring" => $GetAllocatedStock_doc),
+			"weberp.xmlrpc_GetOrderedStock" => array(
+				"function" => "xmlrpc_GetOrderedStock",
+				"signature" => $GetOrderedStock_sig,
+				"docstring" => $GetOrderedStock_doc),
+			"weberp.xmlrpc_SetStockPrice" => array(
+				"function" => "xmlrpc_SetStockPrice",
+				"signature" => $SetStockPrice_sig,
+				"docstring" => $SetStockPrice_doc),
+			"weberp.xmlrpc_GetStockPrice" => array(
+				"function" => "xmlrpc_GetStockPrice",
+				"signature" => $GetStockPrice_sig,
+				"docstring" => $GetStockPrice_doc),
+			"weberp.xmlrpc_InsertSalesInvoice" => array(
+				"function" => "xmlrpc_InsertSalesInvoice",
+				"signature" => $InsertSalesInvoice_sig,
+				"docstring" => $InsertSalesInvoice_doc),
+			"weberp.xmlrpc_AllocateTrans" => array(
+				"function" => "xmlrpc_AllocateTrans",
+				"signature" => $AllocateTrans_sig,
+				"docstring" => $AllocateTrans_doc),
+			"weberp.xmlrpc_InsertDebtorReceipt" => array(
+				"function" => "xmlrpc_InsertDebtorReceipt",
+				"signature" => $InsertDebtorReceipt_sig,
+				"docstring" => $InsertDebtorReceipt_doc),
+			"weberp.xmlrpc_CreateCreditNote" => array(
+				"function" => "xmlrpc_CreateCreditNote",
+				"signature" => $CreateCreditNote_sig,
+				"docstring" => $CreateCreditNote_doc),
+			"weberp.xmlrpc_InsertSalesCredit" => array(
+				"function" => "xmlrpc_InsertSalesCredit",
+				"signature" => $InsertSalesCredit_sig,
+				"docstring" => $InsertSalesCredit_doc),
+			"weberp.xmlrpc_InsertBranch" => array(
+				"function" => "xmlrpc_InsertBranch",
+				"signature" => $InsertBranch_sig,
+				"docstring" => $InsertBranch_doc),
+			"weberp.xmlrpc_ModifyBranch" => array(
+				"function" => "xmlrpc_ModifyBranch",
+				"signature" => $ModifyBranch_sig,
+				"docstring" => $ModifyBranch_doc),
+			"weberp.xmlrpc_GetCustomerBranchCodes" => array(
+				"function" => "xmlrpc_GetCustomerBranchCodes",
+				"signature" => $GetCustomerBranchCodes_sig,
+				"docstring" => $GetCustomerBranchCodes_doc),
+			"weberp.xmlrpc_GetCustomerBranch" => array(
+				"function" => "xmlrpc_GetCustomerBranch",
+				"signature" => $GetCustomerBranch_sig,
+				"docstring" => $GetCustomerBranch_doc),
+			"weberp.xmlrpc_InsertSalesOrderHeader" => array(
+				"function" => "xmlrpc_InsertSalesOrderHeader",
+				"signature" => $InsertSalesOrderHeader_sig,
+				"docstring" => $InsertSalesOrderHeader_doc),
+			"weberp.xmlrpc_ModifySalesOrderHeader" => array(
+				"function" => "xmlrpc_ModifySalesOrderHeader",
+				"signature" => $ModifySalesOrderHeader_sig,
+				"docstring" => $ModifySalesOrderHeader_doc),
+			"weberp.xmlrpc_InsertSalesOrderLine" => array(
+				"function" => "xmlrpc_InsertSalesOrderLine",
+				"signature" => $InsertSalesOrderLine_sig,
+				"docstring" => $InsertSalesOrderLine_doc),
+			"weberp.xmlrpc_ModifySalesOrderLine" => array(
+				"function" => "xmlrpc_ModifySalesOrderLine",
+				"signature" => $ModifySalesOrderLine_sig,
+				"docstring" => $ModifySalesOrderLine_doc),
+			"weberp.xmlrpc_InvoiceSalesOrder" => array(
+				"function" => "xmlrpc_InvoiceSalesOrder",
+				"signature" => $InvoiceSalesOrder_sig,
+				"docstring" => $InvoiceSalesOrder_doc),
+			"weberp.xmlrpc_InsertGLAccount" => array(
+				"function" => "xmlrpc_InsertGLAccount",
+				"signature" => $InsertGLAccount_sig,
+				"docstring" => $InsertGLAccount_doc),
+			"weberp.xmlrpc_InsertGLAccountSection" => array(
+				"function" => "xmlrpc_InsertGLAccountSection",
+				"signature" => $InsertGLAccountSection_sig,
+				"docstring" => $InsertGLAccountSection_doc),
+			"weberp.xmlrpc_InsertGLAccountGroup" => array(
+				"function" => "xmlrpc_InsertGLAccountGroup",
+				"signature" => $InsertGLAccountGroup_sig,
+				"docstring" => $InsertGLAccountGroup_doc),
+			"weberp.xmlrpc_GetLocationList" => array(
+				"function" => "xmlrpc_GetLocationList",
+				"signature" => $GetLocationList_sig,
+				"docstring" => $GetLocationList_doc),
+			"weberp.xmlrpc_GetLocationDetails" => array(
+				"function" => "xmlrpc_GetLocationDetails",
+				"signature" => $GetLocationDetails_sig,
+				"docstring" => $GetLocationDetails_doc),
+			"weberp.xmlrpc_GetShipperList" => array(
+				"function" => "xmlrpc_GetShipperList",
+				"signature" => $GetShipperList_sig,
+				"docstring" => $GetShipperList_doc),
+			"weberp.xmlrpc_GetShipperDetails" => array(
+				"function" => "xmlrpc_GetShipperDetails",
+				"signature" => $GetShipperDetails_sig,
+				"docstring" => $GetShipperDetails_doc),
+			"weberp.xmlrpc_GetSalesAreasList" => array(
+				"function" => "xmlrpc_GetSalesAreasList",
+				"signature" => $GetSalesAreasList_sig,
+				"docstring" => $GetSalesAreasList_doc),
+			"weberp.xmlrpc_InsertSalesArea" => array(
+				"function" => "xmlrpc_InsertSalesArea",
+				"signature" => $InsertSalesArea_sig,
+				"docstring" => $InsertSalesArea_doc),
+			"weberp.xmlrpc_GetSalesAreaDetails" => array(
+				"function" => "xmlrpc_GetSalesAreaDetails",
+				"signature" => $GetSalesAreaDetails_sig,
+				"docstring" => $GetSalesAreaDetails_doc),
+			"weberp.xmlrpc_GetSalesAreaDetailsFromName" => array(
+				"function" => "xmlrpc_GetSalesAreaDetailsFromName",
+				"signature" => $GetSalesAreaDetailsFromName_sig,
+				"docstring" => $GetSalesAreaDetailsFromName_doc),
+			"weberp.xmlrpc_GetSalesmanList" => array(
+				"function" => "xmlrpc_GetSalesmanList",
+				"signature" => $GetSalesmanList_sig,
+				"docstring" => $GetSalesmanList_doc),
+			"weberp.xmlrpc_GetSalesmanDetails" => array(
+				"function" => "xmlrpc_GetSalesmanDetails",
+				"signature" => $GetSalesmanDetails_sig,
+				"docstring" => $GetSalesmanDetails_doc),
+			"weberp.xmlrpc_GetSalesmanDetailsFromName" => array(
+				"function" => "xmlrpc_GetSalesmanDetailsFromName",
+				"signature" => $GetSalesmanDetailsFromName_sig,
+				"docstring" => $GetSalesmanDetailsFromName_doc),
+			"weberp.xmlrpc_InsertSalesman" => array(
+				"function" => "xmlrpc_InsertSalesman",
+				"signature" => $InsertSalesman_sig,
+				"docstring" => $InsertSalesman_doc),
+			"weberp.xmlrpc_GetTaxGroupList" => array(
+				"function" => "xmlrpc_GetTaxGroupList",
+				"signature" => $GetTaxGroupList_sig,
+				"docstring" => $GetTaxGroupList_doc),
+			"weberp.xmlrpc_GetTaxGroupDetails" => array(
+				"function" => "xmlrpc_GetTaxGroupDetails",
+				"signature" => $GetTaxGroupDetails_sig,
+				"docstring" => $GetTaxGroupDetails_doc),
+			"weberp.xmlrpc_GetTaxGroupTaxes" => array(
+				"function" => "xmlrpc_GetTaxGroupTaxes",
+				"signature" => $GetTaxGroupTaxes_sig,
+				"docstring" => $GetTaxGroupTaxes_doc),
+			"weberp.xmlrpc_GetTaxAuthorityList" => array(
+				"function" => "xmlrpc_GetTaxAuthorityList",
+				"signature" => $GetTaxAuthorityList_sig,
+				"docstring" => $GetTaxAuthorityList_doc),
+			"weberp.xmlrpc_GetTaxAuthorityDetails" => array(
+				"function" => "xmlrpc_GetTaxAuthorityDetails",
+				"signature" => $GetTaxAuthorityDetails_sig,
+				"docstring" => $GetTaxAuthorityDetails_doc),
+			"weberp.xmlrpc_GetTaxAuthorityRates" => array(
+				"function" => "xmlrpc_GetTaxAuthorityRates",
+				"signature" => $GetTaxAuthorityRates_sig,
+				"docstring" => $GetTaxAuthorityRates_doc),
+			"weberp.xmlrpc_GetCustomerTypeList" => array(
+				"function" => "xmlrpc_GetCustomerTypeList",
+				"signature" => $GetCustomerTypeList_sig,
+				"docstring" => $GetCustomerTypeList_doc),
+			"weberp.xmlrpc_GetCustomerTypeDetails" => array(
+				"function" => "xmlrpc_GetCustomerTypeDetails",
+				"signature" => $GetCustomerTypeDetails_sig,
+				"docstring" => $GetCustomerTypeDetails_doc),
+			"weberp.xmlrpc_InsertStockCategory" => array(
+				"function" => "xmlrpc_InsertStockCategory",
+				"signature" => $InsertStockCategory_sig,
+				"docstring" => $InsertStockCategory_doc),
+			"weberp.xmlrpc_ModifyStockCategory" => array(
+				"function" => "xmlrpc_ModifyStockCategory",
+				"signature" => $ModifyStockCategory_sig,
+				"docstring" => $ModifyStockCategory_doc),
+			"weberp.xmlrpc_GetStockCategory" => array(
+				"function" => "xmlrpc_GetStockCategory",
+				"signature" => $GetStockCategory_sig,
+				"docstring" => $GetStockCategory_doc),
+			"weberp.xmlrpc_SearchStockCategories" => array(
+				"function" => "xmlrpc_SearchStockCategories",
+				"signature" => $SearchStockCategories_sig,
+				"docstring" => $SearchStockCategories_doc),
+			"weberp.xmlrpc_StockCatPropertyList" => array(
+				"function" => "xmlrpc_StockCatPropertyList",
+				"signature" => $StockCatPropertyList_sig,
+				"docstring" => $StockCatPropertyList_doc),
+			"weberp.xmlrpc_GetStockCategoryList" => array(
+				"function" => "xmlrpc_GetStockCategoryList",
+				"signature" => $GetStockCategoryList_sig,
+				"docstring" => $GetStockCategoryList_doc),
+			"weberp.xmlrpc_GetGLAccountList" => array(
+				"function" => "xmlrpc_GetGLAccountList",
+				"signature" => $GetGLAccountList_sig,
+				"docstring" => $GetGLAccountList_doc),
+			"weberp.xmlrpc_GetGLAccountDetails" => array(
+				"function" => "xmlrpc_GetGLAccountDetails",
+				"signature" => $GetGLAccountDetails_sig,
+				"docstring" => $GetGLAccountDetails_doc),
+			"weberp.xmlrpc_GetStockTaxRate" => array(
+				"function" => "xmlrpc_GetStockTaxRate",
+				"signature" => $GetStockTaxRate_sig,
+				"docstring" => $GetStockTaxRate_doc),
+			"weberp.xmlrpc_InsertSupplier" => array(
+				"function" => "xmlrpc_InsertSupplier",
+				"signature" => $InsertSupplier_sig,
+				"docstring" => $InsertSupplier_doc),
+			"weberp.xmlrpc_ModifySupplier" => array(
+				"function" => "xmlrpc_ModifySupplier",
+				"signature" => $ModifySupplier_sig,
+				"docstring" => $ModifySupplier_doc),
+			"weberp.xmlrpc_GetSupplier" => array(
+				"function" => "xmlrpc_GetSupplier",
+				"signature" => $GetSupplier_sig,
+				"docstring" => $GetSupplier_doc),
+			"weberp.xmlrpc_SearchSuppliers" => array(
+				"function" => "xmlrpc_SearchSuppliers",
+				"signature" => $SearchSuppliers_sig,
+				"docstring" => $SearchSuppliers_doc),
+			"weberp.xmlrpc_StockAdjustment" => array(
+				"function" => "xmlrpc_StockAdjustment",
+				"signature" => $StockAdjustment_sig,
+				"docstring" => $StockAdjustment_doc),
+			"weberp.xmlrpc_WorkOrderIssue" => array(
+				"function" => "xmlrpc_WorkOrderIssue",
+				"signature" => $WorkOrderIssue_sig,
+				"docstring" => $WorkOrderIssue_doc),
+			"weberp.xmlrpc_InsertPurchData" => array(
+				"function" => "xmlrpc_InsertPurchData",
+				"signature" => $InsertPurchData_sig,
+				"docstring" => $InsertPurchData_doc),
+			"weberp.xmlrpc_ModifyPurchData" => array(
+				"function" => "xmlrpc_ModifyPurchData",
+				"signature" => $ModifyPurchData_sig,
+				"docstring" => $ModifyPurchData_doc),
+			"weberp.xmlrpc_InsertWorkOrder" => array(
+				"function" => "xmlrpc_InsertWorkOrder",
+				"signature" => $InsertWorkOrder_sig,
+				"docstring" => $InsertWorkOrder_doc),
+			"weberp.xmlrpc_WorkOrderReceive" => array(
+				"function" => "xmlrpc_WorkOrderReceive",
+				"signature" => $WorkOrderReceive_sig,
+				"docstring" => $WorkOrderReceive_doc),
+			"weberp.xmlrpc_SearchWorkOrders" => array(
+				"function" => "xmlrpc_SearchWorkOrders",
+				"signature" => $SearchWorkOrders_sig,
+				"docstring" => $SearchWorkOrders_doc),
+			"weberp.xmlrpc_GetBatches" => array(
+				"function" => "xmlrpc_GetBatches",
+				"signature" => $GetBatches_sig,
+				"docstring" => $GetBatches_doc),
+			"weberp.xmlrpc_GetDefaultDateFormat" => array(
+				"function" => "xmlrpc_GetDefaultDateFormat",
+				"signature" => $GetDefaultDateFormat_sig,
+				"docstring" => $GetDefaultDateFormat_doc),
+			"weberp.xmlrpc_GetDefaultShipper" => array(
+				"function" => "xmlrpc_GetDefaultShipper",
+				"signature" => $GetDefaultShipper_sig,
+				"docstring" => $GetDefaultShipper_doc),
+			"weberp.xmlrpc_GetDefaultCurrency" => array(
+				"function" => "xmlrpc_GetDefaultCurrency",
+				"signature" => $GetDefaultCurrency_sig,
+				"docstring" => $GetDefaultCurrency_doc),
+			"weberp.xmlrpc_GetDefaultPriceList" => array(
+				"function" => "xmlrpc_GetDefaultPriceList",
+				"signature" => $GetDefaultPriceList_sig,
+				"docstring" => $GetDefaultPriceList_doc),
+			"weberp.xmlrpc_GetDefaultLocation" => array(
+				"function" => "xmlrpc_GetDefaultLocation",
+				"signature" => $GetDefaultLocation_sig,
+				"docstring" => $GetDefaultLocation_doc),
+			"weberp.xmlrpc_CreatePOSDataFull" => array(
+				"function" => "xmlrpc_CreatePOSDataFull",
+				"signature" => $CreatePOSDataFull_sig,
+				"docstring" => $CreatePOSDataFull_doc),
+			"weberp.xmlrpc_DeletePOSData" => array(
+				"function" => "xmlrpc_DeletePOSData",
+				"signature" => $DeletePOSData_sig,
+				"docstring" => $DeletePOSData_doc),
+			"weberp.xmlrpc_GetStockCatProperty" => array(
+				"function" => "xmlrpc_GetStockCatProperty",
+				"signature" => $GetStockCatProperty_sig,
+				"docstring" => $GetStockCatProperty_doc),
+			"weberp.xmlrpc_GetErrorMessages" => array(
+				"function" => "xmlrpc_GetErrorMessages",
+				"signature" => $GetErrorMessages_sig,
+				"docstring" => $GetErrorMessages_doc),
+		)
 	);
+
 
 //  Generate the HTMLised description string for each API.
 
