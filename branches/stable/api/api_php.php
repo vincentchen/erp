@@ -15,6 +15,8 @@
 	include($PathPrefix . 'includes/SQL_CommonFunctions.inc');
 	/* Required for creating invoices/credits */
 	include($PathPrefix . 'includes/GetSalesTransGLCodes.inc');
+	include($PathPrefix . 'includes/Z_POSDataCreation.php');
+	include($PathPrefix . 'includes/GetPrice.inc');
 
 /* Get weberp authentication, and return a valid database
    connection */
@@ -26,7 +28,7 @@
 			    global  $api_DatabaseName;
 			    $rc = LoginAPI ($api_DatabaseName, $user, $password);
 			    if ($rc[0] == UL_OK ) {
-				return $_SESSION['db'];
+					return $_SESSION['db'];
 			    }
 			}
 			return NoAuthorisation;
