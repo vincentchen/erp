@@ -1,4 +1,5 @@
 webERP Change Log
+25/7/2012 Harald Ringehahn: Corrections to the strings, replacing debtors with suppliers
 25/7/2012 Exson: Fixed typo which leads to the $TotalQuantityOnHand is not correct in SupplierInvoice.php
 24/7/2012 Exson/Phil: incorrect calculation of weighted average cost just using the stock quantity at a single location, now corrected
 24/7/2012 Phil: includes/Z_POSDataCreation.php - added system default date format config to POS data upload file
