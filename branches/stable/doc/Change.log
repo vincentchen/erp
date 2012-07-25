@@ -1,4 +1,5 @@
 webERP Change Log
+25/7/2012 Phil: Fixed the demand quantity by ruling out quotation in DeliveryDetails.php. 
 25/7/2012 Phil: Fixed the Quantity on purchasing by rule out 'Completed' status in InternalStockRequest.php
 25/7/2012 Harald Ringehahn: Corrections to the strings, replacing debtors with suppliers
 25/7/2012 Exson: Fixed typo which leads to the $TotalQuantityOnHand is not correct in SupplierInvoice.php
