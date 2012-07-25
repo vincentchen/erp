@@ -272,7 +272,8 @@ if (isset($_POST['PrintPDF'])
 						AND purchorderdetails.completed = 0
 						AND purchorders.status <> 'Cancelled'
 						AND purchorders.status <> 'Rejected'
-						AND purchorders.status <> 'Pending'";
+						AND purchorders.status <> 'Pending'
+						AND purchorders.status <> 'Completed'";
 		} else {
 			$SQL = "SELECT SUM(purchorderdetails.quantityord - purchorderdetails.quantityrecd) as qtyonorder
 						FROM purchorderdetails INNER JOIN purchorders
@@ -282,7 +283,8 @@ if (isset($_POST['PrintPDF'])
 						AND purchorders.intostocklocation=  '" . $_POST['Location'] . "'
 						AND purchorders.status <> 'Cancelled'
 						AND purchorders.status <> 'Rejected'
-						AND purchorders.status <> 'Pending'";
+						AND purchorders.status <> 'Pending'
+						AND purchorders.status <> 'Completed'";
 		}
 
 		$DemandRow = DB_fetch_array($DemandResult);
