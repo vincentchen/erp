@@ -1,4 +1,5 @@
 webERP Change Log
+25/7/2012 Phil: Correct Purchasing on PO by remove PO which status is completed in InventoryPlanning.php.
 25/7/2012 Phil: Fixed the demand quantity by ruling out quotation in DeliveryDetails.php. 
 25/7/2012 Phil: Fixed the Quantity on purchasing by rule out 'Completed' status in InternalStockRequest.php
 25/7/2012 Harald Ringehahn: Corrections to the strings, replacing debtors with suppliers
