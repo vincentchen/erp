@@ -423,9 +423,11 @@ if (isset($OK_to_PROCESS) AND $OK_to_PROCESS == 1 AND $_SESSION['ExistingOrder'.
 			$QOH = $QOHRow[0];
 
 			$SQL = "SELECT SUM(salesorderdetails.quantity - salesorderdetails.qtyinvoiced) AS qtydemand
-					FROM salesorderdetails
+				FROM salesorderdetails INNER JOIN salesorders
+					ON salesorderdetails.orderno=salesorders.orderno
 					WHERE salesorderdetails.stkcode = '" . $StockItem->StockID . "'
-					AND salesorderdetails.completed = 0";
+					AND salesorderdetails.completed = 0
+					AND salesorders.quotation=0";
 			$DemandResult = DB_query($SQL,$db);
 			$DemandRow = DB_fetch_row($DemandResult);
 			$QuantityDemand = $DemandRow[0];
@@ -433,13 +435,16 @@ if (isset($OK_to_PROCESS) AND $OK_to_PROCESS == 1 AND $_SESSION['ExistingOrder'.
 			$SQL = "SELECT SUM((salesorderdetails.quantity-salesorderdetails.qtyinvoiced)*bom.quantity) AS dem
 					FROM salesorderdetails,
 						bom,
-						stockmaster
+						stockmaster,
+						salesorders
 					WHERE salesorderdetails.stkcode=bom.parent
 					AND salesorderdetails.quantity-salesorderdetails.qtyinvoiced > 0
 					AND bom.component='" . $StockItem->StockID . "'
 					AND stockmaster.stockid=bom.parent
 					AND stockmaster.mbflag='A'
-					AND salesorderdetails.completed=0";
+					AND salesorderdetails.completed=0
+					AND salesorderdetails.orderno=salesorders.orderno
+					AND salesorders.quotation=0";
 			$AssemblyDemandResult = DB_query($SQL,$db);
 			$AssemblyDemandRow = DB_fetch_row($AssemblyDemandResult);
 			$QuantityAssemblyDemand = $AssemblyDemandRow[0];
