@@ -90,7 +90,7 @@ function ProcessSupplier($oldCode, $newCode) {
 	$result = DB_query($sql,$db,$ErrMsg,$DbgMsg,true);
     }
 
-    prnMsg(_('Deleting the Supplier code from the DebtorsMaster table'),'info');
+    prnMsg(_('Deleting the Supplier code from the suppliers master table'),'info');
     $sql = "DELETE FROM suppliers WHERE supplierid='" . $oldCode . "'";
 
     $ErrMsg = _('The SQL to delete the old debtor record failed');
