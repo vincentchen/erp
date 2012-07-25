@@ -183,7 +183,8 @@ If (isset($_POST['PrintPDF'])
 			   		ON salesorderdetails.orderno=salesorders.orderno 
 			   		WHERE salesorders.fromstkloc ='" . $_POST['Location'] . "' 
 			   		AND salesorderdetails.stkcode = '" . $InventoryCheckRow['stockid'] . "'  
-			   		AND salesorderdetails.completed = 0";
+					AND salesorderdetails.completed = 0
+					AND salesorders.quotation=0 ";
 
 			$DemandResult = DB_query($SQL,$db,'','',false, false);
 
@@ -213,7 +214,8 @@ If (isset($_POST['PrintPDF'])
 						   WHERE salesorders.fromstkloc='" . $_POST['Location'] . "' 
 						   AND salesorderdetails.quantity-salesorderdetails.qtyinvoiced > 0 
 						   AND bom.component='" . $InventoryCheckRow['stockid'] . "' 
-						   AND stockmaster.mbflag='A'";
+						   AND stockmaster.mbflag='A' 
+						   AND salesorders.quotation=0";
 
 			$DemandResult = DB_query($sql,$db,'','',false,false);
 			if (DB_error_no($db) !=0) {
