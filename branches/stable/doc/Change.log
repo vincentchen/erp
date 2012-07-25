@@ -1,4 +1,5 @@
 webERP Change Log
+25/7/2012 Phil: Correct demand quantity by ruling out quotation quantity in StockCheck.php.
 25/7/2012 Phil: Correct item demand quantity and purchasing quantity by rule out Cancelled orders and completed PO in SelectOrderItems.php.
 25/7/2012 Phil: Correct demand by removing demand quantity from quotation in MRPCreateDemands.php.
 25/7/2012 Phil: Correct the quantity on PO by rule out PO whose status is 'Completed' in InventoryPlanningPrefSupplier.php
