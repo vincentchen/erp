@@ -639,6 +639,7 @@ if (isset($SearchResult)) {
 					 WHERE purchorderdetails.completed=0
 					 AND purchorders.status<>'Cancelled'
 					 AND purchorders.status<>'Rejected'
+					 AND purchorders.status<>'Completed' 
 					AND purchorderdetails.itemcode='" . $myrow['stockid'] . "'";
 
 		$ErrMsg = _('The order details for this product cannot be retrieved because');
