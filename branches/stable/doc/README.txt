@@ -1,7 +1,7 @@
 webERP README
 
 /* $Id$*/
-version4.08.3 has corrected the config.php left(in error) in version4.08.2 release
+version4.08.4 has corrected the bugs reported since webERP version4.08.2 release
 
 Version  4.x of webERP
 
