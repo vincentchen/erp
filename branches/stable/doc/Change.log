@@ -1,4 +1,5 @@
 webERP Change Log
+30/7/2012 Exson: fixed that the shipper will change sometime when modify the PO by modify file PO_ReadInOrder.inc. Reported by Craig. 
 25/7/2012 Phil/Bob: Correct demanding quantity by ruling out Quotation quantity in StockLocStatus.php
 25/7/2012 Phil: Correct demand quantity by ruling out quotation quantity in StockCheck.php.
 25/7/2012 Phil: Correct item demand quantity and purchasing quantity by rule out Cancelled orders and completed PO in SelectOrderItems.php.
