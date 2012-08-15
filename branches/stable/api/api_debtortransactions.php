@@ -269,7 +269,7 @@ function ConvertToSQLDate($DateEntry) {
 	function InsertDebtorReceipt($Receipt, $User, $Password) {
 
 	/*
-	This function inserts a debtors receipt into a bank account/GL Postings and does the allocation and journals for difference on exchange
+	This function inserts a debtors receipt into a bank account/GL Postings
 
 	$Receipt contains an associative array in the format:
 		 * $Receipt['debtorno'] - the customer code
@@ -314,7 +314,7 @@ function ConvertToSQLDate($DateEntry) {
 
 		$CustCurrRow = DB_fetch_array($CurrResult);
 
-		/*Get the currency and rate of the bank account transferring to*/
+		/*Get the currency and rate of the bank account receiving  into*/
 		$SQL = "SELECT currcode,
 						rate
 					FROM bankaccounts INNER JOIN currencies
@@ -387,7 +387,7 @@ function ConvertToSQLDate($DateEntry) {
 						'" . $PeriodNo . "',
 						'". $CompanyRecord['debtorsact'] . "',
 						'" . $Receipt['reference'] . "',
-						'" . round((-$Receipt['amountfx']-$Receipt['discountfx']) * $FunctionalExRate / $ReceiptExRate,4) . "')";
+						'" . round((-$Receipt['amountfx']-$Receipt['discountfx']) / $CustCurrRow['rate'],4) . "')";
 
 			$result = api_DB_query($SQL,$db,'','',true);
 
@@ -405,7 +405,7 @@ function ConvertToSQLDate($DateEntry) {
 						'" . $PeriodNo . "',
 						'". $CompanyRecord['pytdiscountact'] . "',
 						'" . $Receipt['reference'] . "',
-						'" . round($Receipt['discountfx'] * $FunctionalExRate / $ReceiptExRate,4) . "')";
+						'" . round($Receipt['discountfx'] / $CustCurrRow['rate'],4) . "')";
 
 				$result = api_DB_query($SQL,$db,'','',true);
 			}
@@ -424,7 +424,7 @@ function ConvertToSQLDate($DateEntry) {
 						'" . $PeriodNo . "',
 						'" . $Receipt['bankaccount'] . "',
 						'" . $Receipt['reference'] . "',
-						'" . round($Receipt['amountfx'] * $FunctionalExRate / $ReceiptExRate,4) . "')";
+						'" . round($Receipt['amountfx'] / $CustCurrRow['rate'],4) . "')";
 
 			$result = api_DB_query($SQL,$db,'','',true);
 
@@ -448,7 +448,7 @@ function ConvertToSQLDate($DateEntry) {
 							'" . date('Y-m-d H-i-s') . "',
 							'" . $PeriodNo . "',
 							'" . $Receipt['reference'] . "',
-							'" . ($ReceiptExRate/$FunctionalExRate) . "',
+							'" . $CustCurrRow['rate'] . "',
 							'" . -$Receipt['amountfx'] . "',
 							'" . -$Receipt['discountfx'] . "',
 							'" . $Receipt['paymentmethod'] . "')";
@@ -1325,7 +1325,7 @@ function ConvertToSQLDate($DateEntry) {
 		}
 		$SQL = "SELECT id,
 					rate,
-					ovamount+ovgst+ovidscount-alloc AS lefttoalloc
+					ovamount+ovgst+ovdiscount-alloc AS lefttoalloc
 				FROM debtortrans
 				WHERE debtorno='" . $AllocDetails['debtorno'] . "'
 				AND type='" . $AllocDetails['type'] . "'
@@ -1333,10 +1333,11 @@ function ConvertToSQLDate($DateEntry) {
 		$Result = api_DB_query($SQL,$db);
 		$LeftToAllocRow = DB_fetch_array($Result);
 		if (DB_num_rows($Result)==0){
-			$Errors[] = NoTransactionToAllocate;
+			$Errors[0] = NoTransactionToAllocate;
+			return $Errors;
 		}
 
-		if ($LeftToAllocRow['lefttoalloc'] <= 0){ /* negative if there is owt to allocate */
+		if ($LeftToAllocRow['lefttoalloc'] < 0){ /* negative if it is a positive receipt to allocate against invoices */
 			/*Now look for invoices with the same customerref to allocate to */
 			$SQL = "SELECT id,
 						rate,
@@ -1344,12 +1345,19 @@ function ConvertToSQLDate($DateEntry) {
 					FROM debtortrans
 					WHERE debtorno='" . $AllocDetails['debtorno'] . "'
 					AND type=10
-					AND reference='" . $AllocDetails['customerref'] . "'";
+					AND reference='" . $AllocDetails['customerref'] . "'
+					AND ovamount+ovgst+ovdiscount-alloc >0";
 			$Result = api_DB_query($SQL,$db);
+			if (DB_num_rows($Result)==0){
+				$Errors[0] = NoTransactionToAllocate;
+				return $Errors;
+			}
+			/* The receipts will always be smaller than the invoice as there can be several receipts to make up payment for a single invocie - but not vice-versa - that's why there is no point iterating over the possibilities  - in the words of McCloud "There can be only one"*/
+
 			$OSInvRow = DB_fetch_array($Result);
 
-			if ($OSInvRow['rate']==$LeftToAllocRow['rate']
-				AND $OSInvRow['outstanding']>0){
+
+			if ($OSInvRow['rate']==$LeftToAllocRow['rate'] AND $OSInvRow['outstanding']>0){
 
 				if ($OSInvRow['outstanding']+$LeftToAllocRow['lefttoalloc']>=0){
 					/*We can allocate the whole amount of the credit/receipt */
@@ -1361,7 +1369,7 @@ function ConvertToSQLDate($DateEntry) {
 
 				DB_Txn_Begin($db);
 				/*Now insert the allocation records */
-				$SQL = "INSERT INTO custallocs (amt,
+				$SQL = "INSERT INTO custallocns (amt,
 												datealloc,
 												transid_allocfrom,
 												transid_allocto)
@@ -1378,8 +1386,74 @@ function ConvertToSQLDate($DateEntry) {
 						WHERE id = '" . $OSInvRow['id'] . "'";
 				$Result = api_DB_query($SQL,$db,'','',true);
 			} /*end if the exchange rates are the same so no diff on exchange */
+         /*end if it is a normal allocation of receipt to invoice*/
+		} elseif ($LeftToAllocRow['lefttoalloc']>0) {
+			/* it is a payment - negative receipt - already checked type=12 need to find credit note to allocate to
+			  Now look for credit notes  type 11 with the same customerref to allocate to */
+			$SQL = "SELECT id,
+						rate,
+						ovamount+ovgst+ovdiscount-alloc AS outstanding
+					FROM debtortrans
+					WHERE debtorno='" . $AllocDetails['debtorno'] . "'
+					AND type=11
+					AND reference='" . $AllocDetails['customerref'] . "'
+					AND ovamount+ovgst+ovdiscount-alloc < -0.005";
+			$Result = api_DB_query($SQL,$db);
+			if (DB_num_rows($Result)==0) {
+				// then we need to cast the net further afield and look for normal receipts to allocate to
+				 $SQL = "SELECT id,
+						rate,
+						ovamount+ovgst+ovdiscount-alloc AS outstanding
+					FROM debtortrans
+					WHERE debtorno='" . $AllocDetails['debtorno'] . "'
+					AND type=12
+					AND reference='" . $AllocDetails['customerref'] . "'
+					AND ovamount+ovgst+ovdiscount-alloc < 0";
+				$Result = api_DB_query($SQL,$db);
+			 }
+			if (DB_num_rows($Result)==0) { //then no trans to allocate this to
+				$Errors[0] = 'no transactions to allocate this to';
+				return $Errors;
+			}
+			$LeftToAllocate = $LeftToAllocRow['lefttoalloc'];
 
-		}/*end if there is owt to allocation*/
+			DB_Txn_Begin($db);
+			/* there could be several receipts to allocate against ... loop through until $LefToAllocate is exhausted */
+			while ($OSCreditRow = DB_fetch_array($Result)){
+
+				if ($OSCreditRow['rate']==$LeftToAllocRow['rate'] AND $LeftToAllocate > 0){
+
+					if ($OSCreditRow['outstanding']+$LeftToAllocate<=0){
+						/*We can allocate the whole amount of the receipt */
+						$AllocateAmount = $LeftToAllocate;
+						$LeftToAllocate =0;
+					} else {
+						/*We can only allocate the rest of the invoice outstanding */
+						$AllocateAmount = $OSCreditRow['outstanding'];
+						$LeftToAllocate += $OSCreditRow['outstanding'];
+					}
+
+					/*Now insert the allocation records */
+					$SQL = "INSERT INTO custallocns (amt,
+													datealloc,
+													transid_allocfrom,
+													transid_allocto)
+										VALUE('" . $AllocateAmount . "',
+											'" . Date('Y-m-d') . "',
+											'" . $OSCreditRow['id'] . "',
+											'" . $LeftToAllocRow['id'] . "')";
+					$Result = api_DB_query($SQL,$db,'','',true);
+					/*Now update the allocated amounts in the debtortrans for both transactions */
+					$SQL = "UPDATE debtortrans SET alloc=alloc+" . $AllocateAmount . "
+							WHERE id = '" . $LeftToAllocRow['id'] . "'";
+					$Result = api_DB_query($SQL,$db,'','',true);
+					$SQL = "UPDATE debtortrans SET alloc=alloc-" . $AllocateAmount . "
+							WHERE id = '" . $OSCreditRow['id'] . "'";
+					$Result = api_DB_query($SQL,$db,'','',true);
+
+				}
+			} //end loop around potential positive receipts not fully allocated already
+		}
 		if (sizeof($Errors)==0) {
 			$Result = DB_Txn_Commit($db);
 			$Errors[0]=0;
