@@ -1,4 +1,5 @@
 webERP Change Log
+30/8/2012 Exson: fixed SQL injection leak report bymodpr0be.
 12/8/2012 Phil: fix update salesorderdetails orderlineno maybe different in credit note in Credit_Invoice.php
 7/8/2012 Tim: Fix bug reported by Pak Ricard preventing a request from being marked as close
 6/8/2012 Ricard: Fixed bug to allow 5th and 6th Inner join to work properly
