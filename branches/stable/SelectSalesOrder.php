@@ -394,7 +394,7 @@ if (isset($_POST['ResetPart'])){
 echo '<br /><div class="centre">';
 
 if (isset($_REQUEST['OrderNumber']) AND $_REQUEST['OrderNumber']!='') {
-	$_REQUEST['OrderNumber'] = trim($_REQUEST['OrderNumber']);
+	$_REQUEST['OrderNumber'] = DB_escape_string(trim($_REQUEST['OrderNumber']);
 	if (!is_numeric($_REQUEST['OrderNumber'])){
 		echo '<br /><b>' . _('The Order Number entered MUST be numeric') . '</b><br />';
 		unset ($_REQUEST['OrderNumber']);
@@ -405,11 +405,23 @@ if (isset($_REQUEST['OrderNumber']) AND $_REQUEST['OrderNumber']!='') {
 	}
 } else {
 	if (isset($_REQUEST['SelectedCustomer'])) {
+		if(!ContainsIllegalCharacters($_REQUEST['SelectedCustomer'])){
 		echo _('For customer') . ': ' . $_REQUEST['SelectedCustomer'] . ' ' . _('and') . ' ';
 		echo '<input type="hidden" name="SelectedCustomer" value="' . $_REQUEST['SelectedCustomer'] . '" />';
+		}else{
+			prnMsg(_('No illegal characters allowed'),'error'));
+			include('includes/footer.inc');
+			exit;
+		}
 	}
 	if (isset($_REQUEST['SelectedStockItem'])) {
-		 echo _('for the part') . ': ' . $_REQUEST['SelectedStockItem'] . ' ' . _('and') . ' <input type="hidden" name="SelectedStockItem" value="' . $_REQUEST['SelectedStockItem'] . '" />';
+		if(!ContainsIllegalCharacters($_REQUEST['SelectedStockItem'])){
+			echo _('for the part') . ': ' . $_REQUEST['SelectedStockItem'] . ' ' . _('and') . ' <input type="hidden" name="SelectedStockItem" value="' . $_REQUEST['SelectedStockItem'] . '" />';
+		}else{
+			prnMsg(_('No illegal charaters allowed'),'error'));
+			include('includes/footer.inc');
+			exit;
+		}
 	}
 }
 
