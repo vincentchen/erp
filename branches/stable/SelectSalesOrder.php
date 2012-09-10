@@ -7,6 +7,22 @@ $title = _('Search Outstanding Sales Orders');
 include('includes/header.inc');
 include('includes/SQL_CommonFunctions.inc');
 
+if (isset($_GET['SelectedStockItem'])) {
+	$SelectedStockItem = $_GET['SelectedStockItem'];
+} elseif (isset($_POST['SelectedStockItem'])){
+	$SelectedStockItem = $_POST['SelectedStockItem'];
+} else {
+	unset($SelectedStockItem);
+}
+
+if (isset($_GET['SelectedCustomer'])) {
+	$SelectedCustomer = $_GET['SelectedCustomer'];
+} elseif (isset($_POST['SelectedCustomer'])){
+	$SelectedCustomer = $_POST['SelectedCustomer'];
+} else {
+	unset($SelectedCustomer);
+}
+
 if (isset($_POST['PlacePO'])){ /*user hit button to place PO for selected orders */
 
 	/*Note the button would not have been displayed if the user had no authority to create purchase orders */
@@ -58,16 +74,16 @@ if (isset($_POST['PlacePO'])){ /*user hit button to place PO for selected orders
 					stockcategory.stockact
 				ORDER BY purchdata.supplierno,
 					 purchdata.stockid";
-					 
+
 		$ErrMsg = _('Unable to retrieve the items on the selected orders for creating purchase orders for');
 		$ItemResult = DB_query($sql,$db,$ErrMsg);
-		
+
 		$ItemArray = array();
-		
+
 		while ($myrow = DB_fetch_array($ItemResult)){
 			$ItemArray[$myrow['stockid']] = $myrow;
 		}
-		
+
 		/* Now figure out if there are any components of Assembly items that  need to be ordered too */
 		$sql = "SELECT purchdata.supplierno,
 						purchdata.stockid,
@@ -81,21 +97,21 @@ if (isset($_POST['PlacePO'])){ /*user hit button to place PO for selected orders
 						stockmaster.volume,
 						stockcategory.stockact,
 						SUM(bom.quantity *(salesorderdetails.quantity-salesorderdetails.qtyinvoiced)) AS orderqty
-				FROM purchdata INNER JOIN bom 
+				FROM purchdata INNER JOIN bom
 				ON purchdata.stockid=bom.component
 				INNER JOIN salesorderdetails ON
 				bom.parent=salesorderdetails.stkcode
 				INNER JOIN stockmaster ON
 				purchdata.stockid = stockmaster.stockid
-				INNER JOIN stockmaster AS stockmaster2 
+				INNER JOIN stockmaster AS stockmaster2
 				ON stockmaster2.stockid=salesorderdetails.stkcode
 				INNER JOIN stockcategory ON
 				stockmaster.categoryid = stockcategory.categoryid
-				WHERE purchdata.preferred=1 
+				WHERE purchdata.preferred=1
 				AND stockmaster2.mbflag='A'
 				AND bom.loccode ='" . $_SESSION['UserStockLocation'] . "'
 				AND purchdata.effectivefrom <='" . Date('Y-m-d') . "'
-				AND bom.effectiveafter <='" . Date('Y-m-d') . "' 
+				AND bom.effectiveafter <='" . Date('Y-m-d') . "'
 				AND bom.effectiveto > '" . Date('Y-m-d') . "'
 				AND (" . $OrdersToPlacePOFor . ")
 				GROUP BY purchdata.supplierno,
@@ -113,7 +129,7 @@ if (isset($_POST['PlacePO'])){ /*user hit button to place PO for selected orders
 					 purchdata.stockid";
 		$ErrMsg = _('Unable to retrieve the items on the selected orders for creating purchase orders for');
 		$ItemResult = DB_query($sql,$db,$ErrMsg);
-		
+
 		/* add any assembly item components from salesorders to the ItemArray */
 		while ($myrow = DB_fetch_array($ItemResult)){
 			if (isset($ItemArray[$myrow['stockid']])){
@@ -129,9 +145,9 @@ if (isset($_POST['PlacePO'])){ /*user hit button to place PO for selected orders
 		 */
 		foreach ($ItemArray as $key => $row) {
 			//to make the Supplier array with the keys of the $ItemArray
-			$SupplierArray[$key]  = $row['supplierno'];  
+			$SupplierArray[$key]  = $row['supplierno'];
 		}
-		
+
 		/* Use array_multisort to Sort the ItemArray with supplierno ascending
 		Add $ItemArray as the last parameter, to sort by the common key
 		*/
@@ -174,8 +190,8 @@ if (isset($_POST['PlacePO'])){ /*user hit button to place PO for selected orders
 						//if the user has authority to authorise the PO then it should be created as authorised
 						$AuthSQL ="SELECT authlevel
 					 				FROM purchorderauth
-								    WHERE userid='".$_SESSION['UserID']."'
-									AND currabrev='".$SuppRow['currcode']."'";
+								    WHERE userid='" . $_SESSION['UserID'] . "'
+									AND currabrev='" . $SuppRow['currcode'] . "'";
 
 						$AuthResult=DB_query($AuthSQL,$db);
 						$AuthRow=DB_fetch_array($AuthResult);
@@ -214,11 +230,11 @@ if (isset($_POST['PlacePO'])){ /*user hit button to place PO for selected orders
 
                     /*Starting a new purchase order with a different supplier */
 					$result = DB_Txn_Begin($db);
-					
+
 					$PO_OrderNo =  GetNextTransNo(18, $db); //get the next PO number
 
 					$SupplierID = $ItemRow['supplierno'];
-					$Order_Value =0;
+					$Order_Value = 0;
 					/*Now get all the required details for the supplier */
 					$sql = "SELECT address1,
         							address2,
@@ -333,20 +349,20 @@ if (isset($_POST['PlacePO'])){ /*user hit button to place PO for selected orders
 
 
 			/* The last line to be purchase ordered was reach so there will be an order which is not yet completed in progress now to completed it */
-		
+
 			if ($SupplierID !='' AND $_SESSION['AutoAuthorisePO']==1) {
 				//if the user has authority to authorise the PO then it should be created as authorised
 				$AuthSQL ="SELECT authlevel
 							FROM purchorderauth
 							WHERE userid='".$_SESSION['UserID']."'
 							AND currabrev='".$SuppRow['currcode']."'";
-		
+
 				$AuthResult=DB_query($AuthSQL,$db);
 				$AuthRow=DB_fetch_array($AuthResult);
 				if ($AuthRow['authlevel']=''){
 		                    $AuthRow['authlevel'] = 0;
 				}
-		
+
 				if (DB_num_rows($AuthResult) > 0 AND $AuthRow['authlevel'] > $Order_Value) { //user has authority to authrorise as well as create the order
 					$StatusComment = date($_SESSION['DefaultDateFormat']).' - ' . _('Order Created and Authorised by') . $UserDetails . ' - '._('Auto created from sales orders') .'<br />';
 					$ErrMsg = _('Could not update purchase order status to Authorised');
@@ -362,7 +378,7 @@ if (isset($_POST['PlacePO'])){ /*user hit button to place PO for selected orders
 					} else {
 						$AuthMessage = _('You can only authorise up to').' '.$SuppRow['currcode'].' '.$AuthRow['authlevel'].'.<br />';
 					}
-		
+
 					prnMsg( _('You do not have permission to authorise this purchase order').'.<br />'. _('This order is for').' '. $SuppRow['currcode'] . ' '. $Order_Value .'. '. $AuthMessage . _('If you think this is a mistake please contact the systems administrator') . '<br />'. _('The order has been created with a status of pending and will require authorisation'), 'warn');
 				}
 			} //end of authorisation status settings
@@ -388,39 +404,38 @@ echo '<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />'
 
 
 if (isset($_POST['ResetPart'])){
-     unset($_REQUEST['SelectedStockItem']);
+     unset($SelectedStockItem);
 }
 
 echo '<br /><div class="centre">';
 
-if (isset($_REQUEST['OrderNumber']) AND $_REQUEST['OrderNumber']!='') {
-	if (!is_numeric($_REQUEST['OrderNumber'])){
-		echo '<br /><b>' . _('The Order Number entered MUST be numeric') . '</b><br />';
-		unset ($_REQUEST['OrderNumber']);
+if (isset($_GET['OrderNumber'])){
+	$OrderNumber = $_GET['OrderNumber'];
+} elseif (isset($_POST['OrderNumber'])){
+	$OrderNumber = $_POST['OrderNumber'];
+} else {
+	unset($OrderNumber);
+}
+
+if (isset($OrderNumber) AND $OrderNumber!='') {
+	$OrderNumber = trim($OrderNumber);
+	if (!is_numeric($OrderNumber)){
+		echo '<br />
+			<b>' . _('The Order Number entered MUST be numeric') . '</b>
+			<br />';
+		unset ($OrderNumber);
 		include('includes/footer.inc');
 		exit;
 	} else {
-		echo _('Order Number') . ' - ' . $_REQUEST['OrderNumber'];
+		echo _('Order Number') . ' - ' . $OrderNumber;
 	}
 } else {
-	if (isset($_REQUEST['SelectedCustomer'])) {
-		if(!ContainsIllegalCharacters($_REQUEST['SelectedCustomer'])){
-		echo _('For customer') . ': ' . $_REQUEST['SelectedCustomer'] . ' ' . _('and') . ' ';
-		echo '<input type="hidden" name="SelectedCustomer" value="' . $_REQUEST['SelectedCustomer'] . '" />';
-		}else{
-			prnMsg(_('No illegal characters allowed'),'error');
-			include('includes/footer.inc');
-			exit;
-		}
+	if (isset($SelectedCustomer)) {
+		echo _('For customer') . ': ' . $SelectedCustomer . ' ' . _('and') . ' ';
+		echo '<input type="hidden" name="SelectedCustomer" value="' . $SelectedCustomer . '" />';
 	}
-	if (isset($_REQUEST['SelectedStockItem'])) {
-		if(!ContainsIllegalCharacters($_REQUEST['SelectedStockItem'])){
-			echo _('for the part') . ': ' . $_REQUEST['SelectedStockItem'] . ' ' . _('and') . ' <input type="hidden" name="SelectedStockItem" value="' . $_REQUEST['SelectedStockItem'] . '" />';
-		}else{
-			prnMsg(_('No illegal charaters allowed'),'error');
-			include('includes/footer.inc');
-			exit;
-		}
+	if (isset($SelectedStockItem)) {
+		 echo _('for the part') . ': ' . $SelectedStockItem . ' ' . _('and') . ' <input type="hidden" name="SelectedStockItem" value="' . $SelectedStockItem . '" />';
 	}
 }
 
@@ -499,7 +514,7 @@ if (!isset($StockID)) {
 	$OrdersAfterDate = Date('d/m/Y',Mktime(0,0,0,Date('m')-2,Date('d'),Date('Y')));
      */
 
-	if (!isset($_REQUEST['OrderNumber']) or $_REQUEST['OrderNumber']==''){
+	if (!isset($OrderNumber) OR $OrderNumber==''){
 
 		echo '<table class="selection">
 			<tr>
@@ -584,7 +599,7 @@ if (!isset($StockID)) {
 		</div>
 		<br />';
 
-if (isset($StockItemsResult) 
+if (isset($StockItemsResult)
 	AND DB_num_rows($StockItemsResult)>0) {
 
 	echo '<table cellpadding="2" class="selection">';
@@ -643,8 +658,8 @@ if (isset($StockItemsResult)
 	if(!isset($_POST['StockLocation'])) {
 		$_POST['StockLocation'] = '';
 	}
-	if (isset($_REQUEST['OrderNumber']) 
-		AND $_REQUEST['OrderNumber'] !='') {
+	if (isset($OrderNumber)
+		AND $OrderNumber !='') {
 			$SQL = "SELECT salesorders.orderno,
 					debtorsmaster.name,
 					custbranch.brname,
@@ -655,17 +670,17 @@ if (isset($StockItemsResult)
 					salesorders.printedpackingslip,
 					salesorders.poplaced,
 					SUM(salesorderdetails.unitprice*salesorderdetails.quantity*(1-salesorderdetails.discountpercent)/currencies.rate) AS ordervalue
-				FROM salesorders INNER JOIN salesorderdetails 
+				FROM salesorders INNER JOIN salesorderdetails
 					ON salesorders.orderno = salesorderdetails.orderno
-					INNER JOIN debtorsmaster 
+					INNER JOIN debtorsmaster
 					ON salesorders.debtorno = debtorsmaster.debtorno
-					INNER JOIN custbranch 
+					INNER JOIN custbranch
 					ON debtorsmaster.debtorno = custbranch.debtorno
 					AND salesorders.branchcode = custbranch.branchcode
 					INNER JOIN currencies
 					ON debtorsmaster.currcode = currencies.currabrev
 				WHERE salesorderdetails.completed=0
-				AND salesorders.orderno=". $_REQUEST['OrderNumber'] ."
+				AND salesorders.orderno=". $OrderNumber ."
 				AND salesorders.quotation =" .$Quotations . "
 				GROUP BY salesorders.orderno,
 					debtorsmaster.name,
@@ -680,9 +695,9 @@ if (isset($StockItemsResult)
 	} else {
 	      /* $DateAfterCriteria = FormatDateforSQL($OrdersAfterDate); */
 
-		if (isset($_REQUEST['SelectedCustomer'])) {
+		if (isset($SelectedCustomer)) {
 
-			if (isset($_REQUEST['SelectedStockItem'])) {
+			if (isset($SelectedStockItem)) {
 				$SQL = "SELECT salesorders.orderno,
 						debtorsmaster.name,
 						custbranch.brname,
@@ -693,19 +708,19 @@ if (isset($StockItemsResult)
 						salesorders.printedpackingslip,
 						salesorders.poplaced,
 						salesorderdetails.unitprice*salesorderdetails.quantity*(1-salesorderdetails.discountpercent)/currencies.rate AS ordervalue
-					FROM salesorders INNER JOIN salesorderdetails 
+					FROM salesorders INNER JOIN salesorderdetails
 						ON salesorders.orderno = salesorderdetails.orderno
-						INNER JOIN debtorsmaster 
+						INNER JOIN debtorsmaster
 						ON salesorders.debtorno = debtorsmaster.debtorno
-						INNER JOIN custbranch 
+						INNER JOIN custbranch
 						ON debtorsmaster.debtorno = custbranch.debtorno
 						AND salesorders.branchcode = custbranch.branchcode
 						INNER JOIN currencies
 						ON debtorsmaster.currcode = currencies.currabrev
 					WHERE salesorderdetails.completed=0
 					AND salesorders.quotation =" .$Quotations . "
-					AND salesorderdetails.stkcode='". $_REQUEST['SelectedStockItem'] ."'
-					AND salesorders.debtorno='" . $_REQUEST['SelectedCustomer'] ."'
+					AND salesorderdetails.stkcode='". $SelectedStockItem ."'
+					AND salesorders.debtorno='" . $SelectedCustomer ."'
 					AND salesorders.fromstkloc = '". $_POST['StockLocation'] . "'
 					ORDER BY salesorders.orderno";
 
@@ -721,18 +736,18 @@ if (isset($StockItemsResult)
 						salesorders.poplaced,
 						salesorders.deliverydate,
 						SUM(salesorderdetails.unitprice*salesorderdetails.quantity*(1-salesorderdetails.discountpercent)/currencies.rate) AS ordervalue
-					FROM salesorders INNER JOIN salesorderdetails 
+					FROM salesorders INNER JOIN salesorderdetails
 						ON salesorders.orderno = salesorderdetails.orderno
-						INNER JOIN debtorsmaster 
+						INNER JOIN debtorsmaster
 						ON salesorders.debtorno = debtorsmaster.debtorno
-						INNER JOIN custbranch 
+						INNER JOIN custbranch
 						ON debtorsmaster.debtorno = custbranch.debtorno
 						AND salesorders.branchcode = custbranch.branchcode
 						INNER JOIN currencies
 						ON debtorsmaster.currcode = currencies.currabrev
 					WHERE  salesorders.quotation =" .$Quotations . "
 					AND salesorderdetails.completed=0
-					AND salesorders.debtorno='" . $_REQUEST['SelectedCustomer'] . "'
+					AND salesorders.debtorno='" . $SelectedCustomer . "'
 					AND salesorders.fromstkloc = '". $_POST['StockLocation'] . "'
 					GROUP BY salesorders.orderno,
 						debtorsmaster.name,
@@ -747,7 +762,7 @@ if (isset($StockItemsResult)
 
 			}
 		} else { //no customer selected
-			if (isset($_REQUEST['SelectedStockItem'])) {
+			if (isset($SelectedStockItem)) {
 				$SQL = "SELECT salesorders.orderno,
 						debtorsmaster.name,
 						custbranch.brname,
@@ -758,18 +773,18 @@ if (isset($StockItemsResult)
 					  	salesorders.poplaced,
 						salesorders.deliverydate,
 						SUM(salesorderdetails.unitprice*salesorderdetails.quantity*(1-salesorderdetails.discountpercent)/currencies.rate) AS ordervalue
-					FROM salesorders INNER JOIN salesorderdetails 
+					FROM salesorders INNER JOIN salesorderdetails
 						ON salesorders.orderno = salesorderdetails.orderno
-						INNER JOIN debtorsmaster 
+						INNER JOIN debtorsmaster
 						ON salesorders.debtorno = debtorsmaster.debtorno
-						INNER JOIN custbranch 
+						INNER JOIN custbranch
 						ON debtorsmaster.debtorno = custbranch.debtorno
 						AND salesorders.branchcode = custbranch.branchcode
 						INNER JOIN currencies
 						ON debtorsmaster.currcode = currencies.currabrev
 					WHERE salesorderdetails.completed=0
 					AND salesorders.quotation =" .$Quotations . "
-					AND salesorderdetails.stkcode='". $_REQUEST['SelectedStockItem'] . "'
+					AND salesorderdetails.stkcode='". $SelectedStockItem . "'
 					AND salesorders.fromstkloc = '". $_POST['StockLocation'] . "'
 					GROUP BY salesorders.orderno,
 						debtorsmaster.name,
@@ -792,11 +807,11 @@ if (isset($StockItemsResult)
 						salesorders.printedpackingslip,
 						salesorders.poplaced,
 						SUM(salesorderdetails.unitprice*salesorderdetails.quantity*(1-salesorderdetails.discountpercent)/currencies.rate) AS ordervalue
-					FROM salesorders INNER JOIN salesorderdetails 
+					FROM salesorders INNER JOIN salesorderdetails
 						ON salesorders.orderno = salesorderdetails.orderno
-						INNER JOIN debtorsmaster 
+						INNER JOIN debtorsmaster
 						ON salesorders.debtorno = debtorsmaster.debtorno
-						INNER JOIN custbranch 
+						INNER JOIN custbranch
 						ON debtorsmaster.debtorno = custbranch.debtorno
 						AND salesorders.branchcode = custbranch.branchcode
 						INNER JOIN currencies
@@ -824,12 +839,12 @@ if (isset($StockItemsResult)
 
 	/*show a table of the orders returned by the SQL */
 	if (DB_num_rows($SalesOrdersResult)>0) {
-		
+
 		/* Get users authority to place POs */
 		$AuthSQL="SELECT cancreate
 					FROM purchorderauth
 					WHERE userid='". $_SESSION['UserID'] . "'";
-						
+
 		/*we don't know what currency these orders might be in but if no authority at all then don't show option*/
 		$AuthResult=DB_query($AuthSQL,$db);
 		$AuthRow=DB_fetch_array($AuthResult);
@@ -848,7 +863,7 @@ if (isset($StockItemsResult)
 								<th>' . _('Req Del Date') . '</th>
 								<th>' . _('Delivery To') . '</th>
 								<th>' . _('Order Total') . '<br />' . $_SESSION['CompanyRecord']['currencydefault'] . '</th>';
-								
+
 			if ($AuthRow['cancreate']==0){ //If cancreate==0 then this means the user can create orders hmmm!!
 				$tableheader .= '<th>' . _('Place PO') . '</th></tr>';
 			} else {
@@ -874,7 +889,7 @@ if (isset($StockItemsResult)
                 $j = 1;
 		$k=0; //row colour counter
 		$OrdersTotal =0;
-		
+
 		while ($myrow=DB_fetch_array($SalesOrdersResult)) {
 
 
@@ -888,25 +903,26 @@ if (isset($StockItemsResult)
 
 			$ModifyPage = $rootpath . '/SelectOrderItems.php?ModifyOrderNumber=' . $myrow['orderno'];
 			$Confirm_Invoice = $rootpath . '/ConfirmDispatch_Invoice.php?OrderNumber=' .$myrow['orderno'];
-	
+
 			if ($_SESSION['PackNoteFormat']==1){ /*Laser printed A4 default */
 				$PrintDispatchNote = $rootpath . '/PrintCustOrder_generic.php?TransNo=' . $myrow['orderno'];
 			} else { /*pre-printed stationery default */
 				$PrintDispatchNote = $rootpath . '/PrintCustOrder.php?TransNo=' . $myrow['orderno'];
 			}
 			$PrintQuotation = $rootpath . '/PDFQuotation.php?QuotationNo=' . $myrow['orderno'];
+			$PrintQuotationPortrait = $rootpath . '/PDFQuotationPortrait.php?QuotationNo=' . $myrow['orderno'];
 			$FormatedDelDate = ConvertSQLDate($myrow['deliverydate']);
 			$FormatedOrderDate = ConvertSQLDate($myrow['orddate']);
 			$FormatedOrderValue = locale_number_format($myrow['ordervalue'],$_SESSION['CompanyRecord']['decimalplaces']);
-	
+
 			if ($myrow['printedpackingslip']==0) {
 			  $PrintText = _('Print');
 			} else {
 			  $PrintText = _('Reprint');
 			}
-	
+
 			if ($_POST['Quotations']=='Orders_Only'){
-	
+
 			 /*Check authority to create POs if user has authority then show the check boxes to select sales orders to place POs for otherwise don't provide this option */
 				if ($AuthRow['cancreate']==0 AND $myrow['poplaced']==0){ //cancreate==0 if the user can create POs and not already placed
 				printf('<td><a href="%s">%s</a></td>
@@ -959,10 +975,10 @@ if (isset($StockItemsResult)
 							html_entity_decode($myrow['deliverto'],ENT_QUOTES,'UTF-8'),
 							$FormatedOrderValue);
 				}
-	
+
 			} else { /*must be quotes only */
 				printf('<td><a href="%s">%s</a></td>
-						<td><a target="_blank" href="%s">' . $PrintText . '</a></td>
+						<td><a target="_blank" href="%s">' . _('Landscape') . '</a>&nbsp;&nbsp;<a target="_blank" href="%s">' . _('Portrait') . '</a></td>
 						<td>%s</td>
 						<td>%s</td>
 						<td>%s</td>
@@ -974,6 +990,7 @@ if (isset($StockItemsResult)
 						$ModifyPage,
 						$myrow['orderno'],
 						$PrintQuotation,
+						$PrintQuotationPortrait,
 						$myrow['name'],
 						$myrow['brname'],
 						$myrow['customerref'],
@@ -991,9 +1008,9 @@ if (isset($StockItemsResult)
 			}
 		//end of page full new headings if
 		}//end while loop through orders to display
-		if ($_POST['Quotations']=='Orders_Only' 
+		if ($_POST['Quotations']=='Orders_Only'
 			AND $AuthRow['cancreate']==0){ //cancreate==0 means can create POs
-			
+
 			echo '<tr><td colspan="11" class="number"><input type="submit" name="PlacePO" value="' . _('Place') . " " . _('PO') . '" onclick="return confirm(\'' . _('This will create purchase orders for all the items on the checked sales orders above, based on the preferred supplier purchasing data held in the system. Are You Absolutely Sure?') . '\');" /></td</tr>';
 		}
 		echo '<tr><td colspan="9" class="number">';
@@ -1006,7 +1023,7 @@ if (isset($StockItemsResult)
 			<td class="number"><b>' . locale_number_format($OrdersTotal,$_SESSION['CompanyRecord']['decimalplaces']) . '</b></td>
 			</tr>
 			</table>';
-	} //end if there are some orders to show  
+	} //end if there are some orders to show
 }
 
 echo '</div>

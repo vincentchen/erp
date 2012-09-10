@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
 
 	$sql = "CREATE TEMPORARY TABLE passbom (part char(20),
 											sortpart text) DEFAULT CHARSET=utf8";
-	$ErrMsg = _('The SQL to to create passbom failed with the message');
+	$ErrMsg = _('The SQL to create passbom failed with the message');
 	$result = DB_query($sql,$db,$ErrMsg);
 
 	$sql = "CREATE TEMPORARY TABLE tempbom (parent char(20),
@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
 	$sql = "INSERT INTO passbom (part, sortpart)
 					   SELECT bom.component AS part,
 							  CONCAT(bom.parent,'%',bom.component) AS sortpart
-							  FROM bom LEFT JOIN bom as bom2 
+							  FROM bom LEFT JOIN bom as bom2
 							  ON bom.parent = bom2.component
 					  WHERE bom2.component IS NULL";
 	$result = DB_query($sql,$db);
@@ -245,11 +245,14 @@ if (isset($_POST['submit'])) {
 									  salesorderdetails.orderno,
 									  '1',
 									  stkcode
-							  FROM salesorders, salesorderdetails
-							  WHERE salesorders.orderno = salesorderdetails.orderno
-								  AND (quantity - qtyinvoiced) > 0
-								  AND salesorderdetails.completed = 0
-								  AND salesorders.quotation = 0";
+							  FROM salesorders INNER JOIN salesorderdetails
+								ON salesorders.orderno = salesorderdetails.orderno
+								INNER JOIN stockmaster 
+								ON stockmaster.stockid = salesorderdetails.stkcode
+							  WHERE stockmaster.discontinued = 0
+							  AND (quantity - qtyinvoiced) > 0
+							  AND salesorderdetails.completed = 0
+							  AND salesorders.quotation = 0";
 	$result = DB_query($sql,$db);
 
 	prnMsg(_('Loading requirements from work orders'),'info');
@@ -263,18 +266,22 @@ if (isset($_POST['submit'])) {
 										 directdemand,
 										 whererequired)
 							   SELECT worequirements.stockid,
-									  workorders.requiredby,
-									  qtypu*(woitems.qtyreqd - woitems.qtyrecd) AS netqty,
-									  'WO',
-									  woitems.wo,
-									  '1',
-									  parentstockid
-									  FROM woitems INNER JOIN worequirements
+									workorders.requiredby,
+									qtypu*(woitems.qtyreqd - woitems.qtyrecd) AS netqty,
+									'WO',
+									woitems.wo,
+									'1',
+									parentstockid
+								FROM woitems 
+									INNER JOIN worequirements
 										ON woitems.stockid=worequirements.parentstockid
 									INNER JOIN workorders
 									  ON woitems.wo=workorders.wo
 									  AND woitems.wo=worequirements.wo
-									WHERE workorders.closed=0";
+									  INNER JOIN stockmaster
+										ON woitems.stockid = stockmaster.stockid
+								WHERE workorders.closed=0
+									AND stockmaster.discontinued = 0";
 	$result = DB_query($sql,$db);
 
 	$sql = "INSERT INTO mrprequirements	(part,
@@ -284,14 +291,16 @@ if (isset($_POST['submit'])) {
 										 orderno,
 										 directdemand,
 										 whererequired)
-							   SELECT stockid,
-									  duedate,
-									  quantity,
-									  mrpdemandtype,
-									  demandid,
+							   SELECT mrpdemands.stockid,
+									  mrpdemands.duedate,
+									  mrpdemands.quantity,
+									  mrpdemands.mrpdemandtype,
+									  mrpdemands.demandid,
 									  '1',
-									  stockid
-								 FROM mrpdemands";
+									  mrpdemands.stockid
+								 FROM mrpdemands, stockmaster
+								 WHERE mrpdemands.stockid = stockmaster.stockid
+									AND stockmaster.discontinued = 0";
 	if ($_POST['usemrpdemands'] == 'y') {
 		$result = DB_query($sql,$db);
 		prnMsg(_('Loading requirements based on mrpdemands'),'info');
@@ -304,15 +313,17 @@ if (isset($_POST['submit'])) {
 										 orderno,
 										 directdemand,
 										 whererequired)
-							   SELECT stockid,
+							   SELECT locstock.stockid,
 									  NOW(),
-									  (reorderlevel - quantity) AS reordqty,
+									  (locstock.reorderlevel - locstock.quantity) AS reordqty,
 									  'REORD',
 									  '1',
 									  '1',
-									  stockid
-								 FROM locstock
-								 WHERE reorderlevel > quantity";
+									  locstock.stockid
+								 FROM locstock, stockmaster
+								 WHERE stockmaster.stockid = locstock.stockid
+									AND stockmaster.discontinued = 0
+									AND reorderlevel > quantity";
 	$result = DB_query($sql,$db);
 	prnMsg(_('Loading requirements based on reorder level'),'info');
 	flush();
@@ -435,7 +446,7 @@ if (isset($_POST['submit'])) {
 	prnMsg(_('Creating planned orders table'),'info');
 	flush();
 	$result = DB_query("DROP TABLE IF EXISTS mrpplannedorders",$db);
-	$sql = "CREATE TABLE mrpplannedorders (id int(11) NOT NULL auto_increment, 
+	$sql = "CREATE TABLE mrpplannedorders (id int(11) NOT NULL auto_increment,
 											part char(20),
 											duedate date,
 											supplyquantity double,
@@ -754,8 +765,8 @@ function LevelNetting(&$db,$part,$eoq,$PanSize,$ShrinkFactor, $LeadTime) {
 
 			// Calculate required date by subtracting leadtime from top part's required date
             $PartRequiredDate=$Requirement['daterequired'];
-			if ((int)$LeadTime>0) {              
-                  
+			if ((int)$LeadTime>0) {
+
 				$CalendarSQL = "SELECT COUNT(*),cal2.calendardate
 						  FROM mrpcalendar
 							LEFT JOIN mrpcalendar as cal2
