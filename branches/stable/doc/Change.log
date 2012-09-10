@@ -1,4 +1,7 @@
 webERP Change Log
+6/9/2012 Richard:Fix SQL for All Locations and Stock category in NoSalesItems.php
+05/9/2 vvs2012: Fixed the header misplaced for BOMExtendedQty.php
+10/9/2012 Tim: Fixed that the BankMatching.php does not return correct bank account.
 7/9/2012 Exson: fixed typo error for SelectSalesOrder.php
 7/9/2012  Phil/Exson: fixed SQL injection leak reported by Danial.
 30/8/2012 Exson: fixed SQL injection leak report bymodpr0be.
