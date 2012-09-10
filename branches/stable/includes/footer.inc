@@ -2,23 +2,27 @@
 
 /* $Id$*/
 
-echo '<table width="100%" id="footer">';
+echo '</div>'; // BodyWrapDiv
+echo '</div>'; // BodyDiv
 
-echo '<tr>';
-echo '<td style="width:33%"></td><td class="footer">';
-echo '<img src="'. $rootpath . '/' . $_SESSION['LogoFile'] . '" width="120" alt="webERP" title="webERP ' . _('Copyright') . ' &copy; weberp.org - ' . date('Y') . '" /></td>';
-echo '<td class="footer" style="text-align: right;width:33%">'. DisplayDateTime() .'</td>';
+echo '<div id="FooterDiv">';
+echo '<div id="FooterWrapDiv">';
 
-echo '</tr>';
-echo '<tr><td colspan="3" class="footer">webERP ' ._('version') .' ' . $_SESSION['VersionNumber'] . '</td></tr>';
-
-//	if(http_file_exists('http://sflogo.sourceforge.net/sflogo.php')) {
-//		echo '<tr><td class="footer"><a href="https://sourceforge.net/projects/web-erp"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=391629&amp;type=12" width="120" height="30" border="0" alt="Get webERP web-based ERP Accounting at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a></td></tr>';
-//	}
-
-echo '</table>';
-
+echo '<div id="FooterLogoDiv">';
+	echo '<img src="'. $rootpath . '/' . $_SESSION['LogoFile'] . '" width="120" alt="webERP" title="webERP ' . _('Copyright') . ' &copy; weberp.org - ' . date('Y') . '" /></td>';
 echo '</div>';
+
+echo '<div id="FooterVersionDiv">';
+	echo 'webERP ' ._('version') .' ' . $_SESSION['VersionNumber'] . ' ' . _('Copyright') . ' © 2004 - ' . Date('Y'). ' <a target="_blank" href="http://www.weberp.org/weberp/doc/Manual/ManualContributors.html">weberp.org</a>';
+echo '</div>';
+
+echo '<div id="FooterTimeDiv">';
+	echo DisplayDateTime();
+echo '</div>';
+
+echo '</div>'; // FooterWrapDiv
+echo '</div>'; // FooterDiv
+
 echo '</body>';
 echo '</html>';
 
