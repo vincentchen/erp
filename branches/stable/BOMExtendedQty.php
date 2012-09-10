@@ -14,7 +14,7 @@ if (isset($_POST['PrintPDF'])) {
 	$FontSize=9;
 	$PageNumber=1;
 	$line_height=12;
-	$YPos = $Page_Height - $Top_Margin;
+    PrintHeader($pdf,$YPos,$PageNumber,$Page_Height,$Top_Margin,$Left_Margin,$Page_Width,$Right_Margin);
 
 	if (!$_POST['Quantity'] or !is_numeric(filter_number_format($_POST['Quantity']))) {
 		$_POST['Quantity'] = 1;
@@ -27,7 +27,7 @@ if (isset($_POST['PrintPDF'])) {
 				part char(20),
 				extendedqpa double,
 				sortpart text) DEFAULT CHARSET=utf8";
-	$ErrMsg = _('The SQL to to create passbom failed with the message');
+	$ErrMsg = _('The SQL to create passbom failed with the message');
 	$result = DB_query($sql,$db,$ErrMsg);
 
 	$sql = "CREATE TEMPORARY TABLE tempbom (
