@@ -519,6 +519,9 @@ if (DB_num_rows($WOResult)==0){
 if (!isset($_POST['IssuedDate'])){
 	$_POST['IssuedDate'] = Date($_SESSION['DefaultDateFormat']);
 }
+
+$WORow = DB_fetch_array($WOResult);
+
 echo '<table class="selection">
 		<tr>
 			<td class="label">' . _('Issue to work order') . ':</td>
