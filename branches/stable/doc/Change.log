@@ -1,6 +1,6 @@
 webERP Change Log
-
-
+9/10/2012 Exson: fixed typo in CounterSales.php reported by thumb.
+9/10/2012 Exson: fixed installation weberpdemo checkbox malfunction. reported by IO-jianpanchongzi From webERP Chinese Community.
 7/10/12 Phil: Fix WorkOrderIssue.php required by date
 
 6/10/2012 Release 4.09
