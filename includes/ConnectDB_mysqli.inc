@@ -1,5 +1,4 @@
 <?php
-
 /* $Id$ */
 
 /* PeterMoulding.com
@@ -56,22 +55,75 @@ if (isset($DatabaseName)) {
 
 require_once ($PathPrefix .'includes/MiscFunctions.php');
 
-//DB wrapper functions to change only once for whole application
 
+/**
+* DB wrapper functions to change only once for whole application
+* Will accept an array $BindVars for prepared statement with bound variables
+*
+* @param $SQL MySQL query string with or without bindvars
+* @param $Conn  valid mysqli connection
+* @param $ErrorMessage <string> optional
+* @param $DebugMessage <string> optional
+* @param $Transaction <bool> default false
+* @param $TrapErrors <bool> default true
+* @param $BindVars <array> array of typed parameters for $SQL bind var query
+*
+* @return  $result associative array
+*/
 function DB_query ($SQL,
-					&$Conn,
-					$ErrorMessage='',
-					$DebugMessage= '',
-					$Transaction=false,
-					$TrapErrors=true){
+				   &$Conn,
+				   $ErrorMessage='',
+				   $DebugMessage= '',
+				   $Transaction=false,
+				   $TrapErrors=true,
+				   $BindVars = null){
 
 	global $debug;
 	global $PathPrefix;
+	global $db;
 
-	$result=mysqli_query($Conn, $SQL);
+	if (!is_null($BindVars)) {
+		$Query = filter_var($SQL, FILTER_SANITIZE_STRING); //sanitize the string
+		$stmt = $Conn->prepare($Query);
 
+		if (is_array($BindVars) === true) {
+			$params = array(''); // Create the empty 0 index
+			foreach ($BindVars as $prop => $val) {
+
+				switch (gettype($val)) {
+					case 'NULL':
+					case 'string':
+						$params[0] .= 's';
+						break;
+
+					case 'integer':
+					case 'boolean':
+						$params[0] .= 'i';
+						break;
+
+					case 'blob':
+						$params[0] .= 'b';
+						break;
+
+					case 'double':
+						$params[0] .= 'd';
+						break;
+				}
+
+				array_push($params, $BindVars[$prop]);
+			}
+			call_user_func_array(array($stmt, 'bind_param'), refValues($params));
+		}
+
+		$stmt->execute();
+		$result = bindResults($stmt);
+		$AffectedRows = $stmt->affected_rows;
+
+	} else {
+		$result=mysqli_query($Conn, $SQL);
+		$AffectedRows = DB_affected_rows($result);
+	}
 	$_SESSION['LastInsertId'] = mysqli_insert_id($Conn);
-
 	if ($DebugMessage == '') {
 		$DebugMessage = _('The SQL that failed was');
 	}
@@ -97,8 +149,7 @@ function DB_query ($SQL,
 			include($PathPrefix . 'includes/footer.inc');
 			exit;
 		}
-	} elseif (isset($_SESSION['MonthsAuditTrail']) and (DB_error_no($Conn)==0 AND $_SESSION['MonthsAuditTrail']>0) AND (DB_affected_rows($result)>0)){
-
+	} elseif (isset($_SESSION['MonthsAuditTrail']) and (DB_error_no($Conn)==0 AND $_SESSION['MonthsAuditTrail']>0) AND ($AffectedRows>0)){
 		$SQLArray = explode(' ', $SQL);
 
 		if (($SQLArray[0] == 'INSERT')
@@ -106,19 +157,76 @@ function DB_query ($SQL,
 			OR ($SQLArray[0] == 'DELETE')) {
 
 			if ($SQLArray[2]!='audittrail'){ // to ensure the auto delete of audit trail history is not logged
+				if (is_null($Bindvars)) {
+					$AuditString = mysqli_escape_string($db,$SQL);
+				} else {
+					$AuditString =  mysqli_escape_string($db,$Query ."\n". json_encode($params));
+				}
 				$AuditSQL = "INSERT INTO audittrail (transactiondate,
 									userid,
 									querystring)
 						VALUES('" . Date('Y-m-d H:i:s') . "',
 							'" . trim($_SESSION['UserID']) . "',
-							'" . DB_escape_string($SQL) . "')";
+							'" . $AuditString . "')";
 
 				$AuditResult = mysqli_query($Conn, $AuditSQL);
+
 			}
 		}
 	}
+	if (!is_null($BindVars)) {
+		$stmt->close();
+	}
 	return $result;
 
+}
+
+function refValues($arr)
+{
+	//Reference is required for PHP 5.3+
+	if (strnatcmp(phpversion(), '5.3') >= 0) {
+		$refs = array();
+		foreach ($arr as $key => $value) {
+			$refs[$key] = & $arr[$key];
+		}
+		return $refs;
+	}
+	return $arr;
+}
+
+function bindResults(mysqli_stmt $stmt)
+{
+	$parameters = array();
+	$results = array();
+
+	$meta = $stmt->result_metadata();
+
+	// if $meta is false yet sqlstate is true, there's no sql error but the query is
+	// most likely an update/insert/delete which doesn't produce any results
+	if(!$meta && $stmt->sqlstate) {
+		return array();
+	}
+
+	$row = array();
+	while ($field = $meta->fetch_field()) {
+		$row[$field->name] = null;
+		$parameters[] = & $row[$field->name];
+	}
+
+	call_user_func_array(array($stmt, 'bind_result'), $parameters);
+
+	while ($stmt->fetch()) {
+		$x = array();
+		foreach ($row as $key => $val) {
+			$x[$key] = $val;
+		}
+		array_push($results, $x);
+	}
+	if (count($results) == 1) {
+		//just return the row as an array
+		$results = current($results);
+	}
+	return $results;
 }
 
 function DB_fetch_row (&$ResultIndex) {

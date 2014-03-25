@@ -56,25 +56,15 @@ if (isset($_SESSION['DatabaseName'])){
 			if(get_magic_quotes_gpc()) {
 				$_POST['name'] = stripslashes($_POST['name']);
 			}
-			$_POST[$PostVariableName] = DB_escape_string($PostVariableValue);
 		} else {
 			foreach ($PostVariableValue as $PostArrayKey => $PostArrayValue) {
 				if(get_magic_quotes_gpc()) {
 					$PostVariableValue[$PostArrayKey] = stripslashes($value[$PostArrayKey]);
 				}
-				$PostVariableValue[$PostArrayKey] = DB_escape_string($PostArrayValue);
 			}
 		}
 	}
 
-	/* iterate through all elements of the $_GET array and DB_escape_string them
-	to limit possibility for SQL injection attacks and cross scripting attacks
-	*/
-	foreach ($_GET as $GetKey => $GetValue) {
-		if (gettype($GetValue) != 'array') {
-			$_GET[$GetKey] = DB_escape_string($GetValue);
-		}
-	}
 } else { //set SESSION['FormID'] before the a user has even logged in
 	$_SESSION['FormID'] = sha1(uniqid(mt_rand(), true));
 }
@@ -139,7 +129,7 @@ include($PathPrefix . 'includes/GetConfig.php');
 if (strcmp($Version,$_SESSION['VersionNumber'])>0 AND (basename($_SERVER['SCRIPT_NAME'])!='UpgradeDatabase.php')) {
 	header('Location: UpgradeDatabase.php');
 }
-if(isset($_SESSION['DB_Maintenance'])){ 
+if(isset($_SESSION['DB_Maintenance'])){
 	if ($_SESSION['DB_Maintenance']>0)  { //run the DB maintenance script
 		if (DateDiff(Date($_SESSION['DefaultDateFormat']),
 				ConvertSQLDate($_SESSION['DB_Maintenance_LastRun'])
@@ -152,7 +142,7 @@ if(isset($_SESSION['DB_Maintenance'])){
 	}
 }
 //purge the audit trail if necessary
-if (isset($_SESSION['MonthsAuditTrail'])){ 
+if (isset($_SESSION['MonthsAuditTrail'])){
 	 $sql = "DELETE FROM audittrail
 			WHERE  transactiondate <= '" . Date('Y-m-d', mktime(0,0,0, Date('m')-$_SESSION['MonthsAuditTrail'])) . "'";
 	$ErrMsg = _('There was a problem deleting expired audit-trail history');
