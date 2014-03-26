@@ -56,8 +56,7 @@ if ( isset($_POST['submit']) ) {
 							$_POST['ContactNotes'],
 							$_POST['ContactEmail'],
 							$DebtorNo,
-							(int)$Id
-							);
+							(int)$Id);
 		$sql = "UPDATE custcontacts SET contactname=?,
 										role=?,
 										phoneno=?,
@@ -72,8 +71,7 @@ if ( isset($_POST['submit']) ) {
 						$_POST['ContactRole'],
 						$_POST['ContactPhone'],
 						$_POST['ContactNotes'],
-						$_POST['ContactEmail']
-						);
+						$_POST['ContactEmail']);
 		$sql = "INSERT INTO custcontacts (debtorno,
 										contactname,
 										role,
