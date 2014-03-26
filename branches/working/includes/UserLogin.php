@@ -42,12 +42,13 @@ function userLogin($Name, $Password, $SysAdminEmail = '', $db) {
 		/* The SQL to get the user info must use the * syntax because the field name could change between versions if the fields are specifed directly then the sql fails and the db upgrade will fail */
 		$sql = "SELECT *
 				FROM www_users
-				WHERE www_users.userid='" . $Name . "'
-				AND (www_users.password='" . CryptPass($Password) . "'
-				OR  www_users.password='" . $Password . "')";
+				WHERE www_users.userid=?
+				AND (www_users.password=?
+				OR  www_users.password=?)";
+		$Parameters = array($Name, CryptPass($Password), $Password); 
 		$ErrMsg = _('Could not retrieve user details on login because');
 		$debug =1;
-		$Auth_Result = DB_query($sql, $db,$ErrMsg);
+		$Auth_Result = DB_query($sql, $db,$ErrMsg,'',false,true,$Parameters);
 		// Populate session variables with data base results
 		if (DB_num_rows($Auth_Result) > 0) {
 			$myrow = DB_fetch_array($Auth_Result);

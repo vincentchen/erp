@@ -1,11 +1,6 @@
 <?php
 /* $Id$ */
 
-/* PeterMoulding.com
-20071102 Change from mysql to mysqli;
-20071102 Add $db to DB_escape_string();
-*/
-
 define ('LIKE','LIKE');
 
 if (!isset($mysqlport)){
@@ -16,14 +11,13 @@ global $db;	// Make sure it IS global, regardless of our context
 $db = mysqli_connect($host , $DBUser, $DBPassword,$_SESSION['DatabaseName'], $mysqlport);
 //$result=DB_query('SET sql_mode = ANSI', $db);
 
-
 //this statement sets the charset to be used for sending data to and from the db server
 //if not set, both mysqli server and mysqli client/library may assume otherwise
 mysqli_set_charset($db, 'utf8');
 
 /* check connection */
 if (mysqli_connect_errno()) {
-	printf("Connect failed: %s\n", mysqli_connect_error());
+	echo _('Connect failed') . ': ' . mysqli_connect_error();
 	session_unset();
 	session_destroy();
 	echo '<p>' . _('Click') . ' ' . '<a href="index.php">' . _('here') . '</a>' . ' '  ._('to try logging in again') . '</p>';
@@ -70,7 +64,101 @@ require_once ($PathPrefix .'includes/MiscFunctions.php');
 *
 * @return  $result associative array
 */
+
+
 function DB_query ($SQL,
+					&$Conn,
+					$ErrorMessage='',
+					$DebugMessage= '',
+					$Transaction=false,
+					$TrapErrors=true,
+					$Parameters=array()){
+
+	global $debug;
+	global $PathPrefix;
+
+	$SQLChunks = explode('?',$SQL);
+	if (count($SQLChunks)-1 != count($Parameters)){
+		prnMsg(_('The number of parameters provided with this SQL did not equal the number of parameters expected by the SQL string'),'error');
+		if ($debug==1){
+			prnMsg($DebugMessage. '<br />' . $SQL . '<br />','error',_('Database SQL Failure'));
+			print_r($Parameters);
+			print_r($SQLChunks);
+		}
+		include($PathPrefix . 'includes/footer.inc');
+		exit;
+	}
+	$SQLString ='';
+	$i=0;
+	foreach ($SQLChunks as $SQLChunk) {
+		if (isset($Parameters[$i])){
+			$SQLString .= $SQLChunk . " '" . $Parameters[$i] . "'";
+		} else {
+			$SQLString .= $SQLChunk;
+		}
+		$i++;
+	}
+	/*
+	 * if (mb_strrpos($SQL,'?')==mb_strlen($SQL)){
+		$SQLChunks[]=''; //append an empty string so the count of the arrays match 
+	}
+	*/ 
+	
+	$result=mysqli_query($Conn, $SQLString);
+
+	$_SESSION['LastInsertId'] = mysqli_insert_id($Conn);
+
+	if ($DebugMessage == '') {
+		$DebugMessage = _('The SQL that failed was');
+	}
+
+	if (DB_error_no($Conn) != 0 AND $TrapErrors==true){
+		if ($TrapErrors){
+			require_once($PathPrefix . 'includes/header.inc');
+		}
+		prnMsg($ErrorMessage . '<br />' . DB_error_msg($Conn),'error', _('Database Error'). ' ' .DB_error_no($Conn));
+		if ($debug==1){
+			prnMsg($DebugMessage. '<br />' . $SQLString . '<br />','error',_('Database SQL Failure'));
+		}
+		if ($Transaction){
+			$SQL = 'rollback';
+			$Result = DB_query($SQL,$Conn);
+			if (DB_error_no($Conn) !=0){
+				prnMsg(_('Error Rolling Back Transaction'), 'error', _('Database Rollback Error'). ' ' .DB_error_no($Conn) );
+			}else{
+				prnMsg(_('Rolling Back Transaction OK'), 'error', _('Database Rollback Due to Error Above'));
+			}
+		}
+		if ($TrapErrors){
+			include($PathPrefix . 'includes/footer.inc');
+			exit;
+		}
+	} elseif (isset($_SESSION['MonthsAuditTrail']) and (DB_error_no($Conn)==0 AND $_SESSION['MonthsAuditTrail']>0) AND (DB_affected_rows($result)>0)){
+
+		$SQLArray = explode(' ', $SQLString);
+
+		if (($SQLArray[0] == 'INSERT')
+			OR ($SQLArray[0] == 'UPDATE')
+			OR ($SQLArray[0] == 'DELETE')) {
+
+			if ($SQLArray[2]!='audittrail'){ // to ensure the auto delete of audit trail history is not logged
+				$AuditSQL = "INSERT INTO audittrail (transactiondate,
+									userid,
+									querystring)
+						VALUES('" . Date('Y-m-d H:i:s') . "',
+							'" . trim($_SESSION['UserID']) . "',
+							'" . $SQLString . "')";
+
+				$AuditResult = mysqli_query($Conn, $AuditSQL);
+			}
+		}
+	}
+	return $result;
+
+}
+
+
+function DB_query_JO ($SQL,
 				   &$Conn,
 				   $ErrorMessage='',
 				   $DebugMessage= '',
