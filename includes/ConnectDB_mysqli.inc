@@ -92,17 +92,12 @@ function DB_query ($SQL,
 	$i=0;
 	foreach ($SQLChunks as $SQLChunk) {
 		if (isset($Parameters[$i])){
-			$SQLString .= $SQLChunk . " '" . $Parameters[$i] . "'";
+			$SQLString .= $SQLChunk . " '" . mysqli_real_escape_string($Conn, $Parameters[$i]) . "'";
 		} else {
 			$SQLString .= $SQLChunk;
 		}
 		$i++;
 	}
-	/*
-	 * if (mb_strrpos($SQL,'?')==mb_strlen($SQL)){
-		$SQLChunks[]=''; //append an empty string so the count of the arrays match 
-	}
-	*/ 
 	
 	$result=mysqli_query($Conn, $SQLString);
 
