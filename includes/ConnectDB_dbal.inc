@@ -31,7 +31,7 @@ $connectionParams = array(  'driver' => $DBALDriver,
                             'user' => $DBUser,
                             'password' => $DBPassword,
                             'host' => $host,
-                            'port' => $sqlport;
+                            'port' => $sqlport,
                             'dbname' => $_SESSION['DatabaseName']);
 
 //db specific settings (optional)
@@ -69,12 +69,11 @@ switch ($DBALDriver) {
             $connectionParams['unix_socket'] = $DBUnixSocket;
         }
         break;
-    case 
 }
 
 try {
     $db = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
-} catch ($error) {
+} catch (\Exception $error) {
     echo _('Connect failed') . ': ' . $error->getMessage();
 	session_unset();
 	session_destroy();
@@ -90,9 +89,9 @@ try {
 /* Update to allow RecurringSalesOrdersProcess.php to run via cron */
 
 
-function DB_query(&$Conn,$query,$ErrorMessage = null,$DebugMessage = null,$Transaction = null,$TrapErrors = null,$bindvars = null) {
+function DB_query($query,&$Conn,$ErrorMessage = null,$DebugMessage = null,$Transaction = null,$TrapErrors = null,$bindvars = null) {
     //for legacy code compatibility, remove & rename when ready
-    DB_querynew($query,
+    return DB_querynew($query,
                 $bindvars,
                 $ErrorMessage,
                 $DebugMessage,
@@ -128,12 +127,18 @@ function DB_querynew(   $query,
         * so if $bindvars is passed but is not an array, make it an array with a single value
         */
         $bindvars = array($bindvars);
+    } elseif (!isset($bindvars)) {
+        $nobind = true;
     }
     
     if ($Transaction) {
         try {
             //attempt to run the query on the DB
-            $stmt = $db->executeQuery($query,$bindvars);
+            if ($nobind) {
+                $stmt = $db->query($query);
+            } else {
+                $stmt = $db->executeQuery($query,$bindvars);
+            }
             $db->commit();
             $_SESSION['LastInsertId'] = $db->insert_id;
         } catch (\Exception $e) {
@@ -155,7 +160,11 @@ function DB_querynew(   $query,
         }
     } else {
         try {
-            $stmt = $db->executeQuery($query,$bindvars); 
+            if ($nobind) {
+                $stmt = $db->query($query);
+            } else {
+                $stmt = $db->executeQuery($query,$bindvars); 
+            }
             $_SESSION['LastInsertId'] = $db->insert_id;
         } catch (\Exception $e) {
              if ($TrapErrors) {
@@ -195,15 +204,27 @@ function DB_querynew(   $query,
 
 
 function DB_fetch_row (&$Result) {
-	return $Result->fetch();
+	if ($Result) {
+        return $Result->fetch();
+    } else {
+        return false;
+    }
 }
 
 function DB_fetch_assoc (&$Result) {
-    return $Result->fetchAssoc();
+    if ($Result) {
+        return $Result->fetchAssoc();
+    } else {
+        return false;
+    }
 }
 
 function DB_fetch_array (&$Result) {
-	return $Result->fetch();
+    if ($Result) {
+        return $Result->fetch();
+    } else {
+        return false;
+    }
 }
 
 function DB_fetch_all_close (&$Result) {
@@ -226,16 +247,20 @@ function DB_num_rows (&$Result){
     global $DBALdriver;
     //if the driver supports num rows, return num rows
     switch($DBALdriver) {
-        case: 'mysqli'
+        case 'mysqli':
             $stmt = $Result->getWrappedStatement();
             return $stmt->num_rows;
             break;
         default:
-            if ($stmt->columnCount() !== 0) {
-                //if there is a result set, count the rows manually (emulating a true count)
-                return count($stmt->fetchAll());
+            if ($Result) {
+                if ($Result->columnCount() !== 0) {
+                    //if there is a result set, count the rows manually (emulating a true count)
+                    return count($Result->fetchAll());
+                } else {
+                    //if there is no result set (aka column count is 0) skip the counting.  
+                    return 0;
+                }
             } else {
-                //if there is no result set (aka column count is 0) skip the counting.  
                 return 0;
             }
     }
@@ -243,7 +268,12 @@ function DB_num_rows (&$Result){
 }
 
 function DB_affected_rows(&$Result){
-    return  $Result->rowCount();
+    if ($Result) {
+        return  $Result->rowCount();
+    } else {
+        return 0;
+    }
+    
 }
 
 function DB_error_no (&$Conn = null){
