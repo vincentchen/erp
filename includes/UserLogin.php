@@ -48,7 +48,7 @@ function userLogin($Name, $Password, $SysAdminEmail = '', $db) {
 		$Parameters = array($Name, CryptPass($Password), $Password); 
 		$ErrMsg = _('Could not retrieve user details on login because');
 		$debug =1;
-		$Auth_Result = DB_query($sql, $db,$ErrMsg,'',false,true,$Parameters);
+		$Auth_Result = DB_PreparedQuery($sql, $ErrMsg,'',false,true,$Parameters);
 		// Populate session variables with data base results
 		if (DB_num_rows($Auth_Result) > 0) {
 			$myrow = DB_fetch_array($Auth_Result);
@@ -86,13 +86,13 @@ function userLogin($Name, $Password, $SysAdminEmail = '', $db) {
 			}
 
 			$sql = "UPDATE www_users SET lastvisitdate='". date('Y-m-d H:i:s') ."'
-							WHERE www_users.userid='" . $Name . "'";
-			$Auth_Result = DB_query($sql, $db);
+							WHERE www_users.userid=?";
+			$Auth_Result = DB_PreparedQuery($sql, $ErrMsg,'',false,true,array($Name));
 			/*get the security tokens that the user has access to */
 			$sql = "SELECT tokenid
 					FROM securitygroups
 					WHERE secroleid =  '" . $_SESSION['AccessLevel'] . "'";
-			$Sec_Result = DB_query($sql, $db);
+			$Sec_Result = DB_PreparedQuery($sql, $ErrMsg,'',false,true,array($_SESSION['AccessLevel']));
 			$_SESSION['AllowedPageSecurityTokens'] = array();
 			if (DB_num_rows($Sec_Result)==0){
 				return  UL_CONFIGERR;
@@ -128,8 +128,8 @@ function userLogin($Name, $Password, $SysAdminEmail = '', $db) {
 				/*User blocked from future accesses until sysadmin releases */
 				$sql = "UPDATE www_users
 							SET blocked=1
-							WHERE www_users.userid='" . $Name . "'";
-				$Auth_Result = DB_query($sql, $db);
+							WHERE www_users.userid=?";
+				$Auth_Result =  DB_PreparedQuery($sql, $ErrMsg,'',false,true,array($Name));
 
 				if ($SysAdminEmail != ''){
 					$EmailSubject = _('User access blocked'). ' ' . $Name ;
