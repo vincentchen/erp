@@ -120,8 +120,6 @@ function DB_querynew(   $query,
         $db->beginTransaction();
     }
     
-        //sanitize the string
-    $query = filter_var($query, FILTER_SANITIZE_STRING);
     if (isset($bindvars) && !is_array($bindvars)) {
         /*executeQuery expects an array of parameters, otherwise it treats the statement as a non-parametrized query
         * so if $bindvars is passed but is not an array, make it an array with a single value
@@ -129,6 +127,11 @@ function DB_querynew(   $query,
         $bindvars = array($bindvars);
     } elseif (!isset($bindvars)) {
         $nobind = true;
+    }
+    
+    if (is_array($bindvars)) {
+        //sanitize the string
+        $query = filter_var($query, FILTER_SANITIZE_STRING);
     }
     
     if ($Transaction) {
@@ -205,7 +208,7 @@ function DB_querynew(   $query,
 
 function DB_fetch_row (&$Result) {
 	if ($Result) {
-        return $Result->fetch();
+        return $Result->fetch(PDO::FETCH_BOTH);;
     } else {
         return false;
     }
@@ -229,7 +232,7 @@ function DB_fetch_array (&$Result) {
 
 function DB_fetch_all_close (&$Result) {
     $return = $Result->fetchAll();
-    $Result->close();
+    $Result->closeCursor();
     return $Result;
 }
 
@@ -240,30 +243,31 @@ function DB_data_seek (&$Result,$Record) {
 }
 
 function DB_free_result (&$Result){
-    $Result->close();
+    $Result->closeCursor();
 }
+
 
 function DB_num_rows (&$Result){
     global $DBALdriver;
-    //if the driver supports num rows, return num rows
-    switch($DBALdriver) {
-        case 'mysqli':
-            $stmt = $Result->getWrappedStatement();
-            return $stmt->num_rows;
-            break;
-        default:
-            if ($Result) {
-                if ($Result->columnCount() !== 0) {
-                    //if there is a result set, count the rows manually (emulating a true count)
-                    return count($Result->fetchAll());
+    if ($Result) {
+        //emulate a true count
+        switch ($DBALdriver) {
+            case 'mysqli':
+            case 'pdo_mysql':
+                if ($Result->columnCount()) {
+                    //rowCount will return affected rows if columnCount == 0
+                    return $Result->rowCount();
                 } else {
-                    //if there is no result set (aka column count is 0) skip the counting.  
                     return 0;
                 }
-            } else {
-                return 0;
-            }
+                break;
+            default:
+                return 1;
+        }
+    } else {
+        return 0;
     }
+    
 
 }
 
