@@ -49,6 +49,95 @@ if (isset($DatabaseName)) {
 
 require_once ($PathPrefix .'includes/MiscFunctions.php');
 
+class mysqliStatementResultWrapper implements Iterator {
+    public $num_rows;
+    public $field_count;
+    private $results;
+    private $position;
+    private $meta;
+    
+    public function __construct(mysqli_stmt &$Statement) {
+        $this->position = 0;
+        $this->results = bindResults($Statement);
+        $this->num_rows = count($this->results);
+        $this->meta = $Statement->result_metadata();
+    }
+    
+    //in order to use this in foreach loops, needs these functions (a part of implementing Iterator)
+    function rewind() {
+        $this->position = 0;
+    }
+    
+    function current() {
+        return $this->results[$this->position];
+    }
+    
+    function key() {
+        return $this->position;
+    }
+    
+    function next() {
+        ++$this->position;
+    }
+    
+    function valid() {
+        return isset($this->results[$this->position]);
+    }
+    
+    public function fetch_row() {
+        if ($this->valid()) {
+            $return = $this->results[$this->position][1];
+            $this->next();
+            return $return;
+        } else {
+            return false;
+        }
+    }
+    
+    public function fetch_assoc() {
+        if ($this->valid()) {
+            $return = $this->results[$this->position][0];
+            $this->next();
+            return $return;
+        } else {
+            return false;
+        }
+    }
+    
+    public function fetch_array($resulttype = MYSQLI_BOTH) {
+        switch($resulttype) {
+            case MYSQLI_BOTH:
+                if ($this->valid()) {
+                    //return both associative and integer positions
+                    return $this->results[$this->position][0] + $this->results[$this->position][1];
+                } else {
+                    return false;
+                }
+                break;
+            case MYSQLI_ASSOC:
+                return $this->fetch_assoc();
+                break;
+            case MYSQLI_NUM:
+                return $this->fetch_row();
+                break;
+        }
+    }
+    
+    public function data_seek($whichRow) {
+        if (isset($this->results[$whichRow])) {
+            $this->position = $whichRow;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function close() {
+    
+    }
+    
+}
+
 
 /**
 * DB wrapper functions to change only once for whole application
@@ -68,30 +157,37 @@ require_once ($PathPrefix .'includes/MiscFunctions.php');
 
 
 function DB_PreparedQuery ($SQL,
+                           $Parameters = null,
 						   $ErrorMessage='',
 						   $DebugMessage= '',
 						   $Transaction=false,
-						   $TrapErrors=true,
-						   $Parameters = null){
+						   $TrapErrors=true){
 
 	global $debug;
 	global $PathPrefix;
 	global $db;
 
-	if (!is_null($Parameters)) {
+	if (isset($Parameters)) {
 		$Query = filter_var($SQL, FILTER_SANITIZE_STRING); //sanitize the string
-		$PreparedStatement = $db->prepare($Query);
+		if (!($PreparedStatement = $db->prepare($Query))) {
+            if ($TrapErrors){
+                require_once($PathPrefix . 'includes/header.inc');
+            }
+            prnMsg($ErrorMessage . '<br />' . DB_error_msg($db),'error', _('Database Error'). ' ' .DB_error_no($db));
+            if ($debug==1){
+                prnMsg($DebugMessage. '<br />' . $SQL . '<br />','error',_('Database SQL Failure'));
+            }
+            if ($TrapErrors){
+                include($PathPrefix . 'includes/footer.inc');
+                exit;
+            }
+        }
 
 		if (is_array($Parameters) === true) {
 			$PreparedParameters = array(''); // Create the empty 0 index array in the format required for
 			foreach ($Parameters as $ParameterKey => $ParameterValue) {
 
 				switch (gettype($ParameterValue)) {
-					case 'NULL':
-					case 'string':
-						$PreparedParameters[0] .= 's';
-						break;
-
 					case 'integer':
 					case 'boolean':
 						$PreparedParameters[0] .= 'i';
@@ -104,21 +200,37 @@ function DB_PreparedQuery ($SQL,
 					case 'double':
 						$PreparedParameters[0] .= 'd';
 						break;
+                    default:
+                        $PreparedParameters[0] .= 's';
 				}
-
+                
 				array_push($PreparedParameters, $Parameters[$ParameterKey]);
 			}
 			call_user_func_array(array($PreparedStatement, 'bind_param'), refValues($PreparedParameters));
-		}
+		} else {
+            switch(gettype($Parameters)) {
+                case 'integer':
+                case 'boolean':
+                    $PreparedParameter = 'i';
+                    break;
+                case 'double':
+                    $PreparedParameter = 'd';
+                    break;
+                default:
+                    $PreparedParameter = 's';
+            }
+            $PreparedStatement->bind_param($PreparedParameter,$Parameters);
+        }
 
+		
 		$PreparedStatement->execute();
-		$result = bindResults($PreparedStatement);
-		$AffectedRows = $PreparedStatement->affected_rows;
-
+        $PreparedStatement->store_result(); //make sure row_count will be accurate
+        $result = new mysqliStatementResultWrapper($PreparedStatement);
+        $PreparedStatement->close();
 	} else {
 		$result=mysqli_query($db, $SQL);
-		$AffectedRows = DB_affected_rows($result);
 	}
+    
 	$_SESSION['LastInsertId'] = mysqli_insert_id($db);
 	if ($DebugMessage == '') {
 		$DebugMessage = _('The SQL that failed was');
@@ -134,8 +246,8 @@ function DB_PreparedQuery ($SQL,
 		}
 		if ($Transaction){
 			$SQL = 'rollback';
-			$Result = DB_query($SQL,$db);
-			if (DB_error_no($Conn) !=0){
+			$Result = DB_query($SQL);
+			if (DB_error_no($db) !=0){
 				prnMsg(_('Error Rolling Back Transaction'), 'error', _('Database Rollback Error'). ' ' .DB_error_no($db) );
 			}else{
 				prnMsg(_('Rolling Back Transaction OK'), 'error', _('Database Rollback Due to Error Above'));
@@ -145,7 +257,7 @@ function DB_PreparedQuery ($SQL,
 			include($PathPrefix . 'includes/footer.inc');
 			exit;
 		}
-	} elseif (isset($_SESSION['MonthsAuditTrail']) AND (DB_error_no($db)==0 AND $_SESSION['MonthsAuditTrail']>0) AND ($AffectedRows>0)){
+	} elseif (isset($_SESSION['MonthsAuditTrail']) && ($db->errno==0 && $_SESSION['MonthsAuditTrail']>0) && ($db->affected_rows)>0){
 		$SQLArray = explode(' ', $SQL);
 
 		if (($SQLArray[0] == 'INSERT')
@@ -154,9 +266,10 @@ function DB_PreparedQuery ($SQL,
 
 			if ($SQLArray[2]!='audittrail'){ // to ensure the auto delete of audit trail history is not logged
 				if (is_null($Bindvars)) {
-					$AuditString = mysqli_escape_string($db,$SQL);
+					$AuditString = $db->mysqli_real_escape_string($SQL);
 				} else {
-					$AuditString =  mysqli_escape_string($db,$Query ."\n". json_encode($PreparedParameters));
+					$AuditString =  $db->mysqli_escape_string($Query ."\n". json_encode($PreparedParameters));
+				}
 				}
 				$AuditSQL = "INSERT INTO audittrail (transactiondate,
 									userid,
@@ -165,14 +278,10 @@ function DB_PreparedQuery ($SQL,
 							'" . trim($_SESSION['UserID']) . "',
 							'" . $AuditString . "')";
 
-				$AuditResult = mysqli_query($db, $AuditSQL);
+				$AuditResult = DB_query($AuditSQL);
 
 			}
 		}
-	}
-	if (!is_null($Parameters)) {
-		$PreparedStatement->close();
-	}
 	return $result;
 
 }
@@ -192,7 +301,6 @@ function refValues($ArrayVariable) {
 function bindResults(mysqli_stmt $PreparedStatement) {
 	$Parameters = array();
 	$results = array();
-
 	$Meta = $PreparedStatement->result_metadata();
 
 	// if $meta is false yet sqlstate is true, there's no sql error but the query is
@@ -210,23 +318,24 @@ function bindResults(mysqli_stmt $PreparedStatement) {
 	call_user_func_array(array($PreparedStatement, 'bind_result'), $Parameters);
 
 	while ($PreparedStatement->fetch()) {
-		$x = array();
-		foreach ($row as $key => $val) {
-			$x[$key] = $val;
+		$assocResults = array();
+        $arrayResults = array();
+        $i = 0;
+		foreach ($Row as $key => $val) {
+			$assocResults[$key] = $val;
+            $arrayResults[$i] = $val;
+            $i++;
 		}
-		array_push($results, $x);
+		array_push($results, array($assocResults,$arrayResults));
 	}
-	if (count($results) == 1) {
-		//just return the row as an array
-		$results = current($results);
-	}
+
 	return $results;
 }
 
 
 
 function DB_query ($SQL,
-					&$Conn,
+					&$Conn = null,
 					$ErrorMessage='',
 					$DebugMessage= '',
 					$Transaction=false,
@@ -234,28 +343,30 @@ function DB_query ($SQL,
 
 	global $debug;
 	global $PathPrefix;
+    global $db;
+    
 
-	$result=mysqli_query($Conn, $SQL);
+	$result= $db->query($SQL);
 
-	$_SESSION['LastInsertId'] = mysqli_insert_id($Conn);
+	$_SESSION['LastInsertId'] = mysqli_insert_id($db);
 
 	if ($DebugMessage == '') {
 		$DebugMessage = _('The SQL that failed was');
 	}
 
-	if (DB_error_no($Conn) != 0 AND $TrapErrors==true){
+	if (DB_error_no($db) != 0 AND $TrapErrors==true){
 		if ($TrapErrors){
 			require_once($PathPrefix . 'includes/header.inc');
 		}
-		prnMsg($ErrorMessage . '<br />' . DB_error_msg($Conn),'error', _('Database Error'). ' ' .DB_error_no($Conn));
+		prnMsg($ErrorMessage . '<br />' . DB_error_msg($db),'error', _('Database Error'). ' ' .DB_error_no($db));
 		if ($debug==1){
 			prnMsg($DebugMessage. '<br />' . $SQL . '<br />','error',_('Database SQL Failure'));
 		}
 		if ($Transaction){
 			$SQL = 'rollback';
-			$Result = DB_query($SQL,$Conn);
-			if (DB_error_no($Conn) !=0){
-				prnMsg(_('Error Rolling Back Transaction'), 'error', _('Database Rollback Error'). ' ' .DB_error_no($Conn) );
+			$Result = DB_query($SQL);
+			if (DB_error_no($db) !=0){
+				prnMsg(_('Error Rolling Back Transaction'), 'error', _('Database Rollback Error'). ' ' .DB_error_no($db) );
 			}else{
 				prnMsg(_('Rolling Back Transaction OK'), 'error', _('Database Rollback Due to Error Above'));
 			}
@@ -264,7 +375,7 @@ function DB_query ($SQL,
 			include($PathPrefix . 'includes/footer.inc');
 			exit;
 		}
-	} elseif (isset($_SESSION['MonthsAuditTrail']) and (DB_error_no($Conn)==0 AND $_SESSION['MonthsAuditTrail']>0) AND (DB_affected_rows($result)>0)){
+	} elseif (isset($_SESSION['MonthsAuditTrail']) and (DB_error_no($db)==0 AND $_SESSION['MonthsAuditTrail']>0) AND (DB_affected_rows($result)>0)){
 
 		$SQLArray = explode(' ', $SQL);
 
@@ -280,7 +391,7 @@ function DB_query ($SQL,
 							'" . trim($_SESSION['UserID']) . "',
 							'" . DB_escape_string($SQL) . "')";
 
-				$AuditResult = mysqli_query($Conn, $AuditSQL);
+				$AuditResult = $db->query($AuditSQL);
 			}
 		}
 	}
@@ -291,62 +402,56 @@ function DB_query ($SQL,
 
 
 
-function DB_fetch_row (&$ResultIndex) {
-
-	$RowPointer=mysqli_fetch_row($ResultIndex);
-	Return $RowPointer;
+function DB_fetch_row (&$Result) {
+	Return $Result->fetch_row();
 }
 
-function DB_fetch_assoc (&$ResultIndex) {
-
-	$RowPointer=mysqli_fetch_assoc($ResultIndex);
-	Return $RowPointer;
+function DB_fetch_assoc (&$Result) {
+	Return $Result->fetch_assoc();
 }
 
-function DB_fetch_array (&$ResultIndex) {
-
-	$RowPointer=mysqli_fetch_array($ResultIndex);
-	Return $RowPointer;
+function DB_fetch_array (&$Result) {
+	return $Result->fetch_array();
 }
 
-function DB_data_seek (&$ResultIndex,$Record) {
-	mysqli_data_seek($ResultIndex,$Record);
+function DB_data_seek (&$Result,$Record) {
+    if ($Result) {
+        return $Result->data_seek($Record);
+    }
+
 }
 
-function DB_free_result (&$ResultIndex){
-    if (is_resource($ResultIndex)) {
-    	mysqli_free_result($ResultIndex);
+function DB_free_result (&$Result){
+    if ($Result) {
+        $Result->close();
     }
 }
 
-function DB_num_rows (&$ResultIndex){
-	return mysqli_num_rows($ResultIndex);
+function DB_num_rows (&$Result){
+    If ($Result) {
+        return $Result->num_rows;
+    } else {
+        return 0;
+    }
 }
 
-function DB_affected_rows(&$ResultIndex){
-
+function DB_affected_rows(){
 	global $db;
 	return mysqli_affected_rows($db);
-
 }
 
-function DB_error_no (&$Conn){
-	return mysqli_errno($Conn);
+function DB_error_no (){
+    global $db;
+	return mysqli_errno($db);
 }
 
-function DB_error_msg(&$Conn){
-	return mysqli_error($Conn);
+function DB_error_msg(){
+    global $db;
+	return mysqli_error($db);
 }
 
-function DB_Last_Insert_ID(&$Conn, $Table, $FieldName){
-//	return mysqli_insert_id($Conn);
-	if (isset($_SESSION['LastInsertId'])) {
-		$Last_Insert_ID = $_SESSION['LastInsertId'];
-	} else {
-		$Last_Insert_ID = 0;
-	}
-//	unset($_SESSION['LastInsertId']);
-	return $Last_Insert_ID;
+function DB_Last_Insert_ID(&$Conn = null, $Table = null, $FieldName = null){
+	return (isset($_SESSION['LastInsertId'])) ? $_SESSION['LastInsertId'] : 0;
 }
 
 function DB_escape_string($String){
@@ -354,13 +459,12 @@ function DB_escape_string($String){
 	return mysqli_real_escape_string($db, $String);
 }
 
-function DB_show_tables(&$Conn){
-	$Result = DB_query('SHOW TABLES',$Conn);
-	Return $Result;
+function DB_show_tables(){
+	Return DB_query('SHOW TABLES');
 }
 
-function DB_show_fields($TableName, &$Conn){
-	$Result = DB_query("DESCRIBE $TableName",$Conn);
+function DB_show_fields($TableName){
+	$Result = DB_query("DESCRIBE `$TableName`");
 	Return $Result;
 }
 
@@ -373,34 +477,38 @@ function DB_Maintenance($Conn){
 
 	prnMsg(_('The system has just run the regular database administration and optimisation routine.'),'info');
 
-	$TablesResult = DB_query('SHOW TABLES',$Conn);
+	$TablesResult = DB_query('SHOW TABLES');
 	while ($myrow = DB_fetch_row($TablesResult)){
-		$Result = DB_query('OPTIMIZE TABLE ' . $myrow[0],$Conn);
+		$Result = DB_query('OPTIMIZE TABLE `' . $myrow[0] . '`');
 	}
 
 	$Result = DB_query("UPDATE config
 				SET confvalue='" . Date('Y-m-d') . "'
-				WHERE confname='DB_Maintenance_LastRun'",
-				$Conn);
+				WHERE confname='DB_Maintenance_LastRun'");
 }
 
-function DB_Txn_Begin($Conn){
-	mysqli_query($Conn,'SET autocommit=0');
-	mysqli_query($Conn,'START TRANSACTION');
+function DB_Txn_Begin(){
+    global $db;
+	mysqli_query($db,'SET autocommit=0');
+	mysqli_query($db,'START TRANSACTION');
 }
 
-function DB_Txn_Commit($Conn){
-	mysqli_query($Conn,'COMMIT');
-	mysqli_query($Conn,'SET autocommit=1');
+function DB_Txn_Commit(){
+    global $db;
+	mysqli_query($db,'COMMIT');
+	mysqli_query($db,'SET autocommit=1');
 }
 
-function DB_Txn_Rollback($Conn){
-	mysqli_query($Conn,'ROLLBACK');
+function DB_Txn_Rollback(){
+    global $db;
+	$db->rollback();
 }
-function DB_IgnoreForeignKeys($Conn){
-	mysqli_query($Conn,'SET FOREIGN_KEY_CHECKS=0');
+function DB_IgnoreForeignKeys(){
+    global $db;
+	mysqli_query($db,'SET FOREIGN_KEY_CHECKS=0');
 }
-function DB_ReinstateForeignKeys($Conn){
-	mysqli_query($Conn, 'SET FOREIGN_KEY_CHECKS=1');
+function DB_ReinstateForeignKeys(){
+    global $db;
+	mysqli_query($db, 'SET FOREIGN_KEY_CHECKS=1');
 }
 ?>

@@ -89,23 +89,23 @@ try {
 /* Update to allow RecurringSalesOrdersProcess.php to run via cron */
 
 
-function DB_query($query,&$Conn,$ErrorMessage = null,$DebugMessage = null,$Transaction = null,$TrapErrors = null,$bindvars = null) {
+function DB_query($query,&$Conn = null,$ErrorMessage = null,$DebugMessage = null,$Transaction = null,$TrapErrors = null) {
     //for legacy code compatibility, remove & rename when ready
-    return DB_querynew($query,
-                $bindvars,
+    return DB_PreparedQuery($query,
+                null,
                 $ErrorMessage,
                 $DebugMessage,
                 $Transaction,
                 $TrapErrors);
 }
 
-//note that $Conn is ignored, delete if willing to update legacy code, also $bindvars should be after $query
-function DB_querynew(   $query,
-                        $bindvars = null,
-                        $ErrorMessage='',
-                        $DebugMessage= null,
-                        $Transaction=false,
-                        $TrapErrors=true) {
+//note that $Conn is ignored, delete if willing to update legacy code, also $Parameters should be after $query
+function DB_PreparedQuery(  $query,
+                            $Parameters = null,
+                            $ErrorMessage='',
+                            $DebugMessage= null,
+                            $Transaction=false,
+                            $TrapErrors=true) {
 
     global $db;
     global $debug;
@@ -120,16 +120,16 @@ function DB_querynew(   $query,
         $db->beginTransaction();
     }
     
-    if (isset($bindvars) && !is_array($bindvars)) {
+    if (isset($Parameters) && !is_array($Parameters)) {
         /*executeQuery expects an array of parameters, otherwise it treats the statement as a non-parametrized query
-        * so if $bindvars is passed but is not an array, make it an array with a single value
+        * so if $Parameters is passed but is not an array, make it an array with a single value
         */
-        $bindvars = array($bindvars);
-    } elseif (!isset($bindvars)) {
+        $Parameters = array($Parameters);
+    } elseif (!isset($Parameters)) {
         $nobind = true;
     }
     
-    if (is_array($bindvars)) {
+    if (is_array($Parameters)) {
         //sanitize the string
         $query = filter_var($query, FILTER_SANITIZE_STRING);
     }
@@ -138,9 +138,9 @@ function DB_querynew(   $query,
         try {
             //attempt to run the query on the DB
             if ($nobind) {
-                $stmt = $db->query($query);
+                $statement = $db->query($query);
             } else {
-                $stmt = $db->executeQuery($query,$bindvars);
+                $statement = $db->executeQuery($query,$Parameters);
             }
             $db->commit();
             $_SESSION['LastInsertId'] = $db->insert_id;
@@ -164,9 +164,9 @@ function DB_querynew(   $query,
     } else {
         try {
             if ($nobind) {
-                $stmt = $db->query($query);
+                $statement = $db->query($query);
             } else {
-                $stmt = $db->executeQuery($query,$bindvars); 
+                $statement = $db->executeQuery($query,$Parameters); 
             }
             $_SESSION['LastInsertId'] = $db->insert_id;
         } catch (\Exception $e) {
@@ -196,11 +196,11 @@ function DB_querynew(   $query,
 
     //if no problems, returning statement back to user:
     //note, statement must be closed!
-    return $stmt;
+    return $statement;
     
     /* returning results set if applicable 
-    $return = $stmt->fetchAll();
-    $stmt->close();
+    $return = $statement->fetchAll();
+    $statement->close();
     return $result;
     */
 }                                
@@ -302,12 +302,12 @@ function DB_escape_string($String){
 
 function DB_show_tables(&$Conn = null){
     global $db;
-	$Result = DB_querynew('SHOW TABLES');
+	$Result = DB_query('SHOW TABLES');
 	return $Result;
 }
 
 function DB_show_fields($TableName){
-	$Result = DB_querynew('DESCRIBE ' . $db->quoteIdentifier($TableName));
+	$Result = DB_query('DESCRIBE ' . $db->quoteIdentifier($TableName));
 	return $Result;
 }
 
@@ -319,12 +319,12 @@ function interval( $val, $Inter ){
 function DB_Maintenance(){
 	prnMsg(_('The system has just run the regular database administration and optimisation routine.'),'info');
 
-	$TablesResult = DB_querynew('SHOW TABLES');
+	$TablesResult = DB_query('SHOW TABLES');
 	while ($myrow = DB_fetch_row($TablesResult)){
-		$Result = DB_querynew('OPTIMIZE TABLE ' . $myrow[0]);
+		$Result = DB_query('OPTIMIZE TABLE ' . $myrow[0]);
 	}
 
-	$Result = DB_querynew("UPDATE config
+	$Result = DB_query("UPDATE config
 				SET confvalue='" . Date('Y-m-d') . "'
 				WHERE confname='DB_Maintenance_LastRun'");
     return $Result;
