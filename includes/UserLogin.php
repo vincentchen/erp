@@ -48,7 +48,7 @@ function userLogin($Name, $Password, $SysAdminEmail = '', $db) {
 		$Parameters = array($Name, CryptPass($Password), $Password); 
 		$ErrMsg = _('Could not retrieve user details on login because');
 		$debug =1;
-		$Auth_Result = DB_PreparedQuery($sql, $ErrMsg,'',false,true,$Parameters);
+		$Auth_Result = DB_PreparedQuery($sql, $Parameters, $ErrMsg);
 		// Populate session variables with data base results
 		if (DB_num_rows($Auth_Result) > 0) {
 			$myrow = DB_fetch_array($Auth_Result);
@@ -85,14 +85,14 @@ function userLogin($Name, $Password, $SysAdminEmail = '', $db) {
 				$_SESSION['DisplayRecordsMax'] = $_SESSION['DefaultDisplayRecordsMax'];  // default comes from config.php
 			}
 
-			$sql = "UPDATE www_users SET lastvisitdate='". date('Y-m-d H:i:s') ."'
+			$sql = "UPDATE www_users SET lastvisitdate=?
 							WHERE www_users.userid=?";
-			$Auth_Result = DB_PreparedQuery($sql, $ErrMsg,'',false,true,array($Name));
+			$Auth_Result = DB_PreparedQuery($sql,array(date('Y-m-d H:i:s'),$Name), $ErrMsg);
 			/*get the security tokens that the user has access to */
 			$sql = "SELECT tokenid
 					FROM securitygroups
-					WHERE secroleid =  '" . $_SESSION['AccessLevel'] . "'";
-			$Sec_Result = DB_PreparedQuery($sql, $ErrMsg,'',false,true,array($_SESSION['AccessLevel']));
+					WHERE secroleid = ?";
+			$Sec_Result = DB_PreparedQuery($sql,array($_SESSION['AccessLevel']), $ErrMsg);
 			$_SESSION['AllowedPageSecurityTokens'] = array();
 			if (DB_num_rows($Sec_Result)==0){
 				return  UL_CONFIGERR;
@@ -109,7 +109,7 @@ function userLogin($Name, $Password, $SysAdminEmail = '', $db) {
 			}
 			// check if only maintenance users can access webERP
 			$sql = "SELECT confvalue FROM config WHERE confname = 'DB_Maintenance'";
-			$Maintenance_Result = DB_query($sql, $db);
+			$Maintenance_Result = DB_query($sql);
 			if (DB_num_rows($Maintenance_Result)==0){
 				return  UL_CONFIGERR;
 			} else {
@@ -129,7 +129,7 @@ function userLogin($Name, $Password, $SysAdminEmail = '', $db) {
 				$sql = "UPDATE www_users
 							SET blocked=1
 							WHERE www_users.userid=?";
-				$Auth_Result =  DB_PreparedQuery($sql, $ErrMsg,'',false,true,array($Name));
+				$Auth_Result =  DB_PreparedQuery($sql,array($Name), $ErrMsg);
 
 				if ($SysAdminEmail != ''){
 					$EmailSubject = _('User access blocked'). ' ' . $Name ;

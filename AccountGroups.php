@@ -25,7 +25,7 @@ ie the parent group results in a recursive group structure otherwise false ie 0 
 				FROM accountgroups
 				WHERE groupname=?";
 		$Parameters = array($GroupName);
-		$result = DB_PreparedQuery($sql,$ErrMsg,$DbgMsg,'',false,true,$Parameters);
+		$result = DB_PreparedQuery($sql,$Parameters,$ErrMsg,$DbgMsg);
 		$myrow = DB_fetch_row($result);
 		if ($ParentGroupName == $myrow[0]){
 			return true;
@@ -50,7 +50,7 @@ if (isset($_POST['MoveGroup'])) {
 	$Parameters = array($_POST['DestinyAccountGroup'], $_POST['OriginalAccountGroup']);
 	$ErrMsg = _('An error occurred in moving the account group');
 	$DbgMsg = _('The SQL that was used to move the account group was');
-	$result = DB_PreparedQuery($sql,$ErrMsg,$DbgMsg,false,true, $Parameters);
+	$result = DB_PreparedQuery($sql,$Parameters,$ErrMsg,$DbgMsg);
 	echo '<div class="centre"><a href="' . htmlspecialchars($_SERVER['PHP_SELF'], ENT_QUOTES, 'UTF-8') . '">' . _('Review Account Groups') . '</a></div>';
 	prnMsg( _('All accounts in the account group:') . ' ' . $_POST['OriginalAccountGroup'] . ' ' . _('have been changed to the account group:') . ' ' . $_POST['DestinyAccountGroup'],'success');
 }
@@ -74,7 +74,7 @@ if (isset($_POST['submit'])) {
 	$DbgMsg = _('The SQL that was used to retrieve the information was');
 	$ErrMsg = _('Could not check whether the group exists because');
 
-	$result=DB_PreparedQuery($sql,$ErrMsg,$DbgMsg,false,true,$Parameters);
+	$result=DB_PreparedQuery($sql,$Parameters,$ErrMsg,$DbgMsg);
 	$myrow=DB_fetch_row($result);
 
 	if ($myrow[0] != 0 AND $_POST['SelectedAccountGroup'] == '') {
@@ -155,15 +155,15 @@ if (isset($_POST['submit'])) {
 			$ErrMsg = _('An error occurred in renaming the account group');
 			$DbgMsg = _('The SQL that was used to rename the account group was');
 
-			$result = DB_PreparedQuery($sql, $ErrMsg, $DbgMsg,false,true,$Parameters);
+			$result = DB_PreparedQuery($sql,$Parameters, $ErrMsg, $DbgMsg);
 
 			$sql = "UPDATE accountgroups
 					SET parentgroupname=?
 					WHERE parentgroupname=?";
 
-			$result = DB_PreparedQuery($sql, $ErrMsg, $DbgMsg,false,true,$Parameters);
+			$result = DB_PreparedQuery($sql,$Parameters, $ErrMsg, $DbgMsg);
 
-			DB_ReinstateForeignKeys($db);
+			DB_ReinstateForeignKeys();
 		}
 
 		$sql = "UPDATE accountgroups SET groupname=?,
@@ -223,7 +223,7 @@ if (isset($_POST['submit'])) {
 	$DbgMsg = _('The SQL that was used to retrieve the information was');
 	$Parameters = array($_GET['SelectedAccountGroup']);
 	
-	$result = DB_PreparedQuery($sql, $ErrMsg, $DbgMsg,false,true,$Parameters);
+	$result = DB_PreparedQuery($sql,$Parameters, $ErrMsg, $DbgMsg);
 	$myrow = DB_fetch_array($result);
 	if ($myrow['groups']>0) {
 		prnMsg( _('Cannot delete this account group because general ledger accounts have been created using this group'),'warn');
@@ -258,7 +258,7 @@ if (isset($_POST['submit'])) {
 		$ErrMsg = _('An error occurred in retrieving the parent group information');
 		$DbgMsg = _('The SQL that was used to retrieve the information was');
 		$Parameters = array($_GET['SelectedAccountGroup']);
-		$result = DB_PreparedQuery($sql, $ErrMsg, $DbgMsg,false,true,$Parameters);
+		$result = DB_PreparedQuery($sql,$Parameters, $ErrMsg, $DbgMsg);
 	
 		$myrow = DB_fetch_array($result);
 		if ($myrow['groupnames']>0) {
@@ -269,7 +269,7 @@ if (isset($_POST['submit'])) {
 			$ErrMsg = _('An error occurred in deleting the account group');
 			$DbgMsg = _('The SQL that was used to delete the account group was');
 			$Parameters = array($_GET['SelectedAccountGroup']);
-			$result = DB_PreparedQuery($sql, $ErrMsg, $DbgMsg,false,true,$Parameters);
+			$result = DB_PreparedQuery($sql,$Parameters, $ErrMsg, $DbgMsg);
 			prnMsg( $_GET['SelectedAccountGroup'] . ' ' . _('group has been deleted') . '!','success');
 		}
 
@@ -369,7 +369,7 @@ if (!isset($_GET['Delete'])) {
 		$ErrMsg = _('An error occurred in retrieving the account group information');
 		$DbgMsg = _('The SQL that was used to retrieve the account group and that failed in the process was');
 		$Parameters = array($_GET['SelectedAccountGroup']);
-		$result = DB_PreparedQuery($sql, $ErrMsg, $DbgMsg,false,true,$Parameters);
+		$result = DB_PreparedQuery($sql,$Parameters, $ErrMsg, $DbgMsg);
 		if (DB_num_rows($result) == 0) {
 			prnMsg( _('The account group name does not exist in the database'),'error');
 			include('includes/footer.inc');
