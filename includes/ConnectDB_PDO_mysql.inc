@@ -123,12 +123,14 @@ function DB_PreparedQuery ($SQL,
 			exit;
 		}
 	} elseif (isset($_SESSION['MonthsAuditTrail']) && (DB_error_no()==0 && $_SESSION['MonthsAuditTrail']>0) && ($result->columnCount() == 0) && ($result->rowCount() > 0)){
-            $SQLArray = explode($query,' ');
+            $SQLArray = explode(' ',$query);
             /*db info works on insert, update, alter table or load data infile, otherwise look for a delete
             if the third element is audittrail, don't log this as it is either DELETE FROM audittrail or INSERT INTO audittrail.  */
             if ($SQLArray[2] != 'audittrail') {
-                $db->executeQuery(  'INSERT INTO audittrail (transactiondate,userid,querystring)
-                                    VALUES(?,?,?);',array(Date('Y-m-d H:i:s'),trim($_SESSION['UserID']),$query . '/n' . json_encode($params)));
+                $stmt = $db->prepare('INSERT INTO audittrail (transactiondate,userid,querystring)
+                                    VALUES(?,?,?);');
+                $stmt->execute(array(Date('Y-m-d H:i:s'),trim($_SESSION['UserID']),$query . '/n' . json_encode($params)));
+                $stmt->closeCursor();
  
             }
     }
