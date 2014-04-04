@@ -183,7 +183,7 @@ function DB_PreparedQuery(  $query,
     }
     
     if (isset($_SESSION['MonthsAuditTrail']) && ($db->errno==0 && $_SESSION['MonthsAuditTrail']>0) && ($db->affected_rows)>0){
-            $SQLArray = explode($query,' ');
+            $SQLArray = explode(' ',$query);
             /*db info works on insert, update, alter table or load data infile, otherwise look for a delete
             if the third element is audittrail, don't log this as it is either DELETE FROM audittrail or INSERT INTO audittrail.  */
             if (($db->info != '' || (strpos($query,'DELETE ') !== false)) && $SQLArray[2] != 'audittrail') {
