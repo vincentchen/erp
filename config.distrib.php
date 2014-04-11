@@ -32,9 +32,19 @@ $host = 'localhost';
 $mysqlport=3306;
 //The type of db server being used
 //$DBType = 'postgres' - now DEPRECIATED;
-//$DBType = 'mysql';
+//$DBType = 'mysql' - now DEPRECIATED for PHP 5.4 and above
 //$DBType = 'mysqli'; for PHP 5 and mysql > 4.1
 $DBType = 'mysqli';
+//$DBType='dbal';// Use the DBAL Database Abstraction Layer to access SQL Lite, SQL Anywhere, Oracle, Postgres, or mysql via PDO, mysqli
+
+//If using DBAL then the $DBALDriver must also be set
+//$DBALDriver='pdo_sqlite';
+//$DBALDriver='sqlanywhere';
+//$DBALDriver='pdo_oci';
+//$DBALDriver='pdo_pgsql';
+//$DBALDriver='pdo_mysql';
+//$DBALDriver='mysqli';
+//$DBALDriver='drizzle_pdo_mysql':
 
 
 // sql user & password
