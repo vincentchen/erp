@@ -265,6 +265,7 @@ switch ($myrow['mbflag']) {
 		$QOOSQL="SELECT SUM(purchorderdetails.quantityord -purchorderdetails.quantityrecd) AS QtyOnOrder
 					FROM purchorders INNER JOIN purchorderdetails
 					ON purchorders.orderno=purchorderdetails.orderno
+					INNER JOIN locationusers ON locationusers.loccode=purchorders.intostocklocation AND locationusers.userid='" .  $_SESSION['UserID'] . "' AND locationusers.canview=1
 					WHERE purchorderdetails.itemcode='" . $StockID . "'
 					AND purchorderdetails.completed =0
 					AND purchorders.status<>'Cancelled'
@@ -281,6 +282,7 @@ switch ($myrow['mbflag']) {
 		$sql = "SELECT SUM(woitems.qtyreqd-woitems.qtyrecd) AS qtywo
 				FROM woitems INNER JOIN workorders
 				ON woitems.wo=workorders.wo
+				INNER JOIN locationusers ON locationusers.loccode=workorders.loccode AND locationusers.userid='" .  $_SESSION['UserID'] . "' AND locationusers.canview=1
 				WHERE workorders.closed=0
 				AND woitems.stockid='" . $StockID . "'";
 		$ErrMsg = _('The quantity on work orders for this product cannot be retrieved because');
@@ -296,6 +298,7 @@ $Demand = 0;
 $DemResult = DB_query("SELECT SUM(salesorderdetails.quantity-salesorderdetails.qtyinvoiced) AS dem
 						FROM salesorderdetails INNER JOIN salesorders
 						ON salesorders.orderno = salesorderdetails.orderno
+						INNER JOIN locationusers ON locationusers.loccode=salesorders.fromstkloc AND locationusers.userid='" .  $_SESSION['UserID'] . "' AND locationusers.canview=1
 						WHERE salesorderdetails.completed=0
 						AND salesorders.quotation=0
 						AND salesorderdetails.stkcode='" . $StockID . "'", $db);
@@ -306,6 +309,7 @@ $DemAsComponentResult = DB_query("SELECT  SUM((salesorderdetails.quantity-saleso
 									ON salesorders.orderno = salesorderdetails.orderno
 									INNER JOIN bom ON salesorderdetails.stkcode=bom.parent
 									INNER JOIN stockmaster ON stockmaster.stockid=bom.parent
+									INNER JOIN locationusers ON locationusers.loccode=salesorders.fromstkloc AND locationusers.userid='" .  $_SESSION['UserID'] . "' AND locationusers.canview=1
 									WHERE salesorderdetails.quantity-salesorderdetails.qtyinvoiced > 0
 									AND bom.component='" . $StockID . "'
 									AND stockmaster.mbflag='A'
@@ -319,6 +323,7 @@ $sql = "SELECT SUM(qtypu*(woitems.qtyreqd - woitems.qtyrecd)) AS woqtydemo
 		INNER JOIN workorders
 		ON woitems.wo=workorders.wo
 		AND woitems.wo=worequirements.wo
+		INNER JOIN locationusers ON locationusers.loccode=workorders.loccode AND locationusers.userid='" .  $_SESSION['UserID'] . "' AND locationusers.canview=1
 		WHERE  worequirements.stockid='" . $StockID . "'
 		AND workorders.closed=0";
 $ErrMsg = _('The workorder component demand for this product cannot be retrieved because');
@@ -487,6 +492,7 @@ if ($Its_A_Kitset_Assembly_Or_Dummy == False) {
 	echo '<a href="' . $RootPath . '/StockReorderLevel.php?StockID=' . $StockID . '">' . _('Maintain Reorder Levels') . '</a><br />';
 	echo '<a href="' . $RootPath . '/StockCostUpdate.php?StockID=' . $StockID . '">' . _('Maintain Standard Cost') . '</a><br />';
 	echo '<a href="' . $RootPath . '/PurchData.php?StockID=' . $StockID . '">' . _('Maintain Purchasing Data') . '</a><br />';
+	echo '<a href="' . $RootPath . '/CustItem.php?StockID=' . $StockID . '">' . _('Maintain Customer Item Data') . '</a><br />';
 }
 if ($Its_A_Labour_Item == True) {
 	echo '<a href="' . $RootPath . '/StockCostUpdate.php?StockID=' . $StockID . '">' . _('Maintain Standard Cost') . '</a><br />';
@@ -500,6 +506,8 @@ if (!$Its_A_Kitset) {
 	}
 	echo '<a href="' . $RootPath . '/DiscountCategories.php?StockID=' . $StockID . '">' . _('Maintain Discount Category') . '</a><br />';
     echo '<a href="' . $RootPath . '/StockClone.php?OldStockID=' . $StockID . '">' . _('Clone This Item') . '</a><br />';
+	echo '<a href="' . $RootPath . '/RelatedItemsUpdate.php?Item=' . $StockID . '">' . _('Maintain Related Items') . '</a><br />';
+	echo '<a href="' . $RootPath . '/PriceMatrix.php?StockID=' . $StockID . '">' . _('Maintain Price Matrix') . '</a><br />';
 }
 echo '</td></tr></table>';
 } else {

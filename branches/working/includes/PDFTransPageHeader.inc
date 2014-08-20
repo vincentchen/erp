@@ -1,12 +1,15 @@
 <?php
-
 /* $Id$ */
+
+/*	Please note that addTextWrap() prints a font-size-height further down than
+	addText() and other functions. Use addText() instead of addTextWrap() to
+	print left aligned elements.*/
 
 if (!$FirstPage){ /* only initiate a new page if its not the first */
 	$pdf->newPage();
 }
 
-$YPos = $Page_Height - $Top_Margin;
+$YPos = $Page_Height-$Top_Margin;
 
 $pdf->addJpegFromFile($_SESSION['LogoFile'],$Page_Width/2 -120,$YPos-40,0,60);
 $FontSize =15;

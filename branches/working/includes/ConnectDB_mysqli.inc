@@ -47,8 +47,6 @@ if (isset($DatabaseName)) {
         }
 }
 
-require_once ($PathPrefix .'includes/MiscFunctions.php');
-
 class mysqliStatementResultWrapper implements Iterator {
     public $num_rows;
     public $field_count;
@@ -346,6 +344,7 @@ function DB_query ($SQL,
     global $db;
     
 
+	$result=mysqli_query($Conn, $SQ);
 	$result= $db->query($SQL);
 
 	$_SESSION['LastInsertId'] = mysqli_insert_id($db);
@@ -400,8 +399,6 @@ function DB_query ($SQL,
 }
 
 
-
-
 function DB_fetch_row (&$Result) {
 	Return $Result->fetch_row();
 }
@@ -409,7 +406,6 @@ function DB_fetch_row (&$Result) {
 function DB_fetch_assoc (&$Result) {
 	Return $Result->fetch_assoc();
 }
-
 function DB_fetch_array (&$Result) {
 	return $Result->fetch_array();
 }
@@ -473,7 +469,7 @@ function interval( $val, $Inter ){
 		return "\n".'interval ' . $val . ' '. $Inter."\n";
 }
 
-function DB_Maintenance($Conn){
+function DB_Maintenance($Conn=''){
 
 	prnMsg(_('The system has just run the regular database administration and optimisation routine.'),'info');
 
