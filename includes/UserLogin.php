@@ -42,16 +42,56 @@ function userLogin($Name, $Password, $SysAdminEmail = '', $db) {
 		/* The SQL to get the user info must use the * syntax because the field name could change between versions if the fields are specifed directly then the sql fails and the db upgrade will fail */
 		$sql = "SELECT *
 				FROM www_users
-				WHERE www_users.userid=?
-				AND (www_users.password=?
-				OR  www_users.password=?)";
-		$Parameters = array($Name, CryptPass($Password), $Password); 
+				WHERE www_users.userid=? ";
+ 
+		$Parameters = array($Name); 
 		$ErrMsg = _('Could not retrieve user details on login because');
 		$debug =1;
+
+        $continue = false;
 		$Auth_Result = DB_PreparedQuery($sql, $Parameters, $ErrMsg);
-		// Populate session variables with data base results
+                
 		if (DB_num_rows($Auth_Result) > 0) {
 			$myrow = DB_fetch_array($Auth_Result);
+            if (VerifyPass($Password,$myrow['password'])) {
+                $continue = true;
+            } elseif (isset($GLOBALS['CryptFunction'])) {
+                /*if the password stored in the DB was compiled the old way, 
+                 * the previous comparison will fail,
+                 * try again with the old hashing algorithm,
+                 * then re-hash the password using the new algorithm.
+                 * The next version should not have $CryptFunction any more for new installs.
+                 */
+                switch ($GLOBALS['CryptFunction']) {
+                    case 'sha1':
+                        if ($myrow['password'] == sha1($Password)) {
+                            $continue = true;
+                        }
+                        break;
+                    case 'md5':
+                        if ($myrow['password'] == md5($Password)) {
+                            $continue = true;
+                        }
+                        break;
+                    default:
+                        if ($myrow['password'] == $Password) {
+                            $continue = true;
+                        }
+                }
+                if ($continue) {
+                    $sql = "UPDATE www_users SET password = ? "
+                            . " WHERE userid = ? ";
+                    
+                    DB_PreparedQuery($sql,array(CryptPass($Password),$Name));
+                }
+
+            }
+        }
+               
+                
+		// Populate session variables with data base results
+		if ($continue) {
+			
 			if ($myrow['blocked']==1){
 			//the account is blocked
 				return  UL_BLOCKED;
@@ -138,7 +178,7 @@ function userLogin($Name, $Password, $SysAdminEmail = '', $db) {
 					if($_SESSION['SmtpSetting']==0){
 							mail($SysAdminEmail,$EmailSubject,$EmailText);
 
-					}else{
+					} else{
 							include('includes/htmlMimeMail.php');
 							$mail = new htmlMimeMail();
 							$mail->setSubject($EmailSubject);

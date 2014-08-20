@@ -71,13 +71,14 @@ if (isset($_SESSION['DatabaseName'])){
 
 include($PathPrefix . 'includes/LanguageSetup.php');
 
-
 if (!isset($AllowAnyone)){ /* only do security checks if AllowAnyone is not true */
 
 	include $PathPrefix . 'includes/UserLogin.php';	/* Login checking and setup */
 
 	if (isset($_POST['UserNameEntryField']) AND isset($_POST['Password'])) {
 		$rc = userLogin($_POST['UserNameEntryField'], $_POST['Password'], $SysAdminEmail, $db);
+		header('Location: ' . $PathPrefix .'Dashboard.php');
+		exit;
 	} elseif (empty($_SESSION['DatabaseName'])) {
 		$rc = UL_SHOWLOGIN;
 	} else {
@@ -185,10 +186,6 @@ if (isset($_SESSION['UpdateCurrencyRatesDaily'])){
 If (isset($_POST['Theme']) AND ($_SESSION['UsersRealName'] == $_POST['RealName'])) {
 	$_SESSION['Theme'] = $_POST['Theme'];
 	$Theme = $_POST['Theme'];
-} elseif (!isset($_SESSION['Theme'])) {
-	$Theme = $_SESSION['DefaultTheme'];
-	$_SESSION['Theme'] = $_SESSION['DefaultTheme'];
-
 } else {
 	$Theme = $_SESSION['Theme'];
 }
@@ -205,38 +202,14 @@ if (empty($_SESSION['LogoFile'])) {
 	 */
 
 	function findLogoFile($CompanyDir, $PathPrefix) {
-		$dir = $PathPrefix.'companies/' . $CompanyDir . '/';
-		$DirHandle = dir($dir);
-		while ($DirEntry = $DirHandle->read() ){
-			if ($DirEntry != '.' AND $DirEntry !='..'){
-				$InCompanyDir[] = $DirEntry; //make an array of all files under company directory
-			}
-		} //loop through list of files in the company directory
-		if ($InCompanyDir !== FALSE) {
-			foreach($InCompanyDir as $logofilename) {
-				if (strncasecmp($logofilename,'logo.png',8) === 0 AND
-					is_readable($dir . $logofilename) AND
-					is_file($dir . $logofilename)) {
-					$logo = $logofilename;
-					break;
-				}
-			}
-			if (!isset($logo)) {
-				foreach($InCompanyDir as $logofilename) {
-					if (strncasecmp($logofilename,'logo.jpg',8) === 0 AND
-						is_readable($dir . $logofilename) AND
-						is_file($dir . $logofilename)) {
-						$logo = $logofilename;
-						break;
-					}
-				}
-			}
-			if (empty($logo)) {
-				return null;
-			} else {
-				return 'companies/' .$CompanyDir .'/'. $logo;
-			}
-		} //end listing of files under company directory is not empty
+		$result = null;
+		$dir = $PathPrefix . 'companies/' . $CompanyDir;
+		if (file_exists($dir . '/logo.png')) {
+			$result = 'companies/' . $CompanyDir . '/logo.png';
+		} elseif (file_exists($dir . '/logo.jpg')) {
+			$result = 'companies/' . $CompanyDir . '/logo.jpg';
+		}
+		return $result;
 	}
 
 	/* Find a logo in companies/<company of this session> */
@@ -281,15 +254,15 @@ if (!isset($AllowAnyone)){
 		$Title = _('Security Permissions Problem');
 		include($PathPrefix . 'includes/header.inc');
 		echo '<tr>
-			<td class="menu_group_items">
-				<table width="100%" class="table_index">
-					<tr><td class="menu_group_item">';
-		echo '<b><font style="size:+1; text-align:center;">' . _('The security settings on your account do not permit you to access this function') . '</font></b>';
-
-		echo '</td>
-			</tr>
-			</table>
-			</td>
+				<td class="menu_group_items">
+					<table width="100%" class="table_index">
+						<tr>
+							<td class="menu_group_item">
+								<b><font style="size:+1; text-align:center;">' . _('The security settings on your account do not permit you to access this function') . '</font></b>
+							</td>
+						</tr>
+					</table>
+				</td>
 			</tr>';
 
 		include($PathPrefix . 'includes/footer.inc');
@@ -311,14 +284,22 @@ if (in_array($_SESSION['PageSecurityArray']['WWW_Users.php'], $_SESSION['Allowed
 	$debug = 0; //don't allow debug messages
 }
 function CryptPass( $Password ) {
-		global $CryptFunction;
-		if ( $CryptFunction == 'sha1' ) {
-			return sha1($Password);
-		} elseif ( $CryptFunction == 'md5' ) {
-			return md5($Password);
-	} else {
-			return $Password;
-		}
+    if (PHP_VERSION_ID < 50500) {
+        $salt = base64_encode(mcrypt_create_iv(22, MCRYPT_DEV_URANDOM));
+        $salt = str_replace('+', '.', $salt);
+        $hash = crypt($Password, '$2y$10$'.$salt.'$');
+    } else {
+        $hash = password_hash($Password,PASSWORD_DEFAULT);
+    }
+    return $hash;
+ }
+ 
+ function VerifyPass($Password,$Hash) {
+     if(PHP_VERSION_ID < 50500) {
+         return (crypt($Password,$Hash)==$Hash);
+     } else {
+         return password_verify($Password,$Hash);
+     }
  }
 
 
